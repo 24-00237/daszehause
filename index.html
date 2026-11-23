@@ -359,7 +359,7 @@ function build(){
  PHS=4;
  // #4 cistern under the whole plinth, brutalist board-formed concrete
  const CDv=S.tank?Math.min(CD,3):CD,fl=-CDv,ceilY=PH-.8,ix0=xmin+1.3,ix1=S.tank?Math.min(xmax-1.3,xmin+9.3):xmax-1.3,iz0=zB+1.3,iz1=S.tank?Math.min(zF-1.3,zB+6.3):zF-1.3,IW=ix1-ix0,ID=iz1-iz0,cxm=(ix0+ix1)/2,czm=(iz0+iz1)/2,LW=S.tank?.3:1.6;
- const chW=9.6,chD=7.2,chH=4.2,BD=.6,cf=Math.min(ceilY-BD-.15-chH,-.5-chH),MAXW=Math.max(1.5,Math.min(7,CD-3.5,cf-.5-fl)),WL=fl+MAXW+.3;
+ const chW=10.8,chD=8,chH=4.4,BD=.6,cf=Math.min(ceilY-BD-.15-chH,-.5-chH),MAXW=Math.max(1.5,Math.min(7,CD-3.5,cf-.5-fl)),WL=fl+MAXW+.3;
  const px0=ix0+LW+.2,pz1=iz0+5.4;
  bx(IW+2,.8,ID+2,'concrete',cxm,fl-.4,czm);for(const m of[bx(IW+2,ceilY-fl,1,'concrete',cxm,(fl+ceilY)/2,iz0-.5),bx(IW+2,ceilY-fl,1,'concrete',cxm,(fl+ceilY)/2,iz1+.5),
  bx(1,ceilY-fl,ID,'concrete',ix0-.5,(fl+ceilY)/2,czm),bx(1,ceilY-fl,ID,'concrete',ix1+.5,(fl+ceilY)/2,czm),bx(IW,.4,ID,'concrete',cxm,ceilY+.2,czm)])m.userData.shell=1;
