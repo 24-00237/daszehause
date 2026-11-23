@@ -111,15 +111,15 @@ textarea{width:100%;min-height:80px;font:12.5px/1.4 ui-monospace,monospace;borde
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 {
-const DEF={stairW:6.7,plinthH:3.66,stairRun:6.5,portalH:7.2,stepLights:true,planting:true,L1:16,D1:11,FH:4,L2:34,barShift:9,D2:8,roofO:3,slab:.45,greenRoof:false,louvres:true,louvreGap:.3,breeze:true,courtD:7,maple:true,pool:true,colonnade:true,solar:true,cisternD:10.5,water:65,glassRoom:true,rainChains:true,concrete:'#bdb6ab',timber:'#8a5a35',stone:'#e6dccb'};
-const STUDIES={'Study B · long cantilever (base)':{},'Study A · as photographed':{L1:18,L2:26,barShift:4,D2:9,roofO:2.2},'Study C · compact villa':{stairW:5,plinthH:2.4,stairRun:4.5,portalH:6,L1:14,D1:10,L2:16,barShift:2,D2:8,roofO:1.6,courtD:5,breeze:false},'Study D · hillside':{plinthH:5,stairRun:9,portalH:8.4,FH:4.2,greenRoof:true}};
+const DEF={stairW:6.7,plinthH:3.66,stairRun:6.5,portalH:7.2,stepLights:true,planting:true,L1:16,D1:11,FH:4,L2:34,barShift:9,D2:8,roofO:3,slab:.45,greenRoof:false,louvres:true,louvreGap:.3,breeze:true,courtD:7,maple:true,pool:true,colonnade:true,solar:true,cisternD:10.5,water:65,glassRoom:true,rainChains:true,tank:false,elevators:true,concrete:'#bdb6ab',timber:'#8a5a35',stone:'#e6dccb'};
+const STUDIES={'Study B · long cantilever (base)':{},'Study A · as photographed':{L1:18,L2:26,barShift:4,D2:9,roofO:2.2},'Study C · compact villa':{stairW:5,plinthH:2.4,stairRun:4.5,portalH:6,L1:14,D1:10,L2:16,barShift:2,D2:8,roofO:1.6,courtD:5,breeze:false},'Study E · first home':{stairW:4.5,plinthH:1.8,stairRun:2.8,portalH:5.2,L1:12,D1:9,FH:3.4,L2:14,barShift:1,D2:8,roofO:1.5,slab:.3,courtD:5,glassRoom:false,tank:true,elevators:false,cisternD:3},'Study D · hillside':{plinthH:5,stairRun:9,portalH:8.4,FH:4.2,greenRoof:true}};
 const CTRL=[
  ['The approach','The wide stair and tall entrance from your photo.',[{t:'r',k:'stairW',l:'Stair width',min:4,max:9,st:.1,u:'L'},{t:'r',k:'plinthH',l:'Plinth rise',min:1.5,max:5,st:.01,u:'L'},{t:'r',k:'stairRun',l:'Stair run, front to back',min:3,max:9,st:.1,u:'L'},{t:'r',k:'portalH',l:'Entrance portal height',min:4,max:9,st:.1,u:'L'},{t:'b',k:'stepLights',l:'Lights in each step'},{t:'b',k:'planting',l:'Desert planting along the stair'}]],
- ['Massing','A glazed mid-century pavilion with a concrete bar cantilevered above it.',[{t:'r',k:'L1',l:'Pavilion length',min:12,max:30,st:.5,u:'L'},{t:'r',k:'D1',l:'Pavilion depth',min:8,max:16,st:.5,u:'L'},{t:'r',k:'FH',l:'Storey height',min:3.4,max:4.8,st:.1,u:'L'},{t:'r',k:'L2',l:'Upper bar length',min:10,max:36,st:.5,u:'L'},{t:'r',k:'barShift',l:'Upper bar shift (cantilever)',min:-10,max:10,st:.5,u:'L'},{t:'r',k:'D2',l:'Upper bar depth',min:6,max:14,st:.5,u:'L'}]],
+ ['Massing','A glazed mid-century pavilion with a concrete bar cantilevered above it.',[{t:'r',k:'L1',l:'Pavilion length',min:12,max:30,st:.5,u:'L'},{t:'r',k:'D1',l:'Pavilion depth',min:8,max:16,st:.5,u:'L'},{t:'r',k:'FH',l:'Storey height',min:3.4,max:4.8,st:.1,u:'L'},{t:'r',k:'L2',l:'Upper bar length',min:10,max:36,st:.5,u:'L'},{t:'r',k:'barShift',l:'Upper bar shift (cantilever)',min:-10,max:10,st:.5,u:'L'},{t:'b',k:'elevators',l:'Twin glass elevators'},{t:'r',k:'D2',l:'Upper bar depth',min:6,max:14,st:.5,u:'L'}]],
  ['Roof','A thin floating slab with deep eaves for tropical sun and rain.',[{t:'r',k:'roofO',l:'Eave overhang',min:0,max:4,st:.1,u:'L'},{t:'r',k:'slab',l:'Slab thickness',min:.2,max:.8,st:.05,u:'L'},{t:'b',k:'greenRoof',l:'Planted roof'},{t:'b',k:'glassRoom',l:'Third-floor glass room'},{t:'b',k:'solar',l:'Solar panels on both roofs'},{t:'b',k:'rainChains',l:'Rain chains (kusari-doi)'}]],
  ['Facade','Shade and airflow, the tropical way.',[{t:'b',k:'louvres',l:'Timber louvre screen'},{t:'r',k:'louvreGap',l:'Louvre spacing',min:.15,max:.6,st:.01,u:'L'},{t:'b',k:'colonnade',l:'Arched colonnade, terrace to roof'},{t:'b',k:'breeze',l:'Breeze-block screen wall'}]],
  ['Garden','A Japanese courtyard with a lap pool behind the house, and a koi pond in front.',[{t:'r',k:'courtD',l:'Courtyard depth',min:3,max:12,st:.5,u:'L'},{t:'b',k:'maple',l:'Japanese maple'},{t:'b',k:'pool',l:'Koi pond and waterfall'}]],
- ['Cistern','Rainwater from the roofs is filtered, then stored in a brutalist concrete hall under the plinth. Its cool air also ventilates the house. Open the Underground view to see it.',[{t:'r',k:'cisternD',l:'Depth below ground',min:3.5,max:14,st:.1,u:'L'},{t:'r',k:'water',l:'Water level',min:0,max:100,st:1,u:'P'}]],
+ ['Cistern','Rainwater from the roofs is filtered, then stored in a brutalist concrete hall under the plinth. Its cool air also ventilates the house. Open the Underground view to see it.',[{t:'r',k:'cisternD',l:'Depth below ground',min:3.5,max:14,st:.1,u:'L'},{t:'r',k:'water',l:'Water level',min:0,max:100,st:1,u:'P'},{t:'b',k:'tank',l:'Small rainwater tank instead (first-home scale)'}]],
  ['Materials','',[{t:'c',k:'concrete',l:'Concrete',sw:[['#d9d2c5','Limestone'],['#bdb6ab','Board-formed'],['#8f8a83','Weathered'],['#5e5b57','Charcoal']]},{t:'c',k:'timber',l:'Timber',sw:[['#9b4a2c','Narra'],['#8a5a35','Teak'],['#6e4a32','Ipil'],['#c8a27a','Pale oak']]},{t:'c',k:'stone',l:'Stair stone',sw:[['#e6dccb','Pale travertine'],['#cfc3ae','Sandstone'],['#9a948b','Basalt']]}]]];
 const S=Object.assign({},DEF);
 const V={mode:'render',view:'axo',dims:true,units:'m',time:16.5,under:'half',interiors:true,flood:false};
@@ -277,7 +277,7 @@ function build(){
  // core position (centre of the house, under the bar)
  const cx0=Math.max(-L1/2+3,Math.min(L1/2-3,Math.max(bL+3.5,Math.min(bR-3.5,0)))),cz0=Math.max(bf-D2+2,Math.min(bf-2,pz));
  const RH=3.4,RW=Math.min(22,L2-4),RD=Math.min(8,D2+2*O-4),rcx=Math.max(BS-L2/2+RW/2-O+1.5,Math.min(BS+L2/2-RW/2+O-1.5,Math.max(cx0+2.8-RW/2,Math.min(cx0-2.8+RW/2,BS)))),rcz=bz,rtop=S.glassRoom?top+RH:top,ctop=S.glassRoom?top+RH+.35:top;
- const gx0=SW/2+5.85,gx1=Math.min(gx0+7,xmax-1.6),gz0=Math.min(zF-9,cz0-1.6),gz1=zF;
+ const gx0=SW/2+5.85,gx1=S.tank?gx0+5.5:Math.min(gx0+7,xmax-1.6),gz0=Math.min(zF-9,cz0-1.6),gz1=zF;
  // colonnade on the upper floor, arches flaring into the roof slab
  if(S.colonnade){const oc=Math.max(.8,O-.45),y0=by+.02,y1=ry-slab/2,hp=y1-y0,hpp=y1-ph,pat=[3.6,2.2,3.6,2.8],gap=SW/2+.95,w=oc+.45;
   const X0=bL-oc,X1=bR+oc,Zf=bf+oc,Zb=bf-D2-oc;
@@ -334,7 +334,7 @@ function build(){
   const ol=[[xWL,zWB],[xWR,zWB],[xWR,zW],[xWL,zW],[xWL,zWB]].map(([a,b2])=>new THREE.Vector3(a,FLOOD+.02,b2)),dl=new THREE.Line(new THREE.BufferGeometry().setFromPoints(ol),new THREE.LineDashedMaterial({color:'#2f6fe0',dashSize:.9,gapSize:.5}));dl.computeLineDistances();floodG.add(dl);
   SITE={xWL,xWR,zWB}}
  // #4 cistern under the whole plinth, brutalist board-formed concrete
- const fl=-CD,ceilY=PH-.8,ix0=xmin+1.3,ix1=xmax-1.3,iz0=zB+1.3,iz1=zF-1.3,IW=ix1-ix0,ID=iz1-iz0,cxm=(ix0+ix1)/2,czm=(iz0+iz1)/2,LW=1.6;
+ const CDv=S.tank?Math.min(CD,3):CD,fl=-CDv,ceilY=PH-.8,ix0=xmin+1.3,ix1=S.tank?Math.min(xmax-1.3,xmin+9.3):xmax-1.3,iz0=zB+1.3,iz1=S.tank?Math.min(zF-1.3,zB+6.3):zF-1.3,IW=ix1-ix0,ID=iz1-iz0,cxm=(ix0+ix1)/2,czm=(iz0+iz1)/2,LW=S.tank?.3:1.6;
  const chW=9.6,chD=7.2,chH=4.2,BD=.6,cf=Math.min(ceilY-BD-.15-chH,-.5-chH),MAXW=Math.max(1.5,Math.min(7,CD-3.5,cf-.5-fl)),WL=fl+MAXW+.3;
  const px0=ix0+LW+.2,pz1=iz0+5.4;
  bx(IW+2,.8,ID+2,'concrete',cxm,fl-.4,czm);for(const m of[bx(IW+2,ceilY-fl,1,'concrete',cxm,(fl+ceilY)/2,iz0-.5),bx(IW+2,ceilY-fl,1,'concrete',cxm,(fl+ceilY)/2,iz1+.5),
@@ -342,7 +342,7 @@ function build(){
  for(const m of[bx(IW,WL-fl,LW,'concrete',cxm,(fl+WL)/2,iz0+LW/2),bx(IW,WL-fl,LW,'concrete',cxm,(fl+WL)/2,iz1-LW/2),bx(LW,WL-fl,ID-2*LW,'concrete',ix0+LW/2,(fl+WL)/2,czm),bx(LW,WL-fl,ID-2*LW,'concrete',ix1-LW/2,(fl+WL)/2,czm)])m.userData.shell=1;
  const wx0=ix0+LW,wx1=ix1-LW,wz0=iz0+LW,wz1=iz1-LW,rx0=cx0-chW/2,rx1=cx0+chW/2,rz0=cz0-chD/2,rz1=cz0+chD/2;
  WATERS.push(bx(wx1-wx0,1,wz1-wz0,'cwater',(wx0+wx1)/2,0,(wz0+wz1)/2));const FRh=Math.min(1,MAXW*.22);bx(wx1-wx0-.1,FRh,wz1-wz0-.1,'cwaterD',(wx0+wx1)/2,fl+FRh/2,(wz0+wz1)/2).castShadow=false;FIRE=(wx1-wx0)*(wz1-wz0)*FRh;
- bx(IW+2.4,.6,ID+2.4,'concrete',cxm,fl-1.5,czm);let pads=0;for(let x=ix0;x<=ix1+.01;x+=IW/Math.round(IW/4.8))for(let z=iz0;z<=iz1+.01;z+=ID/Math.round(ID/4.8)){add(new THREE.CylinderGeometry(.55,.55,.5,16),'iso',x,fl-1,z);bx(1.3,.06,1.3,'steel',x,fl-.77,z);pads++}PADS=pads;for(const w of WATERS)w.castShadow=false;
+ PADS=0;if(!S.tank){bx(IW+2.4,.6,ID+2.4,'concrete',cxm,fl-1.5,czm);let pads=0;for(let x=ix0;x<=ix1+.01;x+=IW/Math.round(IW/4.8))for(let z=iz0;z<=iz1+.01;z+=ID/Math.round(ID/4.8)){add(new THREE.CylinderGeometry(.55,.55,.5,16),'iso',x,fl-1,z);bx(1.3,.06,1.3,'steel',x,fl-.77,z);pads++}PADS=pads}for(const w of WATERS)w.castShadow=false;
  {const f=add(new THREE.PlaneGeometry(wx1-wx0,wz1-wz0),'cfl',(wx0+wx1)/2,fl+.06,(wz0+wz1)/2);f.rotation.x=-Math.PI/2}
  const nx=Math.max(2,Math.round(IW/5)),nz=Math.max(2,Math.round(ID/5)),sx=IW/nx,sz=ID/nz;
  for(let k=0;k<=3*nx;k++)bx(.3,BD,ID,'concrete',ix0+k*sx/3,ceilY-BD/2,czm);for(let k=0;k<=3*nz;k++)bx(IW,BD,.3,'concrete',cxm,ceilY-BD/2,iz0+k*sz/3);
@@ -352,6 +352,7 @@ function build(){
   const fg=new THREE.CylinderGeometry(1.556,.778,1.1,4,1);fg.rotateY(Math.PI/4);add(fg,'concrete',x,ceilY-BD-.55,z);
   bx(.5,.05,.5,'glow',x,fl+.03,z);for(const rr of[0,Math.PI/2]){const u=add(new THREE.PlaneGeometry(2.4,H*.95),'cup',x,fl+H*.475,z);u.rotation.y=rr}}
  pl1.position.set(cxm,ceilY-2.2,czm-ID*.1);pl2.position.set(cx0,cf-1.2,cz0);
+ if(!S.tank){
  // larger hanging glass chamber + caged ladder with rest landing
  bx(chW,.3,chD,'stone',cx0,cf-.15,cz0);
  for(const a of[-1,1])for(const b2 of[-1,1])add(new THREE.CylinderGeometry(.06,.06,ceilY-BD-cf-chH+.2,6),'steel',cx0+a*(chW/2-.3),(ceilY-BD+cf+chH)/2,cz0+b2*(chD/2-.3));
@@ -362,8 +363,10 @@ function build(){
  for(const b2 of[-1,1]){bx(chW-.6,.05,.05,'glow',cx0,cf-.33,cz0+b2*(chD/2-.2));bx(chW,chH,.14,'tglass',cx0,cf+chH/2,cz0+b2*chD/2);bx(.14,chH,chD,'tglass',cx0+b2*chW/2,cf+chH/2,cz0)}
  bx(chW,.14,chD,'tglass',cx0,cf+chH,cz0);
  for(const a of[-1,1]){for(const b2 of[-1,1])bx(.16,chH,.16,'steel',cx0+a*chW/2,cf+chH/2,cz0+b2*chD/2);bx(chW+.16,.14,.16,'steel',cx0,cf+chH,cz0+a*chD/2);bx(.16,.14,chD,'steel',cx0+a*chW/2,cf+chH,cz0)}
- for(const x of[cx0-2.5,cx0,cx0+2.5])for(const z of[cz0-1.4,cz0+1.4])bx(.45,rtop-fl,.45,'col',x,(fl+rtop)/2,z);
- for(const y of[cf-.45,-.2,ceilY+.4,ph+.1,by,by+FH,top-.2,...(S.glassRoom?[rtop-.2]:[])]){for(const b2 of[-1,1]){bx(5.45,.35,.32,'col',cx0,y,cz0+b2*1.4);bx(.32,.35,2.8,'col',cx0+b2*2.5,y,cz0)}}
+}
+ if(S.elevators){for(const x of[cx0-2.5,cx0,cx0+2.5])for(const z of[cz0-1.4,cz0+1.4])bx(.45,rtop-fl,.45,'col',x,(fl+rtop)/2,z);
+ for(const y of[cf-.45,-.2,ceilY+.4,ph+.1,by,by+FH,top-.2,...(S.glassRoom?[rtop-.2]:[])]){for(const b2 of[-1,1]){bx(5.45,.35,.32,'col',cx0,y,cz0+b2*1.4);bx(.32,.35,2.8,'col',cx0+b2*2.5,y,cz0)}}}else bx(5.2,rtop-ph,3,'concrete',cx0,(ph+rtop)/2,cz0);
+ if(!S.tank){
  // garage at grade inside the plinth + bridge across the cistern to the elevators
  {const gw=gx1-gx0,gd=gz1-gz0,gcx=(gx0+gx1)/2,gcz=(gz0+gz1)/2,wh=ceilY;bx(gw,.3,gd,'concrete',gcx,-.15,gcz);bx(gw,wh,.3,'concrete',gcx,wh/2,gz0+.15);bx(.3,wh,gd,'concrete',gx1-.15,wh/2,gcz);
   const o0=cz0-1.3,o1=cz0+1.3;if(o0-gz0>.2)bx(.3,wh,o0-gz0,'concrete',gx0+.15,wh/2,(gz0+o0)/2);if(gz1-o1>.2)bx(.3,wh,gz1-o1,'concrete',gx0+.15,wh/2,(o1+gz1)/2);
@@ -372,6 +375,8 @@ function build(){
    bx(gw-.4,.06,.35,'steel',gcx,.62,zF+2.5);const fb=bx(gw-.4,FLOOD,.12,'floodB',gcx,.6+FLOOD/2,zF+2.5,floodG);fb.userData.noGhost=1}
   bx(.14,2.3,2.4,'steel',gx0+.15,1.15,cz0);bx(1,.03,1,'steel',gx1-1.1,.02,gz0+1.1);add(new THREE.CylinderGeometry(.25,.25,.7,10),'tank',gx1-1.1,-.4,gz0+1.1,underG);bx(.15,.15,.05,'sensor',gx1-.35,.4,gz0+2);
   const bl=gx0-(cx0+2.7);bx(.18,.4,2.4,'iso',gx0-.1,-.15,cz0);if(bl>.5){bx(bl,.3,2.4,'concrete',cx0+2.7+bl/2,-.15,cz0);for(const b2 of[-1,1])bx(bl,1.05,.04,'tglass',cx0+2.7+bl/2,.55,cz0+b2*1.18)}}
+}else{bx(5.5,.04,zW-zF-.2,'stone',gx0+2.75,.02,(zF+zW)/2);bx(1.9,1.05,4.6,'car',gx0+2.75,.6,zF+3.5);bx(1.6,.5,2.4,'car',gx0+2.75,1.35,zF+3.3)}
+ if(!S.tank){
  // plant room (cistern heat pump + fresh-air unit) and battery room, on a deck above the water
  {const dw=13.4,dd=pz1-iz0,dy=WL;bx(dw,.3,dd,'concrete',px0+dw/2,dy-.15,iz0+dd/2);for(const xx of[px0+.4,px0+dw-.4])add(new THREE.CylinderGeometry(.18,.18,dy-fl,8),'concrete',xx,(dy+fl)/2,pz1-.4);
   const rh=ceilY-BD-dy;bx(.25,rh,dd,'concrete',px0+.12,dy+rh/2,iz0+dd/2);bx(.25,rh,dd,'concrete',px0+7.2,dy+rh/2,iz0+dd/2);bx(.25,rh,dd,'concrete',px0+dw-.12,dy+rh/2,iz0+dd/2);
@@ -381,6 +386,7 @@ function build(){
   bx(1.6,1.1,.9,'fire',px0+9,dy+.55,iz0+1.4);add(new THREE.CylinderGeometry(.55,.55,1.8,14),'fire',px0+11.2,dy+.9,iz0+1.4);pipe([px0+9,dy+1.1,iz0+1.4],[px0+9,ceilY-BD-.25,iz0+1.4],.1,underG,'fire');pipe([px0+9,ceilY-BD-.25,iz0+1.4],[cx0-2.9,ceilY-BD-.25,iz0+1.4],.1,underG,'fire');pipe([cx0-2.9,ceilY-BD-.25,iz0+1.4],[cx0-2.9,ceilY-BD-.25,cz0+1.65],.1,underG,'fire');pipe([cx0-2.9,ceilY-BD-.25,cz0+1.65],[cx0-2.9,rtop-.3,cz0+1.65],.1,underG,'fire');
   add(new THREE.CylinderGeometry(.22,.22,.6,10),'tank',px0+12.6,dy+.3,pz1-.5);bx(.15,.15,.05,'sensor',px0+.3,dy+.4,iz0+2);bx(.15,.15,.05,'sensor',ix1-.1,fl+.6,czm);
   }
+}
  // air intakes above the flood level (snorkels with insect mesh)
  {const sxs=xmin+1.3;for(const z of[zB+2.2,zB+4.6]){bx(1.1,2.4,1.1,'concrete',sxs,ph+1.2,z);bx(1.25,.5,1.25,'steel',sxs,ph+2.65,z);bx(1.5,.12,1.5,'concrete',sxs,ph+2.96,z);
   pipe([sxs,ph,z],[sxs,WL+3.2,z],.32,underG,'duct');pipe([sxs,WL+3.2,z],[px0+5.2,WL+3.2,z],.32,underG,'duct')}}
@@ -401,7 +407,7 @@ function build(){
  raised(-L1/2+.1,L1/2-.1,zp-D1+.1,zp-.1,ph,[cx0-1.2,cx0+1.2,cz0+3,cz0+4.2]);
  raised(bL+.4,bR-.4,bf-D2+.4,bf-.4,by+.35,[cx0-1.2,cx0+1.2,cz0+2.6,cz0+3.8]);
  STOPS=[cf,0,ph,by,top];
- for(const k of[-1,1]){const gp=new THREE.Group();house.add(gp);bx(2,2.5,2.2,'glass',0,1.25,0,gp);bx(2.06,.12,2.26,'steel',0,.06,0,gp);bx(2.06,.12,2.26,'steel',0,2.44,0,gp);gp.position.set(cx0+k*1.25,cf,cz0);CAB.push({g:gp,ph:k>0?1.7:0})}
+ if(S.elevators)for(const k of[-1,1]){const gp=new THREE.Group();house.add(gp);bx(2,2.5,2.2,'glass',0,1.25,0,gp);bx(2.06,.12,2.26,'steel',0,.06,0,gp);bx(2.06,.12,2.26,'steel',0,2.44,0,gp);gp.position.set(cx0+k*1.25,cf,cz0);CAB.push({g:gp,ph:k>0?1.7:0})}
  // #1 third-floor glass room with canopy roof and louvre vent band
  const x0r=rcx-RW/2,x1r=rcx+RW/2,z0r=rcz-RD/2,z1r=rcz+RD/2;
  if(S.glassRoom){const gh2=RH-.55;
@@ -448,8 +454,8 @@ function build(){
  const arrow=(a,b,role)=>{const A2=new THREE.Vector3(...a),B2=new THREE.Vector3(...b),d=B2.clone().sub(A2),L=d.length(),n=d.clone().normalize(),sh=add(new THREE.CylinderGeometry(.07,.07,Math.max(.1,L-.45),6),role,0,0,0,underG);sh.position.copy(A2).addScaledVector(n,(L-.45)/2);sh.quaternion.setFromUnitVectors(UP,n);sh.castShadow=false;
   const hd=add(new THREE.ConeGeometry(.22,.45,8),role,0,0,0,underG);hd.position.copy(B2).addScaledVector(n,-.225);hd.quaternion.setFromUnitVectors(UP,n);hd.castShadow=false};
  const zA=rz1+.5,wtop=fl+MAXW+.4;
- for(const sg of[-1,1]){arrow([cx0+sg*8,wtop,zA],[cx0+sg*6.4,ceilY-BD-1.2,zA],'airC');arrow([cx0+sg*6.4,ceilY-BD-1,zA],[cx0+sg*3.2,ceilY-BD-1,zA],'airC');arrow([cx0+sg*3.2,ceilY-BD-.8,zA],[cx0+sg*3.2,ph+1.4,zA],'airC')}
- const za=cz0+1.75;arrow([cx0,ph+.6,za],[cx0,by-.3,za],'airW');arrow([cx0,by+.6,za],[cx0,top-.3,za],'airW');
+ if(!S.tank)for(const sg of[-1,1]){arrow([cx0+sg*8,wtop,zA],[cx0+sg*6.4,ceilY-BD-1.2,zA],'airC');arrow([cx0+sg*6.4,ceilY-BD-1,zA],[cx0+sg*3.2,ceilY-BD-1,zA],'airC');arrow([cx0+sg*3.2,ceilY-BD-.8,zA],[cx0+sg*3.2,ph+1.4,zA],'airC')}
+ const za=cz0+1.75;if(!S.tank)arrow([cx0,ph+.6,za],[cx0,by-.3,za],'airW');if(!S.tank)arrow([cx0,by+.6,za],[cx0,top-.3,za],'airW');
  if(S.glassRoom){arrow([cx0,top+.5,za],[cx0,top+RH-.8,za],'airW');arrow([cx0,top+RH-.45,za],[x0r-1.4,top+RH-.4,za],'airW')}
  // interiors (switchable)
  intG=new THREE.Group();house.add(intG);const IT=[];
@@ -459,7 +465,7 @@ function build(){
   f(2.8,.75,1.1,'furn',X(-6),gy+.375,Zf2(8.5));for(const dx2 of[-1,0,1])for(const b2 of[-1,1])f(.45,.85,.45,'furnD',X(-6)+dx2,gy+.42,Zf2(8.5)+b2*.95);IT.push([X(-6),gy+1.4,Zf2(8.5),'Dining']);
   f(3,.9,1.1,'furn',X(5.4),gy+.45,Zf2(6.5));f(.65,.9,3.8,'furn',L1/2-.55,gy+.45,Zf2(6.1));IT.push([L1/2-1.5,gy+1.8,zp-D1+1.4,'Utility · batteries + main panel']);IT.push([X(5.4),gy+1.5,Zf2(6.5),'Kitchen']);
   f(2.4,2.6,.08,'part',L1/2-1.3,gy+1.3,Zf2(2.6));f(.08,2.6,2.2,'part',L1/2-2.5,gy+1.3,Zf2(1.5));IT.push([L1/2-1.3,gy+1.4,Zf2(1.5),'Powder room']);
-  const uy=by+.83,segs=[[4,'Study'],[7.6,'Stair hall'],[4.6,'Bedroom 1'],[2.2,'Bath'],[4.6,'Bedroom 2'],[4.6,'Bedroom 3'],[6.4,'Master suite']],ks=L2/34;let xs=bL;
+  const uy=by+.83,segs=L2<24?[[2.8,'Bedroom'],[5.2,'Stair hall'],[2.2,'Bath'],[5.8,'Master suite']]:[[4,'Study'],[7.6,'Stair hall'],[4.6,'Bedroom 1'],[2.2,'Bath'],[4.6,'Bedroom 2'],[4.6,'Bedroom 3'],[6.4,'Master suite']],ks=L2/(L2<24?16:34);let xs=bL;
   segs.forEach(([w2,nm],i)=>{const a=xs,b3=xs+w2*ks,xc=(a+b3)/2;xs=b3;if(i>0&&i!==2)f(.1,FH-1,D2-2.2,'part',a,uy+(FH-1)/2,bf-.4-(D2-2.2)/2);if(i===2)f(.1,FH-1,D2-2.2,'part',a,uy+(FH-1)/2,bf-.4-(D2-2.2)/2);
    if(nm.startsWith('Bed')){f(1.6,.5,2.1,'bedW',xc,uy+.25,bf-1.9);for(const b2 of[-1,1])f(.45,.5,.4,'furn',xc+b2*1.1,uy+.25,bf-.95);f(Math.min(2.2,b3-a-.6),2.3,.6,'furnD',xc,uy+1.15,bf-D2+2.3)}
    if(nm==='Master suite'){f(2,.5,2.1,'bedW',xc-.6,uy+.25,bf-1.9);f(1.8,.6,.8,'bedW',b3-1.3,uy+.3,bf-D2+2.6);f(2.4,2.3,.6,'furnD',xc-.8,uy+1.15,bf-D2+2.3)}
@@ -479,28 +485,32 @@ function build(){
  // dimensions + labels
  scene.remove(dimG);dimG.traverse(o=>{if(o.geometry)o.geometry.dispose()});dimG=new THREE.Group();scene.add(dimG);dims=[];dimsEl.innerHTML='';
  const D=(a,b,ax,v,lab,u)=>dims.push({a:new THREE.Vector3(...a),b:new THREE.Vector3(...b),ax,u,txt:(lab?lab+' ':'')+fmtL(v)});
- const TG=(p,txt)=>{const d={mid:new THREE.Vector3(...p),tag:true,u:true,txt};dims.push(d);return d};
+ const TSK=['Hanging glass chamber','Cool air rises from the water','Warm air out through the louvres','Access ladder','Twin elevator core','Garage at street level','Bridge to the elevators','Plant room · heat pump + fresh-air unit','Fire pump + reserve tank','Fire riser · sprinklers + hose points','Seismic isolation pads','Sump pump · flood sensor'];
+ const TG=(p,txt)=>{const d={mid:new THREE.Vector3(...p),tag:true,u:true,txt};if(!((S.tank&&TSK.includes(txt))||(!S.elevators&&txt==='Twin elevator core')))dims.push(d);return d};
  D([xmin,.05,zf+3.2],[xmax,.05,zf+3.2],'x',PL,'overall');D([-SW/2,.05,zf+.7],[SW/2,.05,zf+.7],'x',SW,'stair');
  D([xmax+2.5,0,zB],[xmax+2.5,top,zB],'y',top,'height');D([xmin-1.5,0,zF],[xmin-1.5,PH,zF],'y',PH,'rise');
  D([-(SW/2+1.8),ph,zp+3.6],[-(SW/2+1.8),ph+EH,zp+3.6],'y',EH,'portal');D([xmax+2.5,.05,zB],[xmax+2.5,.05,zf],'z',zf-zB,'depth');
  D([SW/2+4.6,.05,zF],[SW/2+4.6,.05,zf],'z',RUN,'run');const cl=bR-L1/2;if(cl>.5)D([bR-cl,by-.25,bf+1.1],[bR,by-.25,bf+1.1],'x',cl,S.colonnade?'beyond pavilion':'cantilever');
  const cl2=-L1/2-bL;if(cl2>.5)D([bL,by-.25,bf+1.1],[bL+cl2,by-.25,bf+1.1],'x',cl2,S.colonnade?'beyond pavilion':'cantilever');
- D([ix1-2.4,fl,clip-.3],[ix1-2.4,0,clip-.3],'y',CD,'below ground',true);D([ix1-.9,fl,clip-.3],[ix1-.9,ceilY,clip-.3],'y',ceilY-fl,'vault',true);
+ D([ix1-2.4,fl,clip-.3],[ix1-2.4,0,clip-.3],'y',CDv,'below ground',true);D([ix1-.9,fl,clip-.3],[ix1-.9,ceilY,clip-.3],'y',ceilY-fl,'vault',true);
  TG([ix0+.8,WL+3.7,fz],'First-flush diverter');TG([ix0+.8,WL+2.5,fz+2.3],'Sand filters');TG([ix0+.8,WL+1.3,fz+4.1],'UV filter');TG([ix0+LW+.6,WL-.5,fz+4.9],'Clean inlet');
  TG([cx0,cf-.8,rz1],'Hanging glass chamber');TG([cx0+8,wtop+.9,zA],'Cool air rises from the water');if(S.glassRoom)TG([x0r-1.6,top+RH+.5,za],'Warm air out through the louvres');TG([cx0+.9,(fl+cf)/2,cz0+chD/2-.7],'Access ladder');TG([cx0,ph+1.6,cz0+1.6],'Twin elevator core');TG([px,(top+ph)/2+2,fz],'Rainwater from roof');waterTag=TG([EXT.wx,fl+.6,cz0],'');TG([(gx0+gx1)/2,1.6,(gz0+gz1)/2],'Garage at street level');TG([(cx0+gx0)/2,.9,cz0],'Bridge to the elevators');TG([px0+3.5,WL+3,iz0+2],'Plant room · heat pump + fresh-air unit');TG([px0+10,WL+3,iz0+2],'Fire pump + reserve tank');TG([cx0-2.9,ph+2.4,cz0+1.65],'Fire riser · sprinklers + hose points');TG([cxm,fl+.4,(wz0+wz1)/2+2],'Fire reserve · never drawn down');TG([cxm+6,fl-1.3,clip-1],'Seismic isolation pads');
  TG([ix0+.8,WL+.25,fz+4.9-1.2],'Check valves + auto shut-off');TG([gx1-1.1,.9,gz0+1.1],'Sump pump · flood sensor');TG([xmin+1.3,ph+3.4,zB+3.4],'Air intakes above flood level');
  {const d={mid:new THREE.Vector3((SITE.xWR||xmax)-4,FLOOD+.5,zW),tag:true,fl:true,always:true,txt:'Design flood level · '+fmtL(FLOOD)+' above street'};dims.push(d)}
- {const d={mid:new THREE.Vector3((gx0+gx1)/2,FLOOD+1,zF+2.5),tag:true,fl:true,always:true,txt:'Flood barrier (rises with water)'};dims.push(d)}
+ if(!S.tank){const d={mid:new THREE.Vector3((gx0+gx1)/2,FLOOD+1,zF+2.5),tag:true,fl:true,always:true,txt:'Flood barrier (rises with water)'};dims.push(d)}
  {const d={mid:new THREE.Vector3(0,FLOOD+.6,zW+.5),tag:true,fl:true,always:true,txt:'Gate flood barrier'};dims.push(d)}{const d={mid:new THREE.Vector3((gx0+gx1)/2,FLOOD+.6,zW+.5),tag:true,fl:true,always:true,txt:'Gate flood barrier'};dims.push(d)}
  for(const [x,y,z,t] of IT){const d={mid:new THREE.Vector3(x,y,z),tag:true,int:true,txt:t};dims.push(d)}
  for(const d of dims){d.el=document.createElement('div');d.el.className='dl'+(d.tag?' tg':'');const sp2=document.createElement('span');sp2.textContent=d.txt;d.el.appendChild(sp2);dimsEl.appendChild(d.el);d.p=0;if(d.tag)continue;
   d.mid=d.a.clone().add(d.b).multiplyScalar(.5);const p=[d.a,d.b];for(const e of[d.a,d.b])for(const u of['x','y','z'])if(u!==d.ax){const o=new THREE.Vector3();o[u]=.35;p.push(e.clone().add(o),e.clone().sub(o))}
   d.line=new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(p.map(v=>v.clone().sub(d.mid))),new THREE.LineBasicMaterial({color:'#221d18',depthTest:false,transparent:true,opacity:0}));d.line.position.copy(d.mid);d.line.renderOrder=9;dimG.add(d.line)}
  // schedule
- const A1=L1*D1,A2=L2*D2,G=r*1000,Tr=g*1000,stv=2*G+Tr,ok=stv>=550&&stv<=700,cant=Math.max(cl,cl2,0);
+ const A1=L1*D1,A2=L2*D2,AG=S.glassRoom?RW*RD:0,AE=A1+A2+AG,G=r*1000,Tr=g*1000,stv=2*G+Tr,ok=stv>=550&&stv<=700,cant=Math.max(cl,cl2,0);
+ let clo,chi;if(S.tank){clo=(AE*45e3+PL*PD*8e3+1.5e6+panels*2e4+4e5)*1.15;chi=(AE*65e3+PL*PD*14e3+3e6+panels*4e4+8e5)*1.15}
+ else{const k=AE/624;clo=(AE*80e3+PL*PD*25e3+70e6*CD/10.5+(S.colonnade?18e6*k:0)+(S.elevators?8e6:0)+panels*35e3+15e6*k+10e6+8e6+9e6+15e6*k)*1.2;chi=(AE*120e3+PL*PD*40e3+115e6*CD/10.5+(S.colonnade?34e6*k:0)+(S.elevators?18e6:0)+panels*65e3+30e6*k+25e6+15e6+19e6+30e6*k)*1.25}
+ const COST=`₱${Math.round(clo/1e6)}M–${Math.round(chi/1e6)}M (est., excl. land)`;
  CAP=Math.max(0,(wx1-wx0)*(wz1-wz0))*MAXW;
- const rows=[['Plinth terrace',fmtA(PL*PD)],['Ground pavilion, glazed',fmtA(A1)],['Upper bar, concrete',fmtA(A2)],['tot','Enclosed floor area',fmtA(A1+A2)],['Courtyard garden',fmtA(Math.max(0,L1*(c1-c0)))],['Cistern hall',fmtA(IW*ID)],
-  ['Water stored','<span id="schedWater"></span>'],['Solar array',panels?`${panels} panels · ≈ ${(panels*.4).toFixed(0)} kWp`:'off'],['Garage',fmtA((gx1-gx0)*(gz1-gz0))],['Battery storage',panels?`≈ ${Math.round(panels*.4*2.5)} kWh, ground floor (est.)`:'—'],['Flood design level',fmtL(FLOOD)+' above street'],['Seismic',`Base-isolated · ${PADS} pads`],['Fire reserve',V.units==='m'?Math.round(FIRE)+' m³':Math.round(FIRE*264.17).toLocaleString()+' gal'],['Mosquito control','Koi · insect mesh · circulation'],['Cooling','Cistern heat pump · underfloor air'],['Glazing','Impact-rated laminated · storm shutters'],['Lightning',`${rodsN} air terminals`],['Overall height',fmtL(top)],[S.colonnade?'Upper floor beyond pavilion':'Cantilever span',cant>0?fmtL(cant):'none'],
+ const rows=[['tot','Rough build cost',COST],['Plinth terrace',fmtA(PL*PD)],['Ground pavilion, glazed',fmtA(A1)],['Upper bar, concrete',fmtA(A2)],...(AG?[['Glass room',fmtA(AG)]]:[]),['tot','Enclosed floor area',fmtA(AE)],['Courtyard garden',fmtA(Math.max(0,L1*(c1-c0)))],[S.tank?'Rainwater tank':'Cistern hall',fmtA(IW*ID)],
+  ['Water stored','<span id="schedWater"></span>'],['Solar array',panels?`${panels} panels · ≈ ${(panels*.4).toFixed(0)} kWp`:'off'],S.tank?['Parking','Open car pad']:['Garage',fmtA((gx1-gx0)*(gz1-gz0))],['Battery storage',panels?`≈ ${Math.round(panels*.4*2.5)} kWh, ground floor (est.)`:'—'],['Flood design level',fmtL(FLOOD)+' above street'],['Seismic',S.tank?'Conventional earthquake design':`Base-isolated · ${PADS} pads`],['Fire reserve',V.units==='m'?Math.round(FIRE)+' m³':Math.round(FIRE*264.17).toLocaleString()+' gal'],['Mosquito control','Koi · insect mesh · circulation'],['Cooling',S.tank?'Inverter heat pump · stack ventilation':'Cistern heat pump · underfloor air'],['Glazing','Impact-rated laminated · storm shutters'],['Lightning',`${rodsN} air terminals`],['Overall height',fmtL(top)],[S.colonnade?'Upper floor beyond pavilion':'Cantilever span',cant>0?fmtL(cant):'none'],
   ['Approach stair',`${N} risers × ${V.units==='m'?Math.round(G)+' mm':(r/.0254).toFixed(1)+' in'}`],['Tread depth',V.units==='m'?Math.round(Tr)+' mm':(g/.0254).toFixed(1)+' in'],
   ['Stride check (2R + G)',`<span class="${ok?'ok':'warn'}">${Math.round(stv)} mm · ${ok?'comfortable':stv>700?'long stride, shorten the run':'short steps, lengthen the run'}</span>`]];
  document.getElementById('sched').innerHTML=rows.map(r=>r[0]==='tot'?`<tr class="tot"><td>${r[1]}</td><td class="n">${r[2]}</td></tr>`:`<tr><td>${r[0]}</td><td class="n">${r[1]}</td></tr>`).join('');
@@ -538,7 +548,7 @@ function setView(v){V.view=v;const E=EXT,as=stage.clientWidth/stage.clientHeight
  let rot=true,tgt=c.clone();
  if(v==='under'){cam=persp;persp.fov=44;if(V.under==='full'){persp.position.set(E.cx+34,E.fl*.2,E.cz0+44);tgt=new THREE.Vector3(E.cx,E.fl*.45,E.cz0)}else{persp.position.set(E.cx+5,E.fl*.3,E.clip+42);tgt=new THREE.Vector3(E.cx,E.fl*.55,E.cz0-2)}persp.updateProjectionMatrix()}
  else if(v==='persp'||v==='eye'){cam=persp;
-  if(v==='eye'){persp.fov=55;persp.position.set(-S.stairW*.35,1.6,E.cz+E.d/2+15);tgt=new THREE.Vector3(0,S.plinthH+S.portalH*.5,E.zp)}
+  if(v==='eye'){persp.fov=55;persp.position.set(-S.stairW*.35,1.6,E.cz+E.d/2+5);tgt=new THREE.Vector3(0,S.plinthH+S.portalH*.5,E.zp)}
   else{persp.fov=38;persp.position.copy(c).add(new THREE.Vector3(.85,.6,1).multiplyScalar(big*1.15))}persp.updateProjectionMatrix()}
  else{cam=ortho;const dir={axo:[1,.82,1],plan:[0,1,0],front:[0,0,1],side:[1,0,0]}[v],ext={axo:[big*1.45,big*1.05],plan:[E.w,E.d],front:[E.w,E.top],side:[E.d,E.top]}[v];
   ortho.up.set(0,1,0);if(v==='plan'){ortho.up.set(0,0,-1);tgt.y=0}if(v==='front'||v==='side')tgt.y=E.top/2;
