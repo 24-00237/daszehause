@@ -9,3 +9,9 @@ Views: axonometric, perspective, eye level, plan, elevations and a half / full u
 A design study for exploring ideas — not a construction drawing.
 
 Latest: rough build cost estimate, Study E first home, Langit sky room, library stair, roller storm shutters.
+
+## Fernweh — Explorer Yacht Study
+
+Sister project: a customizable 3D explorer yacht with sail-assist wings or a helipad, a beach-club garage, a side balcony, a limousine tender and day/night lighting.
+
+**Live:** https://24-00237.github.io/daszehause/fernweh/
