@@ -108,7 +108,7 @@ textarea{width:100%;min-height:80px;font:12.5px/1.4 ui-monospace,monospace;borde
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 {
-const DEF={L:50,beam:9.5,fb:3.2,plumb:true,bow:'knife',tbow:'round',hullWin:true,swim:true,decks:3,deckH:3.1,overhang:1.6,rake:1.4,sky:true,skylight:true,core:true,solar:true,tender:true,garage:true,mast:true,heli:false,rig:'wings',wings:true,wingN:2,wingH:26,hull:'#f4f4f1',sup:'#f7f7f4',teak:'#a8754a',glass:'#10151a',accent:'#2b2f33'};
+const DEF={L:50,beam:9.5,fb:4.5,plumb:true,bow:'raked',tbow:'pointed',hullWin:true,swim:true,decks:2,deckH:2.8,overhang:1.6,rake:0,sky:true,skylight:true,core:true,solar:true,tender:true,garage:true,mast:true,heli:false,rig:'wings',wings:true,wingN:2,wingH:40,hull:'#1d2226',sup:'#3e4247',teak:'#6b4a32',glass:'#9fb7c2',accent:'#ff5a1f'};
 const STUDIES={'Fernweh 50 · base':{},'Fernweh 35 · compact':{L:35,beam:7.6,fb:2.7,decks:2,overhang:1.2,wingN:1,wingH:18},'Fernweh 60 · helideck':{L:60,beam:11.2,fb:3.6,decks:4,heli:true,wings:false,rig:'heli'},'Fernweh 75 · expedition':{L:75,beam:13.6,fb:4.2,decks:4,heli:true,wings:false,rig:'heli',hull:'#1f3a4a',accent:'#ff5a1f'}};
 const CTRL=[
  ['Hull','The explorer hull, with a high bow, deep freeboard and long range.',[{t:'r',k:'L',l:'Length overall',min:35,max:75,st:.5,u:'L'},{t:'r',k:'beam',l:'Beam',min:7,max:15,st:.1,u:'L'},{t:'r',k:'fb',l:'Freeboard to main deck',min:2.4,max:4.5,st:.05,u:'L'},{t:'o',k:'bow',l:'Bow shape',op:[['knife','Knife'],['needle','Wave-piercer'],['axe','Axe'],['round','Explorer round'],['raked','Classic raked']]},{t:'b',k:'hullWin',l:'Hull windows for the guest cabins'},{t:'b',k:'swim',l:'Swim platform at the stern'}]],
@@ -507,7 +507,7 @@ function setScene(){const wh=V.mode==='white',th=Math.PI*(V.time-6)/12.6,a=Math.
 /* ---------- cameras ---------- */
 function camFor(v){const L=S.L,f=S.fb,B=S.beam,l0=G.lv[0],lt=G.lv[G.n-1],sk=G.sk;
  const walk=(e,t)=>{const E=new THREE.Vector3(...e),T=new THREE.Vector3(...t);return[E,E.clone().add(T.sub(E).normalize().multiplyScalar(.6))]};
- const D=Math.max(L,G.highest*2),ty=Math.max(f+3,G.highest*.36);switch(v){case 'profile':return[new THREE.Vector3(0,ty,D*1.25),new THREE.Vector3(0,ty,0)];
+ const D=Math.max(L,G.highest*2.35),ty=Math.max(f+3,G.highest*.36);switch(v){case 'profile':return[new THREE.Vector3(0,ty,D*1.25),new THREE.Vector3(0,ty,0)];
  case 'bow':return[new THREE.Vector3(D*.95,ty+1,D*.32),new THREE.Vector3(0,ty+2,0)];
  case 'stern':return[new THREE.Vector3(-D*.9,ty+3,-D*.4),new THREE.Vector3(0,ty,0)];
  case 'hero':return[new THREE.Vector3(D*.62,1.3,D*.78),new THREE.Vector3(-L*.06,ty,0)];
