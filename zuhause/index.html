@@ -79,11 +79,13 @@ textarea{width:100%;min-height:80px;font:12.5px/1.4 ui-monospace,monospace;borde
 .note{font-size:13px;color:var(--mute);margin:8px 0 0}
 @media(max-width:860px){.app{grid-template-columns:1fr;height:auto}.stage{height:68vh;min-height:440px;margin:10px}.bl{max-width:none;bottom:auto;top:116px}.tb{width:230px;grid-template-columns:48px minmax(0,1fr)}.tb b{font-size:16px}.tb .tx span:nth-child(4){display:none}.hint{display:none}}
 @media(prefers-reduced-motion:reduce){.hint{transition:none}}
+.titlecard{position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(ellipse at 50% 60%,#f3ece0,#e2d8c7);color:#221d18;cursor:pointer;transition:opacity .9s ease,transform .9s ease,filter .9s ease}.titlecard b{font-size:clamp(40px,7vw,72px);font-stretch:118%;font-weight:800;line-height:1;letter-spacing:.02em}.titlecard i{font-style:normal;font-size:15px;color:#6d6457}.titlecard .steps{display:flex;flex-direction:column;align-items:center;gap:6px;margin:14px 0 6px}.titlecard .steps em{display:block;height:2px;background:#f0b44c;box-shadow:0 0 8px #f0b44c;border-radius:2px}.titlecard .steps em:nth-child(1){width:60px}.titlecard .steps em:nth-child(2){width:84px}.titlecard .steps em:nth-child(3){width:108px}.titlecard .steps em:nth-child(4){width:132px}.titlecard .enter{font:600 13px Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#221d18;animation:tcp 2.2s ease-in-out infinite}.titlecard:focus-visible{outline:3px solid #f0b44c;outline-offset:-6px}.titlecard.gone{opacity:0;transform:scale(1.04);filter:blur(6px);pointer-events:none}@keyframes tcp{0%,100%{opacity:.35}50%{opacity:1}}@media(prefers-reduced-motion:reduce){.titlecard{transition:opacity .3s}.titlecard .enter{animation:none}.titlecard.gone{transform:none;filter:none}}
 </style>
 </head>
 <body>
 <div class="app">
   <div class="stage" id="stage">
+    <div class="titlecard" id="titlecard" role="button" tabindex="0" aria-label="Enter das Zuhause"><b>das Zuhause</b><i>Residence study · tropical brutalism</i><span class="steps"><em></em><em></em><em></em><em></em></span><span class="enter">Click to enter</span></div>
     <canvas id="cv" aria-label="3D model of the das Zuhause residence. Drag to orbit, scroll or pinch to zoom."></canvas>
     <div id="dims"></div>
     <div class="frame"></div>
@@ -803,5 +805,6 @@ const ro=new ResizeObserver(()=>{size();if(ctl&&V.view!=='walk')setView(V.view)}
 V.compare=false;V.rain=false;if(!V.shut)V.shut={g:false,u:false,b:false};size();syncUI();build();setView(V.view);
 }
 </script>
+<script>{const tc=document.getElementById('titlecard'),go=()=>{tc.classList.add('gone');setTimeout(()=>tc.style.display='none',950)};tc.addEventListener('click',go);tc.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}});if(!window.THREE)tc.querySelector('.enter').textContent='The 3D engine couldn’t load. Check your connection and refresh.'}</script>
 </body>
 </html>
