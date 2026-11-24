@@ -7,88 +7,91 @@
 <meta name="description" content="Interactive 3D design studies by Andre Parrocho: das Zuhause, a residence in tropical brutalism, and Fernweh, the explorer yacht that docks at its jetty.">
 <meta property="og:title" content="Design Studies — Andre Parrocho"><meta property="og:description" content="das Zuhause, a residence in tropical brutalism, and Fernweh, the explorer yacht that docks at its jetty."><meta property="og:type" content="website"><meta property="og:url" content="https://24-00237.github.io/daszehause/"><meta property="og:image" content="https://24-00237.github.io/daszehause/preview.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Archivo:wdth,wght@100..125,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
 <style>
-/* VOICE: a quiet, formal portfolio cover — sophisticated, with a slight touch of art deco.
-   IDEA: the foyer of a 1930s building: a gilded sunburst over the door, two framed drawings on the wall.
-   PICTURE: each study drawn as a gold-line elevation inside a stepped deco frame; one sunburst crowns the title.
-   COLOUR and TYPE: deep green-black lacquer, champagne gold hairlines, ivory text; Poiret One for display, Archivo for reading.
-   LAYOUT: centred crest and title, a double rule with a diamond, then two equal framed sheets that stack below 760px. */
-:root{color-scheme:dark;--bg:#0d1513;--bg2:#13201c;--ink:#efe8da;--mute:#a9a291;--gold:#c9a96a;--gold2:#e4cf9e;--line:rgba(201,169,106,.38)}
+/* VOICE: monumental and calm — tropical brutalism, with only a slight art deco accent.
+   IDEA: a board-formed concrete entrance wall in the tropics: heavy cast lettering, deep-set openings, palms casting shadow, one lit stair.
+   PICTURE: each study shown as a drawing set deep into a thick concrete frame; a palm-shadow and the amber stair lights carry the mood.
+   COLOUR and TYPE: warm board-formed concrete, charcoal ink, tropical green, one amber accent from the step lights; Archivo wide and heavy.
+   LAYOUT: massive left-aligned title on a concrete band, then two deep-set sheets that stack below 760px. The deco touch is one small stepped mark. */
+:root{color-scheme:light;--con:#d8d2c6;--con2:#cbc4b6;--ink:#1e1b17;--mute:#5e574d;--amber:#f0b44c;--green:#2f4a3a;--deep:#8f877a}
 *{box-sizing:border-box;min-width:0}
-body{margin:0;background:radial-gradient(ellipse at 50% -10%,#1b2b26 0%,var(--bg) 55%) fixed,var(--bg);color:var(--ink);font:16px/1.6 Archivo,system-ui,sans-serif;overflow-x:clip}
+body{margin:0;color:var(--ink);font:16px/1.6 Archivo,system-ui,sans-serif;overflow-x:clip;
+ background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 26px,rgba(60,50,40,.045) 26px 27px),linear-gradient(#ddd7cb,#d2cbbe)}
 a{color:inherit}
-.wrap{max-width:1180px;margin:0 auto;padding:clamp(28px,5vw,64px) max(5vw,16px) 48px}
-header{text-align:center}
-.crest{width:min(300px,70vw);height:auto;display:block;margin:0 auto 8px}
-h1{font:400 clamp(40px,6.2vw,72px)/1.04 'Poiret One',Archivo,sans-serif;letter-spacing:.14em;margin:0;text-transform:uppercase;color:var(--gold2);text-wrap:balance}
-.by{font:500 13px Archivo,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin:14px 0 0}
-.intro{max-width:56ch;margin:18px auto 0;color:var(--mute)}
-.rule{display:flex;align-items:center;gap:14px;max-width:520px;margin:30px auto 38px}.rule i{flex:1;height:5px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.rule b{width:10px;height:10px;border:1px solid var(--gold);transform:rotate(45deg);flex:none}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,3vw,34px)}
-a.sheet{position:relative;display:flex;flex-direction:column;text-decoration:none;background:linear-gradient(180deg,var(--bg2),#0f1916);padding:14px;transition:transform .35s ease}
-/* stepped deco frame: an outer hairline with notched corners and an inner hairline */
-a.sheet::before{content:"";position:absolute;inset:0;border:1px solid var(--line);clip-path:polygon(14px 0,calc(100% - 14px) 0,calc(100% - 14px) 6px,calc(100% - 6px) 6px,calc(100% - 6px) 14px,100% 14px,100% calc(100% - 14px),calc(100% - 6px) calc(100% - 14px),calc(100% - 6px) calc(100% - 6px),calc(100% - 14px) calc(100% - 6px),calc(100% - 14px) 100%,14px 100%,14px calc(100% - 6px),6px calc(100% - 6px),6px calc(100% - 14px),0 calc(100% - 14px),0 14px,6px 14px,6px 6px,14px 6px);pointer-events:none;transition:border-color .35s}
-a.sheet::after{content:"";position:absolute;inset:9px;border:1px solid rgba(201,169,106,.18);pointer-events:none}
-a.sheet:hover{transform:translateY(-4px)}a.sheet:hover::before{border-color:var(--gold)}
-a.sheet:focus-visible{outline:2px solid var(--gold2);outline-offset:4px}
-.pic{position:relative;aspect-ratio:16/10;overflow:hidden;background:radial-gradient(ellipse at 50% 120%,#22352f,#101b18 70%)}
+.band{position:relative;overflow:hidden;background:linear-gradient(#c9c2b4,#bdb5a6);border-bottom:10px solid #a9a193;box-shadow:0 18px 30px -18px rgba(0,0,0,.35)}
+.band::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 30px,rgba(40,32,24,.07) 30px 31px);pointer-events:none}
+.palm{position:absolute;right:-40px;top:-30px;width:min(520px,60vw);height:auto;opacity:.22;pointer-events:none}
+.head{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:clamp(40px,7vw,96px) max(5vw,16px) clamp(34px,5vw,60px)}
+.by{font:700 13px Archivo,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:var(--mute);margin:0 0 14px;display:flex;align-items:center;gap:12px}
+/* the slight deco accent: a small stepped mark, like a ziggurat in cast concrete */
+.mark{width:34px;height:14px;flex:none;background:linear-gradient(var(--amber),var(--amber)) 13px 0/8px 4px no-repeat,linear-gradient(var(--amber),var(--amber)) 8px 5px/18px 4px no-repeat,linear-gradient(var(--amber),var(--amber)) 0 10px/34px 4px no-repeat}
+h1{font-size:clamp(46px,9vw,112px);line-height:.92;margin:0;font-stretch:125%;font-weight:800;letter-spacing:-.01em;text-transform:uppercase;text-wrap:balance;color:#24211c;text-shadow:0 1px 0 rgba(255,255,255,.35),0 -1px 0 rgba(0,0,0,.18)}
+.intro{max-width:52ch;margin:22px 0 0;color:#3c372f;font-size:17px}
+main{max-width:1180px;margin:0 auto;padding:clamp(34px,5vw,64px) max(5vw,16px) 40px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
+a.sheet{display:flex;flex-direction:column;text-decoration:none;background:linear-gradient(#cec7b9,#c4bcad);padding:16px 16px 0;box-shadow:0 2px 0 #b2aa9b,0 22px 34px -20px rgba(0,0,0,.45);transition:transform .35s ease,box-shadow .35s ease}
+a.sheet:hover{transform:translateY(-4px);box-shadow:0 2px 0 #b2aa9b,0 30px 40px -20px rgba(0,0,0,.5)}
+a.sheet:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
+.pic{position:relative;aspect-ratio:16/10;overflow:hidden;box-shadow:inset 0 10px 18px -8px rgba(0,0,0,.45),inset 0 0 0 1px rgba(0,0,0,.12)}
 .pic svg{position:absolute;inset:0;width:100%;height:100%}
-.txt{position:relative;padding:20px 12px 12px;text-align:center}
-.kind{font:600 11.5px Archivo,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin:0}
-h2{font:400 clamp(30px,3.4vw,40px)/1.1 'Poiret One',Archivo,sans-serif;letter-spacing:.08em;margin:6px 0 10px;color:var(--ink)}
-.txt p{margin:0 auto 16px;max-width:46ch;color:var(--mute);font-size:15.5px}
-.go{display:inline-flex;align-items:center;gap:10px;font:600 12.5px Archivo,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gold2);padding:10px 18px;border:1px solid var(--line);min-height:44px}
-a.sheet:hover .go{border-color:var(--gold);background:rgba(201,169,106,.08)}
-footer{margin-top:44px;text-align:center;color:var(--mute);font-size:13.5px}footer .rule{margin:0 auto 16px;max-width:240px}
-@media(max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+.zu .pic{background:#e4ddd0}.fw .pic{background:linear-gradient(#cfe0e6,#e3ecee 58%,#2a6f86 58%,#1d5a70)}
+.txt{padding:20px 6px 22px}
+.kind{font:700 12px Archivo,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin:0}
+h2{font-size:clamp(28px,3vw,36px);line-height:1.05;margin:6px 0 10px;font-stretch:118%;font-weight:800}
+.txt p{margin:0 0 16px;max-width:52ch;color:#3c372f}
+.go{display:inline-flex;align-items:center;gap:10px;font:700 13px Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;min-height:44px;padding:0 18px;background:#24211c;color:#efe9de}
+.go i{width:8px;height:8px;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+a.sheet:hover .go{background:#3a3530}
+footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--mute);font-size:13.5px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+@media(max-width:760px){main{grid-template-columns:minmax(0,1fr)}.palm{opacity:.16}}
 @media(prefers-reduced-motion:reduce){a.sheet{transition:none}a.sheet:hover{transform:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <svg class="crest" viewBox="0 0 300 120" aria-hidden="true">
-      <g stroke="#c9a96a" stroke-width="1" fill="none">
-        <path d="M60 110 A90 90 0 0 1 240 110"/><path d="M84 110 A66 66 0 0 1 216 110"/><path d="M108 110 A42 42 0 0 1 192 110"/>
-        <g opacity=".85"><path d="M150 110 L150 14"/><path d="M150 110 L118 18"/><path d="M150 110 L182 18"/><path d="M150 110 L90 30"/><path d="M150 110 L210 30"/><path d="M150 110 L68 50"/><path d="M150 110 L232 50"/><path d="M150 110 L54 76"/><path d="M150 110 L246 76"/></g>
-        <path d="M20 110 H280"/><path d="M40 116 H260"/>
-      </g>
-      <path d="M150 96 L157 103 L150 110 L143 103 Z" fill="#e4cf9e"/>
-    </svg>
+<div class="band">
+  <svg class="palm" viewBox="0 0 400 300" aria-hidden="true"><g fill="#2f4a3a">
+    <path d="M300 300 C290 230 270 170 230 120 C250 175 262 235 268 300Z"/>
+    <path d="M232 122 C180 90 110 92 40 130 C110 110 170 112 225 132Z"/><path d="M232 122 C200 70 150 40 80 30 C145 55 190 85 222 128Z"/>
+    <path d="M232 122 C240 70 270 30 330 0 C285 45 258 85 240 128Z"/><path d="M232 122 C285 95 340 100 400 125 C340 115 285 118 240 132Z"/>
+    <path d="M232 122 C270 140 300 180 310 230 C290 188 265 160 228 136Z"/><path d="M232 122 C190 140 150 175 130 225 C160 185 190 158 236 136Z"/>
+  </g></svg>
+  <div class="head">
+    <p class="by"><span class="mark" aria-hidden="true"></span>Andre Parrocho</p>
     <h1>Design Studies</h1>
-    <p class="by">Andre Parrocho</p>
-    <p class="intro">Interactive 3D studies of a residence and the yacht that docks at its jetty. Open either one to walk through it, change it, and see it by day or by night.</p>
-    <div class="rule" aria-hidden="true"><i></i><b></b><i></i></div>
-  </header>
-  <main class="grid">
-    <a class="sheet" href="zuhause/">
-      <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Gold line elevation of das Zuhause: a glass pavilion and a cantilevered concrete bar on a stone plinth, reached by a wide lit stair">
-        <g stroke="#c9a96a" stroke-opacity=".14" stroke-width="1"><path d="M200 250 L200 40M200 250 L120 50M200 250 L280 50M200 250 L60 90M200 250 L340 90M200 250 L20 150M200 250 L380 150"/></g>
-        <g fill="none" stroke="#c9a96a" stroke-width="1.3">
-          <path d="M20 198 H380"/><rect x="70" y="150" width="220" height="48"/><rect x="110" y="112" width="130" height="38"/><path d="M120 112 V150M150 112 V150M180 112 V150M210 112 V150"/>
-          <rect x="80" y="80" width="250" height="32"/><path d="M72 76 H338" stroke-width="2.4"/><path d="M100 86 V106M112 86 V106M124 86 V106M136 86 V106M148 86 V106"/>
-          <path d="M290 198 V188 H360 M290 188 V178 H348 M290 178 V168 H336 M290 168 V158 H324 M290 158 V150"/>
-        </g>
-        <g stroke="#ffd58a" stroke-width="2"><path d="M294 196h62M294 186h50M294 176h38M294 166h26"/></g>
-        <circle cx="318" cy="150" r="2.6" fill="#e4cf9e"/><rect x="316.6" y="152.5" width="2.8" height="12" fill="#e4cf9e"/>
-      </svg></div>
-      <div class="txt"><p class="kind">Residence study</p><h2>das Zuhause</h2><p>A residence in tropical brutalism with mid-century and Japanese influences, entered by a wide lit stone stair. Beneath it lies a cistern, and a glass elevator core runs through it.</p><span class="go">Enter the residence</span></div>
-    </a>
-    <a class="sheet" href="fernweh/">
-      <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Gold line profile of Fernweh: an explorer yacht with stacked rounded decks and two tall raked wing sails over a calm sea">
-        <g stroke="#c9a96a" stroke-opacity=".14" stroke-width="1"><path d="M200 250 L200 40M200 250 L120 50M200 250 L280 50M200 250 L60 90M200 250 L340 90M200 250 L20 150M200 250 L380 150"/></g>
-        <g fill="none" stroke="#c9a96a" stroke-width="1.3">
-          <path d="M58 150 L330 150 L352 132 L60 138 Z"/><path d="M62 157 L338 157" stroke="#ffd58a" stroke-width="1.6"/>
-          <rect x="140" y="118" width="130" height="16" rx="8"/><path d="M148 124 H262"/><rect x="165" y="103" width="80" height="15" rx="7"/><path d="M172 109 H238"/><rect x="185" y="92" width="38" height="11" rx="5"/>
-          <path d="M290 132 L272 18 L284 16 L306 132 Z"/><path d="M112 136 L94 22 L106 20 L128 136 Z"/><path d="M30 158 L56 158 L58 152 L32 152 Z"/>
-        </g>
-        <g stroke="#c9a96a" stroke-opacity=".5" stroke-width="1"><path d="M20 172 H380"/><path d="M50 184 H350" stroke-opacity=".32"/><path d="M90 196 H310" stroke-opacity=".2"/></g>
-      </svg></div>
-      <div class="txt"><p class="kind">Explorer yacht study</p><h2>Fernweh</h2><p>A 50 m sail-assist explorer yacht with two 40 m wings, a beach club, a mahogany limousine tender and a heated pool. She docks at das Zuhause’s jetty. <i>Fernweh</i> is German for a longing to be far away.</p><span class="go">Board the yacht</span></div>
-    </a>
-  </main>
-  <footer><div class="rule" aria-hidden="true"><i></i><b></b><i></i></div>Design explorations, not construction drawings · 24-00237.github.io/daszehause</footer>
+    <p class="intro">Interactive 3D studies of a residence in tropical brutalism and the yacht that docks at its jetty. Open either one to walk through it, change it, and see it by day or by night.</p>
+  </div>
 </div>
+<main>
+  <a class="sheet zu" href="zuhause/">
+    <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Elevation of das Zuhause: a glass pavilion and a cantilevered concrete bar on a stone plinth, reached by a wide lit stair">
+      <rect x="0" y="196" width="400" height="54" fill="#d6cdbd"/>
+      <rect x="70" y="150" width="220" height="46" fill="#cfc4b0" stroke="#221d18"/>
+      <g fill="#e6dccb" stroke="#221d18" stroke-width=".8"><rect x="290" y="186" width="70" height="10"/><rect x="290" y="176" width="58" height="10"/><rect x="290" y="166" width="46" height="10"/><rect x="290" y="156" width="34" height="10"/></g>
+      <g stroke="#f0b44c" stroke-width="2"><path d="M292 195h66M292 185h54M292 175h42M292 165h30"/></g>
+      <rect x="110" y="112" width="130" height="38" fill="#9fb3b8" stroke="#221d18"/>
+      <rect x="80" y="80" width="250" height="32" fill="#bdb6ab" stroke="#221d18"/>
+      <rect x="74" y="74" width="262" height="6" fill="#221d18"/>
+      <g stroke="#8a5a35" stroke-width="3"><path d="M100 84v24M112 84v24M124 84v24M136 84v24M148 84v24"/></g>
+      <g fill="#2f4a3a" opacity=".85"><path d="M28 196 C30 160 36 140 46 128 C40 150 38 172 36 196Z"/><path d="M46 128 C30 120 16 122 6 132 C20 126 32 128 44 134Z"/><path d="M46 128 C56 116 70 112 84 116 C70 118 58 124 48 134Z"/><path d="M46 128 C44 114 48 102 58 94 C52 106 50 118 50 132Z"/></g>
+      <circle cx="318" cy="150" r="3" fill="#d2603a"/><rect x="316" y="153" width="4" height="13" fill="#d2603a"/>
+    </svg></div>
+    <div class="txt"><p class="kind">Residence study</p><h2>das Zuhause</h2><p>A residence in tropical brutalism with mid-century and Japanese influences, entered by a wide lit stone stair, with a cistern beneath and a glass elevator core.</p><span class="go"><i></i>Enter the residence</span></div>
+  </a>
+  <a class="sheet fw" href="fernweh/">
+    <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Profile of Fernweh: a dark explorer yacht with stacked rounded decks and two tall raked wing sails">
+      <path d="M58 150 L330 150 L352 132 L60 138 Z" fill="#1d2226"/>
+      <path d="M62 156 L336 156" stroke="#ff5a1f" stroke-width="2"/>
+      <path d="M60 138 L352 132 L344 156 L66 160 Z" fill="#2a3036"/>
+      <rect x="140" y="118" width="130" height="16" rx="8" fill="#3e4247"/><rect x="146" y="121" width="118" height="7" fill="#9fb7c2"/>
+      <rect x="165" y="103" width="80" height="15" rx="7" fill="#3e4247"/><rect x="170" y="106" width="70" height="6" fill="#9fb7c2"/>
+      <rect x="185" y="92" width="38" height="11" rx="5" fill="#3e4247"/>
+      <path d="M290 132 L272 18 L284 16 L306 132 Z" fill="#c9d3d6" stroke="#1d2226" stroke-width=".8"/>
+      <path d="M112 136 L94 22 L106 20 L128 136 Z" fill="#c9d3d6" stroke="#1d2226" stroke-width=".8"/>
+      <path d="M30 158 L56 158 L58 152 L32 152 Z" fill="#6b3a1c"/>
+    </svg></div>
+    <div class="txt"><p class="kind">Explorer yacht study</p><h2>Fernweh</h2><p>A 50 m sail-assist explorer yacht with two 40 m wings, a beach club, a mahogany limousine tender and a heated pool. She docks at das Zuhause’s jetty. <i>Fernweh</i> is German for a longing to be far away.</p><span class="go"><i></i>Board the yacht</span></div>
+  </a>
+</main>
+<footer><span class="mark" aria-hidden="true"></span>Design explorations, not construction drawings · 24-00237.github.io/daszehause</footer>
 </body>
 </html>
