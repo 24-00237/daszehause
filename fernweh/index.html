@@ -86,7 +86,7 @@ textarea{width:100%;min-height:80px;font:12.5px/1.4 ui-monospace,monospace;borde
     <button class="chip pexit" id="pexit" type="button">Exit presentation</button>
     <div class="hint" id="hint">Drag to orbit · scroll to zoom · try the walk-through cameras</div>
     <div class="heel" id="heel"></div>
-    <div class="snap" id="snap"><div class="snapBox"><img id="snapImg" alt="Snapshot of Fernweh"><div class="bar"><a class="btn pri" id="snapDl" href="#" download="fernweh.png">Download image</a><button class="btn" id="snapX" type="button">Close</button></div><p class="note">If the download doesn’t start (it won’t inside the Claude preview), right-click or long-press the image to save it. On your GitHub page the button works.</p></div></div>
+    <div class="snap" id="snap"><div class="snapBox"><img id="snapImg" alt="Snapshot of Fernweh"><div class="bar"><a class="btn pri" id="snapDl" href="#" download="fernweh.png">Download image</a><button class="btn" id="snapX" type="button">Close</button></div><p class="note">If the download doesn’t start, right-click or long-press the image to save it.</p></div></div>
     <div class="ov bl" id="modes"></div>
     <div class="tb">
       <div class="na"><svg width="42" height="42" viewBox="-21 -21 42 42" aria-label="Fernweh mark"><circle r="16" fill="none" stroke="#13202a" stroke-width="1"/><path d="M-12 4Q-6 0 0 4T12 4" fill="none" stroke="#13202a" stroke-width="1.6"/><path d="M-9-4h14l4 4h-18z" fill="#13202a"/><circle cx="10" cy="-9" r="2.4" fill="#ff5a1f"/></svg></div>
@@ -620,6 +620,8 @@ const present=on=>{document.body.classList.toggle('present',on);ctl.autoRotate=o
 $('views').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const x=b.dataset.x;if(x==='present')present(true);else if(x==='fly'){fly=performance.now();tw=null;ctl.autoRotate=false}else if(x==='snap')snap();else go(b.dataset.v)});
 let fly=0;function snap(){R.render(scene,cam);const u=cv.toDataURL('image/png');$('snapImg').src=u;$('snapDl').href=u;$('snap').style.display='flex'}
 $('snapX').onclick=()=>$('snap').style.display='none';
+let DLS=null;try{if(window.claude&&window.claude.use)window.claude.use('downloads').then(d=>{DLS=d}).catch(()=>{})}catch(e){}
+$('snapDl').addEventListener('click',async e=>{if(!DLS)return;e.preventDefault();try{const bl=await (await fetch($('snapImg').src)).blob();await DLS.save({filename:'fernweh.png',data:bl})}catch(err){}});
 $('pexit').onclick=()=>present(false);addEventListener('keydown',e=>{if(e.key==='Escape')present(false)});
 $('modes').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
  if(b.dataset.m){V.mode=b.dataset.m;build();setScene()}else if(b.dataset.t==='state'){V.state={anchor:'underway',underway:'docked',docked:'anchor'}[V.state];syncState();build();setScene();if(V.state==='docked')go('dock')}
