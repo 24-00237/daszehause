@@ -15,3 +15,7 @@ Latest: rough build cost estimate, Study E first home, Langit sky room, library 
 Sister project: a customizable 3D explorer yacht with sail-assist wings or a helipad, a beach-club garage, a side balcony, a limousine tender and day/night lighting.
 
 **Live:** https://24-00237.github.io/daszehause/fernweh/
+
+## All studies
+
+A hub page that introduces both studies: https://24-00237.github.io/daszehause/studies/
