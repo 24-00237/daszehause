@@ -194,7 +194,7 @@ const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,logarithmicDepthBuffer
 const scene=new THREE.Scene();scene.background=new THREE.Color('#e4ddd0');
 const persp=new THREE.PerspectiveCamera(38,1,.3,1500),ortho=new THREE.OrthographicCamera(-30,30,30,-30,1,3000);let cam=ortho,ctl=null;
 const hemi=new THREE.HemisphereLight(0xffffff,0x6b6450,.5);scene.add(hemi);
-const sun=new THREE.DirectionalLight(0xffffff,1);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-45,right:45,top:45,bottom:-45,near:1,far:200});sun.shadow.bias=-.0005;scene.add(sun,sun.target);
+const sun=new THREE.DirectionalLight(0xffffff,1);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-45,right:45,top:45,bottom:-45,near:1,far:200});sun.shadow.bias=-.0003;sun.shadow.normalBias=.04;scene.add(sun,sun.target);
 const Std=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.9},o));
 function boardTex(){const c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d');let s=3;const rn=()=>(s=s*16807%2147483647)/2147483647;
  for(let y=0;y<256;y+=21){const v=222+rn()*22|0;g.fillStyle=`rgb(${v},${v},${v})`;g.fillRect(0,y,256,21);g.fillStyle='rgba(0,0,0,.12)';g.fillRect(0,y+20,256,1)}
@@ -233,7 +233,7 @@ const NL=[0,1,2,3,4,5].map(()=>new THREE.PointLight('#ffb766',0,28,2));scene.add
 const starG=new THREE.BufferGeometry(),sp=[];{let q=5;const rr=()=>(q=q*16807%2147483647)/2147483647;for(let i=0;i<800;i++){const th=rr()*6.283,ph2=Math.acos(.15+rr()*.85);sp.push(380*Math.sin(ph2)*Math.cos(th),380*Math.cos(ph2),380*Math.sin(ph2)*Math.sin(th))}}
 starG.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));const starM=new THREE.PointsMaterial({color:'#fff8ea',size:1.6,sizeAttenuation:false,transparent:true,opacity:0,depthWrite:false});const stars=new THREE.Points(starG,starM);stars.visible=false;scene.add(stars);
 const edgeMat=new THREE.LineBasicMaterial({color:'#221d18'});
-const ground=new THREE.Mesh(new THREE.PlaneGeometry(600,600),Std('#8f9d6a',{roughness:1}));ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;scene.add(ground);
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(600,600),Std('#8f9d6a',{roughness:1}));ground.rotation.x=-Math.PI/2;ground.position.y=-.015;ground.receiveShadow=true;scene.add(ground);
 let house=new THREE.Group(),dimG=new THREE.Group();scene.add(house,dimG);
 let FIRE=0,PADS=0,SITE={},SMART=null,CLO=0,CHI=0,COSTSTR='';let EXT={cx:0,cz:0,w:40,d:40,top:12,MAXW:3.6,fl:-5},dims=[],underG=new THREE.Group(),WATERS=[],CAB=[],STOPS=[0,1],CAP=0,waterTag=null;
 const noSkip=()=>false,clipPlane=new THREE.Plane(new THREE.Vector3(0,0,-1),0),planClip=new THREE.Plane(new THREE.Vector3(0,-1,0),0);const gClip=new THREE.Plane(new THREE.Vector3(0,1,0),.05);let intG=new THREE.Group(),floodG=new THREE.Group();
@@ -382,7 +382,7 @@ function build(){
  bx(1,ceilY-fl,ID,'concrete',ix0-.5,(fl+ceilY)/2,czm),bx(1,ceilY-fl,ID,'concrete',ix1+.5,(fl+ceilY)/2,czm),bx(IW,.4,ID,'concrete',cxm,ceilY+.2,czm)])m.userData.shell=1;
  for(const m of[bx(IW,WL-fl,LW,'concrete',cxm,(fl+WL)/2,iz0+LW/2),bx(IW,WL-fl,LW,'concrete',cxm,(fl+WL)/2,iz1-LW/2),bx(LW,WL-fl,ID-2*LW,'concrete',ix0+LW/2,(fl+WL)/2,czm),bx(LW,WL-fl,ID-2*LW,'concrete',ix1-LW/2,(fl+WL)/2,czm)])m.userData.shell=1;
  const wx0=ix0+LW,wx1=ix1-LW,wz0=iz0+LW,wz1=iz1-LW,rx0=chX0,rx1=chX1,rz0=cz0-chD/2,rz1=cz0+chD/2;
- WATERS.push(bx(wx1-wx0,1,wz1-wz0,'cwater',(wx0+wx1)/2,0,(wz0+wz1)/2));const FRh=Math.min(1,MAXW*.22);bx(wx1-wx0-.1,FRh,wz1-wz0-.1,'cwaterD',(wx0+wx1)/2,fl+FRh/2,(wz0+wz1)/2).castShadow=false;FIRE=(wx1-wx0)*(wz1-wz0)*FRh;
+ WATERS.push(bx(wx1-wx0-.12,1,wz1-wz0-.12,'cwater',(wx0+wx1)/2,0,(wz0+wz1)/2));const FRh=Math.min(1,MAXW*.22);bx(wx1-wx0-.1,FRh,wz1-wz0-.1,'cwaterD',(wx0+wx1)/2,fl+.05+FRh/2,(wz0+wz1)/2).castShadow=false;FIRE=(wx1-wx0)*(wz1-wz0)*FRh;
  PADS=0;if(!S.tank){bx(IW+2.4,.6,ID+2.4,'concrete',cxm,fl-1.5,czm);let pads=0;for(let x=ix0;x<=ix1+.01;x+=IW/Math.round(IW/4.8))for(let z=iz0;z<=iz1+.01;z+=ID/Math.round(ID/4.8)){add(new THREE.CylinderGeometry(.55,.55,.5,16),'iso',x,fl-1,z);bx(1.3,.06,1.3,'steel',x,fl-.77,z);pads++}PADS=pads}for(const w of WATERS)w.castShadow=false;
  {const f=add(new THREE.PlaneGeometry(wx1-wx0,wz1-wz0),'cfl',(wx0+wx1)/2,fl+.06,(wz0+wz1)/2);f.rotation.x=-Math.PI/2}
  const nx=Math.max(2,Math.round(IW/5)),nz=Math.max(2,Math.round(ID/5)),sx=IW/nx,sz=ID/nz;
@@ -551,6 +551,8 @@ function build(){
  const ED=CD+3,Dz=iz1-iz0+14;
  for(const m of[add(new THREE.BoxGeometry(PL+22,ED,8),'earth',pcx,-ED/2-.01,iz0-5,underG),add(new THREE.BoxGeometry(4,ED,Dz),'earth',ix0-3,-ED/2-.01,czm,underG),
   add(new THREE.BoxGeometry(4,ED,Dz),'earth',ix1+3,-ED/2-.01,czm,underG),add(new THREE.BoxGeometry(PL+22,2,Dz),'earth',pcx,fl-2.95,czm,underG)])m.userData.earth=1;
+ // anti-flicker: nudge every mesh by a unique sub-centimetre amount so no two surfaces share the exact same plane
+ {let i=0;house.traverse(o=>{if(!o.isMesh||!o.userData.r||GLOWR.has(o.userData.r))return;i++;const g=o.geometry;if(!g.boundingSphere)g.computeBoundingSphere();const e=1+(((i*37)%13)+1)*.0006/Math.max(.5,g.boundingSphere.radius);o.scale.multiplyScalar(e);o.position.y+=((i*53)%9)*.0012})}
  // edges for line drawing
  house.updateMatrixWorld(true);const ms=[],bb=new THREE.Box3();house.traverse(o=>{if(o.isMesh&&!GLOWR.has(o.userData.r)&&o.userData.r)ms.push(o)});for(const m of ms){m.userData.above=m.userData.shell||bb.setFromObject(m).min.y>-.05;const e=new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry,24),edgeMat);e.userData.edge=1;m.add(e)}
  const clip=rz1+1;
@@ -591,7 +593,7 @@ function build(){
   ['Stride check (2R + G)',`<span class="${ok?'ok':'warn'}">${Math.round(stv)} mm · ${ok?'comfortable':stv>700?'long stride, shorten the run':'short steps, lengthen the run'}</span>`]];
  document.getElementById('sched').innerHTML=rows.map(r=>r[0]==='tot'?`<tr class="tot"><td>${r[1]}</td><td class="n">${r[2]}</td></tr>`:`<tr><td>${r[0]}</td><td class="n">${r[1]}</td></tr>`).join('');
  floodG.visible=V.flood;phText();if(V.view==='walk'){house.visible=true;setTimeout(collect,0)}setWater();applyMode();underState();light()}
-function setWater(){const h=Math.max(.02,S.water/100*EXT.MAXW);for(const w of WATERS){w.scale.y=h;w.position.y=EXT.fl+h/2}
+function setWater(){const h=Math.max(.02,S.water/100*EXT.MAXW);for(const w of WATERS){w.scale.y=h;w.position.y=EXT.fl+.03+h/2}
  const v=CAP*S.water/100,f=x=>V.units==='m'?Math.round(x).toLocaleString()+' m³':Math.round(x*264.17).toLocaleString()+' gal';
  if(waterTag)waterTag.el.firstChild.textContent=`Cistern · ${S.water}% full`;const el=document.getElementById('schedWater');if(el)el.textContent=`${f(v)} of ${f(CAP)}`}
 function goTime(t){if(V.mode!=='render'){V.mode='render';applyMode()}const t0=V.time,st=performance.now(),el=document.getElementById('i-time'),out=document.getElementById('o-time');
@@ -639,7 +641,7 @@ let W=null;const KEY={},rc=new THREE.Raycaster(),DOWN=new THREE.Vector3(0,-1,0);
 const GR=new Set(['stone','concrete','tile','tglass','gravel','timber','col']),WR=new Set(['concrete','col','stone','part','brick','shoji']);
 function collect(){GROUND=[ground];WALLS=[];house.updateMatrixWorld(true);house.traverse(o=>{if(!o.isMesh||!o.userData.r||!o.visible)return;let p=o.parent,vis=true;while(p){if(p.visible===false)vis=false;p=p.parent}if(!vis)return;const r=o.userData.r;if(GR.has(r))GROUND.push(o);if(WR.has(r))WALLS.push(o)})}
 const SPOTS=()=>{const E=EXT;return{gate:[0,0,E.zW-2.2,0],stair:[0,S.plinthH+.1,E.zp+5,0],living:[-S.L1*.25,S.plinthH+.6,E.zp-S.D1*.3,.6],upper:[E.cx0+4,S.plinthH+.06+S.FH+.84,E.cz0+1.2,-1.2],glass:[E.cx0+5,E.top0+.55,E.cz0,-1.57],chamber:[E.cx0+3,E.cf+.05,E.cz0,-1.57]}};
-function startWalk(){if(ctl){ctl.dispose();ctl=null}if(V.compare){V.compare=false;toggleCompare()}cam=persp;persp.fov=68;persp.near=.08;persp.updateProjectionMatrix();R.clippingPlanes=[];ground.visible=true;underG.visible=false;
+function startWalk(){if(ctl){ctl.dispose();ctl=null}if(V.compare){V.compare=false;toggleCompare()}cam=persp;persp.fov=68;persp.near=.15;persp.updateProjectionMatrix();R.clippingPlanes=[];ground.visible=true;underG.visible=false;
  if(!W){const g=SPOTS().gate;W={x:g[0],y:g[1],z:g[2],yaw:g[3],pitch:.12,vy:0}}collect();applyMode();light();syncUI();document.getElementById('hint').style.opacity=0}
 function goSpot(k){const p=SPOTS()[k];if(!p)return;if(k==='chamber'&&(S.tank||V.phase<4))return;W={x:p[0],y:p[1],z:p[2],yaw:p[3],pitch:.05};collect()}
 function groundAt(x,z,foot){rc.set(new THREE.Vector3(x,foot+.62,z),DOWN);rc.far=40;const h=rc.intersectObjects(GROUND,false);for(const i of h)if(i.point.y<=foot+.62)return i.point.y;return null}
