@@ -140,7 +140,7 @@ function heimweg(o){
  const bx=(w,h,d,mat,x,y,z,par)=>mesh(new THREE.BoxGeometry(w,h,d),mat,x,y,z,par);
  // body: one monolith, soft edges, arches cut out
  const pts=[[-2.36,b],[xr-ra,b]];for(let i=0;i<=16;i++){const a=Math.PI-i/16*Math.PI;pts.push([xr+ra*Math.cos(a),Math.max(b,R+ra*Math.sin(a))])}pts.push([xf-ra,b]);for(let i=0;i<=16;i++){const a=Math.PI-i/16*Math.PI;pts.push([xf+ra*Math.cos(a),Math.max(b,R+ra*Math.sin(a))])}
- pts.push([2.34,b],[2.46,b+.14],[2.48,belt-.1],[2.4,belt],[-2.42,belt],[-2.48,belt-.08],[-2.48,b+.14]);
+ pts.push([2.12,b],[2.44,b+.3],[2.48,b+.4],[2.48,belt-.1],[2.4,belt],[-2.42,belt],[-2.48,belt-.08],[-2.48,b+.14]);
  const bg=new THREE.ExtrudeGeometry(new THREE.Shape(pts.map(p=>new THREE.Vector2(p[0],p[1]))),{depth:Wd-.14,bevelEnabled:true,bevelThickness:.07,bevelSize:.06,bevelSegments:3,curveSegments:8});bg.translate(0,0,-(Wd-.14)/2);body.side=THREE.DoubleSide;mesh(bg,[new THREE.MeshBasicMaterial({visible:false}),body]);
  const DO=[[.06,1.2],[-1.12,.04]];for(const s of [-1,1]){const sh=new THREE.Shape(pts.map(p=>new THREE.Vector2(p[0],p[1])));for(const [x0,x1] of DO)sh.holes.push(new THREE.Path([[x0,b+.32],[x1,b+.32],[x1,belt-.03],[x0,belt-.03]].map(q=>new THREE.Vector2(q[0],q[1]))));mesh(new THREE.ShapeGeometry(sh,8),body,0,0,s*(Wd/2+.0005))}
  // glass canopy: one continuous dark-glass top
@@ -150,10 +150,10 @@ function heimweg(o){
  const pane=(P,par,dx,z,s)=>{if(P.length<3)return null;const gg=new THREE.Group();gg.position.set(0,belt-.03,z);gg.rotation.x=-s*Math.atan(.085/(roof-belt));par.add(gg);const sg=new THREE.ShapeGeometry(new THREE.Shape(P.map(q=>new THREE.Vector2(q[0]-dx,q[1]-belt+.03))));const m=new THREE.Mesh(sg,glass);m.renderOrder=3;m.material.side=THREE.DoubleSide;gg.add(m);return gg};
  const gz=(Wd-.36)/2+.05;for(const s of [-1,1]){pane(clip(cp,1.2,1.4),up,0,s*Wd/2,s);pane(clip(cp,-2.5,-1.12),up,0,s*Wd/2,s)}
  // rugged lower: sills, bumpers, arch flares, skid plates, recovery points
- bx(xf-ra-(xr+ra)-.2,.26,Wd+.05,clad,(xf+xr)/2,b+.1,0);bx(.42,.34,Wd+.03,clad,2.36,b+.15,0);bx(.42,.34,Wd+.03,clad,-2.36,b+.15,0);
+ bx(xf-ra-(xr+ra)-.2,.26,Wd+.05,clad,(xf+xr)/2,b+.1,0);{const fb=bx(.42,.26,Wd+.03,clad,2.32,b+.25,0);fb.rotation.z=.32}bx(.42,.34,Wd+.03,clad,-2.36,b+.15,0);
  for(const xw of [xf,xr])for(const s of [-1,1]){const sh=new THREE.Shape();sh.absarc(0,0,ra+.1,0,Math.PI,false);sh.absarc(0,0,ra+.005,Math.PI,0,true);const fg=new THREE.ExtrudeGeometry(sh,{depth:.07,bevelEnabled:false,curveSegments:20});mesh(fg,clad,xw,R,s>0?Wd/2-.035:-Wd/2-.035)}
- {const sk=bx(.6,.04,1.2,steel,2.27,b-.02,0);sk.rotation.z=-.22;const sr=bx(.6,.04,1.2,steel,-2.27,b-.02,0);sr.rotation.z=.22}
- for(const xs of [2.585,-2.585])for(const s of [-.62,.62]){const r=mesh(new THREE.TorusGeometry(.055,.016,8,16),steel,xs,b+.2,s);r.rotation.y=Math.PI/2}
+ {const sk=bx(.5,.04,1.2,steel,2.3,b+.16,0);sk.rotation.z=.55;const sr=bx(.6,.04,1.2,steel,-2.27,b-.02,0);sr.rotation.z=.22}
+ for(const [xs,ys] of [[2.535,b+.42],[-2.585,b+.2]])for(const s of [-.62,.62]){const r=mesh(new THREE.TorusGeometry(.055,.016,8,16),steel,xs,ys,s);r.rotation.y=Math.PI/2}
  // light signature: hairline full-width strips, segmented for the welcome sweep
  const lights=[],n=24,lc=LC({warm:'#ffd9a0',amber:'#ffb04a',ice:'#cfe6ff'}[o.light]||'#ffd9a0');
  for(const [x,y,front] of [[2.556,belt-.22,1],[-2.556,belt-.17,0]])for(let i=0;i<n;i++){const z=-.86+(i+.5)*1.72/n,m=new THREE.MeshStandardMaterial({color:LC('#222'),emissive:front?lc:(o.light==='ice'?lc:LC('#ff6a3a')),emissiveIntensity:1});const s=bx(.02,.028,1.72/n-.004,m,x,y,z);s.castShadow=false;lights.push({m,z,front})}
