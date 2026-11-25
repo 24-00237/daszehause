@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Design Studies — Andre Parrocho</title>
 <link rel="apple-touch-icon" href="/daszehause/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/daszehause/icons/icon-192.png">
-<meta name="description" content="Interactive 3D design studies by Andre Parrocho: das Zuhause, a residence in tropical brutalism, Fernweh, the explorer yacht that docks at its jetty, and Bergruhe, a cabin in the Alps.">
-<meta property="og:title" content="Design Studies — Andre Parrocho"><meta property="og:description" content="das Zuhause, a residence in tropical brutalism, and Fernweh, the explorer yacht that docks at its jetty."><meta property="og:type" content="website"><meta property="og:url" content="https://24-00237.github.io/daszehause/"><meta property="og:image" content="https://24-00237.github.io/daszehause/preview.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Interactive 3D design studies by Andre Parrocho: das Zuhause, a residence in tropical brutalism, Fernweh, the explorer yacht that docks at its jetty, Bergruhe, a cabin in the Alps, and Heimweg, the off-roader that drives between them.">
+<meta property="og:title" content="Design Studies — Andre Parrocho"><meta property="og:description" content="das Zuhause, a residence in tropical brutalism; Fernweh, the explorer yacht; Bergruhe, a cabin in the Alps; and Heimweg, an electric off-roader."><meta property="og:type" content="website"><meta property="og:url" content="https://24-00237.github.io/daszehause/"><meta property="og:image" content="https://24-00237.github.io/daszehause/preview.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
 <style>
@@ -34,7 +34,7 @@ a.sheet{display:flex;flex-direction:column;text-decoration:none;background:linea
 a.sheet:hover{transform:translateY(-4px);box-shadow:0 2px 0 #b2aa9b,0 30px 40px -20px rgba(0,0,0,.5)}
 a.sheet:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
 .pic{position:relative;aspect-ratio:16/10;overflow:hidden;box-shadow:inset 0 10px 18px -8px rgba(0,0,0,.45),inset 0 0 0 1px rgba(0,0,0,.12)}
-.pic svg{position:absolute;inset:0;width:100%;height:100%}
+.pic svg,.pic img{position:absolute;inset:0;width:100%;height:100%}.pic img{object-fit:cover;display:block}
 .zu .pic{background:#e4ddd0}.bg .pic{background:linear-gradient(#cfdbe4,#e9eef2)}.hw .pic{background:#2a2a2c}.fw .pic{background:linear-gradient(#cfe0e6,#e3ecee 58%,#2a6f86 58%,#1d5a70)}
 .txt{padding:20px 6px 22px}
 .kind{font:700 12px Archivo,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin:0}
@@ -113,17 +113,8 @@ footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--m
     <div class="txt"><p class="kind">Alpine cabin study</p><h2>Bergruhe</h2><p>A modern Alpine cabin of charred larch on a concrete base set into the slope, with a diagonal roof, a glass room cantilevered over the valley, a hearth column, a sauna and a hot tub in the snow. <i>Bergruhe</i> is German for mountain stillness.</p><span class="go"><i></i>Enter the cabin</span></div>
   </a>
   <a class="sheet hw" href="heimweg/">
-    <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Side drawing of Heimweg: a squared-off dark off-roader with a dark glass canopy, a roof platform and a thin warm light line">
-      <rect width="400" height="250" fill="#2a2a2c"/><ellipse cx="200" cy="196" rx="170" ry="10" fill="#1a1a1b"/>
-      <path d="M78 186 V128 Q78 118 88 118 H318 Q326 118 328 126 L332 150 V186 Z" fill="#3a3b3d"/>
-      <path d="M96 118 L108 82 Q110 78 116 78 H278 L300 118 Z" fill="#0d1014"/>
-      <rect x="110" y="70" width="170" height="4" fill="#111"/><rect x="118" y="74" width="5" height="5" fill="#111"/><rect x="262" y="74" width="5" height="5" fill="#111"/>
-      <path d="M78 186 V164 H332 V186 Z" fill="#232425"/>
-      <circle cx="124" cy="186" r="26" fill="#141414"/><circle cx="124" cy="186" r="15" fill="#2c2d2f"/><circle cx="290" cy="186" r="26" fill="#141414"/><circle cx="290" cy="186" r="15" fill="#2c2d2f"/>
-      <path d="M150 124 V164 M214 124 V164" stroke="#1d1e1f" stroke-width="1.2"/>
-      <rect x="318" y="140" width="15" height="2.5" fill="#ffd9a0"/><rect x="330" y="137" width="40" height="8" fill="url(#hwg)"/><defs><linearGradient id="hwg"><stop offset="0" stop-color="#ffd9a0" stop-opacity=".6"/><stop offset="1" stop-color="#ffd9a0" stop-opacity="0"/></linearGradient></defs>
-    </svg></div>
-    <div class="txt"><p class="kind">Off-roader study</p><h2>Heimweg</h2><p>An electric luxury off-roader drawn as a minimal monolith: tough below, one dark-glass canopy above, and a hairline of warm light that sweeps open when you come home. <i>Heimweg</i> is German for the way home.</p><span class="go"><i></i>Take the wheel</span></div>
+    <div class="pic"><img src="heimweg/card.jpg" width="1200" height="750" loading="lazy" alt="Heimweg on Bergruhe’s snowy drive: a tall, wide dark off-roader with flared arches, big all-terrain tyres, a snorkel, a roof platform and a warm light line across the nose"></div>
+    <div class="txt"><p class="kind">Off-roader study</p><h2>Heimweg</h2><p>A tall electric off-roader drawn as a minimal monolith: wide flared arches over big tyres, one dark-glass canopy, and a hairline of warm light that sweeps open when you come home. Camp mode opens an awning, a pop-up roof and a pull-out kitchen. <i>Heimweg</i> is German for the way home.</p><span class="go"><i></i>Take the wheel</span></div>
   </a>
 </main>
 <footer><span class="mark" aria-hidden="true"></span>Design explorations, not construction drawings</footer>

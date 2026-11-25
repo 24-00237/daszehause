@@ -24,7 +24,9 @@ Third study: a modern Alpine cabin of charred larch on a concrete base set into 
 
 ## Heimweg — Off-Roader Study
 
-Fourth study: an original electric luxury off-roader drawn as a minimal monolith, with one dark-glass canopy, a warm full-width light signature with a "welcome home" sweep, air suspension (Road, Trail, Deep snow), and scenes in a studio, on Bergruhe's drive and at das Zuhause at night. It's also parked in Bergruhe's garage.
+Fourth study: an original electric luxury off-roader drawn as a minimal monolith. It stands 2.75 m tall and 2.52 m wide over flared arches, on 1.2 m tyres whose width you can choose. It has a glass canopy that narrows slightly toward the roof, a long bonnet, and a warm full-width light signature with a "welcome home" sweep. Working rear lights include tail, brake, sequential indicators, hazards and reverse.
+
+Expedition kit: snorkel, winch, mud flaps, rock lights, a heated windscreen strip, a spare wheel and high-lift jack on the side-hinged tailgate, and an optional fuel can. Camp mode opens a side awning, a pop-up roof and a pull-out kitchen, and the car kneels when its doors open. Cameras include a see-through-bonnet ground view. Scenes: a studio, Bergruhe's drive and das Zuhause at night. It's also parked on Bergruhe's driveway.
 
 **Live:** https://24-00237.github.io/daszehause/heimweg/
 
