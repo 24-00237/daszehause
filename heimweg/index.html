@@ -135,7 +135,7 @@ function heimweg(o){
  for(const [x,y,front] of [[2.545,belt-.22,1],[-2.545,belt-.17,0]])for(let i=0;i<n;i++){const z=-.86+(i+.5)*1.72/n,m=new THREE.MeshStandardMaterial({color:LC('#222'),emissive:front?lc:(o.light==='ice'?lc:LC('#ff6a3a')),emissiveIntensity:1});const s=bx(.02,.028,1.72/n-.004,m,x,y,z);s.castShadow=false;lights.push({m,z,front})}
  // flush door seams and hidden handles; door skins that swing open
  const doors=[];for(const s of [-1,1]){for(const x of [1.2,.05,-1.15])bx(.012,belt-b-.36,.012,dark,x,(belt+b+.34)/2,s*(Wd/2+.002));
-  for(const [hx,x0] of [[1.2,1.14],[.05,1.17]]){const dg=new THREE.Group();dg.position.set(hx,0,s*(Wd/2+.006));up.add(dg);const dh=belt-b-.3;bx(x0,dh,.014,body,-x0/2,b+.3+dh/2,0,dg);bx(x0-.06,dh-.08,.05,wool,-x0/2,b+.3+dh/2,-s*.035,dg);bx(x0-.1,.04,.06,dark,-x0/2,belt-.04,-s*.04,dg);bx(.2,.022,.014,dark,-x0+.32,belt-.14,s*.009,dg);
+  for(const [hx,x0] of [[1.2,1.14],[.05,1.17]]){const dg=new THREE.Group();dg.position.set(hx,0,s*(Wd/2+.006));up.add(dg);const dh=belt-b-.3;bx(x0,dh,.014,body,-x0/2,b+.3+dh/2,0,dg);bx(x0-.14,dh-.12,.04,wool,-x0/2,b+.3+dh/2,-s*.05,dg);bx(x0-.16,.04,.05,dark,-x0/2,belt-.06,-s*.05,dg);bx(.2,.022,.014,dark,-x0+.32,belt-.14,s*.009,dg);
    pane(clip(cp,hx-x0,hx),dg,hx,-s*(Wd/2+.006-gz));
    const ap=new THREE.Group();ap.visible=false;up.add(ap);bx(x0-.02,dh-.02,.01,M('#141414',{roughness:.9}),hx-x0/2,b+.3+dh/2,s*(Wd/2+.002),ap);bx(x0-.02,.05,.06,steel,hx-x0/2,b+.33,s*(Wd/2-.02),ap);doors.push({g:dg,side:s,ap})}
   const mr=bx(.2,.08,.06,dark,1.12,belt+.1,s*(Wd/2+.1));bx(.05,.04,.12,dark,1.12,belt+.05,s*(Wd/2+.04))}
@@ -234,7 +234,7 @@ function sched(){const h=HT[S.h],clr=Math.round(h*1000-30),app=Math.round(Math.a
 /* cameras */
 const VIEWS=[['hero','Hero'],['side','Side'],['rear','Rear three-quarter'],['front','Front, low'],['top','From above']],WALKS=[['driver','Driver’s seat'],['back','Back seat, looking up']];
 function camFor(v){const y=HT[S.h]-.3;switch(v){case 'side':return[V3(.2,1.1,7.6),V3(0,.9,0)];case 'rear':return[V3(-6,1.7,-4.4),V3(0,.9,0)];case 'front':return[V3(6.4,.55,1.2),V3(0,.9,0)];case 'top':return[V3(.1,9,.6),V3(0,0,0)];
- case 'driver':return[V3(.18,1.42+y,-.45),V3(4,1.2+y,-.45)];case 'back':return[V3(-1.1,1.18+y,.3),V3(.4,3.2+y,0)];default:return[V3(5.8,1.7,4.6),V3(.1,.85,0)]}}
+ case 'driver':return[V3(-.02,1.5+y,-.45),V3(4,1.25+y,-.45)];case 'back':return[V3(-1.1,1.18+y,.3),V3(.4,3.2+y,0)];default:return[V3(5.8,1.7,4.6),V3(.1,.85,0)]}}
 let tw=null;const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function go(v,inst){V.view=v;const [p,t]=camFor(v);if(inst||RM){cam.position.copy(p);ctl.target.copy(t);tw=null}else tw={p0:cam.position.clone(),t0:ctl.target.clone(),p,t,s:performance.now()};const nm=[...VIEWS,...WALKS].find(x=>x[0]===v);$('tbView').textContent='Off-roader study · '+(nm?nm[1]:'');chips()}
 
@@ -272,7 +272,7 @@ const ro=new ResizeObserver(()=>{const w=stage.clientWidth,h=stage.clientHeight;
 const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;let last=performance.now(),fN=0;
 function loop(){requestAnimationFrame(loop);const now=performance.now(),dt=Math.min(.1,(now-last)/1000);last=now;fN++;
  if(tw){const f=Math.min(1,(now-tw.s)/1300),e=ease(f);cam.position.lerpVectors(tw.p0,tw.p,e);ctl.target.lerpVectors(tw.t0,tw.t,e);if(f>=1)tw=null}
- if(car){const tl=HT[S.h]-.3;car.lift+=(tl-car.lift)*Math.min(1,dt*2.2);car.up.position.y=car.lift;const td=V.doors?1:0;car.dA+=(td-car.dA)*Math.min(1,dt*2.5);for(const d of car.doors){d.g.rotation.y=d.side*car.dA*1.05;if(d.ap)d.ap.visible=car.dA>.02}
+ if(car){const tl=HT[S.h]-.3;car.lift+=(tl-car.lift)*Math.min(1,dt*2.2);if(Math.abs(tl-car.lift)<.001)car.lift=tl;car.up.position.y=car.lift;const td=V.doors?1:0;car.dA+=(td-car.dA)*Math.min(1,dt*2.5);if(Math.abs(td-car.dA)<.004)car.dA=td;for(const d of car.doors){d.g.rotation.y=d.side*car.dA*1.05;if(d.ap)d.ap.visible=car.dA>.02}
   if(V.scene==='studio'&&V.turn&&!RM&&V.view!=='driver'&&V.view!=='back')carHold.rotation.y+=dt*.12;
   const sv=sweep>0?(now-sweep)/1000:-1;for(const l of car.lights){let k=car.base;if(sv>=0&&sv<3){const r=Math.abs(l.z)/.86,fr=sv*1.1;k=car.base*(r<fr?1:.05)+(Math.abs(r-fr)<.12?4:0)}l.m.emissiveIntensity=k}if(sv>3)sweep=-1;
   heads.forEach((h,i)=>{const p=car.head[i],w=V3(p.x,p.y+car.lift,p.z).applyMatrix4(car.g.matrixWorld);h.position.copy(w);h.target.position.copy(V3(p.x+12,0,p.z).applyMatrix4(car.g.matrixWorld))})}

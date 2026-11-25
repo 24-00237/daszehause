@@ -158,7 +158,7 @@ function heimweg(o){
  for(const [x,y,front] of [[2.545,belt-.22,1],[-2.545,belt-.17,0]])for(let i=0;i<n;i++){const z=-.86+(i+.5)*1.72/n,m=new THREE.MeshStandardMaterial({color:LC('#222'),emissive:front?lc:(o.light==='ice'?lc:LC('#ff6a3a')),emissiveIntensity:1});const s=bx(.02,.028,1.72/n-.004,m,x,y,z);s.castShadow=false;lights.push({m,z,front})}
  // flush door seams and hidden handles; door skins that swing open
  const doors=[];for(const s of [-1,1]){for(const x of [1.2,.05,-1.15])bx(.012,belt-b-.36,.012,dark,x,(belt+b+.34)/2,s*(Wd/2+.002));
-  for(const [hx,x0] of [[1.2,1.14],[.05,1.17]]){const dg=new THREE.Group();dg.position.set(hx,0,s*(Wd/2+.006));up.add(dg);const dh=belt-b-.3;bx(x0,dh,.014,body,-x0/2,b+.3+dh/2,0,dg);bx(x0-.06,dh-.08,.05,wool,-x0/2,b+.3+dh/2,-s*.035,dg);bx(x0-.1,.04,.06,dark,-x0/2,belt-.04,-s*.04,dg);bx(.2,.022,.014,dark,-x0+.32,belt-.14,s*.009,dg);
+  for(const [hx,x0] of [[1.2,1.14],[.05,1.17]]){const dg=new THREE.Group();dg.position.set(hx,0,s*(Wd/2+.006));up.add(dg);const dh=belt-b-.3;bx(x0,dh,.014,body,-x0/2,b+.3+dh/2,0,dg);bx(x0-.14,dh-.12,.04,wool,-x0/2,b+.3+dh/2,-s*.05,dg);bx(x0-.16,.04,.05,dark,-x0/2,belt-.06,-s*.05,dg);bx(.2,.022,.014,dark,-x0+.32,belt-.14,s*.009,dg);
    pane(clip(cp,hx-x0,hx),dg,hx,-s*(Wd/2+.006-gz));
    const ap=new THREE.Group();ap.visible=false;up.add(ap);bx(x0-.02,dh-.02,.01,M('#141414',{roughness:.9}),hx-x0/2,b+.3+dh/2,s*(Wd/2+.002),ap);bx(x0-.02,.05,.06,steel,hx-x0/2,b+.33,s*(Wd/2-.02),ap);doors.push({g:dg,side:s,ap})}
   const mr=bx(.2,.08,.06,dark,1.12,belt+.1,s*(Wd/2+.1));bx(.05,.04,.12,dark,1.12,belt+.05,s*(Wd/2+.04))}
