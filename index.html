@@ -11,8 +11,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
 <style>
 /* VOICE: monumental and calm — tropical brutalism, with only a slight art deco accent.
-   IDEA: a board-formed concrete entrance wall in the tropics: heavy cast lettering, deep-set openings, palms casting shadow, one lit stair.
-   PICTURE: each study shown as a drawing set deep into a thick concrete frame; a palm-shadow and the amber stair lights carry the mood.
+   IDEA: a board-formed concrete entrance wall in the tropics: heavy cast lettering, deep-set openings, a constellation of dots linking the studies, one lit stair.
+   PICTURE: each study shown as a drawing set deep into a thick concrete frame; a quiet constellation and the amber stair lights carry the mood.
    COLOUR and TYPE: warm board-formed concrete, charcoal ink, tropical green, one amber accent from the step lights; Archivo wide and heavy.
    LAYOUT: massive left-aligned title on a concrete band, then two deep-set sheets that stack below 760px. The deco touch is one small stepped mark. */
 :root{color-scheme:light;--con:#d8d2c6;--con2:#cbc4b6;--ink:#1e1b17;--mute:#5e574d;--amber:#f0b44c;--green:#2f4a3a;--deep:#8f877a}
@@ -22,7 +22,7 @@ body{margin:0;color:var(--ink);font:16px/1.6 Archivo,system-ui,sans-serif;overfl
 a{color:inherit}
 .band{position:relative;overflow:hidden;background:linear-gradient(#c9c2b4,#bdb5a6);border-bottom:10px solid #a9a193;box-shadow:0 18px 30px -18px rgba(0,0,0,.35)}
 .band::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 30px,rgba(40,32,24,.07) 30px 31px);pointer-events:none}
-.palm{position:absolute;right:-40px;top:-30px;width:min(520px,60vw);height:auto;opacity:.22;pointer-events:none}
+.stars{position:absolute;right:-10px;top:-10px;width:min(560px,62vw);height:auto;opacity:.42;pointer-events:none}
 .head{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:clamp(40px,7vw,96px) max(5vw,16px) clamp(34px,5vw,60px)}
 .by{font:700 13px Archivo,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:var(--mute);margin:0 0 14px;display:flex;align-items:center;gap:12px}
 /* the slight deco accent: a small stepped mark, like a ziggurat in cast concrete */
@@ -44,18 +44,17 @@ h2{font-size:clamp(28px,3vw,36px);line-height:1.05;margin:6px 0 10px;font-stretc
 .go i{width:8px;height:8px;background:var(--amber);box-shadow:0 0 8px var(--amber)}
 a.sheet:hover .go{background:#3a3530}
 footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--mute);font-size:13.5px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-@media(max-width:760px){main{grid-template-columns:minmax(0,1fr)}.palm{opacity:.16}}
+@media(max-width:760px){main{grid-template-columns:minmax(0,1fr)}.stars{opacity:.3}}
 @media(prefers-reduced-motion:reduce){a.sheet{transition:none}a.sheet:hover{transform:none}}
 </style>
 </head>
 <body>
 <div class="band">
-  <svg class="palm" viewBox="0 0 400 300" aria-hidden="true"><g fill="#2f4a3a">
-    <path d="M300 300 C290 230 270 170 230 120 C250 175 262 235 268 300Z"/>
-    <path d="M232 122 C180 90 110 92 40 130 C110 110 170 112 225 132Z"/><path d="M232 122 C200 70 150 40 80 30 C145 55 190 85 222 128Z"/>
-    <path d="M232 122 C240 70 270 30 330 0 C285 45 258 85 240 128Z"/><path d="M232 122 C285 95 340 100 400 125 C340 115 285 118 240 132Z"/>
-    <path d="M232 122 C270 140 300 180 310 230 C290 188 265 160 228 136Z"/><path d="M232 122 C190 140 150 175 130 225 C160 185 190 158 236 136Z"/>
-  </g></svg>
+  <svg class="stars" viewBox="0 0 400 300" aria-hidden="true">
+    <path d="M40 150L95 105M95 105L150 128M150 128L205 70M205 70L262 96M262 96L318 48M318 48L372 88M262 96L232 165M232 165L300 190M300 190L350 150M350 150L372 88" fill="none" stroke="#24211c" stroke-width="1.1"/>
+    <g fill="#24211c"><circle cx="40" cy="150" r="3"/><circle cx="95" cy="105" r="4"/><circle cx="150" cy="128" r="3"/><circle cx="205" cy="70" r="4.5"/><circle cx="318" cy="48" r="3.5"/><circle cx="372" cy="88" r="3"/><circle cx="232" cy="165" r="3.5"/><circle cx="300" cy="190" r="4"/><circle cx="350" cy="150" r="3"/></g><g fill="#24211c" opacity=".6"><circle cx="70" cy="40" r="1.6"/><circle cx="130" cy="60" r="1.6"/><circle cx="180" cy="210" r="1.6"/><circle cx="390" cy="200" r="1.6"/><circle cx="20" cy="240" r="1.6"/><circle cx="280" cy="250" r="1.6"/><circle cx="110" cy="190" r="1.6"/><circle cx="345" cy="20" r="1.6"/></g>
+    <circle cx="262" cy="96" r="5" fill="#f0b44c"/>
+  </svg>
   <div class="head">
     <p class="by"><span class="mark" aria-hidden="true"></span>Andre Parrocho</p>
     <h1>Design Studies</h1>
@@ -93,6 +92,6 @@ footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--m
     <div class="txt"><p class="kind">Explorer yacht study</p><h2>Fernweh</h2><p>A 50 m sail-assist explorer yacht with two 40 m wings, a beach club, a mahogany limousine tender and a heated pool. She docks at das Zuhause’s jetty. <i>Fernweh</i> is German for a longing to be far away.</p><span class="go"><i></i>Board the yacht</span></div>
   </a>
 </main>
-<footer><span class="mark" aria-hidden="true"></span>Design explorations, not construction drawings · 24-00237.github.io/daszehause</footer>
+<footer><span class="mark" aria-hidden="true"></span>Design explorations, not construction drawings</footer>
 </body>
 </html>
