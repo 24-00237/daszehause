@@ -29,13 +29,13 @@ a{color:inherit}
 .mark{width:34px;height:14px;flex:none;background:linear-gradient(var(--amber),var(--amber)) 13px 0/8px 4px no-repeat,linear-gradient(var(--amber),var(--amber)) 8px 5px/18px 4px no-repeat,linear-gradient(var(--amber),var(--amber)) 0 10px/34px 4px no-repeat}
 h1{font-size:clamp(46px,9vw,112px);line-height:.92;margin:0;font-stretch:125%;font-weight:800;letter-spacing:-.01em;text-transform:uppercase;text-wrap:balance;color:#24211c;text-shadow:0 1px 0 rgba(255,255,255,.35),0 -1px 0 rgba(0,0,0,.18)}
 .intro{max-width:52ch;margin:22px 0 0;color:#3c372f;font-size:17px}
-main{max-width:1240px;margin:0 auto;padding:clamp(34px,5vw,64px) max(5vw,16px) 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(20px,3vw,40px)}
+main{max-width:1240px;margin:0 auto;padding:clamp(34px,5vw,64px) max(5vw,16px) 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(20px,3vw,40px)}
 a.sheet{display:flex;flex-direction:column;text-decoration:none;background:linear-gradient(#cec7b9,#c4bcad);padding:16px 16px 0;box-shadow:0 2px 0 #b2aa9b,0 22px 34px -20px rgba(0,0,0,.45);transition:transform .35s ease,box-shadow .35s ease}
 a.sheet:hover{transform:translateY(-4px);box-shadow:0 2px 0 #b2aa9b,0 30px 40px -20px rgba(0,0,0,.5)}
 a.sheet:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
 .pic{position:relative;aspect-ratio:16/10;overflow:hidden;box-shadow:inset 0 10px 18px -8px rgba(0,0,0,.45),inset 0 0 0 1px rgba(0,0,0,.12)}
 .pic svg{position:absolute;inset:0;width:100%;height:100%}
-.zu .pic{background:#e4ddd0}.bg .pic{background:linear-gradient(#cfdbe4,#e9eef2)}.fw .pic{background:linear-gradient(#cfe0e6,#e3ecee 58%,#2a6f86 58%,#1d5a70)}
+.zu .pic{background:#e4ddd0}.bg .pic{background:linear-gradient(#cfdbe4,#e9eef2)}.hw .pic{background:#2a2a2c}.fw .pic{background:linear-gradient(#cfe0e6,#e3ecee 58%,#2a6f86 58%,#1d5a70)}
 .txt{padding:20px 6px 22px}
 .kind{font:700 12px Archivo,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin:0}
 h2{font-size:clamp(28px,3vw,36px);line-height:1.05;margin:6px 0 10px;font-stretch:118%;font-weight:800}
@@ -58,7 +58,7 @@ footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--m
   <div class="head">
     <p class="by"><span class="mark" aria-hidden="true"></span>Andre Parrocho</p>
     <h1>Design Studies</h1>
-    <p class="intro">Interactive 3D studies of a residence in tropical brutalism, the yacht that docks at its jetty and a cabin in the Alps. Open any one to walk through it, change it, and see it by day or by night.</p>
+    <p class="intro">Interactive 3D studies of a residence in tropical brutalism, the yacht that docks at its jetty, a cabin in the Alps and the car that drives between them. Open any one to walk through it, change it, and see it by day or by night.</p>
   </div>
 </div>
 <main>
@@ -111,6 +111,19 @@ footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--m
       <circle cx="244" cy="140" r="3" fill="#c8452c"/>
     </svg></div>
     <div class="txt"><p class="kind">Alpine cabin study</p><h2>Bergruhe</h2><p>A modern Alpine cabin of charred larch on a concrete base set into the slope, with a diagonal roof, a glass room cantilevered over the valley, a hearth column, a sauna and a hot tub in the snow. <i>Bergruhe</i> is German for mountain stillness.</p><span class="go"><i></i>Enter the cabin</span></div>
+  </a>
+  <a class="sheet hw" href="heimweg/">
+    <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Side drawing of Heimweg: a squared-off dark off-roader with a dark glass canopy, a roof platform and a thin warm light line">
+      <rect width="400" height="250" fill="#2a2a2c"/><ellipse cx="200" cy="196" rx="170" ry="10" fill="#1a1a1b"/>
+      <path d="M78 186 V128 Q78 118 88 118 H318 Q326 118 328 126 L332 150 V186 Z" fill="#3a3b3d"/>
+      <path d="M96 118 L108 82 Q110 78 116 78 H278 L300 118 Z" fill="#0d1014"/>
+      <rect x="110" y="70" width="170" height="4" fill="#111"/><rect x="118" y="74" width="5" height="5" fill="#111"/><rect x="262" y="74" width="5" height="5" fill="#111"/>
+      <path d="M78 186 V164 H332 V186 Z" fill="#232425"/>
+      <circle cx="124" cy="186" r="26" fill="#141414"/><circle cx="124" cy="186" r="15" fill="#2c2d2f"/><circle cx="290" cy="186" r="26" fill="#141414"/><circle cx="290" cy="186" r="15" fill="#2c2d2f"/>
+      <path d="M150 124 V164 M214 124 V164" stroke="#1d1e1f" stroke-width="1.2"/>
+      <rect x="318" y="140" width="15" height="2.5" fill="#ffd9a0"/><rect x="330" y="137" width="40" height="8" fill="url(#hwg)"/><defs><linearGradient id="hwg"><stop offset="0" stop-color="#ffd9a0" stop-opacity=".6"/><stop offset="1" stop-color="#ffd9a0" stop-opacity="0"/></linearGradient></defs>
+    </svg></div>
+    <div class="txt"><p class="kind">Off-roader study</p><h2>Heimweg</h2><p>An electric luxury off-roader drawn as a minimal monolith: tough below, one dark-glass canopy above, and a hairline of warm light that sweeps open when you come home. <i>Heimweg</i> is German for the way home.</p><span class="go"><i></i>Take the wheel</span></div>
   </a>
 </main>
 <footer><span class="mark" aria-hidden="true"></span>Design explorations, not construction drawings</footer>

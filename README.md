@@ -22,6 +22,12 @@ Third study: a modern Alpine cabin of charred larch on a concrete base set into 
 
 **Live:** https://24-00237.github.io/daszehause/bergruhe/
 
+## Heimweg — Off-Roader Study
+
+Fourth study: an original electric luxury off-roader drawn as a minimal monolith, with one dark-glass canopy, a warm full-width light signature with a "welcome home" sweep, air suspension (Road, Trail, Deep snow), and scenes in a studio, on Bergruhe's drive and at das Zuhause at night. It's also parked in Bergruhe's garage.
+
+**Live:** https://24-00237.github.io/daszehause/heimweg/
+
 ## All studies
 
-The home page introduces all three studies: https://24-00237.github.io/daszehause/
+The home page introduces all four studies: https://24-00237.github.io/daszehause/
