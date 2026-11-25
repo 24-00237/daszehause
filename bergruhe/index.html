@@ -135,7 +135,7 @@ function heimweg(o){
   tyreM=M('#161616',{roughness:.95,map:wh?null:(window.HWT[o.tyre]||window.HWT.at)}),rimM=M('#2c2d2f',{roughness:.35,metalness:wh?0:.6}),wool=M({stone:'#8d8a84',oat:'#cdbf9f',charcoal:'#3a3a3c'}[o.wool]||'#8d8a84',{roughness:1}),oak=M('#3d2b1f',{roughness:.6});
  const tint={smoke:'#07090b',bronze:'#160f09',ink:'#050914'}[o.tint]||'#07090b',dim=o.dim==null?.7:o.dim;
  const glass=new THREE.MeshStandardMaterial({color:LC(wh?'#c9d3d6':tint),roughness:.04,metalness:.45,envMapIntensity:.7,transparent:true,opacity:wh?.4:.5+.48*dim,depthWrite:false});
- const g=new THREE.Group(),up=new THREE.Group();g.add(up);const b=.3,R=.41,ra=.5,xf=1.52,xr=-1.48,belt=b+.98,roof=b+1.62,Wd=2;
+ const g=new THREE.Group(),up=new THREE.Group();g.add(up);const b=.4,R=.47,ra=.56,xf=1.52,xr=-1.48,belt=b+.98,roof=b+1.62,Wd=2;
  const mesh=(geo,mat,x=0,y=0,z=0,par=up)=>{const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);m.castShadow=m.receiveShadow=true;par.add(m);return m};
  const bx=(w,h,d,mat,x,y,z,par)=>mesh(new THREE.BoxGeometry(w,h,d),mat,x,y,z,par);
  // body: one monolith, soft edges, arches cut out
@@ -145,30 +145,33 @@ function heimweg(o){
  const bg=new THREE.ExtrudeGeometry(new THREE.Shape(ring.map(p=>new THREE.Vector2(p[0],p[1]))),{depth:Wd-.14,bevelEnabled:true,bevelThickness:.07,bevelSize:.06,bevelSegments:3,curveSegments:8});bg.translate(0,0,-(Wd-.14)/2);body.side=THREE.DoubleSide;mesh(bg,[new THREE.MeshBasicMaterial({visible:false}),body]);
  const archY=x=>{let y=b+.32;for(const c of [xf,xr]){const d=x-c,r2=ra+.08;if(Math.abs(d)<r2)y=Math.max(y,R+Math.sqrt(r2*r2-d*d))}return y};
  const dpoly=(x0,x1,ins)=>{const P=[],n=14;for(let i=0;i<=n;i++){const x=x0+ins+(x1-x0-2*ins)*i/n;P.push([x,archY(x)+ins])}P.push([x1-ins,belt-.03-ins],[x0+ins,belt-.03-ins]);return P};
- const DO=[[.06,1.2],[-1.12,.04]];for(const s of [-1,1]){const sh=new THREE.Shape(pts.map(p=>new THREE.Vector2(p[0],p[1])));for(const [x0,x1] of DO)sh.holes.push(new THREE.Path(dpoly(x0,x1,0).reverse().map(q=>new THREE.Vector2(q[0],q[1]))));mesh(new THREE.ShapeGeometry(sh,8),body,0,0,s*(Wd/2+.0005))}
+ const DO=[[.14,1.2],[-1.12,-.04]];for(const s of [-1,1]){const sh=new THREE.Shape(pts.map(p=>new THREE.Vector2(p[0],p[1])));for(const [x0,x1] of DO)sh.holes.push(new THREE.Path(dpoly(x0,x1,0).reverse().map(q=>new THREE.Vector2(q[0],q[1]))));mesh(new THREE.ShapeGeometry(sh,8),body,0,0,s*(Wd/2+.0005))}
  // glass canopy: one continuous dark-glass top
  const cp=[[1.3,belt-.02],[.76,roof-.06],[.6,roof],[-2.08,roof],[-2.3,roof-.08],[-2.36,belt+.3],[-2.38,belt-.02]];
  const shell=[[1.3,belt-.02],[.76,roof-.06],[.6,roof],[-2.1,roof],[-2.1,roof-.035],[.62,roof-.035],[.74,roof-.095],[1.255,belt-.02]];const cg=new THREE.ExtrudeGeometry(new THREE.Shape(shell.map(p=>new THREE.Vector2(p[0],p[1]))),{depth:Wd-.36,bevelEnabled:true,bevelThickness:.05,bevelSize:.02,bevelSegments:2});cg.translate(0,0,-(Wd-.36)/2);const can=mesh(cg,[new THREE.MeshBasicMaterial({visible:false}),glass]);can.renderOrder=3;can.castShadow=false;
  const clip=(P,x0,x1)=>{let out=P;for(const [lim,keep] of [[x0,(x)=>x>=x0],[x1,(x)=>x<=x1]]){const inp=out;out=[];for(let i=0;i<inp.length;i++){const a=inp[i],b2=inp[(i+1)%inp.length],ia=keep(a[0]),ib=keep(b2[0]);if(ia)out.push(a);if(ia!==ib){const t=(lim-a[0])/(b2[0]-a[0]);out.push([lim,a[1]+(b2[1]-a[1])*t])}}}return out};
  const pane=(P,par,dx,z,s)=>{if(P.length<3)return null;const gg=new THREE.Group();gg.position.set(0,belt-.03,z);gg.rotation.x=-s*Math.atan(.085/(roof-belt));par.add(gg);const sg=new THREE.ShapeGeometry(new THREE.Shape(P.map(q=>new THREE.Vector2(q[0]-dx,q[1]-belt+.03))));const m=new THREE.Mesh(sg,glass);m.renderOrder=3;m.material.side=THREE.DoubleSide;gg.add(m);return gg};
- const gz=(Wd-.36)/2+.05;for(const s of [-1,1]){pane(clip(cp,1.2,1.4),up,0,s*Wd/2,s);pane(clip(cp,-2.5,-1.12),up,0,s*Wd/2,s)}
+ const gz=(Wd-.36)/2+.05;for(const s of [-1,1]){pane(clip(cp,1.19,1.4),up,0,s*Wd/2,s);pane(clip(cp,-2.5,-1.11),up,0,s*Wd/2,s)}
  // rugged lower: sills, bumpers, arch flares, skid plates, recovery points
  bx(xf-ra-(xr+ra)-.2,.26,Wd+.05,clad,(xf+xr)/2,b+.1,0);{const fb=bx(.42,.26,Wd+.03,clad,2.32,b+.25,0);fb.rotation.z=.32}bx(.42,.34,Wd+.03,clad,-2.36,b+.15,0);
  for(const xw of [xf,xr])for(const s of [-1,1]){const sh=new THREE.Shape();sh.absarc(0,0,ra+.1,0,Math.PI,false);sh.absarc(0,0,ra+.005,Math.PI,0,true);const fg=new THREE.ExtrudeGeometry(sh,{depth:.07,bevelEnabled:false,curveSegments:20});mesh(fg,clad,xw,R,s>0?Wd/2-.035:-Wd/2-.035)}
  {const sk=bx(.5,.04,1.2,steel,2.3,b+.16,0);sk.rotation.z=.55;const sr=bx(.6,.04,1.2,steel,-2.27,b-.02,0);sr.rotation.z=.22}
  for(const [xs,ys] of [[2.535,b+.42],[-2.585,b+.2]])for(const s of [-.62,.62]){const r=mesh(new THREE.TorusGeometry(.055,.016,8,16),steel,xs,ys,s);r.rotation.y=Math.PI/2}
+if(o.steps!==false)for(const s of [-1,1]){const x0s=xr+ra+.1,x1s=xf-ra-.1,L=x1s-x0s,xc=(x0s+x1s)/2;bx(L,.05,.24,steel,xc,b-.02,s*(Wd/2+.11));bx(L-.06,.012,.2,dark,xc,b+.01,s*(Wd/2+.11));for(const f of [.12,.5,.88])bx(.07,.12,.2,dark,x0s+L*f,b+.04,s*(Wd/2+.02))}
  // light signature: hairline full-width strips, segmented for the welcome sweep
  const lights=[],n=24,lc=LC({warm:'#ffd9a0',amber:'#ffb04a',ice:'#cfe6ff'}[o.light]||'#ffd9a0');
- const gate=new THREE.Group();gate.position.set(-2.1,roof,0);up.add(gate);
- for(const [x,y,front,par] of [[2.556,belt-.22,1,up],[-2.566+2.1,belt-.17-roof,0,gate]])for(let i=0;i<n;i++){const z=-.86+(i+.5)*1.72/n,m=new THREE.MeshStandardMaterial({color:LC('#222'),emissive:front?lc:(o.light==='ice'?lc:LC('#ff6a3a')),emissiveIntensity:1});const s=bx(.02,.028,1.72/n-.004,m,x,y,z,par);s.castShadow=false;lights.push({m,z,front})}
+ const gp=new THREE.Group();gp.position.set(-2.52,0,-(Wd/2-.04));up.add(gp);const gate=new THREE.Group();gate.position.set(.42,roof,Wd/2-.04);gp.add(gate);
+ for(const [x,y,front,par] of [[2.556,belt-.22,1,up]])for(let i=0;i<n;i++){const z=-.86+(i+.5)*1.72/n,m=new THREE.MeshStandardMaterial({color:LC('#222'),emissive:front?lc:(o.light==='ice'?lc:LC('#ff6a3a')),emissiveIntensity:1});const s=bx(.02,.028,1.72/n-.004,m,x,y,z,par);s.castShadow=false;lights.push({m,z,front})}
+ for(const s of [-1,1]){const tn=10,y0=b+.5,y1=belt-.06;for(let i=0;i<tn;i++){const y=y0+(i+.5)*(y1-y0)/tn,m=new THREE.MeshStandardMaterial({color:LC('#222'),emissive:o.light==='ice'?lc:LC('#ff5a2e'),emissiveIntensity:1});const t=bx(.05,(y1-y0)/tn-.004,.012,m,-2.33,y,s*(Wd/2+.016));t.castShadow=false;const w=bx(.02,(y1-y0)/tn-.004,.06,m,-2.452,y,s*(Wd/2-.055));w.castShadow=false;lights.push({m,z:(i+.5)/tn*.86,front:0})}}
  {const rg=[[-2.1,roof],[-2.3,roof-.08],[-2.36,belt+.3],[-2.39,belt],[-2.42,belt],[-2.39,belt+.3],[-2.33,roof-.08],[-2.13,roof-.03]].map(q=>new THREE.Vector2(q[0]+2.1,q[1]-roof));const gg=new THREE.ExtrudeGeometry(new THREE.Shape(rg),{depth:Wd-.36,bevelEnabled:true,bevelThickness:.05,bevelSize:.015,bevelSegments:2});gg.translate(0,0,-(Wd-.36)/2);const gm=mesh(gg,glass,0,0,0,gate);gm.renderOrder=3;gm.castShadow=false;
   bx(.07,belt-(b+.5),Wd-.1,body,-2.49+2.1,(belt+b+.5)/2-roof,0,gate);bx(.05,belt-(b+.5)-.1,Wd-.3,dark,-2.43+2.1,(belt+b+.5)/2-roof,0,gate)}
  bx(.9,.03,1.7,oak,-1.86,b+.375,0);for(const [lx,lz,w,h,d,c] of [[-2.02,-.5,.42,.62,.62,'#2b2c2e'],[-2.0,.15,.42,.55,.5,'#8a6a48'],[-1.72,.62,.34,.3,.5,'#4a5240'],[-2.05,.68,.3,.24,.42,'#c9b99a']])bx(w,h,d,M(c,{roughness:.7}),lx,b+.39+h/2,lz);
  // flush door seams and hidden handles; door skins that swing open
- const doors=[{g:gate,gate:1}];for(const s of [-1,1]){for(const x of [1.2,.05,-1.15])bx(.012,belt-b-.36,.03,dark,x,(belt+b+.34)/2,s*(Wd/2+.008));
-  for(const [hx,x0] of [[1.2,1.14],[.05,1.17]]){const dg=new THREE.Group();dg.position.set(hx,0,s*(Wd/2+.014));up.add(dg);const dh=belt-b-.3,dx0=hx-x0,slab=(P,d,mat,zc)=>{const g2=new THREE.ExtrudeGeometry(new THREE.Shape(P.map(q=>new THREE.Vector2(q[0]-hx,q[1]))),{depth:d,bevelEnabled:false});g2.translate(0,0,zc-d/2);return mesh(g2,mat,0,0,0,dg)};
+ const doors=[{g:gp,gate:1}];for(const s of [-1,1]){{const sg=new THREE.Group();up.add(sg);for(const x of [1.2,.14,-.04,-1.12])bx(.012,belt-b-.36,.03,dark,x,(belt+b+.34)/2,s*(Wd/2+.008),sg);doors.push({g:sg,seam:1})}
+  {const ti=Math.atan(.085/(roof-belt)),pg=new THREE.Group();pg.position.set(.05,belt-.03,s*Wd/2);pg.rotation.x=-s*ti;up.add(pg);bx(.24,roof-belt+.03,.04,dark,0,(roof-belt+.03)/2,s*.004,pg)}
+  for(const [hx,x0] of [[1.2,1.06],[-.04,1.08]]){const dg=new THREE.Group();dg.position.set(hx,0,s*(Wd/2+.014));up.add(dg);const dh=belt-b-.3,dx0=hx-x0,slab=(P,d,mat,zc)=>{const g2=new THREE.ExtrudeGeometry(new THREE.Shape(P.map(q=>new THREE.Vector2(q[0]-hx,q[1]))),{depth:d,bevelEnabled:false});g2.translate(0,0,zc-d/2);return mesh(g2,mat,0,0,0,dg)};
    slab(dpoly(dx0,hx,-.012),.014,body,0);slab(dpoly(dx0,hx,.05),.04,wool,-s*.05);bx(x0-.16,.04,.05,dark,-x0/2,belt-.06,-s*.05,dg);bx(.2,.022,.014,dark,-x0+.32,belt-.14,s*.009,dg);
-   pane(clip(cp,hx-x0+.01,hx-.01),dg,hx,-s*.014,s);bx(x0-.02,.03,.03,dark,-x0/2,belt-.02,-s*.01,dg);
+   pane(clip(cp,hx-x0-.006,hx+.006),dg,hx,-s*.014,s);bx(x0-.02,.03,.03,dark,-x0/2,belt-.02,-s*.01,dg);
    const ap=new THREE.Group();ap.visible=false;up.add(ap);bx(x0-.04,.03,.12,steel,hx-x0/2,b+.335,s*(Wd/2-.06),ap);doors.push({g:dg,side:s,ap})}
   const mr=bx(.2,.08,.06,dark,1.12,belt+.1,s*(Wd/2+.1));bx(.05,.04,.12,dark,1.12,belt+.05,s*(Wd/2+.04))}
  // roof platform and load
@@ -180,7 +183,7 @@ function heimweg(o){
  bx(.4,.2,1.72,dark,1.06,belt-.06,0);bx(.02,.09,1.1,new THREE.MeshStandardMaterial({color:LC('#111'),emissive:LC('#9fc4ff'),emissiveIntensity:wh?0:.8}),.86,belt+.06,0);{const sw=mesh(new THREE.TorusGeometry(.17,.024,8,24),dark,.66,belt+.04,-.45);sw.rotation.y=Math.PI/2;sw.rotation.x=.35}
  // wheels on the ground (outside the lifting body)
  for(const xw of [xf,xr])for(const s of [-1,1]){const wg=new THREE.Group();wg.position.set(xw,R,s*.86);g.add(wg);const ty=mesh(new THREE.CylinderGeometry(R,R,.32,40),tyreM,0,0,0,wg);ty.rotation.x=Math.PI/2;const sw=mesh(new THREE.CylinderGeometry(R-.04,R-.04,.33,32),M('#1b1b1b',{roughness:.9}),0,0,0,wg);sw.rotation.x=Math.PI/2;
-  const rim=mesh(new THREE.CylinderGeometry(.27,.27,.335,28),rimM,0,0,0,wg);rim.rotation.x=Math.PI/2;const fz=s*.17;
+  const rim=mesh(new THREE.CylinderGeometry(.31,.31,.335,28),rimM,0,0,0,wg);rim.rotation.x=Math.PI/2;const fz=s*.17;
   if(o.wheel==='disc'){for(let i=0;i<6;i++){const a=i/6*Math.PI*2;bx(.05,.05,.01,dark,Math.cos(a)*.19,Math.sin(a)*.19,fz,wg)}mesh(new THREE.CylinderGeometry(.06,.06,.01,16),steel,0,0,fz,wg).rotation.x=Math.PI/2}
   else if(o.wheel==='beadlock'){const t2=mesh(new THREE.TorusGeometry(.255,.02,6,32),steel,0,0,fz,wg);for(let i=0;i<16;i++){const a=i/16*Math.PI*2;mesh(new THREE.SphereGeometry(.012,6,4),steel,Math.cos(a)*.255,Math.sin(a)*.255,fz+s*.015,wg)}for(let i=0;i<8;i++){const a=i/8*Math.PI*2,sp=bx(.2,.035,.01,dark,Math.cos(a)*.1,Math.sin(a)*.1,fz,wg);sp.rotation.z=a}}
   else{for(let i=0;i<5;i++){const a=i/5*Math.PI*2,sp=bx(.2,.06,.012,M('#1a1b1c'),Math.cos(a)*.12,Math.sin(a)*.12,fz,wg);sp.rotation.z=a}mesh(new THREE.CylinderGeometry(.06,.06,.012,16),steel,0,0,fz,wg).rotation.x=Math.PI/2}}
