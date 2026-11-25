@@ -16,6 +16,12 @@ Sister project: a customizable 3D explorer yacht with sail-assist wings or a hel
 
 **Live:** https://24-00237.github.io/daszehause/fernweh/
 
+## Bergruhe — Alpine Cabin Study
+
+Third study: a modern Alpine cabin of charred larch on a concrete base set into the slope, with a diagonal roof (or a horizontal or gable roof to compare), a glass room cantilevered over the valley, a hearth column, a wood-fired sauna and an outdoor hot tub. Seasons from summer to deep winter, alpenglow and snowfall, and walk-throughs.
+
+**Live:** https://24-00237.github.io/daszehause/bergruhe/
+
 ## All studies
 
-The home page introduces both studies: https://24-00237.github.io/daszehause/
+The home page introduces all three studies: https://24-00237.github.io/daszehause/

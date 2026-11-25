@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Design Studies — Andre Parrocho</title>
 <link rel="apple-touch-icon" href="/daszehause/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/daszehause/icons/icon-192.png">
-<meta name="description" content="Interactive 3D design studies by Andre Parrocho: das Zuhause, a residence in tropical brutalism, and Fernweh, the explorer yacht that docks at its jetty.">
+<meta name="description" content="Interactive 3D design studies by Andre Parrocho: das Zuhause, a residence in tropical brutalism, Fernweh, the explorer yacht that docks at its jetty, and Bergruhe, a cabin in the Alps.">
 <meta property="og:title" content="Design Studies — Andre Parrocho"><meta property="og:description" content="das Zuhause, a residence in tropical brutalism, and Fernweh, the explorer yacht that docks at its jetty."><meta property="og:type" content="website"><meta property="og:url" content="https://24-00237.github.io/daszehause/"><meta property="og:image" content="https://24-00237.github.io/daszehause/preview.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
@@ -29,13 +29,13 @@ a{color:inherit}
 .mark{width:34px;height:14px;flex:none;background:linear-gradient(var(--amber),var(--amber)) 13px 0/8px 4px no-repeat,linear-gradient(var(--amber),var(--amber)) 8px 5px/18px 4px no-repeat,linear-gradient(var(--amber),var(--amber)) 0 10px/34px 4px no-repeat}
 h1{font-size:clamp(46px,9vw,112px);line-height:.92;margin:0;font-stretch:125%;font-weight:800;letter-spacing:-.01em;text-transform:uppercase;text-wrap:balance;color:#24211c;text-shadow:0 1px 0 rgba(255,255,255,.35),0 -1px 0 rgba(0,0,0,.18)}
 .intro{max-width:52ch;margin:22px 0 0;color:#3c372f;font-size:17px}
-main{max-width:1180px;margin:0 auto;padding:clamp(34px,5vw,64px) max(5vw,16px) 40px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
+main{max-width:1240px;margin:0 auto;padding:clamp(34px,5vw,64px) max(5vw,16px) 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(20px,3vw,40px)}
 a.sheet{display:flex;flex-direction:column;text-decoration:none;background:linear-gradient(#cec7b9,#c4bcad);padding:16px 16px 0;box-shadow:0 2px 0 #b2aa9b,0 22px 34px -20px rgba(0,0,0,.45);transition:transform .35s ease,box-shadow .35s ease}
 a.sheet:hover{transform:translateY(-4px);box-shadow:0 2px 0 #b2aa9b,0 30px 40px -20px rgba(0,0,0,.5)}
 a.sheet:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
 .pic{position:relative;aspect-ratio:16/10;overflow:hidden;box-shadow:inset 0 10px 18px -8px rgba(0,0,0,.45),inset 0 0 0 1px rgba(0,0,0,.12)}
 .pic svg{position:absolute;inset:0;width:100%;height:100%}
-.zu .pic{background:#e4ddd0}.fw .pic{background:linear-gradient(#cfe0e6,#e3ecee 58%,#2a6f86 58%,#1d5a70)}
+.zu .pic{background:#e4ddd0}.bg .pic{background:linear-gradient(#cfdbe4,#e9eef2)}.fw .pic{background:linear-gradient(#cfe0e6,#e3ecee 58%,#2a6f86 58%,#1d5a70)}
 .txt{padding:20px 6px 22px}
 .kind{font:700 12px Archivo,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin:0}
 h2{font-size:clamp(28px,3vw,36px);line-height:1.05;margin:6px 0 10px;font-stretch:118%;font-weight:800}
@@ -58,7 +58,7 @@ footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--m
   <div class="head">
     <p class="by"><span class="mark" aria-hidden="true"></span>Andre Parrocho</p>
     <h1>Design Studies</h1>
-    <p class="intro">Interactive 3D studies of a residence in tropical brutalism and the yacht that docks at its jetty. Open either one to walk through it, change it, and see it by day or by night.</p>
+    <p class="intro">Interactive 3D studies of a residence in tropical brutalism, the yacht that docks at its jetty and a cabin in the Alps. Open any one to walk through it, change it, and see it by day or by night.</p>
   </div>
 </div>
 <main>
@@ -90,6 +90,27 @@ footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--m
       <path d="M30 158 L56 158 L58 152 L32 152 Z" fill="#6b3a1c"/>
     </svg></div>
     <div class="txt"><p class="kind">Explorer yacht study</p><h2>Fernweh</h2><p>A 50 m sail-assist explorer yacht with two 40 m wings, a beach club, a mahogany limousine tender and a heated pool. She docks at das Zuhause’s jetty. <i>Fernweh</i> is German for a longing to be far away.</p><span class="go"><i></i>Board the yacht</span></div>
+  </a>
+  <a class="sheet bg" href="bergruhe/">
+    <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Elevation of Bergruhe: a dark timber cabin with a diagonal roof rising toward the valley, a glass wall, a cantilevered glass room and a concrete base set into a snowy slope">
+      <path d="M0 120 L50 86 L84 104 L132 62 L178 98 L214 78 L262 110 L310 70 L352 96 L400 80 V250 H0Z" fill="#b9c3cc"/>
+      <path d="M118 74 L132 62 L146 74 L139 78 L132 72 L125 78Z M298 80 L310 70 L322 80 L316 83 L310 78 L304 83Z" fill="#f4f6f8"/>
+      <path d="M0 150 L400 214 V250 H0Z" fill="#f4f6f8"/>
+      <g fill="#2f4a3a"><path d="M24 150 l10 -30 l10 30z"/><path d="M44 154 l8 -24 l8 24z"/><path d="M356 214 l9 -28 l9 28z"/></g>
+      <path d="M150 196 L274 196 L274 212 L150 212Z" fill="#cfc9be" stroke="#221d18" stroke-width=".8"/>
+      <path d="M150 160 L150 196 L274 196 L274 146 Z" fill="#c9c3b8" stroke="#221d18" stroke-width=".8"/>
+      <path d="M150 160 L150 110 L274 70 L274 146 Z" fill="#24201d"/>
+      <path d="M144 112 L282 66 L283 70 L145 116Z" fill="#2a2b2d"/>
+      <path d="M144 110 L282 64 L282 66 L144 112Z" fill="#f4f6f8"/>
+      <rect x="236" y="84" width="38" height="62" fill="#9fb3ba" stroke="#1b1b1b"/>
+      <path d="M249 84 v62 M262 84 v62 M236 120 h38" stroke="#1b1b1b" stroke-width="1.2"/>
+      <rect x="274" y="122" width="44" height="24" fill="#9fb3ba" stroke="#1b1b1b"/><rect x="273" y="118" width="46" height="4" fill="#f4f6f8"/>
+      <rect x="216" y="108" width="12" height="38" fill="#8d8881"/><rect x="214" y="60" width="16" height="10" fill="#8d8881"/>
+      <path d="M178 180 h14 v16 h-14z M206 178 h22 v12 h-22z" fill="#9fb3ba" stroke="#1b1b1b"/>
+      <ellipse cx="126" cy="196" rx="14" ry="4" fill="#6f4a2e"/><rect x="112" y="186" width="28" height="10" fill="#6f4a2e"/>
+      <circle cx="244" cy="140" r="3" fill="#c8452c"/>
+    </svg></div>
+    <div class="txt"><p class="kind">Alpine cabin study</p><h2>Bergruhe</h2><p>A modern Alpine cabin of charred larch on a concrete base set into the slope, with a diagonal roof, a glass room cantilevered over the valley, a hearth column, a sauna and a hot tub in the snow. <i>Bergruhe</i> is German for mountain stillness.</p><span class="go"><i></i>Enter the cabin</span></div>
   </a>
 </main>
 <footer><span class="mark" aria-hidden="true"></span>Design explorations, not construction drawings</footer>
