@@ -262,7 +262,7 @@ const VIEWS=[['hero','Cutaway'],['vaulthero','The vault'],['facade','Facade'],['
 const WALKS=[['enter','Through the hidden door'],['meet','Meeting table'],['bench','Model bench'],['nook','Reading nook'],['lounge','Lounge'],['nap','Nap corner'],['vaultw','The vault wall'],['inside','Inside the vault'],['glass','Morning light'],['bay','Lift lobby']];
 const CUTV=['hero','plan','baycut'];
 const S=Object.assign({},DEF);
-const V={mode:'render',view:'hero',labels:false,units:'m',time:6.75,weather:'clear',mood:'focus',lights:'auto',fig:true,perf:'auto',shut:false,vault:false,doorOpen:false,cut:true};
+const V={mode:'render',view:'facade',labels:false,units:'m',time:20.6,weather:'clear',mood:'focus',lights:'auto',fig:true,perf:'auto',shut:false,vault:false,doorOpen:false,cut:false};
 const flat=CTRL.flatMap(c=>c[2]),itOf=k=>flat.find(i=>i.k===k),obj=it=>it.v?V:S;
 const clean=o=>{const r={};if(!o||typeof o!=='object')return r;for(const k in DEF){if(!(k in o)||typeof o[k]!==typeof DEF[k])continue;const it=itOf(k);if(it&&it.t==='o'&&!it.op.some(p=>p[0]===o[k]))continue;if(it&&it.t==='c'&&!/^#[0-9a-f]{6}$/i.test(o[k]))continue;if(it&&it.t==='r'&&!(o[k]>=it.min&&o[k]<=it.max))continue;r[k]=o[k]}return r};
 try{const s=JSON.parse(localStorage.getItem('denkraumS')||'null');if(s)Object.assign(S,clean(s));const v=JSON.parse(localStorage.getItem('denkraumV')||'null');if(v)for(const k of ['mode','labels','units','time','weather','mood','lights','fig','perf','shut','vault','doorOpen'])if(k in v&&typeof v[k]===typeof V[k])V[k]=v[k]}catch(e){}
