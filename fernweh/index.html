@@ -83,6 +83,16 @@ textarea{width:100%;min-height:80px;font:12.5px/1.4 ui-monospace,monospace;borde
 .pexit{position:absolute;right:22px;top:22px;display:none;z-index:3}body.present .pexit{display:block}body.present aside,body.present .ov,body.present .tb,body.present .hint,body.present .frame,body.present #labs{display:none}body.present .app{grid-template-columns:1fr}body.present .stage{margin:0;border-radius:0;border:0}
 @media(max-width:860px){.app{grid-template-columns:1fr;height:auto}.stage{height:70vh;min-height:460px;margin:10px}.ov{flex-wrap:wrap}.pop{width:calc(100vw - 44px)}.tl{left:12px;right:12px;top:12px}.bl{left:12px;right:12px;bottom:12px;max-width:none}.ov .chip{flex:none;white-space:nowrap;min-height:38px;font-size:13px;padding:0 11px}.sep{flex:none}.tb{display:none}.pexit{right:12px;top:12px}.tour{bottom:118px}.heel{top:60px;right:12px;max-width:170px;padding:5px 8px;font-size:11px}.heel b{font-size:14px}.tb{width:230px;grid-template-columns:48px minmax(0,1fr)}.tb b{font-size:16px}.tb .tx span:nth-child(4){display:none}.hint{display:none}}
 @media(prefers-reduced-motion:reduce){.hint{transition:none}}
+/* Tables wrap long values; panel sections fold; the switcher is one row; phone buttons are finger-sized */
+td.n{white-space:normal;min-width:4.5em}
+.studynav{gap:5px}.studynav a{padding-left:10px;padding-right:10px}.studynav a[aria-current]{display:none}.studynav a.home{padding:0 11px;font-size:16px}
+.fold{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:36px;cursor:pointer;font:inherit}
+.fold::after{content:'';flex:none;width:7px;height:7px;margin:0 6px 4px 0;border-right:1.6px solid var(--mute);border-bottom:1.6px solid var(--mute);transform:rotate(45deg);transition:transform .2s}
+.fold[aria-expanded="false"]::after{margin-bottom:0;transform:rotate(-45deg)}
+section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
+.mobw{display:none}.deskw{display:contents}
+@media(max-width:860px){.mobw{display:contents}.deskw{display:none}.stage .ov .chip,.st,.btn,.sw,.studynav a,.fold{min-height:44px}}
+@media(prefers-reduced-motion:reduce){.fold::after{transition:none}}
 </style>
 </head>
 <body>
@@ -106,7 +116,7 @@ textarea{width:100%;min-height:80px;font:12.5px/1.4 ui-monospace,monospace;borde
     </div>
   </div>
   <aside>
-    <nav class="studynav" aria-label="Design studies"><a href="https://24-00237.github.io/daszehause/">All studies</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/" aria-current="page">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a></nav>
+    <nav class="studynav" aria-label="Design studies"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies" title="All studies">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/" aria-current="page">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a></nav>
     <h1>Fernweh</h1>
     <p class="sub">An explorer yacht study and sister to das Zuhause, in a modern minimalist style: a white superstructure, wraparound glass and a long-range hull. <i>Fernweh</i> is German for a longing to be far away.</p>
     <div class="studies" id="studies"></div>
@@ -618,7 +628,7 @@ function camFor(v){const L=S.L,f=S.fb,B=S.beam,l0=G.lv[0],lt=G.lv[G.n-1],sk=G.sk
  default:return[new THREE.Vector3(D*.85,D*.42,D*.85),new THREE.Vector3(0,ty-1,0)]}}
 const DHs=()=>S.deckH;
 let tw=null;const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function go(v,instant){V.view=v;if(v==='garage'&&S.garage&&!V.gOpen){V.gOpen=true;chips()}const [p,t]=camFor(v);if(instant||RM){cam.position.copy(p);ctl.target.copy(t);tw=null}else tw={p0:cam.position.clone(),t0:ctl.target.clone(),p,t,s:performance.now()};
+function go(v,instant){V.view=v;if(v==='garage'&&S.garage&&!V.gOpen){V.gOpen=true;chips()}const [p,t]=camFor(v);if(VIEWS.some(x=>x[0]===v)){const as=stage.clientWidth/stage.clientHeight;if(as<1)p.sub(t).multiplyScalar(Math.min(2,1.15/as)).add(t)};if(instant||RM){cam.position.copy(p);ctl.target.copy(t);tw=null}else tw={p0:cam.position.clone(),t0:ctl.target.clone(),p,t,s:performance.now()};
  const nm=[...VIEWS,...WALKS].find(x=>x[0]===v);$('tbView').textContent='Explorer yacht study · '+(nm?nm[1]:'');chips()}
 
 /* ---------- UI ---------- */
@@ -649,7 +659,8 @@ function chips(){const ch=(on,attr,txt)=>`<button class="chip${on?' on':''}" typ
  $('views').innerHTML=ch(MENU==='cams','data-menu="cams" aria-haspopup="true"',`Camera · ${cur?cur[1]:'Free'} ▾`)+pop('cams',lab('Outside')+VIEWS.map(v=>ch(V.view===v[0],`data-v="${v[0]}"`,v[1])).join('')+lab('Walk-through')+WALKS.map(v=>ch(V.view===v[0],`data-v="${v[0]}"`,v[1])).join(''))
   +ch(MENU==='show','data-menu="show" aria-haspopup="true"','Show ▾')+pop('show',ch(0,'data-x="cer"','Naming ceremony')+ch(0,'data-x="fly"','Flyover')+ch(0,'data-x="present"','Present')+ch(0,'data-x="snap"','Save image'));
  const stN={anchor:'At anchor',underway:'Underway',docked:'Docked at das Zuhause'}[V.state];
- $('modes').innerHTML=[['render','Render'],['white','White'],['xray','X-ray']].map(m=>ch(V.mode===m[0],`data-m="${m[0]}"`,m[1])).join('')+'<span class="sep"></span>'
+ const MD=[['render','Render'],['white','White model'],['xray','X-ray']],md=MD.map(m=>ch(V.mode===m[0],`data-m="${m[0]}"`,m[1])).join('');
+ $('modes').innerHTML='<span class="deskw">'+md+'<span class="sep"></span></span><span class="mobw">'+ch(MENU==='style','data-menu="style" aria-haspopup="true"',`Style · ${(MD.find(m=>m[0]===V.mode)||MD[0])[1]} ▾`)+pop('style',md)+'</span>'
   +ch(MENU==='boat','data-menu="boat" aria-haspopup="true"',`${V.typh?'Typhoon mode':stN} ▾`)+pop('boat',lab('Boat state')+ch(1,'data-t="state"',stN+' · change')+ch(V.typh,'data-t="typh"','Typhoon mode')+lab('Doors and deck')+ch(V.gOpen,'data-t="gOpen"',V.gOpen?'Garage open':'Garage closed')+ch(V.balc,'data-t="balc"',V.balc?'Balcony open':'Balcony closed')+ch(V.railsUp,'data-t="railsUp"',V.railsUp?'Rails raised':'Rails lowered')+ch(V.shade,'data-t="shade"',V.shade?'Shade up':'Shade down')+lab('Extras')+ch(V.toys,'data-t="toys"','Water toys')+ch(V.drone,'data-t="drone"','Drone'))
   +ch(MENU==='scene','data-menu="scene" aria-haspopup="true"','Scene ▾')+pop('scene',ch(V.lights!=='off','data-t="lights"','Lights: '+V.lights)+ch(V.sound,'data-t="sound"',V.sound?'Sound on':'Sound off')+ch(V.perf!=='auto','data-t="perf"','Quality: '+(V.perf==='auto'?'auto'+(SLOW?' (light)':' (high)'):V.perf))+ch(V.dims,'data-t="dims"','Dimensions')+ch(V.labels,'data-t="labels"','Labels')+ch(0,'data-t="units"',V.units==='m'?'Metres':'Feet'))}
 function sheet(){const P=G.plan;if(!P)return;const sp=cam.position.clone(),st=ctl.target.clone(),lb=$('labs').style.display;const [p,t]=camFor('profile');cam.position.copy(p);ctl.target.copy(t);cam.lookAt(t);R.render(scene,cam);const img=cv.toDataURL('image/jpeg',.9);cam.position.copy(sp);ctl.target.copy(st);
@@ -732,5 +743,10 @@ syncState();DRONE.visible=V.drone;applyPerf();build();setScene();sync();chips();
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{build();setScene()});
 }
 </script>
+<script>{/* Panel sections fold open and shut. The first starts open; what you open or close is remembered. */
+const K='fernwehFold';let F={};try{F=JSON.parse(localStorage.getItem(K))||{}}catch(e){}
+document.querySelectorAll('aside section').forEach((s,i)=>{const h=s.querySelector(':scope>h2');if(!h)return;const n=h.textContent.trim(),b=document.createElement('button');b.type='button';b.className='fold';b.append(...h.childNodes);h.append(b);
+ const set=c=>{s.classList.toggle('shut',c);b.setAttribute('aria-expanded',String(!c))};set(n in F?F[n]:i>0);
+ b.onclick=()=>{const c=!s.classList.contains('shut');set(c);F[n]=c;try{localStorage.setItem(K,JSON.stringify(F))}catch(e){}}})}</script>
 </body>
 </html>
