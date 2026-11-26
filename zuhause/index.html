@@ -94,7 +94,7 @@ textarea{width:100%;min-height:80px;font:12.5px/1.4 ui-monospace,monospace;borde
     <div class="frame"></div>
     <div class="ov tl" id="views"></div>
     <div class="ov walkui" id="walkUI" style="display:none"><span class="wtip">W A S D or arrows to walk · drag to look · Shift to run</span><span class="wbr"></span><button class="chip" data-go="gate">Gate</button><button class="chip" data-go="stair">Top of stair</button><button class="chip" data-go="living">Living room</button><button class="chip" data-go="upper">Upper floor</button><button class="chip" data-go="glass">Glass room</button><button class="chip" data-go="chamber">Glass chamber</button><button class="chip" data-go="sky">Sky room</button><span class="wbr"></span><button class="chip pad" data-mv="f" aria-label="Walk forward">▲</button><button class="chip pad" data-mv="b" aria-label="Walk back">▼</button><button class="chip pad" data-mv="l" aria-label="Turn left">◀</button><button class="chip pad" data-mv="r" aria-label="Turn right">▶</button></div><div class="snapOv" id="snapOv"><div class="snapBox"><img alt="Snapshot of the current view"><div class="bar"><a class="btn pri" href="#" download>Download image</a><button class="btn" id="snapX" type="button">Close</button></div><p class="note">If the download doesn't start, right-click or long-press the image to save it.</p></div></div><div class="matCard" id="matCard"><canvas id="matSw" width="120" height="120"></canvas><div id="matTx"></div><button class="chip" id="matX" aria-label="Close">✕</button></div><div class="cmpL" id="cmpL"></div><div class="cmpR" id="cmpR"></div><div class="cmpBar" id="cmpBar"></div>
-    <div class="hint" id="hint">Drag to turn · hover for labels · click a surface for its material · try Underground</div>
+    <div class="hint" id="hint">Drag to turn · Show › Labels names the parts · click a surface for its material · try Underground</div>
     <div class="ov bl" id="modes"></div>
     <div class="tb">
       <div class="na"><svg width="40" height="54" viewBox="-20 -27 40 54" aria-label="North arrow"><g id="north"><circle r="15" fill="none" stroke="#221d18" stroke-width="1"/><path d="M0-15L6 6L0 2L-6 6Z" fill="#221d18"/><text y="-18" text-anchor="middle" font-size="9" font-weight="700" fill="#221d18">N</text></g></svg></div>
@@ -130,12 +130,12 @@ const CTRL=[
  ['Roof','A thin floating slab with deep eaves for tropical sun and rain.',[{t:'r',k:'roofO',l:'Eave overhang',min:0,max:4,st:.1,u:'L'},{t:'r',k:'slab',l:'Slab thickness',min:.2,max:.8,st:.05,u:'L'},{t:'b',k:'greenRoof',l:'Planted roof'},{t:'b',k:'glassRoom',l:'Third-floor glass room'},{t:'b',k:'solar',l:'Solar panels on both roofs'},{t:'b',k:'rainChains',l:'Rain chains (kusari-doi)'}]],
  ['Facade','Shade and airflow, the tropical way.',[{t:'b',k:'louvres',l:'Timber louvre screen'},{t:'r',k:'louvreGap',l:'Louvre spacing',min:.15,max:.6,st:.01,u:'L'},{t:'b',k:'colonnade',l:'Arched colonnade, terrace to roof'},{t:'b',k:'breeze',l:'Breeze-block screen wall'}]],
  ['Garden','A Japanese courtyard with a lap pool behind the house, and a koi pond in front.',[{t:'r',k:'courtD',l:'Courtyard depth',min:3,max:12,st:.5,u:'L'},{t:'b',k:'maple',l:'Japanese maple'},{t:'b',k:'pool',l:'Koi pond and waterfall'}]],
- ['Cistern','Rainwater from the roofs is filtered, then stored in a brutalist concrete hall under the plinth. Its cool air also ventilates the house. Open the Underground view to see it.',[{t:'r',k:'cisternD',l:'Depth below ground',min:3.5,max:14,st:.1,u:'L'},{t:'r',k:'water',l:'Water level',min:0,max:100,st:1,u:'P'},{t:'b',k:'tank',l:'Small rainwater tank instead (first-home scale)'},{t:'r',k:'shaftDay',l:'Light shaft: sunrise reaches the chamber on',min:1,max:365,st:1,u:'D'}]],
+ ['Cistern','Rainwater from the roofs is filtered, then stored in a brutalist concrete hall under the plinth. Its cool air also ventilates the house. Open the Underground view to see it.',[{t:'r',k:'cisternD',l:'Depth below ground',min:3.5,max:14,st:.1,u:'L'},{t:'r',k:'water',l:'Water level (over 100% floods the hall)',min:0,max:200,st:1,u:'P'},{t:'b',k:'tank',l:'Small rainwater tank instead (first-home scale)'},{t:'r',k:'shaftDay',l:'Light shaft: sunrise reaches the chamber on',min:1,max:365,st:1,u:'D'}]],
  ['Materials','',[{t:'c',k:'concrete',l:'Concrete',sw:[['#d9d2c5','Limestone'],['#bdb6ab','Board-formed'],['#8f8a83','Weathered'],['#5e5b57','Charcoal']]},{t:'c',k:'timber',l:'Timber',sw:[['#9b4a2c','Narra'],['#8a5a35','Teak'],['#6e4a32','Ipil'],['#c8a27a','Pale oak']]},{t:'c',k:'stone',l:'Stair stone',sw:[['#e6dccb','Pale travertine'],['#cfc3ae','Sandstone'],['#9a948b','Basalt']]}]]];
 const S=Object.assign({},DEF);
-const V={mode:'render',view:'axo',dims:true,units:'m',time:16.5,under:'half',interiors:true,flood:false,phase:4,sunDay:(()=>{const d=new Date();return Math.round((d-new Date(d.getFullYear(),0,0))/864e5)})(),compare:false};
+const V={lv:1,mode:'render',view:'axo',dims:false,units:'m',time:16.5,under:'half',interiors:true,flood:false,phase:4,sunDay:(()=>{const d=new Date();return Math.round((d-new Date(d.getFullYear(),0,0))/864e5)})(),compare:false};
 function clean(o){const r={};for(const k in DEF)if(o&&k in o&&typeof o[k]===typeof DEF[k])r[k]=o[k];return r}
-try{const s=JSON.parse(localStorage.getItem('zuhauseS2')||'null');if(s)Object.assign(S,clean(s));const v=JSON.parse(localStorage.getItem('zuhauseV')||'null');if(v)Object.assign(V,v)}catch(e){}
+try{const s=JSON.parse(localStorage.getItem('zuhauseS2')||'null');if(s)Object.assign(S,clean(s));const v=JSON.parse(localStorage.getItem('zuhauseV')||'null');if(v){if(!v.lv){v.dims=false;v.lv=1}Object.assign(V,v)}}catch(e){}
 const D2R=Math.PI/180,LAT=14.6*D2R,MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const dayStr=n=>{const d=new Date(2026,0,n);return MON[d.getMonth()]+' '+d.getDate()};
 const decl=d=>23.44*D2R*Math.sin(2*Math.PI*(d-81)/365);
@@ -408,7 +408,7 @@ function build(){
  ...(S.tank?[bx(1,ceilY-fl,ID,'concrete',ix0-.5,(fl+ceilY)/2,czm)]:(()=>{const oz0=cz0-6.3,oz1=cz0-2.9,oh=WLc+2.8,a=[];a.push(bx(1,ceilY-fl,oz0-iz0,'concrete',ix0-.5,(fl+ceilY)/2,(iz0+oz0)/2),bx(1,ceilY-fl,iz1-oz1,'concrete',ix0-.5,(fl+ceilY)/2,(oz1+iz1)/2),bx(1,WLc-fl,oz1-oz0,'concrete',ix0-.5,(fl+WLc)/2,(oz0+oz1)/2),bx(1,ceilY-oh,oz1-oz0,'concrete',ix0-.5,(oh+ceilY)/2,(oz0+oz1)/2));return a})()),bx(1,ceilY-fl,ID,'concrete',ix1+.5,(fl+ceilY)/2,czm),bx(IW,.4,ID,'concrete',cxm,ceilY+.2,czm)])m.userData.shell=1;
  for(const m of[bx(IW,WL-fl,LW,'concrete',cxm,(fl+WL)/2,iz0+LW/2),bx(IW,WL-fl,LW,'concrete',cxm,(fl+WL)/2,iz1-LW/2),bx(LW,WL-fl,ID-2*LW,'concrete',ix0+LW/2,(fl+WL)/2,czm),bx(LW,WL-fl,ID-2*LW,'concrete',ix1-LW/2,(fl+WL)/2,czm)])m.userData.shell=1;
  const wx0=ix0+LW,wx1=ix1-LW,wz0=iz0+LW,wz1=iz1-LW,rx0=chX0,rx1=chX1,rz0=cz0-chD/2,rz1=cz0+chD/2;
- WATERS.push(bx(wx1-wx0-.12,1,wz1-wz0-.12,'cwater',(wx0+wx1)/2,0,(wz0+wz1)/2));const FRh=Math.min(1,MAXW*.22);bx(wx1-wx0-.1,FRh,wz1-wz0-.1,'cwaterD',(wx0+wx1)/2,fl+.05+FRh/2,(wz0+wz1)/2).castShadow=false;FIRE=(wx1-wx0)*(wz1-wz0)*FRh;
+ WATERS.push(bx(wx1-wx0-.12,1,wz1-wz0-.12,'cwater',(wx0+wx1)/2,0,(wz0+wz1)/2));{const u=bx(IW-.12,1,ID-.12,'cwater',cxm,0,czm);u.userData.hall=1;WATERS.push(u)}const FRh=Math.min(1,MAXW*.22);bx(wx1-wx0-.1,FRh,wz1-wz0-.1,'cwaterD',(wx0+wx1)/2,fl+.05+FRh/2,(wz0+wz1)/2).castShadow=false;FIRE=(wx1-wx0)*(wz1-wz0)*FRh;
  PADS=0;if(!S.tank){bx(IW+2.4,.6,ID+2.4,'concrete',cxm,fl-1.5,czm);let pads=0;for(let x=ix0;x<=ix1+.01;x+=IW/Math.round(IW/4.8))for(let z=iz0;z<=iz1+.01;z+=ID/Math.round(ID/4.8)){add(new THREE.CylinderGeometry(.55,.55,.5,16),'iso',x,fl-1,z);bx(1.3,.06,1.3,'steel',x,fl-.77,z);pads++}PADS=pads}for(const w of WATERS)w.castShadow=false;
  {const f=add(new THREE.PlaneGeometry(wx1-wx0,wz1-wz0),'cfl',(wx0+wx1)/2,fl+.06,(wz0+wz1)/2);f.rotation.x=-Math.PI/2}
  const nx=Math.max(2,Math.round(IW/5)),nz=Math.max(2,Math.round(ID/5)),sx=IW/nx,sz=ID/nz;
@@ -625,15 +625,18 @@ function build(){
   for(let k=0;k<5;k++)bx(.08,.12,.08,'steel',sx+1+(k%2)*1.5,.06,s1+1.5+k*1.2);
   UT.push([sx,.5,s0,'Sewage treatment plant'],[sx,.6,s1,'Greywater → garden + toilets'])}
  // earth around the cistern (Underground view, half section)
- const ED=CD+3,Dz=iz1-iz0+14;
- for(const m of[add(new THREE.BoxGeometry(PL+22,ED,8),'earth',pcx,-ED/2-.01,iz0-5,underG),add(new THREE.BoxGeometry(4,ED,Dz),'earth',ix0-3,-ED/2-.01,czm,underG),
-  add(new THREE.BoxGeometry(4,ED,Dz),'earth',ix1+3,-ED/2-.01,czm,underG),add(new THREE.BoxGeometry(PL+22,2,Dz),'earth',pcx,fl-2.95,czm,underG)])m.userData.earth=1;
+ const ED=CD+3,X0=pcx-(PL+22)/2,X1=pcx+(PL+22)/2,zE=Math.min(iz1+7,rz1+1-.03),zb=iz0-1,zd=zE-zb,zH=iz1+1,wL=ix0-1-X0,wR=X1-(ix1+1),zs=iz0-7,E=(w,h,d,x,y,z)=>add(new THREE.BoxGeometry(w,h,d),'earth',x,y,z,underG),EA=[];
+ // the section plane leaves clipped boxes hollow, so every block of ground stops just behind it: its front face then reads as solid cut earth
+ EA.push(E(PL+22,ED,8,pcx,-ED/2-.01,iz0-5),E(PL+22,2,zE-zs,pcx,fl-2.95,(zs+zE)/2));
+ // solid ground on both sides of the hall out to the edges of the section, and in front of it; the cellar and sewage plant sit inside it and show in the Full view
+ if(wL>.05)EA.push(E(wL,ED,zd,X0+wL/2,-ED/2-.01,zb+zd/2));if(wR>.05)EA.push(E(wR,ED,zd,ix1+1+wR/2,-ED/2-.01,zb+zd/2));if(zE-zH>.05)EA.push(E(IW+2,ED,zE-zH,cxm,-ED/2-.01,(zH+zE)/2));
+ for(const m of EA)m.userData.earth=1;
  // anti-flicker: nudge every mesh by a unique sub-centimetre amount so no two surfaces share the exact same plane
  {let i=0;house.traverse(o=>{if(!o.isMesh||!o.userData.r||GLOWR.has(o.userData.r))return;i++;const g=o.geometry;if(!g.boundingSphere)g.computeBoundingSphere();const e=1+(((i*37)%13)+1)*.0006/Math.max(.5,g.boundingSphere.radius);o.scale.multiplyScalar(e);o.position.y+=((i*53)%9)*.0012})}
  // edges for line drawing
  house.updateMatrixWorld(true);const ms=[],bb=new THREE.Box3();house.traverse(o=>{if(o.isMesh&&!GLOWR.has(o.userData.r)&&o.userData.r)ms.push(o)});for(const m of ms){m.userData.above=m.userData.shell||bb.setFromObject(m).min.y>-.05;const e=new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry,24),edgeMat);e.userData.edge=1;m.add(e)}
  const clip=rz1+1;
- EXT={zW,cf,top0:top,ctop0:ctop,cx:pcx,cz:(zB+zf)/2,w:PL+8,d:zf-zB+8,top:ctop+.6,ph,zp,clip,fl,cx0,cz0,MAXW,wx:(rx1+wx1)/2,wy:fl+.4};
+ EXT={zW,cf,top0:top,ctop0:ctop,cx:pcx,cz:(zB+zf)/2,w:PL+8,d:zf-zB+8,top:ctop+.6,ph,zp,clip,fl,cx0,cz0,MAXW,rim:WL,ceil:ceilY,AB:(wx1-wx0)*(wz1-wz0),AH:IW*ID,wx:(rx1+wx1)/2,wy:fl+.4};
  // dimensions + labels
  scene.remove(dimG);dimG.traverse(o=>{if(o.geometry)o.geometry.dispose()});dimG=new THREE.Group();scene.add(dimG);dims=[];dimsEl.innerHTML='';
  const D=(a,b,ax,v,lab,u)=>dims.push({a:new THREE.Vector3(...a),b:new THREE.Vector3(...b),ax,u,txt:(lab?lab+' ':'')+fmtL(v)});
@@ -670,9 +673,11 @@ function build(){
   ['Stride check (2R + G)',`<span class="${ok?'ok':'warn'}">${Math.round(stv)} mm · ${ok?'comfortable':stv>700?'long stride, shorten the run':'short steps, lengthen the run'}</span>`]];
  document.getElementById('sched').innerHTML=rows.map(r=>r[0]==='tot'?`<tr class="tot"><td>${r[1]}</td><td class="n">${r[2]}</td></tr>`:`<tr><td>${r[0]}</td><td class="n">${r[1]}</td></tr>`).join('');
  floodG.visible=V.flood||V.rain;phText();if(V.view==='walk'){house.visible=true;setTimeout(collect,0)}setWater();applyMode();underState();light()}
-function setWater(lv){const h=Math.max(.02,(lv??S.water)/100*EXT.MAXW);for(const w of WATERS){w.scale.y=h;w.position.y=EXT.fl+.03+h/2}
- const v=CAP*S.water/100,f=x=>V.units==='m'?Math.round(x).toLocaleString()+' m³':Math.round(x*264.17).toLocaleString()+' gal';
- if(waterTag)waterTag.el.firstChild.textContent=`Cistern · ${S.water}% full`;const el=document.getElementById('schedWater');if(el)el.textContent=`${f(v)} of ${f(CAP)}`}
+function wHeight(lv){const M=EXT.MAXW,top=(EXT.ceil??EXT.fl+M)-EXT.fl-.08;return lv<=100?lv/100*M:M+(lv-100)/100*Math.max(0,top-M)}
+function setWater(lv){const H=Math.max(.02,wHeight(lv??S.water)),rimH=(EXT.rim??EXT.fl+EXT.MAXW)-EXT.fl-.03,y0=EXT.fl+.03;
+ for(const w of WATERS){if(w.userData.hall){const h=H-rimH;w.visible=h>.02;if(w.visible){w.scale.y=h;w.position.y=y0+rimH+h/2}}else{const h=Math.min(H,rimH);w.scale.y=h;w.position.y=y0+h/2}}
+ const Hs=wHeight(S.water),v=S.water<=100?CAP*S.water/100:CAP+(EXT.AB||0)*(Math.min(Hs,rimH)-EXT.MAXW)+(EXT.AH||0)*Math.max(0,Hs-rimH),f=x=>V.units==='m'?Math.round(x).toLocaleString()+' m³':Math.round(x*264.17).toLocaleString()+' gal';
+ if(waterTag)waterTag.el.firstChild.textContent=S.water>=200?'Cistern · 200% · hall flooded to the ceiling':S.water>100?`Cistern · ${S.water}% · over the rim, flooding the hall`:`Cistern · ${S.water}% full`;const el=document.getElementById('schedWater');if(el)el.textContent=S.water>100?`${f(v)} · over the ${f(CAP)} design level`:`${f(v)} of ${f(CAP)}`}
 function goTime(t){if(V.mode!=='render'){V.mode='render';applyMode()}const t0=V.time,st=performance.now(),el=document.getElementById('i-time'),out=document.getElementById('o-time');
  const step=()=>{const k=Math.min(1,(performance.now()-st)/900),e=k*k*(3-2*k);V.time=t0+(t-t0)*e;el.value=V.time;out.textContent=fmtT(V.time);light();if(k<1)requestAnimationFrame(step);else{V.time=t;light();saveV();syncUI()}};
  if(matchMedia('(prefers-reduced-motion: reduce)').matches){V.time=t;light();saveV();syncUI()}else step()}
@@ -761,7 +766,7 @@ document.getElementById('shaftPrev').onclick=()=>{V.sunDay=S.shaftDay;if(V.mode!
 const RN=2400,rg=new THREE.BufferGeometry(),rp=new Float32Array(RN*6);for(let i=0;i<RN;i++){const x=(Math.random()-.5)*110,y=Math.random()*45,z=(Math.random()-.5)*110;rp.set([x,y,z,x+.08,y-.9,z],i*6)}
 rg.setAttribute('position',new THREE.BufferAttribute(rp,3));const rainL=new THREE.LineSegments(rg,new THREE.LineBasicMaterial({color:'#cfe3ef',transparent:true,opacity:.55}));rainL.visible=false;rainL.frustumCulled=false;scene.add(rainL);let FLOODY=1.5;
 function rainStep(dt){const on=!!V.rain&&V.mode==='render'&&V.view!=='under';rainL.visible=on;RM.chainw.opacity=V.rain?.55:0;if(!V.rain)return;rainL.position.set(EXT.cx||0,0,EXT.cz||0);const a=rg.attributes.position.array;for(let i=0;i<RN;i++){let y=a[i*6+1]-32*dt;if(y<0)y+=45;a[i*6+1]=y;a[i*6+4]=y-.9}rg.attributes.position.needsUpdate=true;
- RAINT+=dt;const k=Math.min(1,RAINT/14);setWater(S.water+(100-S.water)*k);for(const [m] of BARR)m.scale.y=Math.max(.02,Math.min(1,RAINT/6));for(const f of FPL)f.position.y=FLOODY*Math.min(1,RAINT/10)}
+ RAINT+=dt;const k=Math.min(1,RAINT/14);setWater(S.water+(Math.max(100,S.water)-S.water)*k);for(const [m] of BARR)m.scale.y=Math.max(.02,Math.min(1,RAINT/6));for(const f of FPL)f.position.y=FLOODY*Math.min(1,RAINT/10)}
 function shutStep(dt){for(const r of ROLLS){const t=V.rain||V.shut[r.userData.zone]?1:.001,d=t-r.scale.y;if(Math.abs(d)>.001)r.scale.y+=Math.sign(d)*Math.min(Math.abs(d),dt/4.5)}SHUTV=ROLLS.length?ROLLS[0].scale.y:.001}
 function lapseStep(dt){if(!LAPSE)return;V.time+=dt*.75;if(V.time>=20){V.time=20;LAPSE=false;syncUI()}document.getElementById('i-time').value=V.time;document.getElementById('o-time').textContent=fmtT(V.time);light()}
 function snapshot(){renderAll();const src=R.domElement,c=document.createElement('canvas');c.width=src.width;c.height=src.height;const g=c.getContext('2d'),k=c.width/stage.clientWidth;g.drawImage(src,0,0);
