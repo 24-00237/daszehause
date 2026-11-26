@@ -490,7 +490,8 @@ function build(){clear();const m=mats(),W=S.W,D=S.D,Hb=S.Hb,P=S.roof==='flat'?0:
  // valley deck off the living room
  if(S.deck){const x0d=-W/2-2.9,x1d=S.cant&&cv2?W/2-3.7:W/2,dz=2.6,cx=(x0d+x1d)/2,zf2=D/2+dz;box(x1d-x0d,.25,dz,m.deck,cx,-.125,D/2+dz/2);G.snows.push({o:box(x1d-x0d,1,dz,m.snow,cx,0,D/2+dz/2),y0:0});
   const rl=(w,x,z,ry)=>{const r2=new THREE.Mesh(new THREE.PlaneGeometry(w,1),m.rail);r2.rotation.y=ry;add(r2,x,.5,z);r2.castShadow=false;const sb=box(w,.08,.08,m.steel,x,.04,z);sb.rotation.y=ry};
-  rl(x1d-x0d,cx,zf2-.04,0);rl(dz,x0d+.04,D/2+dz/2,Math.PI/2);if(!(S.cant&&cv2))rl(dz,x1d-.04,D/2+dz/2,Math.PI/2);
+  // railings sit 1 cm inside the deck edge: their steel foot bars were flush with the edge and flickered against the snow's face
+  rl(x1d-x0d,cx,zf2-.05,0);rl(dz,x0d+.05,D/2+dz/2,Math.PI/2);if(!(S.cant&&cv2))rl(dz,x1d-.05,D/2+dz/2,Math.PI/2);
   for(const [px,pz] of [[x0d+.15,D/2+.15],[x0d+.15,zf2-.15],[x1d-.15,zf2-.15],[(x0d+x1d)/2,zf2-.15]]){const gy=ground(px,pz),h=-.25-gy;box(.14,h,.14,m.steel,px,gy+h/2,pz)}
   box(2.1,.32,.8,m.outd,x0d+1.5,.16,D/2+.6);box(2.1,.35,.18,m.outd,x0d+1.5,.5,D/2+.28);for(const ox of [0,1.1]){box(.8,.32,.8,m.outd,x0d+.9+ox,.16,zf2-.75);box(.8,.35,.16,m.outd,x0d+.9+ox,.5,zf2-.32)}box(.7,.3,.5,m.marble,x0d+1.4,.15,D/2+1.45);
   L('Valley deck · glass railings',cx,1.5,zf2)}
@@ -705,9 +706,9 @@ function loop(){requestAnimationFrame(loop);const t=RM?0:clock.getElapsedTime(),
  if(tw){const f=Math.min(1,(now-tw.s)/1400),e=ease(f);cam.position.lerpVectors(tw.p0,tw.p,e);ctl.target.lerpVectors(tw.t0,tw.t,e);if(f>=1)tw=null}
  if(fly){const f=(now-fly)/20000;if(f>=1){fly=0;go(V.view)}else{const an=.9+f*Math.PI*2,r=36-Math.sin(f*Math.PI)*8;cam.position.set(Math.sin(an)*r,8+Math.sin(f*Math.PI*2)*5,Math.cos(an)*r);ctl.target.set(0,2,0)}}
  ctl.update();
- const wh=V.mode==='white';
  // looking up drops the camera toward the slope: stop it just above the ground (pits dug for the house count as ground)
  if(!tw&&!fly){const gy=ground(cam.position.x,cam.position.z)+.3;if(cam.position.y<gy)cam.position.y=gy}
+ const wh=V.mode==='white';
  for(const s of G.smoke||[]){const on=!wh&&(s.kind==='fire'?V.fire:s.kind==='sauna'?V.saunaOn:true);for(const q of s.arr){q.sp.visible=on;if(!on)continue;const st=s.kind==='steam',f=(q.ph+t*(st?.12:.07))%1,h=st?1.6:6;q.sp.position.set(s.x+q.dr*f*(st?1.2:2.5)+f*(st?0:1.2),s.y+f*h,s.z+Math.sin(t*.6+q.ph*9)*(st?.3:.4));const sz=st?.6+f*1.3:.6+f*2.6;q.sp.scale.set(sz,sz,1);q.sp.material.opacity=(st?.22*(1-V.snow*.2+ .3*V.snow):.2)*Math.sin(Math.PI*f)*(V.snow>.2||st?1:.6)}}
  if(G.fireL){const k=V.fire&&!wh?1:0;G.fireL.intensity=k*(1.2+.25*Math.sin(t*11)+.15*Math.sin(t*23.3))*(.45+.55*(G.nf||0));if(G.fireL2)G.fireL2.intensity=k*(.55+.12*Math.sin(t*7.3))*(.3+.7*(G.nf||0));if(G.pitL)G.pitL.intensity=k*(.9+.2*Math.sin(t*9.7))*(.35+.65*(G.nf||0));for(const f of G.flames||[]){f.o.visible=!!k;f.o.scale.y=.75+.3*Math.abs(Math.sin(t*(6+f.ph)+f.ph));f.o.scale.x=.85+.15*Math.sin(t*4.1+f.ph)}if(G.fire)G.fire.visible=!!k}
  for(const [i,c2] of CLOUDS.entries())if(c2.visible)c2.material.alphaMap.offset.x+=dt*.0008*(i+1);
