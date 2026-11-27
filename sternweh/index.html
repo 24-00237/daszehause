@@ -371,7 +371,7 @@ function mwTex(){const W=2048,H=1024,c=document.createElement('canvas');c.width=
   const k=Math.min(1,Math.pow(Math.max(0,val),.9)*.62),warm=Math.exp(-((l/.45)**2)-(b/.2)**2);
   d[i]=255*k*(.84+.1*warm);d[i+1]=255*k*(.85+.04*warm);d[i+2]=255*k*(.95-.14*warm)}}
  g.putImageData(im,0,0);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=4;return t}
-const MW=new THREE.Mesh(new THREE.SphereGeometry(8900,64,32),new THREE.MeshBasicMaterial({map:mwTex(),side:THREE.BackSide,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,fog:false,toneMapped:false}));MW.matrixAutoUpdate=false;MW.renderOrder=-2;scene.add(MW);
+const MW=new THREE.Mesh(new THREE.SphereGeometry(8900,64,32),new THREE.MeshBasicMaterial({map:null,side:THREE.BackSide,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,fog:false,toneMapped:false}));MW.matrixAutoUpdate=false;MW.visible=false;setTimeout(()=>{MW.material.map=mwTex();MW.material.needsUpdate=true;MW.visible=true},60);MW.renderOrder=-2;scene.add(MW);
 // stars: a shader so each has its own size and colour, twinkles a little and fades toward the horizon
 const STARM=new THREE.ShaderMaterial({uniforms:{op:{value:0},pr:{value:Math.min(devicePixelRatio,2)},t:{value:0}},transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
  vertexShader:'attribute float sz;attribute vec3 col;attribute float ph;varying vec3 vC;varying float vA;uniform float op;uniform float pr;uniform float t;void main(){vec4 wp=modelMatrix*vec4(position,1.);vec3 dir=normalize(wp.xyz-cameraPosition);float hz=smoothstep(-.02,.22,dir.y);vec4 mv=viewMatrix*wp;gl_Position=projectionMatrix*mv;float tw=.8+.2*sin(t*(1.1+ph*2.3)+ph*40.);gl_PointSize=sz*pr*(.7+.3*hz);vC=col;vA=op*tw*hz;}',
@@ -944,17 +944,17 @@ function setScene(){const wh=V.mode==='white',sk=skyNow(),dir=sk.sun,a=dir.y,dus
  for(const h of site.userData.hills||[]){h.visible=!wh;const nt=cl((.05-a)/.15);if(h.userData.snow){h.material.color.copy(hs).lerp(new THREE.Color('#ffffff'),.75*(1-nt)+.12*nt*(.4+mw))}else{h.material.color.copy(hs).lerp(new THREE.Color(p.top).convertLinearToSRGB(),.3).multiplyScalar(.7*(1-nt)+.9*nt)}}
  for(const f of site.userData.fog||[]){f.visible=!wh;f.position.y=FOGY+(cam2?40:0)+(f.userData.dy||0);const fc=new THREE.Color(a>.2?'#e9e8e4':a>0?'#e8bea0':a>-.12?'#3a3f52':'#0d1018');if(a<=0&&mUp)fc.lerp(new THREE.Color('#7a849c'),sk.lit*.6);f.material.color.copy(fc)}
  sun.target.position.set(0,G.F1||0,0);
- if(wh){scene.background=new THREE.Color('#e8e9e6');scene.fog=new THREE.Fog('#e8e9e6',600,9000);sun.position.set(40,90,60);sun.intensity=1.35;sun.color.set('#ffffff');hemi.intensity=.55;hemi.color.set('#ffffff');hemi.groundColor.set('#9aa3a6');scene.environment=null;envK='';R.toneMappingExposure=1}
+ if(wh){scene.background=new THREE.Color('#e8e9e6');scene.fog=new THREE.Fog('#e8e9e6',600,9000);sun.position.set(40,90,60);sun.intensity=1.35;sun.color.set('#ffffff');hemi.intensity=.55;hemi.color.set('#ffffff');hemi.groundColor.set('#9aa3a6');scene.environment=null;envK='';G.expT=1}
  else{scene.background=hs;scene.fog=dust?new THREE.Fog(hs,40,900):new THREE.Fog(hs,a>0?900:600,a>0?16000:12000);
   if(a>0){sun.position.copy(dir).multiplyScalar(180);sun.intensity=(.4+2.4*Math.min(1,a*2.6))*(dust?.45:1);sun.color.set('#ffa66a').lerp(new THREE.Color('#fff4e6'),Math.min(1,a*3.2))}else{sun.position.copy(mUp?md:V3(.3,1,.2)).multiplyScalar(180);sun.intensity=mUp?.05+.5*sk.lit:0;sun.color.set('#a9bde0')}
   sun.castShadow=!(V.perf==='light'||(V.perf==='auto'&&SLOW))&&(a>0||(mUp&&sk.lit>.15));
   sun.position.add(sun.target.position);
   if(a>0){hemi.color.copy(p.top);hemi.groundColor.copy(C('#8a6a52')).multiplyScalar(Math.max(.1,Math.min(1,a*3+.2)));hemi.intensity=(.18+.32*cl(a*3+.3))}else{hemi.color.set('#46588c');hemi.groundColor.set('#2a2420');hemi.intensity=.12+.3*mw}
-  envGM.color.copy(C('#7a6450')).multiplyScalar(Math.max(.05,cl(a*3+.3)));env();R.toneMappingExposure=1+.38*dark;
+  envGM.color.copy(C('#7a6450')).multiplyScalar(Math.max(.05,cl(a*3+.3)));env();G.expT=1+.38*dark;
   // in the starlit rooms at night the eye adapts (after twenty minutes in the dark); the drawing views get a steady drawing light
-  if((STARLIT.includes(V.view)||ARR)&&dark>.3&&!DRAWV.includes(V.view)){R.toneMappingExposure=1+1.25*dark;hemi.color.set('#5a6fa8')}
+  if((STARLIT.includes(V.view)||ARR)&&dark>.3&&!DRAWV.includes(V.view)){G.expT=1+1.25*dark;hemi.color.set('#5a6fa8')}
   if(['hall','kitchen','arrive','cistern'].includes(V.view)&&!ARR)hemi.intensity*=.35;
-  if(DRAWV.includes(V.view)&&dark>.3){hemi.intensity=.62;hemi.color.set('#d4d9e6');hemi.groundColor.set('#8a7a6a');R.toneMappingExposure=1.12}}
+  if(DRAWV.includes(V.view)&&dark>.3){hemi.intensity=.62;hemi.color.set('#d4d9e6');hemi.groundColor.set('#8a7a6a');G.expT=1.12}}
  // the lights: lamps and uplights in the hallways and kitchen (they are underground, so on by day too); the path and the step markers at night
  const night=a<.03||dust,m=G.m;G.nightL=!wh&&night;
  if(m){const on=V.lights!=='off'&&!wh;G.on=on;m.lampW.emissiveIntensity=on?1.5:.05;m.up.color.set(on?'#ffd9a0':'#3a3632');m.wash.opacity=on?.3:0;m.beam.opacity=on?.07:0;
@@ -1081,9 +1081,9 @@ function loop(){requestAnimationFrame(loop);const t=RM?0:clock.getElapsedTime(),
  if(MOON.visible){vp.copy(MOON.position).project(cam);vq.copy(MOON.position).addScaledVector(skyNow().sun,900).project(cam);MOON.material.rotation=Math.atan2(vq.y-vp.y,(vq.x-vp.x)*cam.aspect)}
  {const nr=WALKS.some(x=>x[0]===V.view)||ARR?2.5:1.2;for(const f of G.figs||[])f.visible=V.fig&&cam.position.distanceTo(f.position)>nr}
  if(LB.length){const w=stage.clientWidth,h=stage.clientHeight;for(const l of LB){vp.copy(l.p).project(cam);const vis=vp.z<1&&Math.abs(vp.x)<1.1&&Math.abs(vp.y)<1.1;l.el.style.display=vis?'block':'none';if(vis)l.el.style.transform=`translate(${((vp.x+1)/2*w).toFixed(1)}px,${((1-vp.y)/2*h).toFixed(1)}px) translate(-50%,-50%)`}}
+ if(G.expT!=null){const k2=RM?1:Math.min(1,dt*2.2);R.toneMappingExposure+=(G.expT-R.toneMappingExposure)*k2}
  draw();
  if(!LOADED&&fN>2){LOADED=true;const ld=$('load');ld.classList.add('ready');$('loadMsg').textContent='Click to enter'}}
-if(/[?&]debug/.test(location.search))window.__sw={go,V,S,G:()=>G,setScene,build,sync,chips,arrive,park,cam,ctl};
 build();setScene();sync();chips();applyPerf();go(V.view,true);AN.can=G.canT??1;loop();
 
 }
