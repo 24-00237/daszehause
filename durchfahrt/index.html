@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Durchfahrt — Archipelago Train Study</title>
+<link rel="apple-touch-icon" href="/daszehause/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/daszehause/icons/icon-192.png">
+<meta name="theme-color" content="#2c3238">
+<meta name="description" content="An interactive design study by Andre Parrocho: Durchfahrt, an all-electric bullet train that runs non-stop across the Philippine archipelago, from Luzon down the Visayas to Mindanao. Cars slip off at speed and pods latch on while it moves, and when a typhoon shuts down air and sea travel its stripes turn orange and it becomes the country's lifeline. Seventh of the Design Studies.">
+<meta property="og:title" content="Durchfahrt — Archipelago Train Study"><meta property="og:description" content="A non-stop electric train across the Philippines: a network map with pods latching on and slipping off at speed, every car of the train to walk through, a journey timer, and a typhoon run from Luzon to Mindanao.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://24-00237.github.io/daszehause/durchfahrt/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a timetable written in a storm — urgent but steady, exact about times; the seventh sheet after das Zuhause, Fernweh, Bergruhe, Denkraum, Geborgenheit and Sternweh.
+   IDEA: one line that never stops, threaded through seven thousand islands; the map is the building, and the train is its one room that moves.
+   PICTURE: the archipelago drawn like a lithograph: a dark storm-grey sea, paper islands in black ink, and one gold line with cars peeling off it at speed.
+   COLOUR and TYPE: warm paper, storm grey and silver from the train; one gold accent from the spine's stripe; blue and green only for the two branches; orange is kept for rescue mode and nothing else. Archivo, wide and heavy for titles, tabular figures for every time.
+   LAYOUT: the map stage left filling the height, the panel right; it stacks below 860px with the stage on top. The expressionist edge is the slanted stripe under the title and the storm's charged light; everything else stays calm. */
+:root{color-scheme:light;--bg:#ebe6dc;--panel:#f7f3ec;--ink:#1d2024;--mute:#5b5a56;--line:#d6cfc3;--acc:#d9a21b;--accT:#8a6200;--sea:#39424a;--blue:#3a86d8;--green:#3aa564;--orange:#ff7a1a}
+*{box-sizing:border-box;min-width:0}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Archivo,system-ui,sans-serif;overflow-x:clip}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 390px;height:100vh;height:100dvh}
+.stage{position:relative;overflow:hidden;margin:14px 0 14px 14px;border-radius:8px;background:var(--sea);border:1px solid #2a3036;user-select:none;-webkit-user-select:none}
+#map,#tc,#cv{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#tc{pointer-events:none}
+#cv{display:none}
+body.m-train #cv{display:block}body:not(.m-train) #labs{display:none}body.m-train #map,body.m-train #tc,body.m-train .mapui{display:none!important}
+.frame{position:absolute;inset:10px;border:1px solid rgba(235,230,220,.2);pointer-events:none;border-radius:2px}
+.ov{position:absolute;display:flex;flex-wrap:wrap;gap:6px;pointer-events:none;z-index:4}.ov>*{pointer-events:auto}
+.tl{left:22px;top:22px;right:22px}.bl{left:22px;bottom:22px;max-width:calc(100% - 340px)}
+.chip{position:relative;font:600 13.5px Archivo,sans-serif;min-height:38px;padding:0 13px;border-radius:6px;border:1px solid rgba(29,32,36,.28);background:rgba(247,243,236,.93);color:#1d2024;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip:hover{background:#fff}.chip.on{background:#1d2024;color:#f7f3ec;border-color:#1d2024;box-shadow:0 0 0 1px rgba(247,243,236,.45)}
+.seg{display:inline-flex;border-radius:7px;overflow:hidden;border:1px solid rgba(29,32,36,.4);box-shadow:0 1px 0 rgba(0,0,0,.15)}.seg .chip{border:0;border-radius:0;border-right:1px solid rgba(29,32,36,.2)}.seg .chip:last-child{border-right:0}
+.chip:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.wrap{position:relative}
+.pop{position:absolute;left:0;top:calc(100% + 6px);display:none;flex-wrap:wrap;gap:6px;background:rgba(247,243,236,.98);border:1px solid rgba(29,32,36,.22);border-radius:10px;padding:10px;width:min(460px,calc(100vw - 60px));max-height:min(70vh,560px);overflow-y:auto;box-shadow:0 10px 28px rgba(0,0,0,.3);z-index:9}.pop.open{display:flex}.bl .pop{top:auto;bottom:calc(100% + 6px)}.plab{flex-basis:100%;font:600 11.5px Archivo,sans-serif;color:#5b5a56;margin:2px 2px -2px}
+.clock{position:absolute;right:22px;top:22px;z-index:4;display:flex;gap:6px;align-items:center}
+.clock .chip{font-variant-numeric:tabular-nums}
+.clock b{font-size:17px;font-stretch:112%;letter-spacing:.02em}
+.status{position:absolute;right:22px;top:68px;z-index:4;display:flex;flex-direction:column;gap:4px;align-items:flex-end;pointer-events:none}
+.status span{font:600 12px Archivo,sans-serif;background:rgba(247,243,236,.92);color:#1d2024;padding:3px 8px;border-radius:4px;display:flex;gap:6px;align-items:center}
+.status i{width:8px;height:8px;border-radius:50%;background:#3aa564;display:block}.status .off i{background:#b33}.status .res i{background:var(--orange);box-shadow:0 0 8px var(--orange)}
+.tb{position:absolute;right:22px;bottom:22px;background:rgba(247,243,236,.95);color:#1d2024;border:1px solid rgba(29,32,36,.5);display:grid;grid-template-columns:64px minmax(0,1fr);width:300px;z-index:3}
+.tb .na{border-right:1px solid rgba(29,32,36,.3);display:grid;place-items:center}
+.tb .tx{padding:8px 12px;font-size:12.5px;line-height:1.45}
+.tb b{display:block;font-size:20px;font-stretch:115%;font-weight:800;line-height:1.1;margin-bottom:2px}
+.tb span{display:block;color:#55524c}
+.legend{position:absolute;left:22px;bottom:70px;z-index:3;background:rgba(247,243,236,.92);border-radius:6px;padding:7px 10px;font:600 11.5px Archivo,sans-serif;color:#1d2024;display:grid;grid-template-columns:auto auto;gap:2px 8px;align-items:center;pointer-events:none}
+.legend i{display:block;width:26px;height:5px;border-radius:2px}.legend i.tn{background:repeating-linear-gradient(90deg,#1d2024 0 5px,transparent 5px 8px)!important;height:3px}
+#labs{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.dl{position:absolute;left:0;top:0;font:600 12.5px Archivo,sans-serif;color:#1d2024;background:rgba(247,243,236,.92);padding:2px 7px;border-radius:3px;white-space:nowrap;will-change:transform;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.hint{position:absolute;left:50%;top:72px;transform:translateX(-50%);font-size:12.5px;color:#1d2024;background:rgba(247,243,236,.88);padding:3px 10px;border-radius:4px;transition:opacity .6s;white-space:nowrap;z-index:3;pointer-events:none}
+/* the station card */
+.card{position:absolute;z-index:8;width:min(330px,calc(100% - 28px));background:#f7f3ec;color:#1d2024;border-radius:8px;box-shadow:0 14px 36px rgba(0,0,0,.4);padding:14px 16px 12px;display:none;border-top:5px solid var(--acc)}
+.card.open{display:block}.card h3{margin:0;font-size:22px;font-stretch:115%;font-weight:800;line-height:1.1}.card .k{font:700 11px Archivo,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#5b5a56;margin:0 0 3px}
+.card p{margin:6px 0;font-size:13.5px;line-height:1.45}.card .x{position:absolute;right:6px;top:6px;border:0;background:transparent;font-size:20px;line-height:1;cursor:pointer;color:#5b5a56;min-width:36px;min-height:36px}
+.card .tags{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0}.card .tags span{font:600 11.5px Archivo,sans-serif;border:1px solid #cfc7ba;border-radius:999px;padding:2px 8px}
+.card .tags .sh{background:#1d2024;color:#f7f3ec;border-color:#1d2024}.card .nx{font-variant-numeric:tabular-nums;font-size:13px;color:#3d3b37}
+.card .bar{margin-top:8px}
+/* the story */
+.cap{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);width:min(620px,calc(100% - 40px));z-index:7;display:none;color:#f2ede4;text-shadow:0 1px 3px rgba(0,0,0,.6);pointer-events:none}
+body.story .cap{display:block}
+.cap .t{font:700 13px Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);font-variant-numeric:tabular-nums}
+body.rescue .cap .t{color:var(--orange)}
+.cap h2{margin:2px 0 4px;font-size:clamp(22px,3vw,34px);font-stretch:118%;font-weight:800;line-height:1.05}
+.cap p{margin:0;font-size:15.5px;line-height:1.45;max-width:58ch}
+.cap .rule{display:block;height:4px;width:90px;margin:8px 0 0;background:var(--acc);transform:skewX(-35deg);transform-origin:left}
+body.rescue .cap .rule{background:var(--orange);box-shadow:0 0 12px var(--orange)}
+.sctl{position:absolute;left:22px;right:22px;top:22px;z-index:8;display:none;gap:6px;align-items:center}
+body.story .sctl{display:flex}body.story .ov,body.story .clock,body.story .tb,body.story .legend,body.story .hint{display:none!important}
+.sctl .prog{flex:1;height:4px;background:rgba(247,243,236,.25);border-radius:2px;overflow:hidden}.sctl .prog i{display:block;height:100%;width:0;background:var(--acc)}
+body.rescue .sctl .prog i{background:var(--orange)}
+.vig{position:absolute;inset:0;pointer-events:none;z-index:5;opacity:0;transition:opacity 1s;background:linear-gradient(180deg,rgba(10,12,14,.55),transparent 22%,transparent 55%,rgba(10,12,14,.8))}
+body.story .vig{opacity:1}
+.flash{position:absolute;inset:0;pointer-events:none;z-index:6;background:#fff;opacity:0}
+aside{overflow-y:auto;padding:22px 22px 30px}
+h1{font-size:clamp(34px,4vw,46px);line-height:1;margin:0 0 4px;font-stretch:122%;font-weight:800;letter-spacing:-.01em}
+.stripe{display:block;height:6px;width:150px;margin:6px 0 12px;background:var(--acc);transform:skewX(-38deg);transform-origin:left;box-shadow:24px 0 0 -1px rgba(217,162,27,.45),44px 0 0 -2px rgba(217,162,27,.2)}
+body.rescue .stripe{background:var(--orange);box-shadow:24px 0 0 -1px rgba(255,122,26,.45),44px 0 0 -2px rgba(255,122,26,.2),0 0 14px rgba(255,122,26,.6)}
+.sub{color:var(--mute);margin:0 0 14px;font-size:14.5px}
+.studynav{display:flex;gap:3px;margin:0 0 14px;flex-wrap:nowrap}.studynav a{font:600 12px Archivo,sans-serif;padding:7px 6px;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;min-height:34px;display:inline-flex;align-items:center;white-space:nowrap}.studynav a:hover{border-color:var(--mute)}
+.studynav{overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}.studynav::-webkit-scrollbar{display:none}.studynav a{flex:none}.studynav::after{content:"";flex:none;width:22px}.studynav a[aria-current]{display:none}.studynav a.home{padding:0 8px;font-size:16px}
+.studynav .nsep{flex:none;width:1px;background:var(--line);margin:5px 5px}.studynav .nlab{flex:none;align-self:center;font:700 10.5px Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:0 3px 0 1px}
+.studies{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.st{font:600 13.5px Archivo,sans-serif;min-height:38px;padding:0 11px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.st:hover{border-color:var(--mute)}.st.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.bar{display:flex;gap:6px;flex-wrap:wrap}
+.btn{flex:1;font:600 13.5px Archivo,sans-serif;min-height:42px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;padding:0 10px}
+.btn.pri{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:default}
+section{border-top:1px solid var(--line);padding:14px 0 4px;margin-top:14px}
+h2{font-size:17px;margin:0 0 2px;font-weight:700;font-stretch:108%}
+.why{font-size:13.5px;color:var(--mute);margin:0 0 8px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:0 10px;margin:4px 0 8px}
+.row label{font-size:14px;color:var(--mute)}
+.row output{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.row input{grid-column:1/-1;width:100%;height:26px;accent-color:var(--acc);cursor:pointer}
+.col{display:flex;align-items:center;gap:7px;margin:2px 0 10px;flex-wrap:wrap}
+.sw{min-height:34px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:6px;padding:0 9px 0 5px;font:500 13px Archivo,sans-serif}
+.sw.t{padding:0 11px}
+.sw i{width:22px;height:22px;border-radius:4px;display:block;border:1px solid rgba(0,0,0,.15)}
+.sw.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.lab{font-size:14px;color:var(--mute);margin:4px 0 4px}
+.tog{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:38px;font-size:14.5px;cursor:pointer}
+.tog input{width:20px;height:20px;accent-color:var(--acc);cursor:pointer;flex:none}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;white-space:normal;min-width:4.5em}
+td small{display:block;color:var(--mute);font-size:12.5px;white-space:normal;font-weight:400}
+details{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+summary{cursor:pointer;font-weight:600;min-height:30px}
+textarea{width:100%;min-height:80px;font:12.5px/1.4 ui-monospace,monospace;border:1px solid var(--line);border-radius:6px;padding:8px;background:var(--panel);color:var(--ink);margin-top:6px}
+.note{font-size:13px;color:var(--mute);margin:8px 0 0}
+/* the journey timer */
+.jt{display:grid;grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr);gap:6px;align-items:end;margin:4px 0 8px}
+.jt label,.jl{display:block;font-size:12.5px;color:var(--mute);margin:0 0 3px}
+select,input[type=time]{width:100%;font:600 14px Archivo,sans-serif;min-height:42px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:0 8px}
+.swap{min-height:42px;border-radius:6px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-size:17px;color:var(--ink)}
+.jrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin:0 0 8px;align-items:end}
+.arr{background:#1d2024;color:#f7f3ec;border-radius:8px;padding:12px 14px 10px;margin:6px 0 8px;position:relative;overflow:hidden}
+.arr::after{content:"";position:absolute;left:-10px;right:-10px;bottom:0;height:5px;background:var(--acc);transform:skewX(-38deg)}
+body.rescue .arr::after{background:var(--orange)}
+.arr .k{font:700 11px Archivo,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#bdb6aa}
+.arr b{display:block;font-size:40px;line-height:1.05;font-stretch:118%;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.arr b small{font-size:15px;font-weight:600;color:#bdb6aa;letter-spacing:0}
+.arr span{display:block;font-size:13.5px;color:#d9d3c8;font-variant-numeric:tabular-nums}
+.tline{display:flex;height:10px;border-radius:3px;overflow:hidden;margin:4px 0 8px;background:var(--line)}.tline i{display:block;height:100%}
+.reach{display:flex;gap:5px;flex-wrap:wrap;margin:4px 0 6px}
+.cmp td{font-size:13.5px}
+.snap{position:absolute;inset:0;background:rgba(8,8,14,.7);display:none;align-items:center;justify-content:center;z-index:12}.snapBox{background:var(--panel);padding:14px;border-radius:8px;max-width:92%;max-height:92%;display:flex;flex-direction:column;gap:10px}.snapBox img{max-width:100%;max-height:60vh;border:1px solid var(--line)}.snapBox a.btn{display:flex;align-items:center;justify-content:center;text-decoration:none}
+.load{position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(ellipse at 50% 80%,#4a525b,#1e2328 72%);color:#f2ede4;cursor:pointer;transition:opacity 1s ease,transform 1s ease,filter 1s ease}
+.load b{font-size:clamp(38px,8vw,82px);font-stretch:125%;font-weight:800;line-height:1;letter-spacing:-.01em}.load i{font-style:normal;font-size:15px;color:#c9c3b8}.load .enter{font:600 13px Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#e9e3d6}
+.load .ln{width:min(420px,70%);height:6px;background:var(--acc);transform:skewX(-38deg);position:relative;overflow:hidden}
+.load .ln::after{content:"";position:absolute;inset:0;width:30%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);animation:zip 1.6s linear infinite}
+@keyframes zip{from{transform:translateX(-120%)}to{transform:translateX(420%)}}
+.load.ready .enter{animation:tcp 2.2s ease-in-out infinite}.load.done{opacity:0;transform:scale(1.04);filter:blur(6px);pointer-events:none}@keyframes tcp{0%,100%{opacity:.35}50%{opacity:1}}
+.load:focus-visible{outline:3px solid var(--acc);outline-offset:-6px}
+.tour{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);width:min(360px,calc(100% - 40px));background:#1d2024;color:#f2eee6;border-radius:10px;padding:14px 16px;z-index:10;display:none;box-shadow:0 10px 30px rgba(0,0,0,.35)}.tour span{font:600 12px Archivo,sans-serif;color:var(--acc)}.tour p{margin:4px 0 10px;font-size:14.5px;line-height:1.45}.tour .btn{min-height:38px}.tour .btn:not(.pri){background:transparent;color:#f2eee6;border-color:#4a4852}.tour .btn.pri{background:var(--acc);border-color:var(--acc);color:#1d2024}
+.pexit{position:absolute;right:22px;top:22px;display:none;z-index:11}body.present .pexit{display:inline-flex}body.present aside,body.present .ov,body.present .tb,body.present .hint,body.present .frame,body.present #labs,body.present .tour,body.present .legend,body.present .clock,body.present .status{display:none!important}body.present .app{grid-template-columns:1fr}body.present .stage{margin:0;border-radius:0;border:0}
+.fold{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:36px;cursor:pointer;font:inherit}
+.fold::after{content:'';flex:none;width:7px;height:7px;margin:0 6px 4px 0;border-right:1.6px solid var(--mute);border-bottom:1.6px solid var(--mute);transform:rotate(45deg);transition:transform .2s}
+.fold[aria-expanded="false"]::after{margin-bottom:0;transform:rotate(-45deg)}
+section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
+.mobw{display:none}.deskw{display:contents}
+@media(max-width:860px){.app{grid-template-columns:1fr;height:auto}.stage{height:68vh;height:68svh;min-height:440px;margin:10px}.tl{left:12px;right:12px;top:12px}.bl{left:12px;right:12px;bottom:12px;max-width:none}.pop{width:calc(100vw - 44px);max-height:52vh}.tb{display:none}.pexit{right:12px;top:12px}.tour{bottom:118px}.hint{display:none}
+ .clock{right:12px;top:auto;bottom:12px}.status{right:12px;top:auto;bottom:60px}.legend{display:none}.card{left:14px!important;right:14px;top:auto!important;bottom:62px;width:auto}
+ .mobw{display:contents}.deskw{display:none}.stage .ov .chip,.st,.btn,.sw,.studynav a,.fold,.swap{min-height:44px}.cap{bottom:16px}.cap p{font-size:14px}.sctl{left:12px;right:12px;top:12px}}
+@media(prefers-reduced-motion:reduce){.hint{transition:none}.load{transition:opacity .3s}.load.ready .enter,.load .ln::after{animation:none}.load.done{transform:none;filter:none}.fold::after{transition:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="stage" id="stage">
+    <div class="load" id="load" role="button" tabindex="0" aria-label="Enter Durchfahrt"><b>Durchfahrt</b><i>Archipelago train study · Luzon to Mindanao without a stop</i><span class="ln" aria-hidden="true"></span><span class="enter" id="loadMsg">Drawing the islands…</span></div>
+    <svg id="map" role="application" aria-label="Network map of Durchfahrt across the Philippines. Drag to pan, scroll or pinch to zoom, tap a station or a train."></svg>
+    <canvas id="tc" aria-hidden="true"></canvas>
+    <canvas id="cv" aria-label="3D model of the Durchfahrt train. Drag to orbit, scroll or pinch to zoom."></canvas>
+    <div id="labs"></div>
+    <div class="frame"></div>
+    <div class="vig"></div><div class="flash" id="flash"></div>
+    <div class="ov tl" id="tl"></div>
+    <div class="clock mapui" id="clock"></div>
+    <div class="status" id="status"></div>
+    <div class="legend mapui" id="legend"></div>
+    <div class="hint" id="hint">Tap a station · tap a train to step aboard · drag and pinch to move</div>
+    <div class="card" id="card" role="dialog" aria-label="Station"></div>
+    <button class="chip pexit" id="pexit" type="button">Exit presentation</button>
+    <div class="tour" id="tour" role="dialog" aria-label="Quick tour"><span id="tourN"></span><p id="tourT"></p><div class="bar"><button class="btn" id="tourSkip" type="button">Skip</button><button class="btn pri" id="tourNext" type="button">Next</button></div></div>
+    <div class="sctl" id="sctl"><button class="chip" id="sPrev" type="button" aria-label="Previous scene">‹</button><button class="chip" id="sPlay" type="button">Pause</button><button class="chip" id="sNext" type="button" aria-label="Next scene">›</button><button class="chip" id="sSnd" type="button">Sound on</button><span class="prog"><i id="sProg"></i></span><button class="chip" id="sExit" type="button">Leave the story</button></div>
+    <div class="cap" id="cap" aria-live="polite"><span class="t" id="capT"></span><h2 id="capH"></h2><p id="capP"></p><span class="rule"></span></div>
+    <div class="snap" id="snap"><div class="snapBox"><img id="snapImg" alt="Snapshot of Durchfahrt"><div class="bar"><a class="btn pri" id="snapDl" href="#" download="durchfahrt.png">Download image</a><button class="btn" id="snapX" type="button">Close</button></div><p class="note">If the download doesn’t start, right-click or long-press the image to save it.</p></div></div>
+    <div class="ov bl" id="bl"></div>
+    <div class="tb">
+      <div class="na"><svg width="46" height="46" viewBox="-23 -23 46 46" aria-label="Durchfahrt mark"><path d="M-19 7 C-12 -8 4 -14 19 -12 L19 -6 C6 -8 -8 -2 -13 9Z" fill="#c9ccd0" stroke="#1d2024" stroke-width="1.2"/><path d="M-17 4 C-9 -6 6 -10 19 -9" fill="none" stroke="#d9a21b" stroke-width="2.4" id="tbStripe"/><path d="M-21 13 H21" stroke="#1d2024" stroke-width="1.2"/><path d="M-21 17 H21" stroke="#1d2024" stroke-width=".8" stroke-dasharray="2 2"/></svg></div>
+      <div class="tx"><b>Durchfahrt</b><span id="tbView">Archipelago train study · The network</span><span id="tbSize">≈ 2,000 km of line · 3 lines</span><span>Scale figures 5′4″ (1.63 m) · Andre Parrocho</span></div>
+    </div>
+  </div>
+  <aside>
+    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies and models" title="All studies and models">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/denkraum/">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/">Geborgenheit</a><a href="https://24-00237.github.io/daszehause/sternweh/">Sternweh</a><a href="https://24-00237.github.io/daszehause/durchfahrt/" aria-current="page">Durchfahrt</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a></nav>
+    <h1>Durchfahrt</h1><span class="stripe" aria-hidden="true"></span>
+    <p class="sub">An all-electric bullet train that crosses the Philippine archipelago without stopping, and the seventh of the Design Studies. It runs from Luzon down a spine through Panay, Negros, Cebu and Bohol to Mindanao, with branches east to Leyte and Samar and west to Palawan. It adds to the planes and the ferries rather than replacing them, and when a typhoon grounds both, it becomes the country’s lifeline. <i>Durchfahrt</i> is German for passing straight through.</p>
+    <div class="studies" id="studies"></div>
+    <div class="bar"><button class="btn" id="undo" type="button">Undo</button><button class="btn" id="reset" type="button">Back to base</button></div>
+    <section id="secJ"><h2>Journey timer</h2><p class="why">Choose where you board and where you’re going. It works out when the next express passes, when your pod latches on, and what time you arrive at the speed set below.</p>
+      <div class="jt"><div><label for="jFrom">From</label><select id="jFrom"></select></div><button class="swap" id="jSwap" type="button" aria-label="Swap from and to">⇄</button><div><label for="jTo">To</label><select id="jTo"></select></div></div>
+      <div class="jrow"><div><label class="jl" for="jAt">Ready to board at</label><input type="time" id="jAt" value="08:00" step="300"></div><button class="btn" id="jNow" type="button">Use the map’s clock</button></div>
+      <div id="jOut"></div>
+      <p class="lab">How far you can get from <span id="jFromN"></span></p>
+      <div class="reach" id="reach"></div>
+      <p class="note" id="reachT" aria-live="polite"></p>
+      <div class="bar"><button class="btn pri" id="jRide" type="button">Ride it on the map</button></div>
+    </section>
+    <div id="ctrls"></div>
+    <section><h2>Particulars</h2><p class="why">Worked out from the drawn line and the train as you’ve set it. Rough, and they update as you design.</p><table id="sched"></table></section>
+    <section><h2>Crossings</h2><p class="why">Pure rail, no ferries: bridges where the water is short and shallow, tunnels where it’s wide, deep or alive with reefs. Lengths are measured along the drawn line.</p><table id="xtab"></table></section>
+    <section><h2>Facts behind it</h2><p class="why">What the design leans on, and where it goes past what’s been built.</p>
+      <table><tr><td>Slip coaches<small>From 1858 to 1960, British and Irish expresses dropped their last coach at speed: a guard in it pulled the coupling free and braked it into the station by hand. The last one was slipped at Bicester in September 1960. Nothing ever latched on at speed; Durchfahrt’s catch-up pods are new.</small></td></tr>
+      <tr><td>Third rail<small>A shoe on a ground-level rail is proven to about 160 km/h; the end ramps knock the shoe at higher speeds (the record is 175 km/h, in 1988). Durchfahrt’s rail is continuous and enclosed, with no ramps, so it can run faster, but that is untested. Study C shows the line at today’s proven 160 km/h.</small></td></tr>
+      <tr><td>Typhoons<small>Most landfalls are on the Pacific side: Eastern Visayas, Bicol and northern Luzon. The central Visayas are crossed too (Haiyan in 2013, Odette in 2021). Mindanao is mostly south of the belt but not spared (Sendong’s floods in 2011, Pablo in 2012).</small></td></tr>
+      <tr><td>Wind<small>High-speed lines slow down and then stop in strong winds, at roughly 20–30 m/s. So rescue mode runs before landfall and right after it, and holds in tunnels and storm-shelter stations while the eye passes.</small></td></tr>
+      <tr><td>Deep water<small>The deepest working undersea rail tunnel, Seikan in Japan, reaches about 240 m below the sea. The Semirara, Tañon and Mindoro crossings are deeper and longer than anything built so far.</small></td></tr></table>
+    </section>
+    <details><summary>Save or load this study</summary>
+      <p class="note">Copy the code to keep this version of Durchfahrt, or paste one in and press Load.</p>
+      <textarea id="code" spellcheck="false" aria-label="Design code"></textarea>
+      <div class="bar" style="margin-top:8px"><button class="btn pri" id="copy" type="button">Copy code</button><button class="btn" id="loadC" type="button">Load</button></div>
+      <p class="note" id="msg"></p></details>
+    <section><h2>About</h2><p class="why">Durchfahrt is an archipelago train by Andre Parrocho, made in November 2026 as the seventh of the Design Studies. It links the places: it runs beneath Denkraum’s Manila tower, past Geborgenheit’s highlands in Bukidnon, and its freight pods can carry Heimweg between the islands. Coastlines are from Natural Earth (public domain).</p><p class="note">It’s a design exploration, not an engineering proposal. Distances are measured on the drawn line; times are worked out from the speed you choose.</p></section>
+  </aside>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+/* ===== Durchfahrt: data ===== */
+const $=id=>document.getElementById(id),cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),lerp=(a,b,t)=>a+(b-a)*t,ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,sm=t=>{t=cl(t);return t*t*(3-2*t)};
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* Coastlines: Natural Earth 1:10m land and minor islands (public domain), clipped to the Philippines and simplified.
+   Map units: x=(lon-116.2)*1000*cos(12.5°), y=(21.3-lat)*1000, so one km is about 9 units. */
+const COAST={"w": 10935, "h": 17000, "d": "M5953 2896l19 27 8 40-5 44-13 42-43 65-81 65-10 21 14 116-43 186 3 33-7 28 20 30 0 88 7 26 30 74 3 24 41 68 0 25 12 42 11 6 24-7 26 21 50-14 16 7 8 30 13 11-5-23 16 10 21 27 8 26-29-18-5 9 14 54-13 45 6 30 34 32 13-14 16 5 20-17 18 12 9 18 0 19-55 101-13 78 5 17-41 101-48 80-27 71-20 27-24 51-60 61-7 38-20 17-7 14 13 40 7-20 7 0-7 34-32 64 5 25 34-27-27 55 0 27-26 7-28 34-70 63-4 33-14 22-42 27-18 20-6-8 30-45 11-33 47-31 20-60 30-17 8-19-5-17-27-3-20 9-10 14-10 51-110 51-84 19-38 30-51 17-16-7-8 3-67 56-41 51-63 38-17 37-5 66 19 55 11 9 45 8 10 20-5 15-41 47 33 14-54 34-12 36-64 59-8 12-14 82-46 64-27-9-8 5-8 25-3 45 12 42 22 34 66 49 26 120 51 73 21 70 33 47-20 14 54 67 73 61 1 11-75 9-34 21-6 16 0 44 53 213 19 32 42 39 10 17-4 49 27 33-6 31-21 21 0 7 48 62 66 48 86 83 148 57 141 32 1-27-11-19-37-37 18-6 89 25 7-16-4-17 17-7 0-6-23-7-37-45-43-20-22-23-22-57 10 8 4 13 6 0 0-23 11-14 36-18 12 6 7-54 12 3 3 19-7 40 7 9 6 46 11 7 9-14 5 11 2 37 34-21 10-18 2-23-17-27 1-19 12-7 4 12 8 0 0-17-8-10 19 0 9-7-10-32 22-44 6 14 9-4 12-30 14 7 39-28 12-1 36 22-14-21 22-3 72 24-3 14 6 10 9 1 8-11 3 14 9 11 10 1 5-13 40 7-16-25-3-23 8-12 18 13 6-8 17 30 13 2 17-18 10 11 21 4 3 12 15 18 50 8 19 14 30 36-1 18 27 9 80 96 9-5 20 13 5 13-16 42 2 20 20 20 27 14 0 61 7 27-6 17-14 4-12 19-8 50 2 35 57 54 28-11 86 2 41-18 34-40 13-32-18-49-15-22-1-14 45-34 9-42-10 10-12 31-22 6-54-29-11-12-5-17 35-21-15-9 20-8 2-11-9-26 9-5 52 22-14-21 34 0-8-24 5-4 13 6 8 15 8 35-16 4 1 24 6 3 17-17 20-7-14 27 14-6 6 6-4 18 19 28-8 15 11 20 2 23 7 0 19-35 1-21 32 11 15 30 45-4 72 28 67 12 30-49 21 37 31 33 38 26 70 31 7 9 35 4 18 10 14 28 17 16 3 11-7 14-27-28-6 0-7 14-31-11-32-3-40 47-21 8-53-22-74-8-19 14-58-25-17 6-10 13-31 83-2 21 12 5-6 15 3 23 7 3 17-11 44 54 60 31 37 59 20 17 6 47 12 23 15 16 35 16 26 65 4-17 10 4 19 27-65-3-21 8-17 69 20 44-2 12-22 7 4 14-4 14 29 13 22-4 20-16 51-72 12-3 11 3 11 14 25 6 6 14 54 17 87 82 9-9 25-55 10-5 22 6 34 16 2 36-9 11-12-6-12 15-35 85 17 38 9 81-14 120-6 15-27 18-7 15 7 35-13 10 13 27-52 21-31-1-26-10-23-22-28-43 2-10-19 3-14-17-20-9-36-71 6-60-6-25-47-30 44-8 23-33 43 30 33-6 8-27 10-5 26 8 17-8 26-32 4-18-8-25-20-6-45 7-64-21-11 9-19 53-23 25-54 23-20-14-15 22-22 12-13-27 19-11 1-7-41 1 7 24-20-19 25-43-4-4-30 7-19 38-16 0-33-11-38-41-55-27-15-21-19-10-26-41-55-7-73 32-10-8-15-52 9-13-15-35 26-79-5-37-52-43-15-19-13-33-27-28 6-28-9-33-18-29-50-20-52-33-91-26-23-22-87-56-43-48 47-41-72-74-36-15 6-6 13-1-18-19-61-22-12 11-25-5-10-13 14-15-4-8-30-30-37-14-12-29-11 7-23-33-21 27-55-4-24-8-18-16-3 14 7 16 26 18 61 94-7 27 10 57-22-5-4 19 11 70 51 57 71 42 13 16-3 16-64-43 31 56 54 68 18 61 4 78 14 31 0 41-23 11-14 17-22 13-41 14-81-65 14-72-18-57-96-128-8-27-25-27-27-11-22-31-59 0 1-14-51-8-13-9-8-25-66-104-25-29-32-24-6 20-44-26-19 1-51-42-33-9-32-25-42-14-40-49-60-20-34 43-47 12-20 21-30-4-66 35-38 10-50 56 8 70-5 25 27 6-33 38-54-10-75 52-19 20-59-28-31-4-27-12-47 6-29 14-41-14-5-9 13-22 6-58-13-37-35-22-22 1-76 87-8 5-8-6-6-23 12-10 12-29 20-6 3-22-19-21 6-44-3-33-17-24-18-6-128-22-22 0-18 7-7 13 3 18 22 41-19 3-40-7-10 13 17 59-6 12-14-9-21-27-8-36-1-85-17-37 15-3 18-20-15-11-2-15 2-86-12-21-26-8 0-7 15-8 1-9-23-18 27-6 0-7-14-12 40-70 54-14 29-15 22-28 32-15 21-33 86-84 47-6 43-37 14-32-4-23-29-56-7-41-40-65-54-25-6-17-107-6-87-20-14-21-1-51-6-14 0 41-13 14-6-8-7 8 11-67-4-16-15-2-8 20-4 44-20-11-8 13 1 49-9 65 2 20 42 55-7 26 19 71 4 45-10 39-23 26-37 6-34-7-10 18-14 3-11-18-52-17-20-24-5-28 4-60-3-34-10-19-40-27-11 7-18-4-43-54-10-31 29-17-28-20 27-37 12-3 8-19-24-4-7-22-19 0-31-28-13 13 6 24-5 35-21 51-46-10-12-18-35-19 13-8 7-14-20 8-23-75-6-38 6-91-3-40-34-144-16-14 3-49-51-87-55-55-8-18 20-23-7-31 18 11 20-4 16-15 7-23-17-24-9-28-8-7-7 14-17-38 0-24 17-40-2-29-38-28-14-25 22-5 4-16-5-42 10-47-4-21-15-41-25-34-25-7-27 29-15-2-14 14-14-30 1-114 21-79-17-24-6-41 26-119 30-45 20 0 36-18 21-2 24 6 9 16 0 20-23 94 67 24 44 45 34 1 29 26 8-2 17 87 32 24 68 13 48-19 34-4 14 11-7 28 34-42 18 6 11-2 4-11-7-7-33 7 2-13 36-30 36-56-5-64-43-63 0 21-17-21-23-164-13-38 7-51-29-67 9-9 3 6 17 1-4-41 23-58-13-65 7-41 30-31 75-112 9-46-20-171-13-28 10-58-5-58 29-36 6-29-8-35-33-74 1-22-60-20-7-17 19-122 10-9 38-10 10-16 3-32-24-36 36-57 0-79 23-32 25-56-1-39-9-33 3-14 55-113-6-2-2-12 11-6 48-101 7-39-1-41-24-82 29-35 21-17 77 5 78-27 8-61 14-14 20-9 20-1 17 7 40 59 17 13 17 1 36-15 14-17 39-19 53-5 33-21 63 18 19 24 48 23 26 23 96 49 27 20 31 9 73 48 27 6 20 24 44 14 37 53 19 18-14-21 0-20 10-14 203 81 63 9 68-11 51-30 38-59 13-10 19-4 8-10 3-34 30-82 66-3 14 7 8 15 8 57zM10123 13999l48 24-5 19-24 31-8 26-24 9-31 73-32 30-14 23-10 63-14 19-34 4-66-20-25 22-14 29-8 56 41 44 6 36-3 18-7 8-30-11-17-28-22-64-25-29-29-15-21 9 1 42-7 0-13-21-4 21 39 77 45 39 3 22-28 129-2 147-16 79-4 91-6 16-14-4-10-76-33-23-4-45-37-63-4-20-13-126 13-107-10-36-6-60-56-24-37-54-7-19 10-66-12-22-70-73-12-56-39-97 2-82-7-14-20-6-18 5-135 94-11 20-3 22 4 86-13 30-40 44-92 39-22 37-6 66-55 64-21 37-14 44-11 94 19 76 8 9 16 7 13-6-3-28 32 21 68 82 19-12 19 8 16 18 12 71 42 84 1 44 59 150 4 39-18 50 7 21-31 90-71 88-93 136-76 128-33 24-63-2-15-4-5-12-3-79-11-35-10-10-39-12-17-38-29-13-10-19 27-79 54-73 14-29 3-40-20-66-10-8-58-2-22-17-10 3-4 45-64 179-19 23-65-10-38 13-24-5-99-48-68-26-35 1-87-48-6 7-30-14-10-7-10-24-24-7-136-80-189-87-26-25-36-72-65-71-26-37-16-36-22-104 23-11-4-116-18-63 3-68-19-8-20 22-21-18-10-17 8-38 2-106 13-51 40-99 21-22 39-16 74-55 17-18 10-28 24-26 2-67 25-57-14-11-44 5-11-6-33-45-46-100-29-42-104-71-47-25-7 8-40-12-67-8-69-85-19-13-45-8-47-19-85 0-64 25-12 10 3 35 49 57-12 45-40 34-44 11-7 43-30-13-8 17 42 55 6 25 48 39 6 44-16 36-10 4-87-51-55-63-6-37-15-6-20 2-18 8-13 27-28 8-42-32-18-38 5-22 49-16 10-17-1-20-11-17-34-18-11-72-11-8-66 86 3 32-20 17 7 24-27 54 0 45-6 11-10 5-44-19-23-52-10-10-12 5-23 26-5 10 0 31-24 15-29 2-14-7 6-12-3-8-7-4-13 5-4-7 7-8 4-36 11-2 19 10 3-22-23-42-14-79 15-33 6-39-10-16-64 5-34-34-43 0-40 14-105 78-66 87-10 30 17 5 34-5-1 25-17 31-23 23 7-41-11-1-33 42-45 27-12 20 6 23 25 38-7 19-27 41-11 8-32 3-20 26-14 46-22 150-40 56-47 115-35 32-31-4-47-17-75-41-24-21-37-78-1-83 35-78 70-62 33-16 11-12 1-17-19-15 14-70 0-43 18-28 12-47 41-29 26-32-32-14 9-97-5-23-20-22 8-26 23-44 84-106 36-59 40-30 142-57 24-4 15 9 12-13 15 7 130-41 11-7 29-48 12 32 19 12 23 5 117-17 13-10 45-5 30-15 56-47 11-23-12-18-36-24-6-34 27-18 10-17-4-54 49-93 25-25 124-27 16 0 14 17 16 6 58-5 16-10 28-36 25-63 14-4 24 6 25-18-44-60-1-10 7-4 27-4 62 35 24-7 1 52 7 24 18-1 27 14 13 27 10-10 4-31 20-27-12-12 13-8 16 3-4 17 91 23 16 25 20-4 27 69 41 51 16 35 20 88 4 121 15 58-2 21-113 105-21 11-42 2-18 9-12 56 4 18 63-37 130-105 33-8 14-10 46-45 66-22 116 0 42-6 33-17 41-68-14-31 2-13 12-25 0-19 21-36 10-69 15-41 48-66 34-27 38-16 25-1 10 42 45 12 55 50 73 6-16 39-4 44 6 0 7-26 12-18 20-6 28 9 20-20 20-7-6-21 4-31 22-44-2-20-24-55 5-22 35-41-7-19 7-66-6-152 27-38 11-6 23 11 32-3 38 13 31 32 85 50 70 82 69-31 10-15 8-85-17-46 16-65 14-14 10-2 8 9 41 63 19 16 23 6 126 14 21-5 62-41 14-58-1-123-18-32 0-36-18-54-35-79-4-51-21-57-41-165 8-53 51-89 46 43 81 25-5 24 25 83 10 18 23 19 26 11 22-4-8 14 13 0 14 14 40 0 27 27 66 12 51 40 32 5 18 39 14-27 6 0-5 33-19 13-27 7-8 9-1 13 15 16 29 7 37-16 2 73 15 31 45 48 31 5 53-20 35-36 20-11 19 2 5 15-5 19-26 56-14 123 5 12 33 9 22 44 71 72 23 72-4 23 13 8-28 65-16 20-65 34 0 15 27 20-7 14-22-7-33 4-24 19-34 15-19 23-8 24 19 21 27 58 69 7 11-7-25-20 6-7 36 8 11-8 22 10 64 11 13-8 10 24 24 25-7 14 14 13-26-1-11 2-4 9-3 24 3 4 13-4 4 17-7 19-23 32-24 17 24 35 31 19-11 25-31 37-7 16 8 19 15 9 60-24 35-29 4 10-9 101 12 33-23 15-11 35 3 40 18 26-56 47-12 22 0 25 22 53 48 36 32 50 23 14 50 5 20 9-11 44-3 49 23 72 16 89-11 20-30 19-4 16 26 20-7 23-1 47zM3005 15955l-13 72 2 72-69 72-39 23-179 66-182 54-58 32-44 10-46-17-61-11-62 41-9 0-13-10-56-78-51-22-9 5-10-3-51 40-8-6-5 4 0 23-38-9-35 21-78 84-2 22 42 29 40 75 57 61 55 43 46 9 17 32 13 9 17 8 2-17 13-4 32 14 12 26-19 38 26 29 8 6 46-31 47 14-6 13 51 69-19 18-34-10 6 17-5 15-35 33-161 18-23-5-15-11-20 23-88 25-99 14-293 0-18-6-14-28-77-21-21-15-36-56-14 2-22 14-28 28 27 31 4 51-1403 0 0-1916 35-27 16-3 38 13 6-9-4-34-12-3-44 13 0-7 27-14 19-20 27 0 9-6 10-41 17-26 119-96 33-19 17-74 30-19 86-111 5-18 2-70 20-34 2-55 28-14 8-15 13-70 11-7 24-37 22-8 13 27 40 27 19 83-28-14-5 4-7 37 41 24 6 21-4 39-60 109-14 43 5 35 40 10 20-10 27-36 98-80 11-47 18-12 13-27 35-37 6-15-28-64 1-21 8-12 37 2 9-15-11-8 0-22 4-7 21 1 19 6 30-17 40 17 60 40 4 25-6 48-4 10-14 8-2 37 5 17 36 47 8 80 15 38 13 7 54 4 59 59 33 18 16-3 49-70 8 0 4 43 27 24-7 3 0 11 20 7 24 18 13 2 24-9 33 33 20 38 7 0 8-13 16 13 2 28 14 33-15 28 10 26-15 81-47-4-18 6-46 38-9 17 5 16 21 26 16 39 18 11 4 26-4 12-25 16-3 12 7 17 28 10 6 24-6 16-48 36-124 42-23 26 98-34 69 0 65-9 66 4 6-11-9-25 11-7 35 7 64-11 56-51 32-42 28-17 14 4 33 35 3 30 17 9 6 55 47 68-29 40-36 15-23 1-18-7-17 6-60-6-17 6-12 24 13 13 29 78 9 7 92-31 23 13 27-8 27 23 17-15-4-20 20-39-7-29 15-12 44-5 40-18 21 5 56 29 24-20 44 18 179 114 6 13-21 23-16 78-3 21 6 21 7 0 28-55 2-38 26-18 21 1 19 13 64 75 43 13 19 13 19 44 12-11 1-16 46 35 38 15 17 21 4 21-18 10 11 9 31 6 12-8 2-13-8-19 13-9 24 1 46 25 29 1 77-37 24-4 16 8 58 69zM7200 10469l-4 52-36 58-17 40-30 132-12 22-82 90-44 89-4 87-35 82-14 85-45 68-8 24-17 18-14 45-41 49-5 22 13 172-10 49-23 2-1 27 41 28-7 27-9-21-17 10-8 21 18 12 26 4 9 10 8 40 52 43 16 46 52 55 7 40-10 46-19 42-54 79-12 28-81 46-47 2-65 25-41-14-32-32-24-40-40-100-6-67-17-35-40-36-101-12-66-30-21-25-35-7-9-18-38-40-21-47-33-24-38-76 7-9-3-8-17-18-20 15 7-56-27 15 7-110-15-34 48-79 17-44 13-8 62-13 22 0 80 20 14-9 50-10 20-11 52-56 25-16 19 11 17-9 28-33 6-18-3-25-20-85 13-123-9-43-37-78-7-43 9-18 36-13 48-52 24-60 36-63 4-21-4-64-20-21 1-21 14-28 27-31 8-6 45-2 38-11 81-51 42-19 45 1 10 18 30 3 41 28 47-14 13 7-9 17 2 10 9 6 25-20 14-2 74 22 13 15 11 49 14 19zM9287 10151l16 32 31 32 19 33-19 29-40-26-12-40-1-28-53-32-51 31-11-4-13-30-11-5-25 11-10 56-45-38-12-1-29 31-15 8-1-17-7-10-10 0-9 12-33-27-35-6-10-12-40 14-29 44-13-6-14-20-20-110-25-37-39-17-89 0-40-8-9-28 9-96 6-12-26-21-41-16-26-39-15 32-8 4-31-7-27-36 15-7 25-27 30-6 3-5-13-16 57 0 29-23 22-32-9-45 5-13 37-45 21 14-2-24-10-20-17-13-22-5-74 35-35-20-57-84-39-13 0-7 14 0-14-6 14-28 20 14-4-21-14-10-15 0-16 17-17-2-9-9 15-10-5-9-13-4-9 7-10-52-48-52-78-25-30 4-28-15-46-32-67-75 6-7-23-14-16-28-48-164-64-147 0-26 17-21 11-3 57 39 43-13 46 19 61 1 15 8 4 6 14-7 125 14 184-14 19-10 8-14-15-18-3-19 18 6 32 28 44-19 7 15 30 8 31 21 19 2 29-17 8-28 9-4 28 8 28-7 103 79 2 17 31 24 20 37 23 22-19 10-17 22-5 25 21 18-11 10-3 18 40-22-6 28 11 5 29-19-6 19 9 4 37-2 53 36 14-2 27 38 10 28-1 11-16-8-41 13 28 21-40 11-7 9-2 19 10 5 32-3-7 14 31 34-1 11-41 37-35 62-1 41 14 35 0 41 33 40-9 14-26-10-10 18 3 18 31-7 18 56-1 25-22 7-10 16 12 5-12 36 4 9 19 8 7 47 33 56 0 16-10 16 27 0 10 35 47 26 30 31-3 42-7 12-60 46-11 20 0 36 17 19 26 4 31-11-14-19 0-15 12-2 64 43 13 16zM6805 9819l4 14-17 44 3 43-12 28-22 7-11 78 2 36 17 21 3 13-5 14-19 15-4 16-46-17-19 6-13 53-13 18-42 22 5 13-4 8-21 13 1-20-13-8-14 35-10 3-24-10-26 21 0-14-50 31-22 22-9 19 18 82-11 30-41 49-16 7-34-14-62 29-28 33 3 13-10 7-5 22-219 26-26 15-44 0-33 20-32-4-63 48-33 4-26 21-61 102-23 22-33 15-32-3-19-34 3-42 38-73 13-43-7-85-6-15-27-29-7-22 40-129 66-112 7-47 0-170-11-66 19-39 12-138 12-18 21-163-5-36-17-31-24-9-67-7-49-19-58-1-27-8 2-11 32-39 0-52 8-23 22-5 20-23 23-12 21 21 44 17 22 29 41 32 23 11 108 24 36 14 55 44 64 15 39 58 37 24 46 47 74 35 15 46 18 8 31-17-4-24 4-16 6-3 25 23 18 3-8-18 34-31 3-9-9-11 68 0 35 7 24 14 20 43 68 26-49 35-18 21 0 19 24 9 53-33 52-16 35-29 44-14 28-18 24-25 14-25 7 0 0 60-7 16-29 7-5 6 7 15 20 0-9 15zM3390 10747l41 20 11 14-15 24-41 14-20 31-53 45-17 24-33 10-77-7-44 23-39 11-90 83-28 39-20 43-16 95-24 28-81 27-40 21-46 0-51 23-96 13-54 33-22-6-22 11-16 21-7 25 4 32 29 68-6 54-13 5-28-14-6-37-17-2-11 6 1 49 17 13-3 21 26-4 15 14-2 15-26 3-5 34-29 53-25 8-76 124-34 34-20 48-38 50-65 41-49 53-15 27-11 10-18 4-50 3-33 18-60 2-51 25-23 62 0 20-17 3-15 50-22 44-43 64-101 58-69 56-82 84-44 7-42 18-77-6-23 10-8 23 1 42-8 20-26 36-10 33-19 7-9-13-12-1-124 43-26 19-14 27-33 11-6 16-41 34-24 29-7-3 0-40 14-41 17-19 0-62 12-11 5-25 30-53-6-21 15 5 12-36 34-28 25-30-13 0 20-32 16-16 41-12 17-14 83-127 100-92 32-66 55-24 8 16 9 2 32-14 29-57-8-16 81-53 23-47 14-10 60 4 23-10 0 21 13 13 50-58 78-52 0-42 58-37 23-56 59-42 20-35 34-31 11-17 2-33 14-22 22 0 37-23 4-17 103-76 18-38 46-45 24-60 46-57-11-22 17-16 48-24 48-95 5 48-14 14 37 20 11-10 26-41-20-37-6-35 10-23 32-1 35-17 42 3 16-10 8-15 2-18-10-29 9-5 11 5 22-18 31-10-3-15 12-24-16-8-33 13-7-13 3-11 31-37 32 1 27 12 12-31 22-3-22-27 7-20 28-15-7 21 14 72 8 7 45-38 14-28 23-9 10-22 33-9 14-14-30-35 3-13 19 7 21-9 27-32 25-134-27-49-15 0-10 11-17-10-8-55-41-24 33-40-28-25 8-17-14-9 9-9 15 1 3 24 7 0 7-14 8 13 18-6-13 20 13 28-20 0 7 10 10 3 24-6-7 21 27 34 13-8 5 20 34 17 18 32 7 1 6-9 26 43 22-6-2-17-25-46 17-35-38-30-47-7-15-10-8-21 14-34-35 0-6-10 1-58 6-22 7 0 7 19 20 3-33-63-1-26 9-13 41 47 28 6 9-6 3-40 14-26-33-37-11-28 13 2 22-28 5-15-8-70 5-16 13-24 10 7 24-27 6-38 11-25 11-2 7 10 6 51 14 31 9 7 13-13 14 36 2 39-8 42-15 41-24 41-4 21 12 23 32 35 10 44-12 14-35-16-6 5-13 41 7 45-7 41 15 47 12 18 22 1 38-18 9 13-9 38 7 69-10 45 16 6 46-9 14 23-17-4-16 4 8 14-1 13 13 13zM5200 8596l5 28 15 32-1 33-13 6-50 66-24 16-18 1-1 26 6 14-7 7-6-7-4 7 4 20-18 12 1 28 30 57-39-12-19 1-2 18 7 15-7 18 12 10 2 18-30-18-10-16-80 55-28 55-14 0-36-28-60 0-18-9-14-24-6-29 8-27 14 26 26-5-20 0-7-21-20-14-7 2 0 19-15-9-38-35-12-22-38-33-41-71-22-18 12-66-1-20-15-37-57-80-55-14-16-77-16-25 13-28-2-57-18-86-17-31-43-59-31-64-22-27-47-16-17-22-17-8-33 3-10-5 11-18-26-24-19-29-12-31-8-71-7-16-13-7-31 7-39 37-12 2-15-5-23-25-10-33 15-44 34-30 23-8 23-1 66 15 92-1 29 14 79 6 14 11 16-8 30 22 17 1 130-35 27-15 12 12 16-8 6-17 26 0 7 7-5 9-22 11 46 43 22 38 16 9 64-3 17 11-4 33 6 0 13-35 55-34 20 37 113 93 42 66 53 21 10 15 2 21-10 32 3 10 11 7 33-7 45 5 17 11 8 19-4 20-46 37-18 39 9 85-8 71-6 0 7 91 10 23zM8859 10977l-1 45-13 17-30 7-68-28-18 3-7 21 3 29 14 44-33-12-28-32-19-38-7-32-20-30 0-35-30-19-19 2-11 17 13 29 7 135 23 64 18 87-1 20-10 9-16-6-52-41-7-19-36-11-34-38-66-4-34-13-14-34 27-117-1-23-21-49-31-20-4-25 8-74 23-38 5-65 28-81 0-47-22-96-45-47-14-38-26-34-40-31-13-23-14-8-39 1-32 18-3 15 16 37-23 43-25 14-44-31-22 2-9-32-34 5-6-4 1-20 20-47-2-19-25-29-2-17 29-63-13-82 0-92-17 2-32-28-5-18 21-28-35-17 13-7-36-68-13-60 3-16 27-14 112 110 36 62 9-62 13 3 41 35 24 62 24 27 35 16 47 1 35-9 30-17 48-43 38-53 13-8 40 13 7-13 10 13 33 0 37 28 8 11-2 23-17 52 9 29 10 11 34 13 4 25 11-20 7 0 0 41-14 31 14 41-2 32 15 92-2 43-39 123-7 48 8 42 13 12 91 40 10 37 43 55 19 8 2 20-11 51 13 48 0 51 33 46 7-11 7 0 12 15zM7661 10466l-26 86 3 40 27 81 4 37-21 14 7 13-1 79-29 80 8 23-25 24-7-19-6-1-8 15 2 35-82 45-20 34-59 11-14 11-20 26-53 43-14 52-9 11-42 30-9 25 0 79-14 72-4 9-23 11-90 214-6 39-23 66-34 28-22 33-62 72-16 9-14-1-7-21-6-79 49-277 43-113 2-25-27-20 4-31 11-11 12 11 11-64 84-84 13-23 12-45 46-64 24-79 99-129 16-32-4-55 34-50 11-41 12-23 70-90 65-187 18-30-16-59 26-45 0-24 7 0 21 21-21-80 7-19 58-82 27-19 28 8-33 139-40 53 9 4 8 17 37-8-3 21 9 59-8 53 15 53zM8167 11429l-15 9 72 60-27 65-35 4-39-7-6-27-14-1-36 37-33 16-7 36-11 21-28 21-42 18-77 15-190 9-125-22-44-15-20-13-9-17 11-59-11-13-53-6-7-18 2-23 25-62 46-44 10-28 30 0 14-24 117-40 17-33 7-36 11-11 28-6 1-25 49-47 54-15 107-10 17 11 7 41 26-34 14-8 21 45 12-3 57 47 40 2 57 37-5 43-3 9-12-15-4 43-8 18 27 32 1 16zM7669 9500l17 56-4 16-13 2-46-71-33-28-28-11-21-24-33-11-34-42-13 7-53-20-23 10-21-11-30-27 10-22 23-5-13-27-7 13-6 0-33-37-25-11-9-14 2-12 18-2-55-8-11-40-56-69-59-30-24 2-36 15-41 56-17 39-10 11-26 10-61 77-103 90-10-12 7-44 8-20 24-18 3-34 18-31-1-38 6-18 15 7 12-24 32-14-17-30 34-23 0-19-56 1-18 7-1-37 31-42 3-14 18-80 1-38-28-26-8-128 7-2 34 15 43 9 35 22-1 6-17-4 17 51-28 28-6 17 6 13 28-30 17-3 1-19 12-23 11-6 36 0 60 50 55 12 40 63 16 8 0 7-19 7-2 21 48-19 10 22 29 3 11 7 15 17 62 107 26 27-5-44 6-16 52 46 33-12 7 12 0-7 61 103 27 14 18 51 51 69 5 17-16-11-20-31-18-12 20 33-11 9 4 12 20 28 24 51 3 37zM8023 7427l0 8-27 19 13 7 14 41-27 8 8 19-8 59 17 28 1 17-21 7-31 0-21 88 1 14-15-10-25-36-41 5-29 17-22 52-12 7-17-7-82-70-38-6 1-27-21-37 59-46 34-64 7-38-8-58 15-31-19-82 19-22-11-23 0-15 12-29 12 16 14-4 29-24 22 4 36 39 12 24 12 67 18 10 12 18-7 7 7 15 7 0 14-27 27 12zM5952 14667l32 19 6 11-14 14-65 8-19 10-26 42-10 61-9 17-66 12-62 25-93 9-12-40-69-58-5-72-59-18-7-26 4-26 11-16 17-8 98-8 18-18 38-17 25-25 43-4 17 5 31 25 36 6 15 23 55 11 26 21zM4049 9271l5 13-3 9-22 12-14 3-20-11-17 0-36 15-34-20-13 5-2-15-44-11-8 7 7 12-7 35-13-4-7 12-6 0-14-27-11-8-42 7-37-16-17-15-13-29-27-32-8-48-39-73-21 21-12 28-13-8 19-27 5-58 49-25-24 0-17 8-2-39 7-15 23-1 18 8 8 39 68 14 16 10 57 52 33 7-17 8-2 19 22 1 77 54 8-16 20 2 0-93 5 0 21 34 1 43 6 10 28-3 5 17 7-8 42 45 3 28-25 17-4 13 4 5 14-11 6 7zM5762 7883l26 31-8 29-79 87 9 22-8 17-31 26-15 3-82-68-25-3-18-11-47-58-3-109 36-70 5-37 3-7 14-4 35 46 20-22 15 16 22 5 21-6 8-21 22 17-1 25 15-6 11 6 3 10-9 10 4 4 16 9 15-9 21 5 18 15 7 17-20 7zM5059 15294l38 19 8 17-9 22-27 8-3 30-47 7-47 44-11 0-19-13-8-13-1-31-24-26-38 2-106 52-13-6-17-22-41-8-43 28-29 10-16-8-2-16-23-10-16-23-4-18 5-18 28-36 64-35 30-8 30-37 80 0 44 20 19 11 23 51 15 14 18-5 34-22 44 20zM9294 11388l2 18-7 13-15 7-20-4-15-11-5-50-37-16-10-12 13 0-12-10 6-17-24 1-9-17 2-24 11-22 11 12 9-15-20-31-7 0-5 12-25-6-23 23-14-2-7-10-3-25-15-11-2-35 15-7 9-18-4-38 15-3 13 10-12-42 12-12-14-15 4-15-10-33 40-14-7-40 7-7 17-1 14 14 15-6 14-73 13-16 19 4 14 23 13 33-1 36-25 102-19 1-1 13 30 33-10 15 7 7-11 6 2 11 12 7 16-3-8 44 29 59-24 47 11 48-11 16zM5775 8634l30 9 10 9 0 16-27 7 7 64-28 101-8 74-18 71-43 101 24 26-1 15-13-14-23 24-4 58-7 0-20-23-5-15 5-16-26-2-6-17 5-50 9 24 14 4 12-11 6-21-3-12-31-12-49-47 3-36 10-41 12-19 31-13 15-30 4-70-6-59 4-22 23-19 56-15 28-15zM3956 16033l-19 117-16 35-24-11-7-10 5-61-7-7-6 1-7 20-23 0-15-14-9-21-10 15-2 32-8 14-14 6-39-12-20 2-20 32-24 3-10 38-16 12-31-12-30 28-30 0-30 11-10-11-1-47-6-16 127-67 22-33 69-19 16-17 24 4 10-4 10-31 36-28 63-32 15 10 6 70 23-4zM5668 6289l23 2 19 10 9 16-5 21-21-26-11-6-14 4-13 21 4 5 9-5 7 36-44 30 10 64 18-2 12 16 17 89-2 13-19 49-19 17-44 17-23-9-8-22 2-27 6-24 18-4-1-39-14-45-20-22-15-4-6-58-29-42-25-4-4-6 8-66 7-23 10-10 30 17 19 3 16-25 17-2 41 5 15 9 8-5 12 4 5 12zM6357 10565l26 41-1 54-15 55-34 79-22 35-29 27-39 11 10-28-10 1-57 41-16-35 0-20-21-7-12-12-3-10 33-6 12-24 24-16-18-4-8-17 2-21 44-75 48-18 10-39 36-39zM8201 9737l21 9 3 21-15 46-16 5-104-6-7 13-6 1-58-72-36-100-27-34 19 1 61-16 63 0 45 20 14 15 11 35zM10418 16969l35 31-190 0 3-8-15-47-3-42 8-27 34-49-6-63 10-10 24-4 47 4 13 9 13 32 31 11 10 37-26 89zM6334 8897l-17 85-27 26-30 15-20-23-37-18-41-60-45-11-33-21-8-17 0-36 21-21 35-9 111 0 48 14 17 40zM948 13957l73-13 24 7 11 17-8 100-11 30-15 19-17-9-87 24-40 25-11 22-16 19-7-25-8-76 9-23-1-45 9-14 25-11 45-40zM9730 11471l14 27-2 14-57 29-77-16 7 20-53-61 0-21-21-4-6-9 26 0 21-14-34-24 4-14 59-97 1-36 25-24 10 3 44 100 11 54-4 21-22 24 31 7zM6912 8435l7 50 72 78 15 43-34-24-87-115-65-25-113-107-9-23-25-16-60-15-22-25-7-56 1-11 30-11 13-7 3-25 47 26 33 43 20 41 27 24 37 82 40 32 25 8 19-8 16 8zM3734 9407l27 22 30 11-32 6 1 23-12 14 0 7 13 6 0-6 10 4 17 17-27 27 14 20-19 33-32 27-29 2-17 16-12-16-5-29 6-26 21 21 7 0-7-27 23-28 4-14-7-13-13 6-7-6-6 21-12 9-29-10-17-40-10-8 20-14-47-55-20-61 37 14 1-23 12-14 15-5 9 21 34 21-5 10 71 6-6 9-22 5zM3661 10696l49 24 11 15-20 9 2 16-9 9-15 3-18-7-7 20-33-41 11 59-5 16-29 1-8 15-69 19-17-11-11-37 1-41-12 4-9-3-3-9 40-30 33-53 20-19zM7320 12135l24 16-24 25-44 1-12 24-60-8-97-65-8-13 3-12 25-23 17 10 23-3 60-42 12-34 27-5 13 5 23 44 24 12-3 13-17 20 3 19zM864 13242l-5 29 11 17-19 19 14 72-8 37 9 12-31 36-31 14 10 17-7 7-30-10 6-16-6-15-19-31-21-56 7-136 10 7 10 28 14 0 8-28 8-7 61-8zM7408 8924l7 33-4 5-16-11-12-29-29-28-146-218-2-22 16 5 12-46 8 0 28 30 57 32-4 10-9 3 24 4 16 17-5 17 25 55 28 100 7 10zM8381 12100l18 24 5 19-7 61-13 13-17 6-20-17-17-2-59-29-24-24-10-33 10-37 25-23 35-8 37 11 25 35zM9364 14352l2 8-16 46-9-5-22-38-7-42-16-37-4-36-39-14-5-27 23-34 6-50 4-15 9-4 65 61 6 22-7 128zM5200 1979l20 38-27 4-20 20-71-38-12-1-14-5-17-31-31-36 1-6 27-8 17-19 73 21 45-12 9 12zM8880 11329l9 38-19 16-11-2-74-117-51-35-8-16-13-65 13-14 11 0 26 21 52 24 10 17 14 68 35 44zM3965 7588l21 10 3 11-21 17-21-30-23-7-15-25-21-11-23-2-17-18-32-10-16-18-12-47 6-19 7-4 24 4 45 26 5 10 14-4 19 4 34 20 33 52-18 29zM5765 7197l66 49 11 23-7 24-18 0-188-136-19-23-22-43 10-20 23-1zM6611 13916l-26-6 7 26-8 15-19 0-40 28-28 6-12 21-25-1-16-26-6-25 0-38 9-33 24-14 38 35 16-1 11-35 10-6 38 22zM5634 2315l20 24-2 12-26 10-32 44-34 27-29 46-18-2-12-10 6-34 33-33-20-22 10-12 10-30-3-6 30-34 18 7 25-14 9 3zM1239 14533l41 63-4 31-37 30-25 7-60-3-34-16-1-17 9-8 75-9 11-10 5-16-9-9-35-2-4-13 12-12 40-6zM9558 11614l11 9-21 60 5 11-6 31-31 9 6-16-27-8 0-6 13 0 0-8-20-13 0 7-2-19 22-44 0-26-10-16-1-24 7-21 17-8 7 21 13-8 3 60zM7421 10121l16 24-3 7-67 9-12-15-28-87 27-43 13-8 9 2zM1099 12977l29 20-6 58 10 26-17 22-10 4-13-6-28 15-11-23-8-61 14-55 16 5 17-11zM2256 16651l13-17 25 1 49 22 0 8-24 8-3 26-24-21-12 21-39-23-28-5-17-14-100-27 0-6 77 0 30-21 19 3 17 32zM784 13944l13 13 6 24-2 24-10 15-18-17-15 7-5 19 11 18-94 24 13 14 5 6-13 15-39-4 48-89 60-21zM8411 9668l13 19 27 8-10 56-14 13-23-27 1-14-7-5-14 12-14-35 14 7-2-16-22-27-22-10-18-42 10-29 7 0 49 37 9 23 15 7zM3580 9784l9 36-6 39-16 36-20 27-11-9-1-13 12-26-37-7-13 22-11 5-15-23-19-8-5-19-14-4 12-18 41 38 10-8 4-46 27 34 11-13 9 13 11-31-3-12-15-6 22-12zM5065 2397l41-3 27 22 20 2-46 26-110 13-23-4-15-15-4-14 5-5zM4284 14919l15 23 1 28-26 78-18 13-13 1-39-6-17-16 3-7 30-10 39-85 16-17zM5543 530l-25 51-22 20-25 8-17-12 5-27 45-90 18-18 10 0 8 10 6 29zM3205 16449l18 52 2 35-7 30-28 68-11 10 6-120-5-67-21-60 11-3 21 12 11 18zM7986 10609l10 50-11 13-76 38-16-14 23-44 5-30 14-26 13-8 14 1zM7460 11658l27 21-24 32-39 29-38 10-15-4-12-25-10-12 53-33zM9394 10565l9 15-4 11-13 7-33 3-75-42-19-12-5-26 8-26 22-13 22 10 12 50 16 17 47 1zM7699 8040l-18 9-21 25-20 4-84-22-25-27 1-19 47 3 23 11 30-4 15 13 7-12 8 0 36 12zM8070 10586l37 21 16 27-11 24-45 11-52-17-1-36 26-30zM3715 5031l7 27-7 10-12 2-35-32-34-42 20-25 18-6 12-16 17 7 14 32zM2282 14294l-16-7 10 34-12 8-72-11-16-24 3-21 24-14 18 4 35-10 21 12 12 22zM5672 812l17 7 5 17-67 57 10 28-15 24-19 6-17-5-5-22 48-85zM7508 8026l13 28-2 8-27 8-16-20-11-20 5-48-4-13-10-14 12-9 71 24 0 10-26 27zM4892 2123l19 18 21 78 7 35-14 28-47-47-6-22zM5892 6502l13 10 8 21 0 21-14 10-77-62-41-9-16-31 1-6 18 2 11-10 3 13 7 5 57-5-11 14 4 21 9 7zM5936 8695l30 68-1 36-29 26-25-36-6-48-3-12 14-13 11-29 9-6zM3988 9370l-21 14 8 17-7 37 14 38-11 8-12-20-17-49-34-63 63-20 14 10zM5640 1723l20 17-10 47-9 14-17 7-13-5-41-33-9-17 4-12 49-1zM7760 8114l-49-6-29-12-3-7 57-22 54 10 18 10 12 17-1 18-12 5zM4799 9103l15 33-12 6-28-16-20-37-17-10-12-31 20-26 27 11 17 56zM4550 15726l12 2 17 14 14 20 5 18-12 21-17 3-36-14-23-33 15-20zM9000 15875l6 18-6 39-65-4-18-21 24-29 18-9zM4778 10404l0 23-13 31 6 19-24 5-27-2-17-14 8-30 7-7 52-38 7-1zM2466 16808l22 7 11 14-3 14-59 6-21 14-5-3-2-24-20-20 1-14zM7607 10976l17 12 29-18 5 6-66 69-29 9-13-8 1-35 13-18zM5567 15266l37-12 3 12-5 5-68 29-10-2-52-35-28-40 17 2 76 42zM5083 9238l10 32-3 15-11 12-18 2-12-10-10-40 6-20-12-23 3-21zM4899 15479l16 10-3 10-33 0-35 13-15-2-11-17 7-27 20-14 32 8zM3351 10230l13 26 2 29-18-4-16 11-4-17-28-21 0-52 39 17zM8208 11160l-11 16 2 30-9 8-13-4-14 4-20 25-15-18-3-33 5-5 15 1 9-11 15-1 25-17 13-3zM6065 6574l6 6 1 15-21 19-43 6-34-3-3-16 25-14 54-19zM1018 12985l18-6 3 20-48 36-24 3-9-26 8-12 52-43-7 20zM3511 16242l-21 16-22 6-6-8 3-19 33-48 15-10 8 3 6 48-5 11zM3978 16122l-29-7 9-15-11 3 24-60 20 18-16-11-2 6 35 17 4 29zM3978 16122l-29-7 9-15-11 3 24-60 20 18-16-11-2 6 35 17 4 29zM8478 9618l8 13-20 17 5 15-3 12-15 5-7-9-17-4-2-31-11-22 3-23 10 16 26 4 6 8zM8478 9618l8 13-20 17 5 15-3 12-15 5-7-9-17-4-2-31-11-22 3-23 10 16 26 4 6 8zM5149 9433l51 20-9 9-21 10-22 1-37-12-4-4-18 3 13-21 17-7zM4479 15786l-16 18-18-7-8-13 19-45 25-8 15 10 0 25zM4479 15786l-16 18-18-7-8-13 19-45 25-8 15 10 0 25zM9071 15814l5 14-5 48-17 31-8 2-4-8 1-16-8-12 4-1-8-7 4-7-1-8 14-5-14-5 15-16 1-17zM9071 15814l5 14-5 48-17 31-8 2-4-8 1-16-8-12 4-1-8-7 4-7-1-8 14-5-14-5 15-16 1-17zM7287 7335l11 13-7 13-47 30-16-8-8-30 10-14 3 9 11 4 1-8 15-7 16 10-14-28zM7287 7335l11 13-7 13-47 30-16-8-8-30 10-14 3 9 11 4 1-8 15-7 16 10-14-28zM5508 954l17-1 20 14 13 19-1 17-29 23-11 1-11-48zM5300 14643l0 68-5 21-7 7-6-9-2-22-18-28-7-12 33-40zM8663 8665l14 22-2 7-31-1-16-14 14-12-10-14-15-7 4-20 12-10 19 1zM8663 8665l14 22-2 7-31-1-16-14 14-12-10-14-15-7 4-20 12-10 19 1zM811 13232l-21-29-13-6 31-26 17-7 13 13 10 37-28 9zM4598 7641l26 7-1 14-24 10-34-7-38-26-8-29 17 18 36 13zM4598 7641l26 7-1 14-24 10-34-7-38-26-8-29 17 18 36 13zM3551 16437l-16 0-22-17-8-26 3-16 11-5 11 5 26 17 8 17-1 15zM1769 15524l9 1-4 13-13 17-33-2-16-33-35-6-2-5 57-2-8 9 12-8 11 5-7 9 12-10 3 14 0-8zM1769 15524l9 1-4 13-13 17-33-2-16-33-35-6-2-5 57-2-8 9 12-8 11 5-7 9 12-10 3 14 0-8zM8150 10536l-28 24-21-2 0-19 35-42 21-10 9 3zM8150 10536l-28 24-21-2 0-19 35-42 21-10 9 3zM8654 8727l-8 11-20 6-25-14-20-47-2-23 20 14 7 27 19 11 23 3zM8654 8727l-8 11-20 6-25-14-20-47-2-23 20 14 7 27 19 11 23 3zM5727 8335l26 4-2 32-16 20-14 0-10-15 3-8-16-11-2-14zM5727 8335l26 4-2 32-16 20-14 0-10-15 3-8-16-11-2-14zM4016 7520l-32-8-11-20-9 0 20-13 5-16 32 11 10 18 1 10zM4016 7520l-32-8-11-20-9 0 20-13 5-16 32 11 10 18 1 10zM4550 15596l18 10 4 9-43 16-30 5-9-4-2-11 10-17 25-11zM5235 9342l14 23 4 36-30 10-8-6-5-7 8-32-4-24 14-4zM5235 9342l14 23 4 36-30 10-8-6-5-7 8-32-4-24 14-4zM5809 2722l4 27-7 25-34 19 6-36-9-12 6-16 22-12zM5809 2722l4 27-7 25-34 19 6-36-9-12 6-16 22-12zM3332 10100l15 10 4 8-5 9-43 34-13-5-3-13 6-22zM9297 14370l-5 24-12 2-15-8-21-39 15-16 21 5zM9297 14370l-5 24-12 2-15-8-21-39 15-16 21 5zM7954 9499l-1 19-21 20-14-5-18-22 2-12 19-15 24 1zM7954 9499l-1 19-21 20-14-5-18-22 2-12 19-15 24 1zM7816 9219l22 7 1 10-20 3-30 21-13 2-14-6-4-9 7-12 12-10zM5575 9218l18-13 13 1 15 29 0 18-3 12-37-14zM5575 9218l18-13 13 1 15 29 0 18-3 12-37-14zM5455 7387l7 8-1 17-9 8-2-18-6-4-26 14-10-31 10-6-4-15 13-3 23 8 6 10zM5455 7387l7 8-1 17-9 8-2-18-6-4-26 14-10-31 10-6-4-15 13-3 23 8 6 10zM7888 8924l-5 10-12-8-13-29-9-40 6-18 18 20 14 35zM7888 8924l-5 10-12-8-13-29-9-40 6-18 18 20 14 35zM5380 15259l14 11-19 9-14 23-28 6-9-9 23-19 4-18-12-5 5-16 8-1 14 9-6 9zM5380 15259l14 11-19 9-14 23-28 6-9-9 23-19 4-18-12-5 5-16 8-1 14 9-6 9zM7911 9400l-19-1-9-14 23-27 10-12 10-3 12-2 4 10zM7911 9400l-19-1-9-14 23-27 10-12 10-3 12-2 4 10zM7780 8902l-19-17-12-23-4-33 9 2 18 13 16 23 5 26zM1972 15444l13 5 3 10-5 9-48 12-16-8 4-16 23-11zM4065 7650l-45-20-6-10 99 28 5 14-4 10-24-5zM4065 7650l-45-20-6-10 99 28 5 14-4 10-24-5zM3642 4919l-20-10-3-21 3-9 17-6 7 1 25 37-4 17zM3642 4919l-20-10-3-21 3-9 17-6 7 1 25 37-4 17zM2996 10325l-6-8 9-15-4-21 13 1 1 5 6-8 8 1 5 6 0 17-11 12 10 26-10 8-17-10zM2996 10325l-6-8 9-15-4-21 13 1 1 5 6-8 8 1 5 6 0 17-11 12 10 26-10 8-17-10zM8064 9387l3 22-18 9-27-12 0-18 16-18 12-1zM8064 9387l3 22-18 9-27-12 0-18 16-18 12-1zM5393 8386l-6 3 4 7-10 4-26-20-3-16 7-11 28 0 14 18zM6868 9810l0 12-8 10-17 6-25-14 0-12 15-5 8-15 18 3 4-11zM6868 9810l0 12-8 10-17 6-25-14 0-12 15-5 8-15 18 3 4-11zM7427 7352l8-4 0-23 19-2-3 38 8 37-10 11-9-22-8 1zM7427 7352l8-4 0-23 19-2-3 38 8 37-10 11-9-22-8 1zM2111 16319l14-1 4 3-7 6-49 22-17 0-4-7 9-16 4-2 0 11 12-5-6-14 11-8 9 1 1 11 10-5zM2111 16319l14-1 4 3-7 6-49 22-17 0-4-7 9-16 4-2 0 11 12-5-6-14 11-8 9 1 1 11 10-5zM4593 15541l11 6 13 20-5 21-14 12-18-10 1-31zM5062 15285l3-19 18-17 23 11 3 22-8 7zM5062 15285l3-19 18-17 23 11 3 22-8 7zM5722 8473l16-8 0 10-19 35-12 6-15-8-12-10 8-10zM5722 8473l16-8 0 10-19 35-12 6-15-8-12-10 8-10zM7421 7934l-25-26-4-12 32 12 23 19 17 5-22 16zM1475 15298l9 13-3 8-19 22-11 3-7 15-12-3 2-9 19-10-1-23-3-21 18-7zM1475 15298l9 13-3 8-19 22-11 3-7 15-12-3 2-9 19-10-1-23-3-21 18-7zM6796 10038l-12 11 0-20 8-14-3-26 10-2 12 11 6-4 9 10-23 27-1 13zM6796 10038l-12 11 0-20 8-14-3-26 10-2 12 11 6-4 9 10-23 27-1 13zM5469 7008l3-8 20-8 18 8 2 8-17 28-12 8zM5469 7008l3-8 20-8 18 8 2 8-17 28-12 8zM3138 16521l6-8 2 12-18 100-5 3-7-11 10-32 4-28-13-1 1-7zM3138 16521l6-8 2 12-18 100-5 3-7-11 10-32 4-28-13-1 1-7zM5626 14588l-21-2-2-14 13-20 20-9 13 1 0 12-8 3 3 11zM5626 14588l-21-2-2-14 13-20 20-9 13 1 0 12-8 3 3 11zM3722 16282l9 5 3 11-16 42-12 4-10-19 11-18-3-17 17-2zM3722 16282l9 5 3 11-16 42-12 4-10-19 11-18-3-17 17-2zM9235 11580l-7 8 6 10-1 37-15-9-4-30-5-6-5 5-12-2 4-17 10-7 9 9 22-4zM9235 11580l-7 8 6 10-1 37-15-9-4-30-5-6-5 5-12-2 4-17 10-7 9 9 22-4zM4408 14887l-3 9-18 3-22-7-1-12 10-8 32-13 5 11zM4408 14887l-3 9-18 3-22-7-1-12 10-8 32-13 5 11zM5734 6451l-33 5-18-11-9-19 8-6 39 15zM5734 6451l-33 5-18-11-9-19 8-6 39 15zM3395 10019l-3 18-12-10-6-21 0-14 22-9 1-5 12-4 1 16zM3395 10019l-3 18-12-10-6-21 0-14 22-9 1-5 12-4 1 16zM2918 10727l11 2-7 6-9 0-1-7-28 2-17 15-12 2 2-16 6-3-13-7 7-14 2 7 11-3 5 5 15-11 1 17 6 3 5-9zM2918 10727l11 2-7 6-9 0-1-7-28 2-17 15-12 2 2-16 6-3-13-7 7-14 2 7 11-3 5 5 15-11 1 17 6 3 5-9zM3889 9550l-14 6-27-8-6-26 8 9 18 1 6 6 10-2-9-19 20 6 7 22zM3889 9550l-14 6-27-8-6-26 8 9 18 1 6 6 10-2-9-19 20 6 7 22zM4773 7770l-16-6-28-25 0-7 23 1 18-4 5 9 3 25zM7855 11112l-17 11-19 2 1-8-8 2-6-10 28-11 36-6 2 5zM7855 11112l-17 11-19 2 1-8-8 2-6-10 28-11 36-6 2 5zM4634 10164l-8-6 0-15 42-15 2 17-16 19zM4634 10164l-8-6 0-15 42-15 2 17-16 19zM7973 8645l-14-40 29 11 10 41-10 5zM7973 8645l-14-40 29 11 10 41-10 5zM6597 6804l-10 19 8 4-1 5-13 5 1 10-8 4-2-7-12 0-13 11-9-6 10-14 11-2 1-7 8 2 20-25zM6597 6804l-10 19 8 4-1 5-13 5 1 10-8 4-2-7-12 0-13 11-9-6 10-14 11-2 1-7 8 2 20-25zM880 13051l16 9 7 11-3 9-33 2-9-28zM880 13051l16 9 7 11-3 9-33 2-9-28zM4016 16175l5 8-13 22-23 11-7-5-5-11 5-6 28-21zM4016 16175l5 8-13 22-23 11-7-5-5-11 5-6 28-21zM9285 11485l10 7-4 17 23 8-17 18 2 11-9-13-16 0-3-20-1-10 5 4 11-7zM9285 11485l10 7-4 17 23 8-17 18 2 11-9-13-16 0-3-20-1-10 5 4 11-7zM7503 9952l12-5 2 32-6 30-14 7-3-22zM7503 9952l12-5 2 32-6 30-14 7-3-22zM945 13122l21 1 15 10 1 11-21 6-22-7-9-13 2-10zM4360 15015l-10 19-21 13-11-14 6-15 16-14 8 10 4 6 5-31 6 12zM4360 15015l-10 19-21 13-11-14 6-15 16-14 8 10 4 6 5-31 6 12zM4750 15607l5 6-3 10-27 15-15-6-10-16zM4750 15607l5 6-3 10-27 15-15-6-10-16zM4149 15124l18 4-14 29 6-23-12-4-2 5 5 1-7 28-26-23 20-15zM4149 15124l18 4-14 29 6-23-12-4-2 5 5 1-7 28-26-23 20-15zM5258 15355l-10 10-12-4-7-14 22-28 15 18zM5258 15355l-10 10-12-4-7-14 22-28 15 18zM7919 7342l-4-10 19-14 24 32-14 8zM7919 7342l-4-10 19-14 24 32-14 8zM9201 10320l-12-24 15-3 26 9-2 17-16 7zM9201 10320l-12-24 15-3 26 9-2 17-16 7zM7669 11055l-6 8-2-15-10-3-15 12 4-14 14-2 1-6 9-9-1-7 17-8 5 5zM7669 11055l-6 8-2-15-10-3-15 12 4-14 14-2 1-6 9-9-1-7 17-8 5 5zM5496 15148l-24 17-10-14 14-26 11 3zM5496 15148l-24 17-10-14 14-26 11 3zM5665 15008l-21 11-6-3 6-2-6-10-15 2-4-7 8-15 25 6 4 20zM5665 15008l-21 11-6-3 6-2-6-10-15 2-4-7 8-15 25 6 4 20zM9090 11415l-3-35 9 19 13 7 3 11 20 17-18 3zM9090 11415l-3-35 9 19 13 7 3 11 20 17-18 3zM5511 15152l8 9-1 11-21 9-16-10 2-7 20-13zM5511 15152l8 9-1 11-21 9-16-10 2-7 20-13zM3100 10091l4 14-30-13-10-10 6-12-1-15 6-2 4 18 9 9 10-7 3 3zM3100 10091l4 14-30-13-10-10 6-12-1-15 6-2 4 18 9 9 10-7 3 3zM5606 9355l-10 5-28-50 9-8 11 5 2 23 8 12 12 3zM5606 9355l-10 5-28-50 9-8 11 5 2 23 8 12 12 3zM3390 10195l-7-19 18-2 13 24-4 16-17 9 5-22zM3390 10195l-7-19 18-2 13 24-4 16-17 9 5-22zM7990 8688l12 20-8 12-10-14-3 6-12-8 2-22zM7990 8688l12 20-8 12-10-14-3 6-12-8 2-22zM9058 10843l19 11-6 14 4 9-17-1-4-11-11-24zM9058 10843l19 11-6 14 4 9-17-1-4-11-11-24zM6348 10851l-18 7-3-23 12-9 26 17 1 6zM6348 10851l-18 7-3-23 12-9 26 17 1 6zM5230 15281l-16 7 3 3-10 8-14 1 10-19 16-26 9 3zM5230 15281l-16 7 3 3-10 8-14 1 10-19 16-26 9 3zM4933 11669l4 7-32 41-13 7 17-34 11-4 19-31zM8028 9340l-18-6 1-22 10-4 17 12 1 8zM8028 9340l-18-6 1-22 10-4 17 12 1 8zM4554 14973l6-9-6 6-6-6-8 6-3-5 5-11 8-1 8-1 10 14-6 16-13 7-14-1-3-7 4-7 7 7zM4554 14973l6-9-6 6-6-6-8 6-3-5 5-11 8-1 8-1 10 14-6 16-13 7-14-1-3-7 4-7 7 7zM2190 12062l8 21-27 10-1-10 8-30zM2190 12062l8 21-27 10-1-10 8-30zM4706 9109l-11-10 8-3-13-1-3-10 8-22 9 3 16 34-9-5-7 7 6 12zM4706 9109l-11-10 8-3-13-1-3-10 8-22 9 3 16 34-9-5-7 7 6 12zM8033 8749l-18-11 15-18 9 17 9 1 9 4-1 15zM8033 8749l-18-11 15-18 9 17 9 1 9 4-1 15zM2869 15838l16 8-30 14-9 3-12-12 17-12zM2869 15838l16 8-30 14-9 3-12-12 17-12zM3735 7400l20 7 10 16-12 9-19-12-7-5 0-9zM3735 7400l20 7 10 16-12 9-19-12-7-5 0-9zM3916 16253l17 10-18 21-23-11zM3916 16253l17 10-18 21-23-11zM8118 8747l-15 12-23-34 4-10 10 2zM8118 8747l-15 12-23-34 4-10 10 2zM4034 16140l10-5 3 11-10 35-14-18 3-19zM4034 16140l10-5 3 11-10 35-14-18 3-19zM3545 16479l22 13 4 9-23 2-14-7-7-13zM4038 16067l12 0 8 9-7 5 1 13-8 21-6-25-7-5zM4038 16067l12 0 8 9-7 5 1 13-8 21-6-25-7-5zM4009 15935l-7-2-6-13 4-6 8 4 8-5 22 9zM4009 15935l-7-2-6-13 4-6 8 4 8-5 22 9zM2511 16673l7 14-30-14-25 24 2-18 22-14zM2511 16673l7 14-30-14-25 24 2-18 22-14zM4233 15152l15 4 9 13-12 15-13-6zM4233 15152l15 4 9 13-12 15-13-6zM8663 11358l-1 43-4 3-5-14 4-5-12-48 10 0zM8663 11358l-1 43-4 3-5-14 4-5-12-48 10 0zM6939 7190l-19-16 13-5 23 17 0 7-10 15zM6939 7190l-19-16 13-5 23 17 0 7-10 15zM3541 9356l-7 6 5-17 24-27 13 0 7 5-20 6zM3541 9356l-7 6 5-17 24-27 13 0 7 5-20 6zM4656 15092l11 3 13 16-8 7 2-11-18-7-2 10 12-4-6 6 5-1-2 9-7 3-7-8-4-11 7-14zM4656 15092l11 3 13 16-8 7 2-11-18-7-2 10 12-4-6 6 5-1-2 9-7 3-7-8-4-11 7-14zM4371 10005l3-8-8 0-1-8 18-10 5 2 0 24-11 5zM4371 10005l3-8-8 0-1-8 18-10 5 2 0 24-11 5zM3406 10231l1 18-18 21-2-24 11-17zM3406 10231l1 18-18 21-2-24 11-17zM4610 15120l9-2 4 8-28 13-12 12-3 8-7-2 9-17zM4610 15120l9-2 4 8-28 13-12 12-3 8-7-2 9-17zM4285 15897l-15-18 13 9 0-5 12 2-18-22 13 6 12 19-2 7zM4285 15897l-15-18 13 9 0-5 12 2-18-22 13 6 12 19-2 7zM3705 15434l-22 1-7-10 0-18 8 1-1 22 16-6 24-3-8 14zM3705 15434l-22 1-7-10 0-18 8 1-1 22 16-6 24-3-8 14zM6959 9716l-8-6 7-9 25 2 1-5 3 15-6-2-20 17zM6959 9716l-8-6 7-9 25 2 1-5 3 15-6-2-20 17zM10671 16526l15 22-9 12-13-13-1-15zM3806 9915l12 3-4 18-17-3 3-17-15-6zM3806 9915l12 3-4 18-17-3 3-17-15-6zM7292 9396l6 15-4 18-13-9-1-9 2-14zM7292 9396l6 15-4 18-13-9-1-9 2-14zM4195 16114l8 9-4 16-6 1-8-8-7-27zM4195 16114l8 9-4 16-6 1-8-8-7-27zM3947 15955l2 19-21-19-6-12 14-3zM3947 15955l2 19-21-19-6-12 14-3zM4280 6910l24-1-22 7-8 9-16-6 2-10zM4280 6910l24-1-22 7-8 9-16-6 2-10zM5701 6862l4 15-11 23-2-19-5-25zM5701 6862l4 15-11 23-2-19-5-25zM5465 980l10-18 8 21-7 15-12-6zM5465 980l10-18 8 21-7 15-12-6zM4645 10309l4 11-17 6-9-15 17-9zM4645 10309l4 11-17 6-9-15 17-9zM6520 8146l15 7-2 5-14-3-8-2-14-28zM6520 8146l15 7-2 5-14-3-8-2-14-28zM4592 15149l3 9 11 5-7 9-15 2-6-5zM4592 15149l3 9 11 5-7 9-15 2-6-5zM3690 15379l-2-14 9-8 12 1 0 12-6 9zM3690 15379l-2-14 9-8 12 1 0 12-6 9zM4513 9856l8-6 12 15-8 17zM4513 9856l8-6 12 15-8 17zM4111 15506l10 7-1 9-13-1-12-32 14 10-7 3 7 4 3 13 6-5zM4111 15506l10 7-1 9-13-1-12-32 14 10-7 3 7 4 3 13 6-5zM4052 16042l11 0 4 8-8 14-7 2-6-19zM4052 16042l11 0 4 8-8 14-7 2-6-19zM3666 15418l5 20-16-7-3-12-14 3 6-8zM3666 15418l5 20-16-7-3-12-14 3 6-8zM3886 9852l-13 14 8-24 10-6 11 15zM3886 9852l-13 14 8-24 10-6 11 15zM5783 7763l7 3 3 17-26-10 2-12zM5783 7763l7 3 3 17-26-10 2-12zM6757 9440l13-3 4 5-7 15-10 8zM6757 9440l13-3 4 5-7 15-10 8zM9516 10541l-5-6 3-8 17 12 2 15zM9516 10541l-5-6 3-8 17 12 2 15zM4288 16080l16 1-9 14-7-3-14-3 4-8zM4288 16080l16 1-9 14-7-3-14-3 4-8zM7710 9042l-3-19-6-3 5-11 15 6zM7710 9042l-3-19-6-3 5-11 15 6zM6368 7939l-4 36-7-19 2-20zM6368 7939l-4 36-7-19 2-20zM3444 10271l13 6 3 6-8 8-12-13zM3444 10271l13 6 3 6-8 8-12-13zM3807 15336l8 7-2 17-16-34 6-3zM3807 15336l8 7-2 17-16-34 6-3zM4422 15819l8 10 3 29-8-6 4-5-8-26-6-4-7 5 0-8 8-2zM4422 15819l8 10 3 29-8-6 4-5-8-26-6-4-7 5 0-8 8-2zM4082 15893l12 0 0 11-9 0-18 3zM4082 15893l12 0 0 11-9 0-18 3zM5181 1849l9 19-5 7-8-13zM5181 1849l9 19-5 7-8-13zM4375 16083l5 3-6 3-10-3-11-12zM4375 16083l5 3-6 3-10-3-11-12zM4287 15841l-5 14-8-14 10-12zM4287 15841l-5 14-8-14 10-12zM3973 15670l15 2-1 6-11 6zM3973 15670l15 2-1 6-11 6zM1768 15181l11-7 4 7-6 5-7 3-7-4zM1768 15181l11-7 4 7-6 5-7 3-7-4zM4473 14853l11 25-15-17zM4473 14853l11 25-15-17zM5825 7779l9-10 4 25-13-15zM5825 7779l9-10 4 25-13-15zM9063 16560l-6 6-4-4 9-8 6-1zM9063 16560l-6 6-4-4 9-8 6-1z"};
+const MK=1000,MC=Math.cos(12.5*Math.PI/180),LON0=116.2,LAT1=21.3,UPK=MK/111.2;
+const PX=(lon,lat)=>[(lon-LON0)*MK*MC,(LAT1-lat)*MK];
+
+/* Lines. Gold is the spine, blue the eastern branch, green the western; orange only in rescue mode. */
+const LINES={C:{n:'Central spine',c:'#d9a21b'},E:{n:'Eastern branch',c:'#3a86d8'},W:{n:'Western branch',c:'#3aa564'}};
+const ORANGE='#ff7a1a';
+/* Stations: name, island, lon, lat, kind (term/major/minor), typhoon exposure 0–3, flags
+   s storm-shelter station, f flood zone (line raised or sealed), j junction, a airport nearby, p seaport */
+const ST={
+ clark:['Clark','Luzon',120.55,15.18,'term',1,'a','The northern end. The express runs round a loop here and heads south again without stopping. Clark airport is a short walk away, so the line meets the planes.'],
+ manila:['Manila','Luzon',120.98,14.60,'major',2,'fap','Under the city in a sealed box, clear of the floods. Destination cars slip off here; Denkraum’s tower is ten minutes away.'],
+ batangas:['Batangas','Luzon',121.06,13.76,'minor',2,'p','The last stop on Luzon before the line dives under the Verde Island Passage, one of the richest reefs on earth.'],
+ calapan:['Calapan','Mindoro',121.18,13.41,'minor',2,'p','First station on Mindoro, where the line comes up from under the Verde Island Passage.'],
+ bongabong:['Bongabong','Mindoro',121.49,12.75,'minor',2,'j','The western junction: the green cars for Palawan peel off here without the train slowing.'],
+ caticlan:['Caticlan','Panay',121.95,11.93,'minor',3,'sa','Where the line comes up from the Semirara tunnels; Boracay is across the water. A storm-shelter station: Haiyan crossed northern Panay in 2013.'],
+ kalibo:['Kalibo','Panay',122.37,11.70,'minor',3,'sfa','On the Aklan River’s flood plain, so the line runs on a raised viaduct. Storm-shelter station.'],
+ roxas:['Roxas City','Panay',122.75,11.58,'minor',3,'s','Capiz, on Panay’s exposed north coast. Storm-shelter station and evacuation centre.'],
+ iloilo:['Iloilo','Panay',122.56,10.72,'major',2,'fap','Panay’s city. Destination cars slip off here; the line then crosses to Guimaras and Negros on two bridges.'],
+ bacolod:['Bacolod','Negros',122.95,10.68,'major',1,'ap','Negros’s city, in the lee of the island’s mountains. An open side-track station.'],
+ sancarlos:['San Carlos','Negros',123.42,10.48,'minor',1,'','On the Tañon Strait. The line drops into a tunnel under the strait’s protected seascape to Cebu.'],
+ cebu:['Cebu','Cebu',123.89,10.31,'major',2,'sap','The switchboard of the Visayas: pods latch onto northbound and southbound trains here all day. A storm-shelter station since Odette in 2021.'],
+ carmen:['Carmen','Bohol',124.20,9.87,'minor',2,'','In Bohol’s middle, among the Chocolate Hills. Open side-track station.'],
+ ubay:['Ubay','Bohol',124.47,10.06,'minor',2,'s','Bohol’s east coast, where the line dives under the Canigao Channel to Leyte.'],
+ maasin:['Maasin','Leyte',124.84,10.13,'minor',3,'sj','The eastern junction: the blue cars for Leyte and Samar split off northward. A storm-shelter station with deep foundations.'],
+ liloan:['Liloan','Leyte',125.12,10.16,'minor',3,'s','At the tip of Southern Leyte, beside the short bridge over the Panaon Strait.'],
+ surigao:['Surigao','Mindanao',125.49,9.79,'minor',3,'s','The line surfaces in Mindanao after the Surigao Strait tunnel. Odette made landfall near here in 2021.'],
+ butuan:['Butuan','Mindanao',125.54,8.95,'minor',1,'f','On the Agusan River’s flood plain: the line is raised here.'],
+ cdo:['Cagayan de Oro','Mindanao',124.65,8.48,'major',1,'fa','Northern Mindanao’s city. After Sendong’s flash floods in 2011, the line crosses the river high and the station is sealed.'],
+ malaybalay:['Malaybalay','Mindanao',125.13,8.16,'minor',0,'','The Bukidnon highlands, in the calm south of the typhoon belt. Geborgenheit’s gorge is nearby.'],
+ davao:['Davao','Mindanao',125.61,7.07,'term',0,'ap','The southern end. The express runs round its loop and heads north again.'],
+ baybay:['Baybay','Leyte',124.80,10.68,'minor',3,'s','Leyte’s west coast. Storm-shelter station.'],
+ ormoc:['Ormoc','Leyte',124.61,11.01,'minor',3,'sf','A storm-shelter station, raised clear of the floods that hit Ormoc in 1991. Leyte’s geothermal fields, which help power the line, are close by.'],
+ tacloban:['Tacloban','Leyte',125.00,11.24,'major',3,'sfa','Where Haiyan’s storm surge struck in 2013. The station is a storm shelter on deep foundations behind surge walls, and an evacuation centre.'],
+ catbalogan:['Catbalogan','Samar',124.88,11.78,'minor',3,'s','Samar’s west coast. Storm-shelter station.'],
+ calbayog:['Calbayog','Samar',124.60,12.07,'minor',3,'s','Northern Samar. Storm-shelter station.'],
+ allen:['Allen','Samar',124.28,12.50,'term',3,'sp','The eastern line’s end, looking across the San Bernardino Strait to Luzon.'],
+ sanjose:['San Jose','Mindoro',121.07,12.35,'minor',2,'a','Western Mindoro. From here the line takes its longest tunnel, under the Mindoro Strait, skirting Apo Reef.'],
+ coron:['Coron','Busuanga',120.20,12.00,'minor',2,'s','Busuanga, in the Calamian Islands. Haiyan passed here in 2013: storm-shelter station.'],
+ elnido:['El Nido','Palawan',119.40,11.18,'minor',1,'a','Where the line reaches Palawan after hopping the Calamian Islands.'],
+ taytay:['Taytay','Palawan',119.52,10.82,'minor',1,'','Northern Palawan. Open side-track station.'],
+ pp:['Puerto Princesa','Palawan',118.74,9.74,'term',1,'a','The western line’s end. The express runs round its loop and heads north again.']
+};
+/* Crossings: name, kind (B bridge, T tunnel), notes */
+const XS={
+ verde:['Verde Island Passage','T','A tunnel deep under the passage, so nothing touches the reef, one of the richest marine habitats on earth.'],
+ semirara:['Semirara tunnels','T','Three tunnels hopping Semirara and Caluya islands to Panay, under water about 550 m deep: the hardest crossing on the line.'],
+ iloilostr:['Iloilo Strait','B','A short bridge to Guimaras.'],
+ guimaras:['Guimaras Strait','B','A long, low bridge to Negros, beside the planned Panay–Guimaras–Negros road bridges.'],
+ tanon:['Tañon Strait','T','Up to 500 m deep and a protected seascape, so a tunnel, with no piers in the water.'],
+ bohol:['Cebu–Bohol','T','From Mactan under the Olango and Cebu straits to Bohol’s north coast.'],
+ canigao:['Canigao Channel','T','From Bohol to Southern Leyte.'],
+ panaon:['Panaon Strait','B','A short bridge beside the existing one at Liloan.'],
+ surigao:['Surigao Strait','T','About 25 km wide with currents up to 8 knots, so a tunnel.'],
+ sanjuanico:['San Juanico Strait','B','A rail bridge beside the 2.16 km San Juanico road bridge of 1973.'],
+ mindoro:['Mindoro Strait','T','The longest undersea tunnel anywhere, longer than Seikan (53.9 km) or the Channel Tunnel (50.5 km). It bends south of Apo Reef.'],
+ coronpass:['Coron Passage','B','A short bridge from Busuanga to Culion.'],
+ culion:['Culion–Linapacan','T','A tunnel between the Calamian Islands.'],
+ linapacan:['Linapacan Strait','T','The last tunnel, landing on Palawan near El Nido.']
+};
+/* Line routes: station ids, [lon,lat] waypoints, and {x:'id'} marking that the next leg is a crossing */
+const ROUTES={
+ C:['clark',[120.80,14.95],'manila',[121.05,14.25],'batangas',[120.93,13.69],{x:'verde'},[120.96,13.51],'calapan',[121.42,13.10],'bongabong',[121.43,12.52],[121.37,12.37],{x:'semirara'},[121.40,12.06],{x:'semirara'},[121.48,11.95],{x:'semirara'},'caticlan','kalibo','roxas',[122.66,11.15],'iloilo',{x:'iloilostr'},[122.645,10.69],[122.71,10.59],{x:'guimaras'},[122.80,10.52],'bacolod',[123.17,10.62],'sancarlos',{x:'tanon'},[123.64,10.38],'cebu',[123.97,10.29],{x:'bohol'},[124.16,10.13],'carmen','ubay',{x:'canigao'},'maasin',[124.98,10.14],'liloan',{x:'panaon'},[125.17,10.05],[125.27,9.95],{x:'surigao'},'surigao',[125.56,9.35],'butuan',[125.10,8.70],'cdo','malaybalay',[125.33,7.65],'davao'],
+ E:['maasin',[124.80,10.40],'baybay','ormoc',[124.80,11.12],'tacloban',[125.00,11.29],{x:'sanjuanico'},[125.04,11.33],[124.97,11.55],'catbalogan','calbayog',[124.43,12.30],'allen'],
+ W:['bongabong',[121.28,12.58],'sanjose',[120.98,12.28],{x:'mindoro'},[120.62,12.18],[120.33,12.08],'coron',{x:'coronpass'},[120.04,11.89],{x:'culion'},[119.86,11.47],{x:'linapacan'},'elnido','taytay',[119.20,10.42],[118.96,10.08],'pp']
+};
+/* The line's own power: plants sited beside proven resources, on their own network, apart from the national grid */
+const POWER=[['geo',124.65,11.12,'Geothermal · Leyte'],['geo',123.17,9.30,'Geothermal · southern Negros'],['geo',125.22,7.00,'Geothermal · Mt Apo'],['geo',121.22,14.09,'Geothermal · Laguna'],['geo',121.30,13.24,'Geothermal · Mindoro'],
+ ['wind',121.32,14.48,'Wind · Rizal'],['wind',122.73,10.58,'Wind · Guimaras'],['wind',122.08,11.83,'Wind · Aklan'],['wind',124.40,12.40,'Wind · Northern Samar'],
+ ['sun',123.30,10.95,'Solar · northern Negros'],['sun',120.63,13.86,'Solar · Batangas'],['sun',125.05,7.95,'Solar · Bukidnon'],['sun',118.90,10.05,'Solar · Palawan']];
+/* Where typhoons make landfall most: a broad, rough band down the Pacific side */
+const BELT=[[120.4,19.4],[122.4,19.4],[124.4,18.4],[126.3,15.6],[127.0,12.6],[126.8,9.2],[125.4,9.15],[124.3,10.6],[122.7,11.3],[121.0,12.5],[120.3,14.4],[119.9,16.6]];
+const TRACKS={haiyan:['Haiyan, 2013',[[128.5,10.3],[125.7,11.0],[125.0,11.22],[124.05,11.25],[123.4,11.35],[122.6,11.45],[121.5,11.8],[120.1,12.05],[117.5,12.4]]],
+ odette:['Odette, 2021',[[128.2,9.5],[126.1,9.8],[125.6,10.05],[124.4,9.98],[123.7,9.9],[123.1,9.75],[121.4,9.9],[118.8,10.3],[117.0,10.5]]]};
+
+/* ===== Network graph: a tree of nodes and legs, smoothed into polylines in map units ===== */
+const NET=(()=>{
+ const nodes=[],byId={},legs=[];
+ const node=(key,ll,st)=>{if(st&&byId[st])return byId[st];const [x,y]=PX(ll[0],ll[1]);const n={i:nodes.length,x,y,st:st||null,adj:[]};nodes.push(n);if(st)byId[st]=n;return n};
+ for(const L in ROUTES){let prev=null,xid=null;
+  for(const it of ROUTES[L]){if(it&&it.x){xid=it.x;continue}
+   const st=typeof it==='string'?it:null,ll=st?[ST[st][2],ST[st][3]]:it,n=node(null,ll,st);
+   if(prev){const lg={i:legs.length,a:prev,b:n,line:L,x:xid};legs.push(lg);prev.adj.push(lg);n.adj.push(lg)}
+   prev=n;xid=null}}
+ // smoothed geometry: centripetal Catmull-Rom through each line's nodes, sampled per leg
+ const lineNodes={};for(const L in ROUTES){lineNodes[L]=[];let prev=null;for(const it of ROUTES[L]){if(it&&it.x)continue;const st=typeof it==='string'?it:null;const n=st?byId[st]:null;}}
+ for(const L in ROUTES){const seq=[];let li=0;for(const lg of legs)if(lg.line===L){if(!seq.length)seq.push(lg.a);seq.push(lg.b)}
+  const P=seq.map(n=>[n.x,n.y]);
+  const legsL=legs.filter(l=>l.line===L);
+  legsL.forEach((lg,k)=>{const p0=P[Math.max(0,k-1)],p1=P[k],p2=P[k+1],p3=P[Math.min(P.length-1,k+2)];
+   const pts=[];const seg=Math.max(2,Math.ceil(Math.hypot(p2[0]-p1[0],p2[1]-p1[1])/40));
+   for(let s=0;s<=seg;s++){const t=s/seg;pts.push(cr(p0,p1,p2,p3,t))}
+   // the crossing legs stay straight-ish: blend toward the chord
+   if(lg.x)for(let s=0;s<=seg;s++){const t=s/seg;pts[s]=[lerp(pts[s][0],lerp(p1[0],p2[0],t),.6),lerp(pts[s][1],lerp(p1[1],p2[1],t),.6)]}
+   lg.pts=pts;let d=0;lg.cum=[0];for(let s=1;s<pts.length;s++){d+=Math.hypot(pts[s][0]-pts[s-1][0],pts[s][1]-pts[s-1][1]);lg.cum.push(d)}lg.len=d;lg.km=d/UPK})}
+ function cr(p0,p1,p2,p3,t){const a=.5,d=(p,q)=>Math.pow(Math.hypot(q[0]-p[0],q[1]-p[1])||1e-6,a);
+  const t0=0,t1=t0+d(p0,p1),t2=t1+d(p1,p2),t3=t2+d(p2,p3),u=lerp(t1,t2,t);
+  const L=(A,B,ta,tb)=>{const w=(tb-ta)||1e-6;return[(tb-u)/w*A[0]+(u-ta)/w*B[0],(tb-u)/w*A[1]+(u-ta)/w*B[1]]};
+  const A1=L(p0,p1,t0,t1),A2=L(p1,p2,t1,t2),A3=L(p2,p3,t2,t3),B1=L(A1,A2,t0,t2),B2=L(A2,A3,t1,t3);return L(B1,B2,t1,t2)}
+ // leg properties used for speed: tunnel, bridge, exposed open air, flood zone
+ for(const lg of legs){const sa=lg.a.st&&ST[lg.a.st],sb=lg.b.st&&ST[lg.b.st];lg.type=lg.x?XS[lg.x][1]:'L';
+  const ex=Math.max(sa?sa[5]:0,sb?sb[5]:0,lg.a.ex||0);lg.exp=ex;lg.flood=(sa&&sa[6].includes('f'))||(sb&&sb[6].includes('f'));}
+ // exposure for waypoints: take the nearest station's
+ const leaves=['clark','davao','pp','allen'];
+ return {nodes,legs,byId,leaves};
+})();
+const STN=Object.keys(ST);
+
+/* Speed along a leg (km/h), from the design and the scene */
+function legSpeed(lg,v,rescue){let s=v;if(lg.type==='T')s=Math.min(s,S.tcap);
+ if(rescue){if(lg.type!=='T'&&lg.exp>=2)s=Math.min(s,120);if(lg.flood)s=Math.min(s,90)}
+ return s}
+/* Walk the tree from a leaf: distance (km) and time (min) to every node, with the path back */
+function fromLeaf(root,v,rescue){const N=NET.nodes,km=new Array(N.length).fill(-1),mn=new Array(N.length).fill(0),par=new Array(N.length).fill(null);
+ const r=NET.byId[root];km[r.i]=0;const st=[r];
+ while(st.length){const n=st.pop();for(const lg of n.adj){const m=lg.a===n?lg.b:lg.a;if(km[m.i]>=0)continue;km[m.i]=km[n.i]+lg.km;mn[m.i]=mn[n.i]+lg.km/legSpeed(lg,v,rescue)*60;par[m.i]={lg,from:n};st.push(m)}}
+ return {km,mn,par}}
+/* A path from one leaf to another as a list of points with distance (km) and time (min) at each */
+function leafPath(a,b,v,rescue){const W=fromLeaf(a,v,rescue);const seq=[];let n=NET.byId[b];while(W.par[n.i]){seq.push(W.par[n.i]);n=W.par[n.i].from}seq.reverse();
+ const pts=[],km=[],mn=[],legI=[];let K=0,M=0;
+ for(const s of seq){const lg=s.lg,fw=lg.a===s.from,sp=legSpeed(lg,v,rescue);const n=lg.pts.length;
+  for(let k=0;k<n;k++){const j=fw?k:n-1-k;if(pts.length&&k===0)continue;const d=fw?lg.cum[j]:lg.len-lg.cum[j];pts.push(lg.pts[j]);km.push(K+d/UPK);mn.push(M+d/UPK/sp*60);legI.push(lg)}
+  K+=lg.km;M+=lg.km/sp*60}
+ if(!pts.length){const r=NET.byId[a];pts.push([r.x,r.y]);km.push(0);mn.push(0);legI.push(null)}
+ const stops=[];for(const id of STN){const i=NET.byId[id].i;if(W.km[i]>=0&&onPath(seq,NET.byId[id])||id===a)stops.push({id,km:W.km[i],mn:W.mn[i]})}
+ stops.sort((p,q)=>p.km-q.km);
+ return {a,b,pts,km,mn,legI,stops,K,M}}
+function onPath(seq,n){for(const s of seq)if(s.lg.a===n||s.lg.b===n)return true;return false}
+function kmAt(P,k){// point and direction on a path at distance k (km)
+ const A=P.km;let lo=0,hi=A.length-1;if(k<=0)return pd(P,0,0);if(k>=A[hi])return pd(P,hi-1,1);
+ while(hi-lo>1){const m=(lo+hi)>>1;if(A[m]<=k)lo=m;else hi=m}return pd(P,lo,(k-A[lo])/((A[lo+1]-A[lo])||1e-9))}
+function pd(P,i,f){const a=P.pts[i],b=P.pts[Math.min(i+1,P.pts.length-1)];const dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy)||1;return{x:a[0]+dx*f,y:a[1]+dy*f,dx:dx/l,dy:dy/l,lg:P.legI[Math.min(i+1,P.legI.length-1)]}}
+function kmAtTime(P,m){const A=P.mn;let lo=0,hi=A.length-1;if(m<=0)return 0;if(m>=A[hi])return P.km[hi];while(hi-lo>1){const k=(lo+hi)>>1;if(A[k]<=m)lo=k;else hi=k}const f=(m-A[lo])/((A[lo+1]-A[lo])||1e-9);return lerp(P.km[lo],P.km[lo+1],f)}
+function timeAtKm(P,k){const A=P.km;let lo=0,hi=A.length-1;if(k<=0)return 0;if(k>=A[hi])return P.mn[hi];while(hi-lo>1){const m=(lo+hi)>>1;if(A[m]<=k)lo=m;else hi=m}const f=(k-A[lo])/((A[lo+1]-A[lo])||1e-9);return lerp(P.mn[lo],P.mn[lo+1],f)}
+function lineLen(L){let k=0;for(const lg of NET.legs)if(lg.line===L)k+=lg.km;return k}
+function xLen(id){let k=0;for(const lg of NET.legs)if(lg.x===id)k+=lg.km;return k}
+const fmtT=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
+const fmtD=m=>{m=Math.round(m);const h=Math.floor(m/60),r=m%60;return h?(h+' h'+(r?' '+String(r).padStart(2,'0')+' min':'')):r+' min'};
+const fmtK=k=>Math.round(k).toLocaleString('en-GB')+' km';
+
+/* ===== State: the design (S) and the scene (V), saved in localStorage ===== */
+const DEF={v:250,hw:30,tcap:220,pods:3,dest:2,eco:2,obs:true,med:true,lower:'storm',nose:'long',podF:'round'};
+const STUDIES={A:{n:'A · Everyday',d:{}},B:{n:'B · Fast line',d:{v:320,hw:15,tcap:250}},C:{n:'C · Proven third rail',d:{v:160,tcap:160}},D:{n:'D · Relief fleet',d:{pods:4,eco:3,dest:1}}};
+const VDEF={mode:'map',view:'arch',tview:'q3',rescue:false,rate:4,belt:true,tracks:false,xings:true,power:false,isl:true,from:'manila',to:'cebu',at:480,reach:0,env:'fields',tod:'day',wx:'clear',moving:true,style:'render',lab:true,clock:450,sound:false};
+const SK='durchfahrtS',VK='durchfahrtV';
+let S=Object.assign({},DEF),V=Object.assign({},VDEF),HIST=[];
+try{Object.assign(S,JSON.parse(localStorage.getItem(SK))||{})}catch(e){}
+try{Object.assign(V,JSON.parse(localStorage.getItem(VK))||{})}catch(e){}
+if(!ST[V.from])V.from='manila';if(!ST[V.to])V.to='cebu';
+let saveT=0;function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(SK,JSON.stringify(S));const v=Object.assign({},V);delete v.mode;localStorage.setItem(VK,JSON.stringify(v))}catch(e){}},250)}
+
+/* ===== Timetable: every leaf sends an express every S.hw minutes, round the clock =====
+   An express from a leaf carries a block for every other leaf. The core (lead car and the through cars) runs to the far end;
+   the other blocks ride behind it and split off at the junctions without stopping, the rear block first. */
+const LEAVES=['clark','davao','pp','allen'],CORE={clark:'davao',davao:'clark',pp:'davao',allen:'clark'},LOFF={clark:0,davao:0,pp:.5,allen:.5};
+let PATHS={},PK='';
+function paths(){const k=S.v+'|'+S.tcap+'|'+V.rescue;if(k===PK)return PATHS;PK=k;PATHS={};for(const a of LEAVES){PATHS[a]={};for(const b of LEAVES)if(a!==b)PATHS[a][b]=leafPath(a,b,S.v,V.rescue)}SCH.clear();return PATHS}
+function divKm(P,Q){const n=Math.min(P.pts.length,Q.pts.length);let i=0;while(i<n&&P.pts[i]===Q.pts[i])i++;return P.km[Math.max(0,i-1)]}
+const lineOf=id=>{for(const lg of NET.byId[id].adj)return lg.line;return 'C'};
+function stLine(id){const ls=new Set(NET.byId[id].adj.map(l=>l.line));return ls.has('C')?'C':[...ls][0]}
+/* a departure's blocks, built once per zoom scale */
+const SCH=new Map();
+let MS={u:1,kpp:1,z:1,upp:1};// map scale: km per screen pixel
+function unitKm(k){const p=MS.u;return (k==='core'?5.2:k==='dest'?2.5:1.9)*p*MS.kpp}
+function gapKm(){return .9*MS.u*MS.kpp}
+function sched(leaf,k){const key=leaf+k;let D=SCH.get(key);if(D)return D;
+ const P=paths()[leaf],dep=(k+LOFF[leaf])*S.hw,core=CORE[leaf],blocks=[];
+ const others=LEAVES.filter(x=>x!==leaf&&x!==core);
+ const bl=[{to:core,P:P[core],div:1e9}];for(const o of others)bl.push({to:o,P:P[o],div:divKm(P[core],P[o])});
+ bl.sort((a,b)=>b.div-a.div);// front (core, never splits) to rear (splits first)
+ // which block carries each station: the rear-most block still attached when it gets there
+ const served=new Map();
+ const D2=sm(.5);
+ bl.forEach((b,bi)=>{b.units=[];b.events=[];b.i=bi;b.line=lineOf(b.to)});
+ for(let bi=0;bi<bl.length;bi++){const b=bl[bi];
+  for(const s of b.P.stops){if(s.id===leaf)continue;if(served.has(s.id))continue;
+   // a later (rear) block that still contains this station on the shared stretch gets it
+   let owner=b;for(let bj=bl.length-1;bj>bi;bj--){const r=bl[bj];if(s.km<=r.div+1e-6&&r.P.stops.some(z=>z.id===s.id)){owner=r;break}}
+   if(owner!==b)continue;
+   const kind=ST[s.id][4],minor=kind==='minor';
+   if(minor&&s.id!==b.to&&((STN.indexOf(s.id)+k)%2))continue;// alternate expresses serve alternate small stops
+   served.set(s.id,owner);owner.units.push({kind:minor?'pod':'dest',st:s.id,km:s.km,line:stLine(s.id)})}}
+ // order each block: core first, then by slip station, farthest at the front
+ bl.forEach(b=>{b.units.sort((p,q)=>q.km-p.km);if(b.to===core)b.units.unshift({kind:'core',st:null,km:1e9,line:b.line})});
+ // fixed lags: everything in front of a block, in km
+ let lag=0;const g=gapKm();
+ bl.forEach(b=>{b.lag=lag;let o=lag;for(const u of b.units){u.o=o;u.len=unitKm(u.kind);o+=u.len+g}b.len=o-lag;lag=o});
+ // events, walked along each block: slips at the rear, a catch-up pod joins and rides to the next stop
+ const Dk=26*MS.u*MS.kpp;// braking and latching distance, kept a steady size on screen
+ bl.forEach(b=>{const Q=b.P,att=b.units.slice();const extra=[];
+  const stops=[...new Set(b.units.filter(u=>u.st).map(u=>u.st))].map(id=>({id,km:Q.stops.find(z=>z.id===id).km})).sort((p,q)=>p.km-q.km);
+  stops.forEach((s,si)=>{// slip everything bound here (they sit at the rear)
+   for(const u of att.filter(u=>u.st===s.id)){u.ts=dep+timeAtKm(Q,s.km-Dk+u.o-b.lag+b.lag);u.sKm=s.km;u.D=Dk;const i=att.indexOf(u);att.splice(i,1)}
+   if(si<stops.length-1&&ST[s.id][4]!=='term'){// a catch-up pod waits here for the rear to pass
+    const nx=stops[si+1];const last=att[att.length-1];const oEnd=last?last.o+last.len+g:b.lag;
+    const tRear=dep+timeAtKm(Q,s.km+oEnd);const vloc=(Q.km[Q.km.length-1]>0)?speedAt(Q,s.km):S.v/60;
+    const T=2*Dk/vloc;const p={kind:'pod',st:nx.id,km:nx.km,line:stLine(nx.id),o:oEnd,len:unitKm('pod'),join:s.id,jKm:s.km,tj:tRear+T/2,T,v:vloc,joined:true};
+    att.push(p);extra.push(p)}});
+  b.units.push(...extra);
+  // the slip times of joined pods, now that they ride at the rear
+  for(const u of extra){u.ts=dep+timeAtKm(Q,u.km-Dk+u.o);u.sKm=u.km;u.D=Dk}
+  b.end=dep+Q.M});
+ D={leaf,k,dep,blocks:bl,core,end:dep+P[core].M};SCH.set(key,D);return D}
+function speedAt(P,k){const i=Math.max(1,Math.min(P.km.length-1,P.km.findIndex(x=>x>=k)));const dk=P.km[i]-P.km[i-1],dm=P.mn[i]-P.mn[i-1];return dm>0?dk/dm:S.v/60}
+function liveDeps(t){const out=[];const P=paths();for(const leaf of LEAVES){const maxM=Math.max(...Object.values(P[leaf]).map(p=>p.M))+40;
+ const k1=Math.floor(t/S.hw-LOFF[leaf]),k0=Math.ceil((t-maxM)/S.hw-LOFF[leaf]);for(let k=k0;k<=k1+1;k++)out.push(sched(leaf,k))}return out}
+function headKm(b,dep,t){return kmAtTime(b.P,t-dep)}
+
+/* ===== The map ===== */
+const NS='http://www.w3.org/2000/svg',svg=$('map'),stage=$('stage'),tc=$('tc'),tx=tc.getContext('2d');
+const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+let VB={x:0,y:0,w:COAST.w,h:COAST.h},VBT=null,BASEW=1;
+const MVIEWS={arch:['The archipelago',[117.0,127.4,5.0,19.0]],luzon:['Luzon and Mindoro',[119.6,122.6,12.0,15.5]],palawan:['The western branch',[118.3,122.2,9.4,13.1]],visayas:['The Visayas',[121.2,126.2,8.9,12.9]],sw:['The switchboard: Cebu',[123.25,124.6,9.7,10.75]],east:['The eastern branch',[123.9,125.9,9.6,12.8]],mindanao:['Mindanao',[123.7,126.3,6.7,10.2]]};
+function fitBox(b){const [x0,y0]=PX(b[0],b[3]),[x1,y1]=PX(b[1],b[2]);const W=stage.clientWidth||800,H=stage.clientHeight||600,a=W/H;let w=x1-x0,h=y1-y0;const cx=(x0+x1)/2,cy=(y0+y1)/2;if(w/h>a)h=w/a;else w=h*a;w*=1.04;h*=1.04;return{x:cx-w/2,y:cy-h/2,w,h}}
+function setVB(v){VB=v;svg.setAttribute('viewBox',`${v.x} ${v.y} ${v.w} ${v.h}`);onZoom()}
+function goMap(id,inst){const b=MVIEWS[id];if(!b)return;V.view=id;const t=fitBox(b[1]);if(inst||RM)setVB(t);else VBT={a:Object.assign({},VB),b:t,s:performance.now(),d:1300};$('tbView').textContent='Archipelago train study · '+b[0];save();chips()}
+const G={};// svg groups
+function buildMap(){svg.innerHTML='';
+ const defs=el('defs',{},svg);
+ defs.innerHTML=`<pattern id="hatch" width="90" height="90" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)"><rect width="90" height="90" fill="rgba(235,230,220,.06)"/><path d="M0 0H90" stroke="rgba(235,230,220,.32)" stroke-width="10"/></pattern>
+ <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`;
+ // graticule
+ G.grat=el('g',{fill:'none',stroke:'rgba(235,230,220,.12)','stroke-width':1,'vector-effect':'non-scaling-stroke'},svg);
+ for(let lo=118;lo<=127;lo+=2){const [x]=PX(lo,0);el('path',{d:`M${x} 0V${COAST.h}`,'vector-effect':'non-scaling-stroke'},G.grat)}
+ for(let la=6;la<=20;la+=2){const [,y]=PX(0,la);el('path',{d:`M0 ${y}H${COAST.w}`,'vector-effect':'non-scaling-stroke'},G.grat)}
+ G.belt=el('g',{},svg);
+ const bp=BELT.map((p,i)=>(i?'L':'M')+PX(...p).map(Math.round).join(' ')).join('')+'Z';
+ el('path',{d:bp,fill:'url(#hatch)',stroke:'rgba(235,230,220,.35)','stroke-width':1.2,'stroke-dasharray':'6 5','vector-effect':'non-scaling-stroke'},G.belt);
+ // land: a woodcut shadow, then paper islands in ink
+ G.shad=el('path',{d:COAST.d,fill:'#1b2025',opacity:.55},svg);
+ G.land=el('path',{d:COAST.d,fill:'#e9e2d4',stroke:'#1d2024','stroke-width':.9,'vector-effect':'non-scaling-stroke','stroke-linejoin':'round'},svg);
+ G.tracks=el('g',{},svg);
+ for(const id in TRACKS){const [n,pts]=TRACKS[id];el('path',{d:pts.map((p,i)=>(i?'L':'M')+PX(...p).map(Math.round).join(' ')).join(''),fill:'none',stroke:'#5c6670','stroke-width':2,'stroke-dasharray':'2 6','stroke-linecap':'round','vector-effect':'non-scaling-stroke'},G.tracks)}
+ G.power=el('g',{},svg);
+ G.lines=el('g',{},svg);G.reach=el('g',{},svg);G.jour=el('g',{},svg);
+ // the line: a pale deck under bridges, dark casing, the colour, white dashes in tunnels
+ const lpath=lg=>lg.pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(0)+' '+p[1].toFixed(0)).join('');
+ const vb={'vector-effect':'non-scaling-stroke',fill:'none','stroke-linecap':'round','stroke-linejoin':'round'};
+ for(const lg of NET.legs)if(lg.type==='B')el('path',Object.assign({d:lpath(lg),stroke:'#f7f3ec','stroke-width':12},vb),G.lines);
+ for(const lg of NET.legs)el('path',Object.assign({d:lpath(lg),stroke:'#14181b','stroke-width':lg.type==='T'?7:7.5},vb),G.lines);
+ G.col=el('g',{},G.lines);
+ for(const lg of NET.legs){lg.el=el('path',Object.assign({d:lpath(lg),stroke:LINES[lg.line].c,'stroke-width':lg.type==='T'?3.6:4.2,'data-l':lg.line},vb),G.col)}
+ for(const lg of NET.legs)if(lg.type==='T')el('path',Object.assign({d:lpath(lg),stroke:'#14181b','stroke-width':1.6,'stroke-dasharray':'3 5'},vb),G.lines);
+ G.lab=el('g',{},svg);
+ // island and sea names
+ G.isl=el('g',{},G.lab);
+ const ISL=[['Luzon',121.3,15.75,1],['Mindoro',121.0,12.95,0],['Panay',122.25,11.2,0],['Negros',123.05,10.05,0],['Cebu',123.75,10.62,0],['Bohol',124.12,9.68,0],['Leyte',124.9,10.82,0],['Samar',125.2,12.0,0],['Mindanao',125.3,7.9,1],['Palawan',118.6,9.25,0],['Busuanga',119.9,12.3,0]];
+ const SEAS=[['Philippine Sea',126.6,13.8],['Sibuyan Sea',122.6,12.75],['Visayan Sea',123.5,11.55],['Bohol Sea',124.4,9.15],['Sulu Sea',120.6,8.9],['West Philippine Sea',118.2,13.7]];
+ G.isls=ISL.map(([n,lo,la,b])=>{const g=el('g',{},G.isl);const t=el('text',{x:0,y:0,'text-anchor':'middle',class:'isl'+(b?' big':'')},g);t.textContent=n;g._p=PX(lo,la);return g});
+ G.seas=SEAS.map(([n,lo,la])=>{const g=el('g',{},G.isl);const t=el('text',{x:0,y:0,'text-anchor':'middle',class:'sea'},g);t.textContent=n;g._p=PX(lo,la);return g});
+ G.trk=Object.keys(TRACKS).map(id=>{const [n,pts]=TRACKS[id];const g=el('g',{},G.tracks);const t=el('text',{x:0,y:0,'text-anchor':'middle',class:'trk'},g);t.textContent=n;const p=pts[id==='haiyan'?1:1];g._p=PX(p[0]+.2,p[1]+.35);return g});
+ // crossings
+ G.xg=el('g',{},G.lab);G.xl=[];
+ for(const id in XS){const ls=NET.legs.filter(l=>l.x===id);if(!ls.length)continue;const lg=ls[Math.floor(ls.length/2)];const p=lg.pts[Math.floor(lg.pts.length/2)];
+  const g=el('g',{class:'xl'},G.xg);const t=el('text',{x:9,y:4},g);t.textContent=XS[id][0]+' · '+(XS[id][1]==='T'?'tunnel ':'bridge ')+Math.round(xLen(id))+' km';g._p=p;G.xl.push(g)}
+ // power plants
+ G.pw=POWER.map(([k,lo,la,n])=>{const p=PX(lo,la);let best=null,bd=1e18;for(const lg of NET.legs)for(const q of lg.pts){const d=(q[0]-p[0])**2+(q[1]-p[1])**2;if(d<bd){bd=d;best=q}}
+  el('path',{d:`M${p[0]} ${p[1]}L${best[0]} ${best[1]}`,stroke:'#1d2024','stroke-width':1.2,'stroke-dasharray':'4 3',fill:'none','vector-effect':'non-scaling-stroke'},G.power);
+  const g=el('g',{},G.power);g._p=p;const ic=k==='geo'?'<path d="M-6 4L0 -6L6 4Z" fill="#c4572e" stroke="#1d2024"/><path d="M-3 7c1-2 2 0 3-2s2 0 3-2" stroke="#1d2024" fill="none"/>':k==='wind'?'<circle r="1.6" fill="#1d2024"/><path d="M0 0L0 -8M0 0L7 4M0 0L-7 4" stroke="#1d2024" stroke-width="1.6"/>':'<circle r="4" fill="#e7b62a" stroke="#1d2024"/><path d="M0 -8V-6M0 6V8M-8 0H-6M6 0H8M-5.6 -5.6L-4.2 -4.2M4.2 4.2L5.6 5.6M5.6 -5.6L4.2 -4.2M-4.2 4.2L-5.6 5.6" stroke="#1d2024"/>';
+  g.innerHTML=ic+`<text x="10" y="4" class="pwl">${n}</text><title>${n}: one of the line’s own plants</title>`;return g});
+ // stations
+ G.st=el('g',{},svg);G.sts=[];
+ for(const id of STN){const s=ST[id],n=NET.byId[id],sh=s[6].includes('s'),jn=s[6].includes('j'),big=s[4]!=='minor';
+  const g=el('g',{class:'stn',tabindex:0,role:'button','aria-label':s[0]+' station'},G.st);g._p=[n.x,n.y];g._id=id;g._big=big;
+  const r=big?6.5:4.6;
+  el('circle',{r:16,fill:'transparent'},g);
+  if(sh)el('rect',{x:-r,y:-r,width:r*2,height:r*2,rx:1.5,fill:'#f7f3ec',stroke:'#14181b','stroke-width':2.2,class:'mk'},g);
+  else el('circle',{r,fill:'#f7f3ec',stroke:'#14181b','stroke-width':2.2,class:'mk'},g);
+  if(s[4]==='term')el('circle',{r:r+4,fill:'none',stroke:'#14181b','stroke-width':1.6},g);
+  if(jn)el('path',{d:`M${-r-5} 0H${r+5}`,stroke:'#14181b','stroke-width':1.6},g);
+  const lab=STLAB[id]||[1,0];const t=el('text',{x:lab[0]*(r+6),y:4+lab[1]*(r+8),'text-anchor':lab[0]>0?'start':lab[0]<0?'end':'middle',class:'sl'+(big?' big':'')},g);t.textContent=s[0];g._t=t;
+  g.addEventListener('click',e=>{e.stopPropagation();openCard(id)});g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openCard(id)}});
+  G.sts.push(g)}
+ const st=el('style',{},svg);st.textContent=`.isl{font:800 15px Archivo,sans-serif;fill:#6d675d;letter-spacing:.2em;text-transform:uppercase;font-stretch:118%}.isl.big{font-size:19px}.sea{font:italic 600 13px Archivo,sans-serif;fill:rgba(235,230,220,.55);letter-spacing:.32em}.trk{font:italic 600 12px Archivo,sans-serif;fill:#c9d0d6}
+ .sl{font:600 12.5px Archivo,sans-serif;fill:#14181b;paint-order:stroke;stroke:#e9e2d4;stroke-width:3.5px;stroke-linejoin:round}.sl.big{font-weight:800;font-size:14px}.stn{cursor:pointer;outline:none}.stn:hover .mk,.stn:focus-visible .mk{fill:${'#d9a21b'}}.stn.sel .mk{fill:#d9a21b}
+ .xl text{font:italic 600 11px Archivo,sans-serif;fill:#f2ede4;paint-order:stroke;stroke:#2c343b;stroke-width:3px}.pwl{font:600 11px Archivo,sans-serif;fill:#14181b;paint-order:stroke;stroke:#e9e2d4;stroke-width:3px}
+ .rt{font:800 12px Archivo,sans-serif;fill:#f7f3ec;paint-order:stroke;stroke:#14181b;stroke-width:3.5px;font-variant-numeric:tabular-nums}`;
+ BASEW=fitBox(MVIEWS.arch[1]).w;
+ svg.addEventListener('click',onMapClick);
+}
+/* label placement: [x side, y side] per station, to keep names off the line */
+const STLAB={clark:[1,0],manila:[1,0],batangas:[1,0],calapan:[1,0],bongabong:[1,0],caticlan:[-1,0],kalibo:[0,-1],roxas:[1,0],iloilo:[-1,0],bacolod:[-1,0],sancarlos:[0,-1],cebu:[1,0],carmen:[-1,0],ubay:[0,-1],maasin:[-1,0],liloan:[1,0],surigao:[1,0],butuan:[1,0],cdo:[-1,0],malaybalay:[1,0],davao:[1,0],baybay:[-1,0],ormoc:[-1,0],tacloban:[1,0],catbalogan:[1,0],calbayog:[1,0],allen:[1,0],sanjose:[-1,0],coron:[0,-1],elnido:[-1,0],taytay:[1,0],pp:[1,0]};
+function onZoom(){const W=stage.clientWidth||800;const upp=VB.w/W;MS.kpp=upp/UPK;const z=BASEW/VB.w;const u=cl(.55+.45*Math.sqrt(z),.75,2.2);if(Math.abs(u-MS.u)>.04||Math.abs(MS.z-z)/z>.06){MS.u=u;SCH.clear()}MS.z=z;MS.upp=upp;
+ {const pt=svg.querySelector('#hatch');if(pt)pt.setAttribute('patternTransform',`rotate(-38) scale(${(upp*.17).toFixed(3)})`)}
+ if(G.shad)G.shad.setAttribute('transform',`translate(${(upp*3.5).toFixed(1)} ${(upp*4.5).toFixed(1)})`);
+ const sc=g=>g.setAttribute('transform',`translate(${g._p[0].toFixed(1)} ${g._p[1].toFixed(1)}) scale(${upp.toFixed(3)})`);
+ for(const g of G.sts){sc(g);g._t.style.display=(g._big||z>1.7||g.classList.contains('sel')||g._id===V.from||g._id===V.to)&&V.lab!==false?'':'none'}
+ for(const g of G.isls)sc(g);for(const g of G.seas){sc(g);g.style.display=z<2.6?'':'none'}for(const g of G.trk)sc(g);for(const g of G.pw)sc(g);
+ for(const g of G.xl){sc(g);g.style.display=z>2.4?'':'none'}
+ if(G.rts)for(const g of G.rts)sc(g);
+ G.belt.style.display=V.belt?'':'none';G.tracks.style.display=V.tracks?'':'none';G.xg.style.display=V.xings?'':'none';G.power.style.display=V.power?'':'none';G.isl.style.display=V.isl?'':'none'}
+function lineColours(){for(const lg of NET.legs)lg.el.setAttribute('stroke',V.rescue?ORANGE:LINES[lg.line].c);G.col.setAttribute('filter',V.rescue?'url(#glow)':'');document.body.classList.toggle('rescue',!!V.rescue);
+ $('tbStripe').setAttribute('stroke',V.rescue?ORANGE:'#d9a21b');legend();status()}
+function legend(){const c=k=>V.rescue?ORANGE:LINES[k].c;$('legend').innerHTML=`<i style="background:${c('C')}"></i>Central spine<i style="background:${c('E')}"></i>Eastern branch<i style="background:${c('W')}"></i>Western branch<i class="tn"></i>Undersea tunnel<span style="display:inline-block;width:12px;height:12px;border:2px solid #14181b;background:#f7f3ec;margin-left:7px"></span>Storm-shelter station<span style="display:inline-block;width:12px;height:12px;border:2px solid #14181b;border-radius:50%;background:#f7f3ec;margin-left:7px"></span>Open side-track station`}
+let AIR=true;
+function status(){const r=V.rescue;$('status').innerHTML=`<span class="${r?'res':''}"><i></i>Durchfahrt: ${r?'rescue mode':'running'}</span><span class="${AIR?'':'off'}"><i></i>Flights: ${AIR?'normal':'suspended'}</span><span class="${AIR?'':'off'}"><i></i>Ferries: ${AIR?'normal':'suspended'}</span>`}
+
+/* pan and zoom: drag, wheel, pinch */
+{let pts=new Map(),last=null,moved=0;
+ const toM=(cx,cy)=>{const r=svg.getBoundingClientRect();return[VB.x+(cx-r.left)/r.width*VB.w,VB.y+(cy-r.top)/r.height*VB.h]};
+ const zoomAt=(cx,cy,f)=>{const [mx,my]=toM(cx,cy);let w=cl(VB.w*f,BASEW/14,COAST.w*1.1);f=w/VB.w;VBT=null;setVB({x:mx-(mx-VB.x)*f,y:my-(my-VB.y)*f,w,h:VB.h*f})};
+ svg.addEventListener('wheel',e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,Math.exp(e.deltaY*(e.ctrlKey?.01:.0016)))},{passive:false});
+ svg.addEventListener('pointerdown',e=>{svg.setPointerCapture(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);moved=0;last=null});
+ svg.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;const prev=pts.get(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);
+  if(pts.size===1){const r=svg.getBoundingClientRect();const dx=(e.clientX-prev[0])/r.width*VB.w,dy=(e.clientY-prev[1])/r.height*VB.h;moved+=Math.abs(e.clientX-prev[0])+Math.abs(e.clientY-prev[1]);if(moved>4){VBT=null;setVB({x:VB.x-dx,y:VB.y-dy,w:VB.w,h:VB.h})}}
+  else if(pts.size===2){const [a,b]=[...pts.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1]);if(last)zoomAt((a[0]+b[0])/2,(a[1]+b[1])/2,last/d);last=d;moved=99}});
+ const up=e=>{pts.delete(e.pointerId);if(pts.size<2)last=null};svg.addEventListener('pointerup',up);svg.addEventListener('pointercancel',up);
+ svg._moved=()=>moved>6;
+ svg._toM=toM;}
+function onMapClick(e){if(svg._moved())return;const [mx,my]=svg._toM(e.clientX,e.clientY);
+ // a train under the finger opens the train
+ const hit=trainAt(mx,my);if(hit){enterTrain(hit);return}
+ closeCard()}
+
+/* ===== Trains on the canvas ===== */
+let DPR=1;function sizeTc(){DPR=Math.min(2,devicePixelRatio||1);const w=stage.clientWidth,h=stage.clientHeight;tc.width=w*DPR;tc.height=h*DPR}
+const TR=[];// drawn heads this frame, for tapping
+function m2s(x,y){const W=stage.clientWidth,H=stage.clientHeight;return[(x-VB.x)/VB.w*W,(y-VB.y)/VB.h*H]}
+function drawTrains(t){const W=stage.clientWidth,H=stage.clientHeight;tx.setTransform(DPR,0,0,DPR,0,0);tx.clearRect(0,0,W,H);TR.length=0;
+ const deps=liveDeps(t);const px=1/MS.upp;const sk=cl(W/760,.55,1),bodyW=cl(4+2.2*MS.u,5.5,9.5)*sk,strW=Math.max(1.4,bodyW*.36);
+ const side=bodyW*2.1;// side track offset in px
+ const sil='#d7dadd',drk='#2a3036';
+ const seg=(P,k0,k1,off,col,w)=>{const a=kmAt(P,k0),b=kmAt(P,(k0+k1)/2),c=kmAt(P,k1);const s=[a,b,c].map(q=>{const p=m2s(q.x,q.y);return[p[0]-q.dy*off,p[1]+q.dx*off]});
+  tx.strokeStyle=col;tx.lineWidth=w;tx.beginPath();tx.moveTo(s[0][0],s[0][1]);tx.lineTo(s[1][0],s[1][1]);tx.lineTo(s[2][0],s[2][1]);tx.stroke()};
+ tx.lineCap='butt';tx.lineJoin='round';
+ // storm-shelter stations glow in rescue mode
+ if(V.rescue){const pulse=.5+.5*Math.sin(performance.now()/400);for(const id of STN)if(ST[id][6].includes('s')){const n=NET.byId[id],[x,y]=m2s(n.x,n.y);if(x<-20||y<-20||x>W+20||y>H+20)continue;tx.fillStyle=`rgba(255,122,26,${.15+.2*pulse})`;tx.beginPath();tx.arc(x,y,12+5*pulse,0,7);tx.fill()}}
+ for(const D of deps){for(const b of D.blocks){const P=b.P;const hk=headKm(b,D.dep,t);
+   for(const u of b.units){const col=V.rescue?ORANGE:LINES[u.line].c;let front,off=0,alpha=1;
+    if(u.joined&&t<u.tj){// waiting on the side track, then accelerating to match
+     const t0=u.tj-u.T;if(t<t0-25||t0-25<D.dep)continue;const tau=t-t0;front=u.jKm+(tau>0?u.v*tau*tau/(2*u.T):0);off=side*(1-sm((tau-u.T*.55)/(u.T*.45)));alpha=cl((t-(t0-25))/4)}
+    else if(u.ts!=null&&t>=u.ts){// slipped: braking into the station and onto the side track
+     const tau=t-u.ts,Tb=2*u.D/(u.v||speedAt(P,u.sKm));if(tau>Tb+28)continue;const f=Math.min(tau,Tb);front=u.sKm-u.D+(u.v||speedAt(P,u.sKm))*(f-f*f/(2*Tb));if(!u.v)u.v=speedAt(P,u.sKm);off=side*sm(tau/(Tb*.5));alpha=1-cl((tau-Tb-20)/8)}
+    else{front=hk-u.o;if(front<-.01)continue;if(u.kind==='core'){const endK=P.km[P.km.length-1];if(front>endK){if(t>b.end+8)continue;alpha=1-cl((t-b.end)/8);front=endK}}}
+    if(front>P.km[P.km.length-1]+.01&&u.kind!=='core')front=P.km[P.km.length-1];
+    const k0=Math.max(0,front-u.len),k1=Math.max(k0+.001,front);
+    const q=kmAt(P,k1),[sx,sy]=m2s(q.x,q.y);if(sx<-80||sy<-80||sx>W+80||sy>H+80)continue;
+    tx.globalAlpha=alpha;
+    seg(P,k0,k1,off,drk,bodyW+2);seg(P,k0,k1,off,sil,bodyW);seg(P,k0+(u.kind==='core'?u.len*.18:0),k1,off,col,strW);
+    if(u.kind==='core'){// the nose
+     const a=kmAt(P,k1);const [nx,ny]=m2s(a.x,a.y);tx.fillStyle=sil;tx.strokeStyle=drk;tx.lineWidth=1;tx.beginPath();tx.arc(nx,ny,bodyW*.62,0,7);tx.fill();tx.stroke();
+     TR.push({x:nx,y:ny,D,b,core:true})}
+    else if(u===b.units[0]&&!u.joined&&!(u.ts!=null&&t>=u.ts)){const [nx,ny]=m2s(q.x,q.y);TR.push({x:nx,y:ny,D,b})}
+    if(V.rescue&&u.kind==='pod'&&MS.u>1){const [cx,cy]=m2s(kmAt(P,(k0+k1)/2).x,kmAt(P,(k0+k1)/2).y);tx.fillStyle=ORANGE;tx.fillRect(cx-1.5,cy-1.5,3,3)}
+    tx.globalAlpha=1}}}
+ if(RIDE)drawRide(t);
+ if(STORM.on)drawStorm(t)}
+function trainAt(mx,my){const [sx,sy]=m2s(mx,my);let best=null,bd=24*24;for(const h of TR){const d=(h.x-sx)**2+(h.y-sy)**2;if(d<bd){bd=d;best=h}}return best}
+
+/* the storm: a slow spiral moving along a track */
+const STORM={on:false,ll:[127.5,11.0],r:1,a:0};
+function drawStorm(t){const [x,y]=PX(...STORM.ll);const [sx,sy]=m2s(x,y);const R=(1.6*MK/VB.w*stage.clientWidth)*STORM.r;STORM.a=(performance.now()/1000)*-.9;
+ tx.save();tx.translate(sx,sy);const g=tx.createRadialGradient(0,0,R*.05,0,0,R);g.addColorStop(0,'rgba(240,240,240,.0)');g.addColorStop(.12,'rgba(230,232,235,.75)');g.addColorStop(.5,'rgba(190,196,202,.45)');g.addColorStop(1,'rgba(160,168,176,0)');
+ tx.fillStyle=g;tx.beginPath();tx.arc(0,0,R,0,7);tx.fill();
+ tx.rotate(STORM.a);tx.strokeStyle='rgba(245,245,245,.7)';tx.lineCap='round';
+ for(let k=0;k<4;k++){tx.lineWidth=Math.max(2,R*.06);tx.beginPath();for(let i=0;i<=40;i++){const f=i/40,an=k*Math.PI/2+f*4.2,r=R*(.14+.85*f);const px=Math.cos(an)*r,py=Math.sin(an)*r;i?tx.lineTo(px,py):tx.moveTo(px,py)}tx.globalAlpha=.65;tx.stroke()}
+ tx.globalAlpha=1;tx.fillStyle='rgba(57,66,74,.9)';tx.beginPath();tx.arc(0,0,R*.07,0,7);tx.fill();tx.restore()}
+
+/* ===== Station card ===== */
+function openCard(id){const s=ST[id],c=$('card');G.sts.forEach(g=>g.classList.toggle('sel',g._id===id));onZoom();
+ const sh=s[6].includes('s'),f=s[6].includes('f'),jn=s[6].includes('j');const ln=[...new Set(NET.byId[id].adj.map(l=>l.line))].map(l=>LINES[l].n).join(' and ');
+ const kind=s[4]==='term'?'End of the line':s[4]==='major'?'Major station: destination cars slip off':'Smaller stop: mixed pods slip off and catch-up pods latch on';
+ const t=SIM.t;const nx=nextPasses(id,t);
+ c.innerHTML=`<button class="x" type="button" aria-label="Close">×</button><p class="k">${s[1]} · ${ln}</p><h3>${s[0]}</h3>
+ <div class="tags"><span class="${sh?'sh':''}">${sh?'Storm-shelter station':'Open side-track station'}</span>${jn?'<span>Junction</span>':''}${f?'<span>Flood zone: line raised</span>':''}<span>Typhoon risk: ${['low','some','moderate','high'][s[5]]}</span>${s[6].includes('a')?'<span>Airport nearby</span>':''}</div>
+ <p>${s[7]}</p><p style="color:#5b5a56">${kind}.${sh?' Deep foundations and storm walls; in a typhoon it opens as an evacuation centre.':''}</p>
+ <p class="nx">${nx}</p>
+ <div class="bar"><button class="btn" type="button" data-j="from">Leave from here</button><button class="btn" type="button" data-j="to">Go here</button></div>`;
+ const n=NET.byId[id],[sx,sy]=m2s(n.x,n.y),W=stage.clientWidth;c.style.left=Math.min(W-345,Math.max(14,sx+18))+'px';c.style.top=Math.max(64,Math.min(stage.clientHeight-300,sy-60))+'px';
+ c.classList.add('open');c.querySelector('.x').onclick=closeCard;c.querySelectorAll('[data-j]').forEach(b=>b.onclick=()=>{if(b.dataset.j==='from')V.from=id;else V.to=id;if(V.from===V.to)V[b.dataset.j==='from'?'to':'from']=b.dataset.j==='from'?(id==='cebu'?'manila':'cebu'):(id==='manila'?'cebu':'manila');jSync();closeCard();openSec('secJ')})}
+function closeCard(){$('card').classList.remove('open');G.sts&&G.sts.forEach(g=>g.classList.remove('sel'));onZoom()}
+function nextPasses(id,t){// the next expresses past this station, each way
+ const out=[];for(const leaf of LEAVES){if(leaf===id)continue;const P=paths()[leaf];const any=Object.values(P).find(p=>p.stops.some(z=>z.id===id));if(!any)continue;const s=any.stops.find(z=>z.id===id);
+  const k=Math.ceil((t-s.mn)/S.hw-LOFF[leaf]);const tp=(k+LOFF[leaf])*S.hw+s.mn;out.push([tp,ST[leaf][0]])}
+ out.sort((a,b)=>a[0]-b[0]);return out.length?'Next expresses past: '+out.slice(0,3).map(o=>`${fmtT(o[0])} from ${o[1]}`).join(' · '):''}
+
+/* ===== Journey timer ===== */
+const SIM={t:V.clock||450,last:performance.now()};
+const latchMin=()=>(S.v/3.6)/.5/60,brakeMin=()=>(S.v/3.6)/.7/60;// 0.5 m/s² to match the express, 0.7 m/s² to brake
+function journey(a,b,ready){if(a===b)return null;const P=paths();let best=null;
+ for(const X of LEAVES)for(const Y of LEAVES){if(X===Y)continue;const Q=P[X][Y];const sa=Q.stops.find(z=>z.id===a),sb=Q.stops.find(z=>z.id===b);if(!sa||!sb||sa.km>=sb.km)continue;
+  const lead=a===X?3:latchMin()/2+4;// board a few minutes before your pod rolls
+  const k=Math.ceil((ready+lead-sa.mn)/S.hw-LOFF[X]),dep=(k+LOFF[X])*S.hw,pass=dep+sa.mn,arr=dep+sb.mn+brakeMin()/2;
+  if(!best||arr<best.arr)best={X,Y,k,dep,pass,arr,Q,sa,sb,board:pass-lead,ready}}
+ if(!best)return null;
+ const j=best,xs=[],seen=new Set();let land=0,sea=0,nx=0;
+ for(let i=1;i<j.Q.km.length;i++){const k0=j.Q.km[i-1],k1=j.Q.km[i];if(k1<=j.sa.km||k0>=j.sb.km)continue;const lg=j.Q.legI[i];const d=Math.min(k1,j.sb.km)-Math.max(k0,j.sa.km);
+  if(lg&&lg.x){sea+=d;if(!seen.has(lg.x)){seen.add(lg.x);xs.push(lg.x);nx++}}else land+=d}
+ j.km=j.sb.km-j.sa.km;j.xs=xs;j.land=land;j.sea=sea;
+ // rough comparisons: road at 55 km/h, a ferry at 25 km/h with two hours of waiting and boarding at each crossing; a flight if both ends have an airport
+ j.ferry=land/55*60+sea/25*60+nx*120;
+ const fa=ST[a][6].includes('a'),fb=ST[b][6].includes('a');j.air=fa&&fb&&j.km>150?45+j.km/650*60+150:null;
+ return j}
+function jSync(){const f=$('jFrom'),t=$('jTo');f.value=V.from;t.value=V.to;$('jFromN').textContent=ST[V.from][0];const h=Math.floor(V.at/60),m=V.at%60;$('jAt').value=String(h%24).padStart(2,'0')+':'+String(m).padStart(2,'0');jCalc();drawReach();save()}
+function jCalc(){const j=journey(V.from,V.to,V.at);const o=$('jOut');drawJourney(j);
+ if(!j){o.innerHTML='<p class="note">Choose two different stations.</p>';return}
+ const day=Math.floor(j.arr/1440)-Math.floor(V.at/1440),wait=j.board-j.ready,lat=latchMin(),ride=j.sb.mn-j.sa.mn,brk=brakeMin()/2,tot=j.arr-j.ready;
+ const dayTxt=day>0?` <small>+${day} day</small>`:'';
+ const gold=V.rescue?ORANGE:'#d9a21b';
+ const dep=ST[j.X][0];
+ const air=V.rescue?'Suspended in the storm':j.air?'≈ '+fmtD(j.air)+' door to door':'No direct flight';
+ const fer=V.rescue?'Suspended in the storm':'≈ '+fmtD(j.ferry);
+ o.innerHTML=`<div class="arr"><span class="k">Arrive at ${ST[V.to][0]}</span><b>${fmtT(j.arr)}${dayTxt}</b><span>${fmtD(tot)} after you’re ready · ${fmtD(ride+lat/2+brk)} on the move · ${fmtK(j.km)}</span></div>
+ <div class="tline" aria-hidden="true"><i style="flex:${Math.max(wait,.5)};background:#b9b2a5"></i><i style="flex:${lat/2};background:#8a8378"></i><i style="flex:${ride};background:${gold}"></i><i style="flex:${brk};background:#55524c"></i></div>
+ <table><tr><td>Board your pod<small>${j.X===V.from?'At the end of the line, you board the express itself':'It waits on the side track at '+ST[V.from][0]}</small></td><td class="n">${fmtT(j.board)}</td></tr>
+ <tr><td>${j.X===V.from?'The express leaves':'The pod rolls and latches on'}<small>The ${fmtT(j.dep)} express from ${dep}${j.X===V.from?'':`, passing at ${fmtT(j.pass)}`}</small></td><td class="n">${fmtT(j.pass+(j.X===V.from?0:lat/2))}</td></tr>
+ <tr><td>On the express<small>${Math.round(j.land)} km on land${j.sea>.5?', '+Math.round(j.sea)+' km over or under the sea':''}, at up to ${S.v} km/h${V.rescue?' (slower on open stretches in the storm)':''}</small></td><td class="n">${fmtD(ride)}</td></tr>
+ <tr><td>Slip off and brake into ${ST[V.to][0]}<small>Your car lets go before the station and brakes alone onto the side track</small></td><td class="n">${fmtT(j.arr)}</td></tr>
+ ${j.xs.length?`<tr><td>Crossings<small>${j.xs.map(x=>XS[x][0]+' ('+(XS[x][1]==='T'?'tunnel':'bridge')+')').join(', ')}</small></td><td class="n">${j.xs.length}</td></tr>`:''}</table>
+ <table class="cmp" style="margin-top:6px"><tr><td>By road and ferry<small>Rough: buses at 55 km/h, ferries at 25 km/h, two hours at each port</small></td><td class="n">${fer}</td></tr><tr><td>By air<small>Rough: flying time plus two and a half hours at the airports</small></td><td class="n">${air}</td></tr></table>`;
+ reachText()}
+/* the trip on the map: a pale band under the line between the two stations */
+function drawJourney(j){if(!G.jour)return;G.jour.innerHTML='';if(!j)return;const Q=j.Q,pts=[];
+ for(let i=0;i<Q.km.length;i++)if(Q.km[i]>=j.sa.km-.01&&Q.km[i]<=j.sb.km+.01)pts.push(Q.pts[i]);if(pts.length<2)return;
+ const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(0)+' '+p[1].toFixed(0)).join('');
+ el('path',{d,fill:'none',stroke:'#f7f3ec','stroke-width':16,opacity:.55,'stroke-linecap':'round','stroke-linejoin':'round','vector-effect':'non-scaling-stroke'},G.jour)}
+/* how far you can get: from the station, along every line, riding time plus the latch */
+function reachTimes(a){return fromLeaf(a,S.v,V.rescue)}
+function drawReach(){if(!G.reach)return;G.reach.innerHTML='';G.rts=[];const R=V.reach;G.col.style.opacity=R?.28:'';if(!R)return;
+ const W=reachTimes(V.from),lat=V.from==='clark'||V.from==='davao'||V.from==='pp'||V.from==='allen'?0:latchMin()/2;
+ const vb={'vector-effect':'non-scaling-stroke',fill:'none','stroke-linecap':'round'};
+ const marks=[60,180,360,720].filter(m=>m<=R);
+ for(const lg of NET.legs){const ta=W.mn[lg.a.i]+lat,tb=W.mn[lg.b.i]+lat;const fw=ta<=tb;const t0=Math.min(ta,tb),t1=Math.max(ta,tb);if(t0>R)continue;
+  const f=cl((R-t0)/((t1-t0)||1e-9));const n=lg.pts.length;const pts=[];for(let k=0;k<n;k++){const s=lg.cum[k]/lg.len;const g=fw?s:1-s;if(g<=f+1e-9)pts.push(lg.pts[k])}
+  if(f<1){const L=lg.len*(fw?f:1-f);let k=1;while(k<n&&lg.cum[k]<L)k++;const a=lg.pts[k-1],b=lg.pts[Math.min(k,n-1)],u=(L-lg.cum[k-1])/((lg.cum[Math.min(k,n-1)]-lg.cum[k-1])||1);const p=[lerp(a[0],b[0],u),lerp(a[1],b[1],u)];if(fw)pts.push(p);else pts.unshift(p);
+   const g=el('g',{},G.reach);g._p=p;el('circle',{r:5,fill:V.rescue?ORANGE:'#d9a21b',stroke:'#14181b','stroke-width':2},g);G.rts.push(g)}
+  if(pts.length>1)el('path',Object.assign({d:pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(0)+' '+p[1].toFixed(0)).join(''),stroke:V.rescue?ORANGE:LINES[lg.line].c,'stroke-width':6},vb),G.reach);
+  for(const m of marks)if(m>t0&&m<=t1){const L0=(m-t0)/(t1-t0);const L=lg.len*(fw?L0:1-L0);let k=1;while(k<n&&lg.cum[k]<L)k++;const p=lg.pts[k-1];const g=el('g',{},G.reach);g._p=p;el('circle',{r:3.5,fill:'#14181b'},g);const t=el('text',{x:7,y:-6,class:'rt'},g);t.textContent=m/60+' h';G.rts.push(g)}}
+ onZoom()}
+function reachText(){const R=V.reach,el2=$('reachT');if(!el2)return;if(!R){el2.textContent='';return}
+ const W=reachTimes(V.from),lat=LEAVES.includes(V.from)?0:latchMin()/2;const got=STN.filter(id=>id!==V.from&&W.mn[NET.byId[id].i]+lat<=R);
+ // the farthest stations reached in each direction
+ const anc=new Set();for(const id of got){let n=NET.byId[id];while(W.par[n.i]){n=W.par[n.i].from;if(n.st)anc.add(n.st)}}
+ const fr=got.filter(id=>!anc.has(id)).sort((p,q)=>W.mn[NET.byId[q].i]-W.mn[NET.byId[p].i]);
+ const all=got.length===STN.length-1;let far=0;for(const id of STN)far=Math.max(far,W.mn[NET.byId[id].i]);
+ if(R>=1440){const P=paths();const rt=P.clark.davao.M+P.davao.clark.M;el2.textContent=`In a day you can reach every station on the line from ${ST[V.from][0]} (the farthest is ${fmtD(far+lat)} away), or ride Clark to Davao and back (${fmtD(rt)}) with time to spare.`;return}
+ el2.textContent=got.length?`In ${R/60} h you can reach ${all?'every station on the line':got.length+' station'+(got.length>1?'s':'')}: as far as ${fr.slice(0,4).map(id=>ST[id][0]+' ('+fmtD(W.mn[NET.byId[id].i]+lat)+')').join(', ')}. Times count the ride and the latch, not the wait.`:`Nowhere new in ${R/60} h.`}
+/* ride the trip on the map: the clock jumps to just before your pod rolls and the map follows your express */
+let RIDE=null;
+function startRide(){const j=journey(V.from,V.to,V.at);if(!j)return;RIDE={j,follow:true};SIM.t=j.board-6;V.rate=cl(Math.round((j.arr-j.board)/45),1,15);if(V.mode!=='map')setMode('map');
+ const a=NET.byId[V.from],b=NET.byId[V.to];const xs=[a.x,b.x],ys=[a.y,b.y];const pad=60*UPK;
+ const W=stage.clientWidth,H=stage.clientHeight,asp=W/H;let w=Math.max(xs[1]-xs[0],-(xs[1]-xs[0]))+pad*2,h=Math.abs(ys[1]-ys[0])+pad*2;if(w/h>asp)h=w/asp;else w=h*asp;w=Math.max(w,BASEW/3.2);h=w/asp;
+ VBT={a:Object.assign({},VB),b:{x:(xs[0]+xs[1])/2-w/2,y:(ys[0]+ys[1])/2-h/2,w,h},s:performance.now(),d:1200};chips()}
+function drawRide(t){const j=RIDE.j;const D=sched(j.X,j.k);const b=D.blocks.find(x=>x.P.stops.some(z=>z.id===V.to)&&x.P===j.Q)||D.blocks.find(x=>x.P.stops.some(z=>z.id===V.to));if(!b)return;
+ let k;if(t<j.pass){const n=NET.byId[V.from];const [x,y]=m2s(n.x,n.y);ring(x,y,'Your pod is waiting');return}
+ if(t>j.arr){const n=NET.byId[V.to];const [x,y]=m2s(n.x,n.y);ring(x,y,'Arrived '+fmtT(j.arr));if(t>j.arr+40)RIDE=null;return}
+ k=Math.min(kmAtTime(j.Q,t-j.dep)-b.lag-(b.len||0)*.5,j.sb.km);const q=kmAt(j.Q,k);const [x,y]=m2s(q.x,q.y);ring(x,y,'You · '+fmtD(j.arr-t)+' to '+ST[V.to][0]);
+ if(RIDE.follow&&!VBT&&!PD){const tx0=q.x-VB.w/2,ty0=q.y-VB.h/2;setVB({x:lerp(VB.x,tx0,.04),y:lerp(VB.y,ty0,.04),w:VB.w,h:VB.h})}}
+let PD=false;
+function ring(x,y,txt){const p=.5+.5*Math.sin(performance.now()/300);tx.strokeStyle=V.rescue?ORANGE:'#d9a21b';tx.lineWidth=2.5;tx.beginPath();tx.arc(x,y,13+4*p,0,7);tx.stroke();
+ tx.font='700 12.5px Archivo,sans-serif';const w=tx.measureText(txt).width+12;tx.fillStyle='rgba(29,32,36,.92)';tx.fillRect(x+16,y-24,w,20);tx.fillStyle='#f7f3ec';tx.fillText(txt,x+22,y-10)}
+
+/* ===== The train in 3D (built the first time you step aboard) =====
+   Metres; the train points +x with its nose at x=+15, rails on y=0, cars trailing toward -x. */
+let T3=null;
+const BW=3.7,BH=4.35,BY=.45;// body width, body height, bottom of the body above the rail
+const PROF=(()=>{const R=[[0,0],[.33,0],[.42,.02],[.47,.06],[.495,.12],[.5,.149],[.5,.329],[.5,.345],[.5,.372],[.499,.40],[.497,.53],[.493,.645],[.486,.70],[.47,.76],[.45,.828],[.425,.87],[.37,.92],[.29,.96],[.18,.985],[0,1]];
+ const p=R.slice();for(let i=R.length-2;i>=1;i--)p.push([-R[i][0],R[i][1]]);return p})();
+const LIVERY={storm:'#4f565e',graphite:'#34383d',slate:'#5d6873'};
+function init3D(){if(T3)return T3;if(!window.THREE)return null;
+ const cv=$('cv'),R=new THREE.WebGLRenderer({canvas:cv,antialias:true,preserveDrawingBuffer:true});R.setPixelRatio(Math.min(2,devicePixelRatio||1));
+ R.outputEncoding=THREE.sRGBEncoding;R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+ const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(42,1,.05,6000);cam.position.set(46,9,26);
+ const ctl=new THREE.OrbitControls(cam,cv);ctl.enableDamping=true;ctl.dampingFactor=.08;ctl.target.set(-10,2.5,0);ctl.maxPolarAngle=Math.PI*.495;
+ const LC=h=>new THREE.Color(h).convertSRGBToLinear();
+ const M=(c,p={})=>new THREE.MeshStandardMaterial(Object.assign({color:LC(c),roughness:.6,metalness:0},p));
+ const hemi=new THREE.HemisphereLight(0xffffff,0x445044,.7),sun=new THREE.DirectionalLight(0xffffff,2.2),amb=new THREE.AmbientLight(0xffffff,.0);
+ sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);const sc=sun.shadow.camera;sc.left=-90;sc.right=90;sc.top=60;sc.bottom=-60;sc.near=1;sc.far=600;sun.shadow.bias=-.0004;sun.shadow.normalBias=.03;
+ scene.add(hemi,sun,sun.target,amb);
+ const T={R,scene,cam,ctl,M,LC,hemi,sun,amb,cars:[],mats:{},stripes:[],res:0,anim:[],labels:[],world:{}};
+ /* ---------- helpers ---------- */
+ T.loft=function(rings,o={}){// rings: [{x,w,h,y0}]; o.keep(cx,py,pz), o.col(cx,py,pz)->[r,g,b], o.cap0/o.cap1, o.scale
+  const NP=PROF.length,NR=rings.length,P=[];const s=o.scale||1;
+  for(const r of rings){const row=[];for(const [z,y] of PROF)row.push(new THREE.Vector3(r.x,r.y0+y*r.h*s-(s-1)*r.h*.5,z*r.w*s));P.push(row)}
+  const N=[];for(let i=0;i<NR;i++){const row=[];for(let j=0;j<NP;j++){const a=P[Math.max(0,i-1)][j],b=P[Math.min(NR-1,i+1)][j],c=P[i][(j-1+NP)%NP],d=P[i][(j+1)%NP];
+   const ti=new THREE.Vector3().subVectors(b,a),tj=new THREE.Vector3().subVectors(d,c);const n=new THREE.Vector3().crossVectors(ti,tj);if(n.lengthSq()<1e-12)n.set(0,1,0);row.push(n.normalize())}N.push(row)}
+  const pos=[],nor=[],col=[];const C=o.col;
+  const tri=(a,b,c,cc)=>{for(const [i,j] of [a,b,c]){const p=P[i][j],n=N[i][j];pos.push(p.x,p.y,p.z);nor.push(n.x,n.y,n.z);if(cc)col.push(cc[0],cc[1],cc[2])}};
+  for(let i=0;i<NR-1;i++)for(let j=0;j<NP;j++){const j1=(j+1)%NP;const cx=(rings[i].x+rings[i+1].x)/2,py=(PROF[j][1]+PROF[j1][1])/2,pz=(PROF[j][0]+PROF[j1][0])/2;
+   if(o.keep&&!o.keep(cx,py,pz))continue;const cc=C?C(cx,py,pz):null;tri([i,j],[i+1,j],[i+1,j1],cc);tri([i,j],[i+1,j1],[i,j1],cc)}
+  const cap=(i,flip)=>{const r=rings[i];const ce=new THREE.Vector3(r.x,r.y0+r.h*.5,0);const nn=new THREE.Vector3(flip?1:-1,0,0);const cc=C?C(r.x,.5,0):null;
+   for(let j=0;j<NP;j++){const j1=(j+1)%NP;const a=P[i][j],b=P[i][j1];const v=flip?[a,b,ce]:[b,a,ce];for(const p of v){pos.push(p.x,p.y,p.z);nor.push(nn.x,nn.y,nn.z);if(cc)col.push(cc[0],cc[1],cc[2])}}};
+  if(o.cap0)cap(0,false);if(o.cap1)cap(NR-1,true);
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(nor,3));if(C)g.setAttribute('color',new THREE.Float32BufferAttribute(col,3));return g};
+ // merge boxes and other shapes by material, so each car is only a few draw calls
+ T.FB=function(){const bins=new Map();const api={
+  add(geo,mat,x=0,y=0,z=0,ry=0,rx=0,rz=0){const g=geo.index?geo.toNonIndexed():geo.clone();const m=new THREE.Matrix4().compose(new THREE.Vector3(x,y,z),new THREE.Quaternion().setFromEuler(new THREE.Euler(rx,ry,rz)),new THREE.Vector3(1,1,1));g.applyMatrix4(m);if(g.attributes.uv)g.deleteAttribute('uv');if(!bins.has(mat))bins.set(mat,[]);bins.get(mat).push(g);return api},
+  box(mat,w,h,d,x,y,z,ry=0){return api.add(new THREE.BoxGeometry(w,h,d),mat,x,y,z,ry)},
+  cyl(mat,r1,r2,h,x,y,z,seg=12,rx=0,rz=0){return api.add(new THREE.CylinderGeometry(r1,r2,h,seg),mat,x,y,z,0,rx,rz)},
+  done(par,shadow){const out=[];for(const [mat,gs] of bins){const g=mergeG(gs);const m=new THREE.Mesh(g,mat);m.castShadow=!!shadow;m.receiveShadow=false;par.add(m);out.push(m)}bins.clear();return out}};return api};
+ function mergeG(gs){let n=0;for(const g of gs)n+=g.attributes.position.count;const p=new Float32Array(n*3),q=new Float32Array(n*3);let o=0;for(const g of gs){p.set(g.attributes.position.array,o*3);q.set(g.attributes.normal.array,o*3);o+=g.attributes.position.count}
+  const r=new THREE.BufferGeometry();r.setAttribute('position',new THREE.BufferAttribute(p,3));r.setAttribute('normal',new THREE.BufferAttribute(q,3));return r}
+ T.mergeG=mergeG;
+ // a standing person, 1.63 m, for scale
+ const figG=(()=>{const a=new THREE.CylinderGeometry(.17,.2,1.0,8).toNonIndexed();a.translate(0,.88,0);const l=new THREE.CylinderGeometry(.16,.12,.42,8).toNonIndexed();l.translate(0,.2,0);const h=new THREE.SphereGeometry(.12,10,8).toNonIndexed();h.translate(0,1.5,0);[a,l,h].forEach(g=>g.deleteAttribute('uv'));return mergeG([a,l,h])})();
+ const lieG=(()=>{const g=figG.clone();g.rotateZ(Math.PI/2);g.translate(.8,.15,0);return g})(),sitG=(()=>{const a=new THREE.CylinderGeometry(.17,.2,.72,8).toNonIndexed();a.translate(0,.62,0);const h=new THREE.SphereGeometry(.12,10,8).toNonIndexed();h.translate(0,1.12,0);const l=new THREE.BoxGeometry(.36,.18,.5).toNonIndexed();l.translate(0,.2,.2);[a,h,l].forEach(g=>g.attributes.uv&&g.deleteAttribute('uv'));return mergeG([a,h,l])})();
+ T.figG=figG;T.lieG=lieG;T.sitG=sitG;
+ const figM=['#7b5a43','#355c7d','#a04a3b','#5c6b4a','#c9a66b','#40444b','#8b6f9e'].map(c=>M(c,{roughness:.8}));
+ T.fig=(par,x,y,z,ry=0,k='std',ci=0)=>{const m=new THREE.Mesh(k==='lie'?lieG:k==='sit'?sitG:figG,figM[ci%figM.length]);m.position.set(x,y,z);m.rotation.y=ry;par.add(m);return m};
+ /* ---------- materials ---------- */
+ const mt=T.mats;
+ mt.shell=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.36,metalness:.18});
+ mt.glass=new THREE.MeshStandardMaterial({color:LC('#0d1418'),roughness:.08,metalness:.4,transparent:true,opacity:.5,depthWrite:false,emissive:LC('#ffd9a0'),emissiveIntensity:0});
+ mt.oglass=new THREE.MeshStandardMaterial({color:LC('#9fb7c0'),roughness:.04,metalness:.1,transparent:true,opacity:.16,depthWrite:false,side:THREE.DoubleSide});
+ mt.dark=M('#1a1d20',{roughness:.7});mt.steel=M('#5a5f64',{roughness:.4,metalness:.7});mt.rubber=M('#202224',{roughness:.95});
+ mt.floorW=M('#6b5440',{roughness:.7});mt.floorG=M('#8a8d8f',{roughness:.85});mt.floorL=M('#c9c4bb',{roughness:.8});mt.floorM=M('#d8dcdc',{roughness:.6});
+ mt.oak=M('#8a6a4a',{roughness:.6});mt.walnut=M('#4a3426',{roughness:.55});mt.linen=M('#e6e0d4',{roughness:.95});mt.wool=M('#8d867b',{roughness:1});mt.leather=M('#5b3b2a',{roughness:.6});
+ mt.ecoSeat=M('#3f4a56',{roughness:.9});mt.bizSeat=M('#6e5a4a',{roughness:.85});mt.white=M('#eef0f0',{roughness:.5});mt.clinic=M('#e7f0ee',{roughness:.5});mt.mint=M('#7fb3a6',{roughness:.6});
+ mt.screen=new THREE.MeshStandardMaterial({color:LC('#0a1418'),emissive:LC('#5ad0ff'),emissiveIntensity:.6,roughness:.3});
+ mt.lamp=new THREE.MeshStandardMaterial({color:LC('#fff4dc'),emissive:LC('#ffe2b0'),emissiveIntensity:1.2});
+ mt.redL=new THREE.MeshStandardMaterial({color:LC('#300'),emissive:LC('#ff2a1a'),emissiveIntensity:1.5});mt.headL=new THREE.MeshStandardMaterial({color:LC('#fff'),emissive:LC('#fff6e0'),emissiveIntensity:2});
+ mt.crate=M('#a58a64',{roughness:.9});mt.water=M('#3f7fb3',{roughness:.5});mt.food=M('#c9a24a',{roughness:.85});mt.relief=M('#e06a1c',{roughness:.7});mt.freight=M('#6d7378',{roughness:.6,metalness:.3});mt.cot=M('#5d7a6a',{roughness:.9});
+ mt.liningF=M('#efe8dc',{roughness:.9,side:THREE.BackSide,vertexColors:true});
+ mt.concrete=M('#a9a69f',{roughness:.95});mt.concreteD=M('#7d7b76',{roughness:.95});mt.rail=M('#8b8f93',{roughness:.3,metalness:.8});mt.cover=M('#d6a21b',{roughness:.6});
+ /* ---------- the world: track, ground, sea, tunnel, station, weather ---------- */
+ buildWorld(T);
+ /* ---------- the train ---------- */
+ T.build=()=>buildTrain(T);
+ T.build();
+ return T3=T}
+
+function canvasTex(w,h,f,rx=1,ry=1){const c=document.createElement('canvas');c.width=w;c.height=h;f(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rx,ry);t.encoding=THREE.sRGBEncoding;t.anisotropy=4;return t}
+
+function buildWorld(T){const {scene,M,LC,mats:mt}=T,W=T.world;
+ // the track: a concrete slab, two rails, and the enclosed power rail at ground level on the right
+ const tr=new THREE.Group();scene.add(tr);W.track=tr;
+ const slabT=canvasTex(256,64,(g,w,h)=>{g.fillStyle='#9c9a94';g.fillRect(0,0,w,h);g.fillStyle='#86847e';g.fillRect(0,0,3,h);for(let i=0;i<300;i++){g.fillStyle=`rgba(0,0,0,${Math.random()*.05})`;g.fillRect(Math.random()*w,Math.random()*h,2,2)}},300,1);
+ const slab=new THREE.Mesh(new THREE.BoxGeometry(1800,.5,5.2),new THREE.MeshStandardMaterial({map:slabT,roughness:.95}));slab.position.set(-150,-.43,0);slab.receiveShadow=true;tr.add(slab);W.slabT=slabT;
+ for(const z of[-.7175,.7175]){const r=new THREE.Mesh(new THREE.BoxGeometry(1800,.17,.07),mt.rail);r.position.set(-150,-.085,z);tr.add(r)}
+ const pr=new THREE.Mesh(new THREE.BoxGeometry(1800,.16,.1),mt.steel);pr.position.set(-150,-.04,1.66);tr.add(pr);
+ const cov=new THREE.Mesh(new THREE.BoxGeometry(1800,.05,.36),M('#3d4247',{roughness:.7}));cov.position.set(-150,.08,1.72);tr.add(cov);
+ const cov2=new THREE.Mesh(new THREE.BoxGeometry(1800,.18,.05),M('#3d4247',{roughness:.7}));cov2.position.set(-150,0,1.88);tr.add(cov2);
+ // ground: rice paddies and dikes
+ const padT=canvasTex(512,512,(g,w,h)=>{const cs=['#6f8f3a','#7d9a42','#5f8236','#8ba24c','#6a8a3e'];for(let y=0;y<4;y++)for(let x=0;x<4;x++){g.fillStyle=cs[(x*3+y*7)%5];g.fillRect(x*128,y*128,128,128);for(let i=0;i<60;i++){g.fillStyle=`rgba(40,60,20,${Math.random()*.15})`;g.fillRect(x*128+Math.random()*128,y*128+Math.random()*128,3,1)}}g.strokeStyle='#9a8a62';g.lineWidth=5;for(let i=0;i<=4;i++){g.beginPath();g.moveTo(i*128,0);g.lineTo(i*128,h);g.stroke();g.beginPath();g.moveTo(0,i*128);g.lineTo(w,i*128);g.stroke()}},60,60);
+ const ground=new THREE.Mesh(new THREE.PlaneGeometry(4000,4000),new THREE.MeshStandardMaterial({map:padT,roughness:1}));ground.rotation.x=-Math.PI/2;ground.position.y=-.7;ground.receiveShadow=true;scene.add(ground);W.ground=ground;W.padT=padT;
+ const emb=new THREE.Mesh(new THREE.BoxGeometry(1800,.6,9),M('#8a7f6a',{roughness:1}));emb.position.set(-150,-.9,0);emb.receiveShadow=true;scene.add(emb);W.emb=emb;
+ // palms, scattered and wrapped as the train runs
+ const trunk=new THREE.CylinderGeometry(.16,.24,9,6).toNonIndexed();trunk.translate(0,4.5,0);trunk.deleteAttribute('uv');
+ const fronds=[];for(let i=0;i<7;i++){const f=new THREE.ConeGeometry(.5,4.2,4,1).toNonIndexed();f.deleteAttribute('uv');f.rotateZ(-Math.PI/2+.5);f.translate(2,0,0);f.rotateY(i/7*Math.PI*2);f.translate(0,9,0);fronds.push(f)}
+ const palmT=new THREE.InstancedMesh(T.mergeG([trunk]),M('#6b5a46',{roughness:1}),260),palmF=new THREE.InstancedMesh(T.mergeG(fronds),M('#3e6b33',{roughness:.9}),260);
+ palmT.castShadow=palmF.castShadow=true;scene.add(palmT,palmF);W.palms={T:palmT,F:palmF,p:[]};
+ for(let i=0;i<260;i++){const side=i%2?1:-1;W.palms.p.push({x:-700+Math.random()*1400,z:side*(12+Math.pow(Math.random(),1.6)*320),s:.75+Math.random()*.5,r:Math.random()*6})}
+ // far hills
+ const hills=new THREE.Group();scene.add(hills);W.hills=hills;const hm=M('#55705a',{roughness:1});
+ for(let i=0;i<26;i++){const a=i/26*Math.PI*2,r=1500+Math.random()*400,h=120+Math.random()*260;const m=new THREE.Mesh(new THREE.ConeGeometry(420+Math.random()*300,h*.6,9),hm);m.position.set(Math.cos(a)*r,h*.3-20,Math.sin(a)*r);hills.add(m)}
+ // sea and viaduct
+ const sea=new THREE.Mesh(new THREE.PlaneGeometry(6000,6000),M('#35535f',{roughness:.25,metalness:.2}));sea.rotation.x=-Math.PI/2;sea.position.y=-22;scene.add(sea);W.sea=sea;
+ const via=new THREE.Group();scene.add(via);W.via=via;const deck=new THREE.Mesh(new THREE.BoxGeometry(1800,2.2,7),mt.concrete);deck.position.set(-150,-1.6,0);deck.receiveShadow=true;via.add(deck);
+ const pier=new THREE.InstancedMesh(new THREE.BoxGeometry(3,22,5),mt.concreteD,32);via.add(pier);W.pier=pier;
+ // wind walls: tall perforated walls on open stretches in typhoon country
+ const ww=new THREE.Group();scene.add(ww);W.wind=ww;const wwT=canvasTex(128,128,(g,w,h)=>{g.fillStyle='#b6b2aa';g.fillRect(0,0,w,h);g.fillStyle='#4a4a48';for(let y=12;y<h;y+=28)for(let x=10;x<w;x+=28)g.fillRect(x,y,8,14)},360,1);
+ for(const z of[-3.6,3.6]){const m=new THREE.Mesh(new THREE.BoxGeometry(1800,2.9,.3),new THREE.MeshStandardMaterial({map:wwT,roughness:.9,transparent:true,opacity:.98}));m.position.set(-150,.75,z);m.receiveShadow=true;ww.add(m)}W.wwT=wwT;
+ // tunnel with light art: patterns run along the walls in the line's colour, timed to the train's speed
+ const tun=new THREE.Group();scene.add(tun);W.tun=tun;
+ const tube=new THREE.Mesh(new THREE.CylinderGeometry(5.4,5.4,1800,28,1,true),M('#3b3d40',{roughness:.95,side:THREE.BackSide}));tube.rotation.z=Math.PI/2;tube.position.set(-150,2.2,0);tun.add(tube);
+ const artC=document.createElement('canvas');artC.width=256;artC.height=1024;const artT=new THREE.CanvasTexture(artC);artT.wrapS=artT.wrapT=THREE.RepeatWrapping;artT.repeat.set(1,60);const artT2=artT.clone();artT2.repeat.set(-1,60);W.art={c:artC,t:artT,t2:artT2,ph:0};
+ for(const s of[-1,1]){const artM=new THREE.MeshBasicMaterial({map:s>0?artT:artT2,transparent:true,side:THREE.BackSide,blending:THREE.AdditiveBlending,depthWrite:false});const g=new THREE.CylinderGeometry(5.3,5.3,1800,12,1,true,s>0?-Math.PI*.2:Math.PI*.8,Math.PI*.4);const m=new THREE.Mesh(g,artM);m.rotation.z=Math.PI/2;m.position.set(-150,2.2,0);tun.add(m)}
+ const tl=new THREE.PointLight(0xffffff,0,60);tl.position.set(10,4,0);tun.add(tl);W.tunL=tl;
+ const rings=new THREE.InstancedMesh(new THREE.TorusGeometry(5.32,.06,6,40),new THREE.MeshBasicMaterial({color:0xfff1d6}),48);tun.add(rings);W.rings=rings;
+ // a storm-shelter station: a deep concrete hall behind storm walls, an evacuation centre in a typhoon
+ W.stn=buildStation(T);
+ // rain
+ const NRn=3200,rp=new Float32Array(NRn*6);const rg=new THREE.BufferGeometry();rg.setAttribute('position',new THREE.BufferAttribute(rp,3));
+ const rain=new THREE.LineSegments(rg,new THREE.LineBasicMaterial({color:0xc8d2da,transparent:true,opacity:.45}));rain.frustumCulled=false;scene.add(rain);W.rain={m:rain,p:rp,n:NRn,s:[]};
+ for(let i=0;i<NRn;i++)W.rain.s.push([Math.random()*160-80,Math.random()*40,Math.random()*120-60]);
+ // sky dome
+ const skyG=new THREE.SphereGeometry(3000,24,12);const skyM=new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:{top:{value:new THREE.Color()},mid:{value:new THREE.Color()},bot:{value:new THREE.Color()}},
+  vertexShader:'varying vec3 vP;void main(){vP=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+  fragmentShader:'uniform vec3 top,mid,bot;varying vec3 vP;void main(){float h=vP.y;vec3 c=h>0.?mix(mid,top,pow(clamp(h,0.,1.),.6)):mix(mid,bot,clamp(-h*4.,0.,1.));gl_FragColor=vec4(c,1.);}'});
+ W.sky=new THREE.Mesh(skyG,skyM);scene.add(W.sky);
+ scene.fog=new THREE.Fog(0xffffff,200,2600)}
+
+function buildStation(T){const {scene,M,mats:mt}=T;const g=new THREE.Group();scene.add(g);const fb=T.FB();const L=360,x0=-330;
+ const wallM=M('#a7a39b',{roughness:.95}),pl=M('#c8c2b6',{roughness:.85}),edge=M('#d9a21b',{roughness:.6}),roofM=M('#8f8b84',{roughness:.95,side:THREE.DoubleSide});
+ // platforms on both sides of the through track, a side track on each with its pod
+ for(const s of[-1,1]){fb.box(pl,L,1.1,6.2,x0+L/2,-.15,s*5.6);fb.box(edge,L,.02,.25,x0+L/2,.41,s*2.62)}
+ for(const s of[-1,1]){fb.box(mt.concrete,L,.5,5,x0+L/2,-.45,s*11.4);fb.box(mt.rail,L,.17,.07,x0+L/2,-.12,s*11.4-.72);fb.box(mt.rail,L,.17,.07,x0+L/2,-.12,s*11.4+.72)}
+ // thick storm walls, deep footing, a heavy roof with slots of daylight
+ for(const s of[-1,1]){fb.box(wallM,L,14,1.6,x0+L/2,6.3,s*15)}
+ fb.box(roofM,L,1.4,31.6,x0+L/2,13.9,0);
+ for(let x=x0+10;x<x0+L;x+=12){for(const s of[-1,1])fb.box(wallM,1,13,1,x,6.3,s*8.7)}
+ // end storm doors, raised: steel leaves over the track mouths
+ for(const xe of[x0,x0+L]){fb.box(mt.steel,1,4.2,30,xe,11.4,0)}
+ // relief pallets, cots and water on the platforms
+ for(let i=0;i<26;i++){const s=i%2?1:-1;const x=x0+20+i*12.5;fb.box(i%3?mt.water:mt.food,1.2,1,1,x,.9,s*7.2);fb.box(mt.relief,1.2,.6,1,x+1.4,.7,s*7.4)}
+ for(let i=0;i<30;i++){const s=i%2?1:-1;fb.box(mt.cot,1.9,.4,.75,x0+30+i*10,.6,s*4.4)}
+ fb.done(g);
+ // lamps in the hall
+ for(let x=x0+20;x<x0+L;x+=40){const m=new THREE.Mesh(new THREE.BoxGeometry(6,.12,.5),mt.lamp);m.position.set(x,13.1,0);g.add(m)}
+ // people waiting, and a sign
+ for(let i=0;i<90;i++){const s=i%2?1:-1;const k=i%5===0?'sit':'std';T.fig(g,x0+8+Math.random()*(L-16),.4+(k==='sit'?0:0),s*(3.4+Math.random()*4.6),Math.random()*6,k,i)}
+ const sT=canvasTex(1024,128,(c,w,h)=>{c.fillStyle='#1d2024';c.fillRect(0,0,w,h);c.fillStyle='#ff7a1a';c.fillRect(0,h-14,w,14);c.fillStyle='#f2ede4';c.font='800 64px Archivo, sans-serif';c.fillText('MAASIN',30,74);c.font='600 30px Archivo, sans-serif';c.fillText('Storm-shelter station · evacuation centre · 3,000 places',300,74)});
+ for(const s of[-1,1]){const m=new THREE.Mesh(new THREE.PlaneGeometry(16,2),new THREE.MeshBasicMaterial({map:sT}));m.position.set(x0+L/2,9,s*14.15);m.rotation.y=s>0?Math.PI:0;g.add(m)}
+ const hl=new THREE.PointLight(0xffd9a0,0,120);hl.position.set(-150,11,0);g.add(hl);g.userData.light=hl;
+ g.visible=false;return g}
+
+/* ---------- the consist ---------- */
+function consist(){const c=[{k:'lead',L:30,n:'Lead car and driver’s cab'},{k:'first',L:26,n:'First class'},{k:'biz',L:26,n:'Business class'}];
+ if(S.obs)c.push({k:'obs',L:26,n:'Observation car'});for(let i=0;i<S.eco;i++)c.push({k:'eco',L:26,n:'Economy, double deck'+(S.eco>1?' '+(i+1):'')});
+ if(S.med)c.push({k:'med',L:26,n:'Medical car'});
+ const tr=TRAIN();tr.dests.slice(0,S.dest).forEach(d=>c.push({k:'dest',L:26,n:d.n+' car',line:d.line,st:d.st}));tr.pods.slice(0,S.pods).forEach(d=>c.push({k:'pod',L:17,n:'Pod for '+d.n,line:d.line,st:d.st}));return c}
+let TRSEL=null;// the train you tapped on the map
+function TRAIN(){const def={line:'C',from:'clark',dests:[{n:'Iloilo',line:'C',st:'iloilo'},{n:'Tacloban',line:'E',st:'tacloban'},{n:'Cebu',line:'C',st:'cebu'}],pods:[{n:'Kalibo',line:'C',st:'kalibo'},{n:'Ormoc',line:'E',st:'ormoc'},{n:'Coron',line:'W',st:'coron'},{n:'Butuan',line:'C',st:'butuan'}]};
+ if(!TRSEL)return def;const b=TRSEL.b;const us=TRSEL.D.blocks.flatMap(x=>x.units).filter(u=>u.st);const ds=us.filter(u=>u.kind==='dest'),ps=us.filter(u=>u.kind==='pod');
+ const m=u=>({n:ST[u.st][0],line:u.line,st:u.st});return{line:b.line,from:TRSEL.D.leaf,dests:(ds.length?ds:def.dests).map(u=>u.n?u:m(u)).concat(def.dests).slice(0,3),pods:(ps.length?ps:def.pods).map(u=>u.n?u:m(u)).concat(def.pods).slice(0,4)}}
+
+function buildTrain(T){const {scene,M,LC,mats:mt}=T;
+ if(T.train){scene.remove(T.train);T.train.traverse(o=>{if(o.geometry&&o.geometry!==T.figG&&o.geometry!==T.lieG&&o.geometry!==T.sitG)o.geometry.dispose()})}
+ const train=new THREE.Group();scene.add(train);T.train=train;T.cars=[];T.stripes=[];T.anim=[];
+ const tr=TRAIN(),cars=consist(),lower=LC(LIVERY[S.lower]||LIVERY.storm),silver=LC('#c3c7cc'),roof=LC('#a9adb2'),dk=LC('#2a2e33');
+ let x=15;
+ for(const c of cars){x-=c.L;c.x0=x;const g=new THREE.Group();g.position.x=x;train.add(g);c.g=g;T.cars.push(c);
+  const line=c.line||tr.line;c.lineC=LINES[line].c;
+  buildCar(T,c,{lower,silver,roof,dk});x-=.9;
+  if(c!==cars[cars.length-1]){// the gangway between cars
+   const gw=new THREE.Mesh(new THREE.BoxGeometry(1.2,3.3,2.7),mt.rubber);gw.position.set(x+.45,2.25,0);train.add(gw)}}
+ T.len=15-x;
+ // labels
+ T.labels.forEach(l=>l.el.remove());T.labels=[];
+ for(const c of T.cars){const d=document.createElement('div');d.className='dl';d.textContent=c.n;$('labs').appendChild(d);T.labels.push({el:d,p:new THREE.Vector3(c.x0+c.L/2,6.4,0)})}
+ applyRes(T,true)}
+
+function winRects(k,L){// windows: [x0,x1,py0,py1,side] side 1 is +z, -1 is -z, 0 both
+ const W=[];const run=(x0,x1,w,gap,p0,p1,s=0)=>{for(let x=x0;x+w<=x1+.01;x+=w+gap)W.push([x,x+w,p0,p1,s])};
+ if(k==='first'){for(let i=0;i<4;i++)W.push([1.6+i*5.9,1.6+i*5.9+3.6,.375,.70,1]);run(1.8,24.2,1.2,1.3,.42,.645,-1)}
+ else if(k==='biz'){run(1.2,8,1.5,.7,.40,.645);W.push([9.2,16.8,.375,.70,0]);run(18,24.8,1.5,.7,.40,.645)}
+ else if(k==='obs'){W.push([1.4,24.6,.375,1.01,0])}
+ else if(k==='eco'){run(4,22,1.4,.6,.165,.325);run(3.6,22.4,1.4,.6,.66,.82);run(.8,2.6,1,0,.40,.645);run(23.4,25.2,1,0,.40,.645)}
+ else if(k==='med'){run(2,24,1.6,1.6,.42,.645)}
+ else if(k==='dest'){run(1.6,24.4,1.5,.8,.40,.645)}
+ else if(k==='pod'){run(3.2,13.8,1.6,.6,.53,.76)}
+ else if(k==='lead'){run(13.6,17.6,1.1,.9,.42,.645)}
+ return W}
+
+function buildCar(T,c,C){const {M,LC,mats:mt}=T,g=c.g,L=c.L,k=c.k;
+ const W=winRects(k,L);
+ const inWin=(x,py,pz)=>{for(const w of W){if(x>w[0]&&x<w[1]&&py>w[2]&&py<w[3]&&(Math.abs(pz)>.44||w[3]>1)&&(w[4]===0||Math.sign(pz)===w[4]||w[3]>1&&py>.9))return true}
+  if(k==='lead'&&x>19.4&&x<26.2&&py>.46&&Math.abs(pz)<.47)return true;return false};
+ // rings along the car, with extra rings at every window edge
+ const xs=new Set([0,.35,L-.35,L]);for(let x=0;x<=L;x+=2)xs.add(+x.toFixed(2));for(const w of W){xs.add(w[0]);xs.add(w[1])}
+ let rings;
+ if(k==='lead'){// a long nose: lower and narrower toward the tip
+  const nose=12,x1=L-nose;for(let x=x1;x<=L;x+=.5)xs.add(+x.toFixed(2));for(const v of[19.4,26.2])xs.add(v);
+  rings=[...xs].filter(x=>x>=0&&x<=L).sort((a,b)=>a-b).map(x=>{if(x<=x1)return{x,w:BW*(x<.35?.96:1),h:BH*(x<.35?.97:1),y0:BY};const f=1-(x-x1)/nose;
+   const lg=S.nose==='blunt'?1.6:1;return{x,w:BW*(.16+.84*(1-Math.pow(1-f,2.4*lg))),h:BH*(.14+.86*Math.pow(f,.85/lg)),y0:BY+(1-f)*.32}});
+  rings.push({x:L+.02,w:BW*.05,h:BH*.08,y0:BY+.34})}
+ else if(k==='pod'){const r=S.podF==='square'?[.88,.95]:[.5,.78];xs.add(.7);xs.add(1.4);xs.add(L-.7);xs.add(L-1.4);
+  rings=[...xs].sort((a,b)=>a-b).map(x=>{const e=Math.min(x,L-x);const f=e<.01?0:e<.7?lerp(r[0],r[1],e/.7):e<1.4?lerp(r[1],1,(e-.7)/.7):1;const f2=e<.01?r[0]*.9:f;return{x,w:BW*f2,h:BH*(.55+.45*f2),y0:BY+(1-f2)*.9}})}
+ else rings=[...xs].sort((a,b)=>a-b).map(x=>({x,w:BW*(x<.3||x>L-.3?.96:1),h:BH*(x<.3||x>L-.3?.97:1),y0:BY+(x<.3||x>L-.3?.03:0)}));
+ const lower=C.lower,silver=C.silver,roofC=C.roof;
+ const col=(x,py)=>py<.345?[lower.r,lower.g,lower.b]:py>.93?[roofC.r,roofC.g,roofC.b]:[silver.r,silver.g,silver.b];
+ const capE=k==='pod'||k==='lead';
+ const shell=new THREE.Mesh(T.loft(rings,{keep:(x,py,pz)=>!inWin(x,py,pz)&&!(py>.345&&py<.40),col,cap0:capE,cap1:capE}),mt.shell);shell.castShadow=true;g.add(shell);
+ const glass=new THREE.Mesh(T.loft(rings,{keep:(x,py,pz)=>inWin(x,py,pz)}),k==='obs'?mt.oglass:mt.glass);g.add(glass);
+ // the stripe: its own band, so it can glow orange
+ const sm=new THREE.MeshStandardMaterial({color:LC(c.lineC),emissive:LC(c.lineC),emissiveIntensity:.25,roughness:.35,metalness:.2});
+ const stripe=new THREE.Mesh(T.loft(rings,{keep:(x,py,pz)=>py>.345&&py<.40&&!inWin(x,py,pz)}),sm);g.add(stripe);T.stripes.push({m:sm,c:LC(c.lineC)});
+ // the lining you see from inside, with the window openings cut out; the upper part hides in the cutaway
+ const lcol=(x,py)=>{const b=k==='first'?[.86,.82,.74]:k==='biz'?[.62,.52,.44]:k==='med'?[.9,.94,.93]:k==='lead'?[.32,.35,.38]:[.84,.84,.82];const f=py<.4?.82:py>.86?1.08:1;return[b[0]*f,b[1]*f,b[2]*f]};
+ const lining=new THREE.Mesh(T.loft(rings,{keep:(x,py,pz)=>!inWin(x,py,pz)&&py<.75&&!(k==='obs'&&py>.375),col:lcol,scale:.985}),mt.liningF);g.add(lining);
+ const liningU=new THREE.Mesh(T.loft(rings,{keep:(x,py,pz)=>!inWin(x,py,pz)&&py>=.75&&k!=='obs',col:lcol,scale:.985}),mt.liningF);g.add(liningU);
+ c.shell=shell;c.glass=glass;c.liningU=liningU;c.stripe=stripe;
+ // under the body: bogies with the power shoe on the right, and the skirt
+ const fb=T.FB();
+ const bog=k==='pod'?[2.6,L-2.6]:k==='lead'?[3.2,17]:[3,L-3];
+ for(const bx of bog){fb.box(mt.dark,3.2,.5,2.2,bx,.55,0);for(const dx of[-1.25,1.25])for(const z of[-.72,.72])fb.cyl(mt.steel,.43,.43,.14,bx+dx,.43,z,14,Math.PI/2);fb.box(mt.steel,.5,.1,.5,bx,.12,1.55)}
+ // end walls inside, with a door through to the next car
+ const fl=k==='eco'?1.35:k==='pod'?1.95:1.35;c.fl=fl;
+ const endWall=(x)=>{fb.box(mt.white,.12,3.1,1.25,x,fl+1.55,1.2);fb.box(mt.white,.12,3.1,1.25,x,fl+1.55,-1.2);fb.box(mt.white,.12,.7,1.2,x,fl+2.75,0)};
+ const fbLin=T.FB();
+ endWall(.25);if(k!=='lead')endWall(L-.25);
+ // the floor
+ const flM=k==='first'||k==='biz'?mt.floorW:k==='med'?mt.floorM:k==='obs'?mt.floorW:mt.floorG;
+ if(k==='lead')fb.box(flM,18.4,.18,3.45,9.4,fl-.09,0);else if(k!=='eco')fb.box(flM,L-.4,.18,3.45,L/2,fl-.09,0);
+ fb.done(g,true);
+ // the interior for each kind of car
+ const I=new THREE.Group();g.add(I);c.int=I;
+ ({lead:intLead,first:intFirst,biz:intBiz,obs:intObs,eco:intEco,med:intMed,dest:intDest,pod:intPod})[k](T,c,I);
+ // the outside: headlights, tail lights, the medical cross, pod lamps
+ const ex=T.FB();
+ if(k==='lead'){for(const z of[-.62,.62]){ex.box(mt.headL,.5,.12,.38,L-1.4,BY+.62,z)}}
+ if(k==='pod'){for(const z of[-.9,.9]){ex.box(mt.headL,.08,.12,.5,L+.01,1.5,z);ex.box(mt.redL,.08,.12,.5,-.01,1.5,z)}
+  // the cargo doors under the passenger floor
+  for(const s of[-1,1])for(const x of[3,8.5]){ex.box(mt.dark,4.6,.04,.02,x+2.3,.85,s*(BW/2+.005));ex.box(mt.dark,4.6,.04,.02,x+2.3,1.75,s*(BW/2+.005));ex.box(mt.dark,.04,.9,.02,x,1.3,s*(BW/2+.005));ex.box(mt.dark,.04,.9,.02,x+4.6,1.3,s*(BW/2+.005))}}
+ if(k==='med'){const cm=new THREE.MeshStandardMaterial({color:LC('#f4f4f2'),emissive:LC('#ff7a1a'),emissiveIntensity:0,roughness:.5});c.cross=cm;for(const s of[-1,1]){ex.box(cm,1.2,.34,.03,L/2,1.25,s*(BW/2+.01));ex.box(cm,.34,1.2,.03,L/2,1.25,s*(BW/2+.01))}}
+ ex.done(g)}
+
+/* ---------- interiors ---------- */
+function seatG(T,w=.5,d=.55,h=1.15,tone){const f=T.FB();const g=[];const b=(W,H,D,x,y,z)=>{const q=new THREE.BoxGeometry(W,H,D).toNonIndexed();q.deleteAttribute('uv');q.translate(x,y,z);g.push(q)};
+ b(w,.14,d,0,.45,0);b(w,h-.45,.12,0,.45+(h-.45)/2,-d/2+.06);b(.06,.22,d*.8,-w/2+.03,.62,0);b(.06,.22,d*.8,w/2-.03,.62,0);b(.1,.4,.1,0,.2,0);return T.mergeG(g)}
+function inst(T,geo,mat,list,par){const m=new THREE.InstancedMesh(geo,mat,list.length);const o=new THREE.Object3D();list.forEach((p,i)=>{o.position.set(p[0],p[1],p[2]);o.rotation.set(0,p[3]||0,0);o.scale.set(1,1,1);o.updateMatrix();m.setMatrixAt(i,o.matrix)});par.add(m);return m}
+function intLead(T,c,I){const {mats:mt}=T,fb=T.FB(),fl=c.fl;
+ // the driver's cab, high in the nose behind the sloping windscreen
+ fb.box(mt.floorG,6,.16,3.2,20.6,fl+.35,0);fb.box(mt.dark,1.2,.7,2.4,22.3,fl+.75,0);fb.box(mt.screen,.5,.04,.6,21.9,fl+1.12,-.6);fb.box(mt.screen,.5,.04,.6,21.9,fl+1.12,.6);fb.box(mt.screen,.4,.04,.4,21.9,fl+1.12,0);
+ fb.box(mt.leather,.6,.16,.6,20.9,fl+.95,0);fb.box(mt.leather,.14,.8,.6,20.55,fl+1.4,0);fb.box(mt.steel,.1,.5,.1,20.9,fl+.6,0);
+ fb.box(mt.dark,.08,.22,.08,21.5,fl+1.2,-.55);fb.box(mt.dark,.08,.22,.08,21.5,fl+1.2,.55);
+ // a cab door, then the crew room, then the battery room for flooded stretches and outages
+ fb.box(mt.white,.12,2.6,3.3,18.4,fl+1.3,0);fb.box(mt.walnut,1.4,.7,.6,16.6,fl+.35,1.3);fb.box(mt.wool,1.8,.45,.6,16.6,fl+.22,-1.3);
+ for(let x=1.4;x<12.5;x+=1.4)for(const z of[-1.15,1.15])for(let y=0;y<3;y++)fb.box(y===1?mt.freight:mt.steel,1.1,.62,.8,x,fl+.35+y*.72,z);
+ fb.box(mt.floorG,13,.02,1.2,6.8,fl+.01,0);
+ fb.box(mt.lamp,11,.04,.3,6.8,fl+2.85,0);
+ fb.done(I);T.fig(I,20.9,fl+.25,0,-Math.PI/2,'sit',1);c.cab=[20.75,fl+1.38,0]}
+function intFirst(T,c,I){const {mats:mt}=T,fb=T.FB(),fl=c.fl,L=c.L;
+ // four private suites on the window side, a corridor along the other
+ for(let i=0;i<4;i++){const x0=1+i*5.9,x1=x0+5.7;fb.box(mt.walnut,.1,2.7,2.35,x0,fl+1.35,.55);
+  fb.box(mt.walnut,5.7,2.7,.08,x0+2.85,fl+1.35,-.62);fb.box(mt.lamp,.06,2.1,.9,x0+5.3,fl+1.05,-.62);// sliding door glows at its edge
+  fb.box(mt.linen,2.05,.42,1.4,x0+1.3,fl+.3,1.02);fb.box(mt.wool,2.05,.08,1.4,x0+1.3,fl+.56,1.02);fb.box(mt.oak,.1,.9,1.4,x0+.3,fl+.85,1.02);fb.box(mt.linen,.5,.14,.36,x0+.6,fl+.66,1.2);fb.box(mt.linen,.5,.14,.36,x0+.6,fl+.66,.8);
+  fb.box(mt.oak,1.3,.06,.55,x0+3.9,fl+.75,1.45);fb.box(mt.oak,.06,.72,.5,x0+3.3,fl+.36,1.45);fb.box(mt.leather,.5,.5,.5,x0+3.9,fl+.25,.9);fb.box(mt.lamp,.16,.24,.16,x0+4.4,fl+.9,1.5)}
+ fb.box(mt.wool,L-1,.02,1.0,L/2,fl+.01,-1.2);fb.box(mt.lamp,L-2,.04,.2,L/2,fl+2.6,-1.2);
+ fb.done(I);T.fig(I,8.2,fl,-1.2,Math.PI/2,'std',2);T.fig(I,3.2,fl+.55,1.0,0,'lie',3);T.fig(I,15.9,fl,1.0,Math.PI,'sit',4)}
+function intBiz(T,c,I){const {mats:mt}=T,fb=T.FB(),fl=c.fl,L=c.L;
+ // closed compartments at each end, opening onto a shared lounge in the middle
+ const comp=(x0,dir)=>{fb.box(mt.walnut,.1,2.6,3.4,x0+dir*3.8,fl+1.3,0);fb.box(mt.lamp,.12,2.2,.06,x0+dir*3.8,fl+1.1,-.55);fb.box(mt.lamp,.12,2.2,.06,x0+dir*3.8,fl+1.1,.55);
+  fb.box(mt.walnut,.08,2.6,3.4,x0+dir*1.9,fl+1.3,0);for(const xx of[x0+dir*.95,x0+dir*2.85]){fb.box(mt.oak,.6,.05,1.4,xx,fl+.74,0)}};
+ comp(.4,1);comp(L-.4,-1);
+ const S=seatG(T,.56,.6,1.2);const ls=[];for(const xx of[.65,1.65,2.45,3.4,22.6,23.55,24.35,25.35])for(const z of[-1.15,-.55,.55,1.15]){const f=[.65,2.45,22.6,24.35].includes(xx);ls.push([xx,fl,z,f?-Math.PI/2:Math.PI/2])}
+ inst(T,S,mt.bizSeat,ls,I);
+ // the lounge: a bar, deep sofas, the big windows
+ fb.box(mt.walnut,4.4,1.05,.7,L/2,fl+.52,-1.15);fb.box(mt.oak,4.6,.06,.85,L/2,fl+1.07,-1.15);fb.box(mt.lamp,4,.04,.2,L/2,fl+2.6,-1.1);
+ for(const xx of[10.4,15.6]){fb.box(mt.wool,2.2,.42,.85,xx,fl+.21,1.2);fb.box(mt.wool,2.2,.5,.2,xx,fl+.62,1.55)}fb.box(mt.oak,1,.4,.6,13,fl+.2,1.1);
+ fb.done(I);T.fig(I,12.6,fl,-.4,0,'std',5);T.fig(I,14,fl,-.3,Math.PI,'std',6);T.fig(I,10.4,fl,1.15,Math.PI,'sit',0);T.fig(I,1.65,fl,.55,-Math.PI/2,'sit',2)}
+function intObs(T,c,I){const {mats:mt}=T,fb=T.FB(),fl=c.fl,L=c.L;
+ // glass roof and walls; seats turned outward, a low bench down the middle
+ const S=seatG(T,.62,.62,1.0);const ls=[];for(let x=2.4;x<L-2;x+=1.7)for(const s of[-1,1])ls.push([x,fl,s*.95,s>0?Math.PI:0]);inst(T,S,mt.leather,ls,I);
+ // the glass frames: thin arches
+ const rib=new THREE.TorusGeometry(1.85,.035,6,24,Math.PI);for(let x=1.4;x<=L-1.4;x+=2.3){const m=new THREE.Mesh(rib,mt.steel);m.rotation.y=Math.PI/2;m.position.set(x,BY+BH*.5,0);m.scale.set(1,1.27,1);I.add(m)}
+ fb.box(mt.walnut,L-4,.04,.5,L/2,fl+.02,0);fb.done(I);T.fig(I,6,fl,.95,Math.PI,'sit',3);T.fig(I,13,fl,-.95,0,'sit',4);T.fig(I,18,fl,0,1.2,'std',5)}
+function intEco(T,c,I){const {mats:mt}=T,fb=T.FB(),L=c.L;
+ // two decks: the lower one dropped between the bogies, the upper one under the roof; stairs at the ends
+ const lo=.68,up=2.62;fb.box(mt.floorG,L-7.4,.16,3.45,L/2,lo-.08,0);fb.box(mt.floorG,L-7.4,.18,3.45,L/2,up-.09,0);fb.box(mt.floorG,3.4,.16,3.45,1.9,1.27,0);fb.box(mt.floorG,3.4,.16,3.45,L-1.9,1.27,0);
+ for(const [x,d] of[[3.4,1],[L-3.4,-1]])for(let i=0;i<5;i++){fb.box(mt.steel,.28,.04,.9,x+d*i*.28,lo+(1.35-lo)*(1-i/5),-1.2);fb.box(mt.steel,.28,.04,.9,x+d*i*.28,1.35+(up-1.35)*(i/5),1.2)}
+ fb.box(mt.lamp,L-8,.04,.18,L/2,up-.25,0);fb.box(mt.lamp,L-8,.04,.18,L/2,4.5,0);
+ fb.done(I);
+ // seats 2+2 on each deck (folded into the floor in rescue mode)
+ const S=seatG(T,.48,.5,1.08);const seats=new THREE.Group();I.add(seats);const ls=[];for(let x=4.6;x<L-4.2;x+=.92)for(const z of[-1.3,-.8,.8,1.3]){ls.push([x,lo,z,Math.PI/2]);ls.push([x,up,z,Math.PI/2])}inst(T,S,mt.ecoSeat,ls,seats);
+ const pax=new THREE.Group();seats.add(pax);for(let i=0;i<10;i++){const x=4.6+((i*5)%19)*.92,z=[-1.3,-.8,.8,1.3][i%4];T.fig(pax,x,(i%2?up:lo)+.05,z,Math.PI/2,'sit',i)}
+ // bunks that fold down from the walls, three high, and mats on the open floor
+ const bunks=new THREE.Group();I.add(bunks);const bm=T.mats.cot;const hinges=[];
+ for(const [y0,hh] of[[lo,1.75],[up,1.8]])for(const s of[-1,1])for(let x=4.4;x<L-5.5;x+=2.1)for(let t=0;t<(y0===lo?2:2);t++){const h=new THREE.Group();h.position.set(x+.95,y0+.35+t*.78,s*1.72);bunks.add(h);const b=new THREE.Mesh(new THREE.BoxGeometry(1.9,.08,.72),bm);b.position.set(0,0,-s*.36);h.add(b);hinges.push({h,s})}
+ const evac=new THREE.Group();I.add(evac);for(let i=0;i<14;i++){const s=i%2?1:-1;const x=4.6+(i>>1)*2.3;T.fig(evac,x+.1,(i%4<2?lo:up)+.42,s*1.36,0,'lie',i)}for(let i=0;i<8;i++){T.fig(evac,9+i*1.6,(i%2?up:lo)+.02,(i%3-1)*.25,Math.random()*6,'sit',i+3)}
+ const mats=T.FB();for(let x=5;x<L-5;x+=2.1){mats.box(mt.wool,1.8,.05,.9,x,lo+.03,0);mats.box(mt.wool,1.8,.05,.9,x,up+.03,0)}const matG=new THREE.Group();I.add(matG);mats.done(matG);
+ T.anim.push(e=>{seats.visible=e<.45;for(const q of hinges)q.h.rotation.x=q.s*(1-e)*Math.PI/2;bunks.visible=e>.02;evac.visible=e>.6;matG.visible=e>.4})}
+function intMed(T,c,I){const {mats:mt}=T,fl=c.fl,L=c.L;
+ // every day: a clinic with a consulting room, two beds and a pharmacy; in rescue mode, a field hospital
+ const day=new THREE.Group(),field=new THREE.Group();I.add(day,field);
+ const a=T.FB();a.box(mt.white,.1,2.6,3.4,7,fl+1.3,0);a.box(mt.white,.1,2.6,3.4,17,fl+1.3,0);a.box(mt.oak,1.4,.06,.7,3,fl+.75,1.2);a.box(mt.leather,.5,.5,.5,3,fl+.25,.6);a.box(mt.clinic,1.9,.6,.8,5.2,fl+.3,-1.1);
+ for(const x of[9,12.5]){a.box(mt.clinic,2,.55,.9,x,fl+.28,1.15);a.box(mt.white,2,.12,.9,x,fl+.62,1.15)}a.box(mt.mint,3,2,.45,12,fl+1,-1.45);
+ for(let x=18;x<25;x+=1.3)a.box(mt.white,1.1,2,.4,x,fl+1,-1.5);a.box(mt.oak,3,.9,.6,21,fl+.45,1.3);a.box(mt.lamp,L-2,.04,.22,L/2,fl+2.55,0);a.done(day);
+ T.fig(day,3,fl,1.6,Math.PI,'std',2);T.fig(day,9,fl+.62,1.15,0,'lie',4);
+ const b=T.FB();for(let x=1.6;x<L-1;x+=2.25)for(const s of[-1,1]){b.box(mt.cot,1.9,.1,.7,x+.9,fl+.62,s*1.25);for(const dx of[0,1.8])b.box(mt.steel,.04,.6,.04,x+dx,fl+.3,s*1.25);b.box(mt.steel,.03,1.7,.03,x+.1,fl+.85,s*.75);b.box(mt.water,.18,.28,.08,x+.1,fl+1.65,s*.75)}
+ b.box(mt.relief,L-2,.02,.5,L/2,fl+.01,0);b.box(mt.lamp,L-2,.04,.3,L/2,fl+2.55,0);for(let x=3;x<L;x+=6)b.box(mt.linen,.04,2,1.3,x,fl+1.1,1.1);b.done(field);
+ for(let i=0;i<14;i++){const s=i%2?1:-1;T.fig(field,1.7+(i>>1)*2.25,fl+.66,s*1.25,0,'lie',i)}T.fig(field,7,fl,0,1,'std',1);T.fig(field,14,fl,-.2,2,'std',2);T.fig(field,19,fl,.2,-1,'std',6);
+ T.anim.push(e=>{day.visible=e<.5;field.visible=e>=.5;if(c.cross)c.cross.emissiveIntensity=e*2.2})}
+function intDest(T,c,I){const {mats:mt}=T,fb=T.FB(),fl=c.fl,L=c.L;
+ // a whole car for one city: two suites, business seats and economy seats, so every class can ride to the door
+ fb.box(mt.walnut,.1,2.6,3.4,6.4,fl+1.3,0);fb.box(mt.walnut,.08,2.6,1.6,3.2,fl+1.3,.9);fb.box(mt.linen,1.9,.42,1.3,1.6,fl+.3,1.05);fb.box(mt.linen,1.9,.42,1.3,4.8,fl+.3,1.05);
+ fb.box(mt.lamp,L-2,.04,.2,L/2,fl+2.55,0);fb.done(I);
+ const B=seatG(T,.56,.6,1.2),E=seatG(T,.48,.5,1.08);const lb=[],le=[];for(let x=7.4;x<12;x+=1.1)for(const z of[-1.1,.55,1.15])lb.push([x,fl,z,Math.PI/2]);for(let x=12.6;x<L-1;x+=.92)for(const z of[-1.3,-.8,.8,1.3])le.push([x,fl,z,Math.PI/2]);
+ inst(T,B,mt.bizSeat,lb,I);inst(T,E,mt.ecoSeat,le,I);T.fig(I,9.6,fl,1.15,Math.PI/2,'sit',3);T.fig(I,16.3,fl,-.8,Math.PI/2,'sit',5);T.fig(I,19,fl,0,-Math.PI/2,'std',1)}
+function intPod(T,c,I){const {mats:mt}=T,fb=T.FB(),fl=c.fl,L=c.L;
+ // three classes above, a cargo hold below the passenger floor
+ fb.box(mt.walnut,.1,2.5,3.4,5.2,fl+1.25,0);fb.box(mt.linen,1.9,.42,1.3,2.5,fl+.3,1.05);fb.box(mt.oak,.9,.06,.5,3.6,fl+.75,-1.2);fb.box(mt.lamp,L-2,.04,.2,L/2,fl+2.45,0);fb.box(mt.dark,L-1,.08,3.3,L/2,.62,0);fb.done(I);
+ const B=seatG(T,.56,.6,1.2),E=seatG(T,.48,.5,1.08);inst(T,B,mt.bizSeat,[[6,fl,-1.1,Math.PI/2],[6,fl,1.1,Math.PI/2],[7.1,fl,-1.1,Math.PI/2],[7.1,fl,1.1,Math.PI/2]],I);
+ const le=[];for(let x=8.4;x<L-1.2;x+=.92)for(const z of[-1.3,-.8,.8,1.3])le.push([x,fl,z,Math.PI/2]);inst(T,E,mt.ecoSeat,le,I);T.fig(I,10.24,fl,.8,Math.PI/2,'sit',2);T.fig(I,2.6,fl+.55,1,0,'lie',5);
+ // the hold: freight every day, water, food and relief supplies in a typhoon
+ const fr=new THREE.Group(),rl=new THREE.Group();I.add(fr,rl);const a=T.FB();for(let x=1.6;x<L-1.6;x+=2.6)a.box(x%5<2?mt.freight:mt.crate,2.3,.95,2.9,x+1.1,1.15,0);a.done(fr);
+ const b=T.FB();for(let x=1.4;x<L-1.4;x+=1.3)for(const z of[-.8,.8]){const m=(Math.floor(x)+(z>0?1:0))%3;b.box(m===0?mt.water:m===1?mt.food:mt.relief,1.15,.9,1.4,x+.6,1.12,z)}b.done(rl);
+ T.anim.push(e=>{fr.visible=e<.5;rl.visible=e>=.5})}
+
+function applyRes(T,inst){const e=inst?(V.rescue?1:0):T.res;for(const s of T.stripes){const o=new THREE.Color(ORANGE).convertSRGBToLinear();s.m.color.copy(s.c).lerp(o,e);s.m.emissive.copy(s.c).lerp(o,e);s.m.emissiveIntensity=.25+e*1.9}for(const f of T.anim)f(ease(e));if(inst)T.res=e}
+
+/* ===== Scenes around the 3D train ===== */
+const PRE3={dawn:{sky:['#5d7aa8','#f2b98a','#6a6a5a'],sun:[-.7,.16,.45],sunC:'#ffc48a',sunI:1.7,hemi:['#bcc8e0','#5a5040',.55],fog:'#e3bf9f',win:.7},
+ day:{sky:['#4f86c6','#cfe0ee','#7a8a70'],sun:[.45,.8,.4],sunC:'#fff4e2',sunI:2.6,hemi:['#dfeaf5','#6b6a55',.75],fog:'#cfdbe4',win:0},
+ dusk:{sky:['#2c3a66','#e8875a','#3a3030'],sun:[.8,.12,-.45],sunC:'#ff9a5a',sunI:1.4,hemi:['#8a90b8','#3a3028',.45],fog:'#b88a78',win:1.2},
+ night:{sky:['#05070d','#1a2236','#0a0a0a'],sun:[-.3,.6,.45],sunC:'#9fb0d8',sunI:.22,hemi:['#3a4560','#101010',.28],fog:'#121722',win:2}};
+function scene3(){const T=T3;if(!T)return;const W=T.world,p=PRE3[V.tod]||PRE3.day,st=V.wx==='storm',rn=V.wx!=='clear',env=V.env;
+ const sky=st?['#2a3038','#4b545c','#30343a']:rn?['#56616b','#8e9aa3','#5a5f5a']:p.sky;
+ W.sky.material.uniforms.top.value.set(sky[0]).convertSRGBToLinear();W.sky.material.uniforms.mid.value.set(sky[1]).convertSRGBToLinear();W.sky.material.uniforms.bot.value.set(sky[2]).convertSRGBToLinear();
+ const f=st?'#4b545c':rn?'#8e9aa3':p.fog;T.scene.fog.color.set(f).convertSRGBToLinear();T.scene.fog.near=st?40:rn?90:220;T.scene.fog.far=st?650:rn?1400:2800;
+ T.sun.color.set(p.sunC);T.sun.intensity=p.sunI*(st?.22:rn?.45:1);T.sun.position.set(p.sun[0],p.sun[1],p.sun[2]).multiplyScalar(300);
+ T.hemi.color.set(st?'#9aa4ad':p.hemi[0]);T.hemi.groundColor.set(p.hemi[1]);T.hemi.intensity=p.hemi[2]*(st?.8:1);
+ const fl=env==='fields',se=env==='sea',tu=env==='tunnel',sn=env==='station';
+ W.ground.visible=fl||sn;W.emb.visible=fl;W.palms.T.visible=W.palms.F.visible=fl;W.hills.visible=fl||se;W.sea.visible=se;W.via.visible=se;W.tun.visible=tu;W.stn.visible=sn;
+ W.wind.visible=(fl||se)&&(st||V.rescue);W.ground.material.color.set(st?'#5d6660':rn?'#8a948a':'#ffffff');W.hills.children.forEach(h=>h.visible=!st);W.rain.m.visible=rn&&!tu&&!sn;W.sky.visible=!tu&&!sn;
+ if(tu||sn){T.scene.fog.color.set(tu?'#0c0d10':'#3a3834');T.scene.fog.near=tu?30:120;T.scene.fog.far=tu?400:700;T.sun.intensity=sn?.15:0;T.hemi.intensity=tu?.22:.55;T.hemi.color.set(tu?'#8890a0':'#ffe7c4')}
+ W.stn.userData.light.intensity=sn?2.2:0;
+ T.mats.glass.emissiveIntensity=(tu||sn?.9:p.win)*.5+(st?.4:0);
+ T.amb.intensity=WALKING?(tu?.55:V.tod==='night'?.5:.25):0;
+ drawArt();T.scene.background=null}
+function drawArt(){const T=T3;if(!T)return;const a=T.world.art,g=a.c.getContext('2d'),w=a.c.height,h=a.c.width;g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,a.c.width,a.c.height);g.setTransform(0,1,-1,0,a.c.width,0);
+ const c=V.rescue?ORANGE:LINES[TRAIN().line].c;g.strokeStyle=c;g.fillStyle=c;g.lineCap='round';g.lineJoin='round';g.shadowColor=c;g.shadowBlur=18;
+ // a running figure in light: each panel is one frame of the stride, so at the train's speed the panels flick past like a zoetrope and the figure runs
+ for(let i=0;i<16;i++){const x=i*64+32,ph=i/16*Math.PI*2,s=Math.sin(ph),k=Math.cos(ph),y0=150+Math.abs(s)*-8;g.lineWidth=7;g.globalAlpha=.95;
+  g.beginPath();g.arc(x+4,y0-78,11,0,7);g.fill();g.beginPath();g.moveTo(x+2,y0-64);g.lineTo(x-2,y0-18);g.stroke();
+  g.beginPath();g.moveTo(x-2,y0-18);g.lineTo(x-2+s*20,y0+14);g.lineTo(x-2+s*26+(s>0?-8:8),y0+44);g.stroke();g.beginPath();g.moveTo(x-2,y0-18);g.lineTo(x-2-s*20,y0+14);g.lineTo(x-2-s*26,y0+44);g.stroke();
+  g.beginPath();g.moveTo(x+1,y0-56);g.lineTo(x+1-s*22,y0-34);g.lineTo(x+8-s*20,y0-20);g.stroke();g.beginPath();g.moveTo(x+1,y0-56);g.lineTo(x+1+s*22,y0-34);g.lineTo(x+12+s*20,y0-26);g.stroke();
+  g.globalAlpha=.35;g.lineWidth=3;g.beginPath();g.moveTo(x-30,h-24);g.lineTo(x+30,h-24);g.stroke()}
+ g.globalAlpha=1;g.shadowBlur=0;g.setTransform(1,0,0,1,0,0);a.t.needsUpdate=true;a.t2.needsUpdate=true}
+const VIEWS3={q3:['Three-quarter',null],nose:['The nose',null],side:['Along the side',null],whole:['The whole train',null],above:['From above, cut away',null],pods:['The pods',null],
+ cab:['Driver’s cab','lead'],first:['First-class suite','first'],biz:['Business lounge','biz'],comp:['Business compartment','biz'],obs:['Observation car','obs'],ecoU:['Economy, upper deck','eco'],ecoL:['Economy, lower deck','eco'],med:['Medical car','med'],dest:['Destination car','dest'],pod:['Inside a pod','pod'],hold:['A pod’s hold','pod']};
+const WALKV=['cab','first','biz','comp','obs','ecoU','ecoL','med','dest','pod'];
+let WALKING=false,TW=null,HOLDCAR=null;
+function carOf(k){return T3&&T3.cars.find(c=>c.k===k)}
+function view3(id,inst){const T=T3;if(!T)return;const vv=VIEWS3[id];if(!vv)return;if(vv[1]&&!carOf(vv[1]))id='q3';V.tview=id;const L=T.len,rear=15-L;
+ let p,t;const c=VIEWS3[id][1]?carOf(VIEWS3[id][1]):null;const x0=c?c.x0:0,fl=c?c.fl:1.35;
+ const P=(a,b,cc)=>new THREE.Vector3(a,b,cc);
+ switch(id){case'q3':p=P(42,9,24);t=P(-12,2.4,0);break;case'nose':p=P(32,2.6,8);t=P(9,2.8,0);break;case'side':p=P(-34,3.4,30);t=P(-34,2.6,0);break;
+  case'whole':p=P(rear/2+15,90,Math.max(160,L*.75));t=P(rear/2+15,0,0);break;case'above':p=P(-70,55,36);t=P(-70,0,0);break;case'pods':p=P(rear+44,6,17);t=P(rear+14,2,0);break;
+  case'cab':p=P(x0+20.2,fl+2.0,.32);t=P(x0+26,fl+1.25,0);break;case'first':p=P(x0+7.4,fl+1.55,-.15);t=P(x0+10.6,fl+1.05,1.9);break;
+  case'biz':p=P(x0+8.6,fl+1.6,-.4);t=P(x0+16,fl+1.15,1.4);break;case'comp':p=P(x0+.9,fl+1.4,.7);t=P(x0+3.6,fl+1.0,-.9);break;
+  case'obs':p=P(x0+3,fl+1.45,0);t=P(x0+13,fl+2.8,1.6);break;case'ecoU':p=P(x0+4.8,2.62+1.32,0);t=P(x0+20,2.62+1.05,0);break;case'ecoL':p=P(x0+4.8,.68+1.32,0);t=P(x0+20,.68+1.05,0);break;
+  case'med':p=P(x0+2.3,fl+1.6,-.4);t=P(x0+14,fl+.9,.6);break;case'dest':p=P(x0+24.6,fl+1.6,0);t=P(x0+8,fl+1.1,0);break;case'pod':p=P(x0+15.6,fl+1.5,0);t=P(x0+5,fl+1.1,0);break;
+  case'hold':p=P(x0+8.5,1.5,6.2);t=P(x0+8.5,1.3,0);break}
+ WALKING=WALKV.includes(id);HOLDCAR=id==='hold'?c:null;
+ const ctl=T.ctl;ctl.enableZoom=!WALKING;ctl.enablePan=!WALKING;ctl.minDistance=WALKING?.05:3;ctl.maxDistance=WALKING?2:900;ctl.rotateSpeed=WALKING?-.35:1;
+ if(WALKING){const d=t.clone().sub(p).normalize().multiplyScalar(.3);t=p.clone().add(d)}
+ if(inst||RM){T.cam.position.copy(p);ctl.target.copy(t)}else TW={p0:T.cam.position.clone(),t0:ctl.target.clone(),p,t,s:performance.now(),d:1300};
+ FLY=null;vis3();scene3();$('tbView').textContent='Archipelago train study · '+VIEWS3[id][0];save();chips()}
+function vis3(){const T=T3;if(!T)return;const cut=V.style==='cut'||V.tview==='above';for(const c of T.cars){const hide=cut||c===HOLDCAR;c.shell.visible=!hide;c.glass.visible=!hide;c.liningU.visible=!cut;c.stripe.visible=!hide}
+ T.scene.overrideMaterial=V.style==='white'?(T.whiteM||(T.whiteM=new THREE.MeshStandardMaterial({color:0xeeeeea,roughness:.85}))):null;
+ for(const l of T.labels)l.el.style.visibility=V.lab&&!WALKING?'visible':'hidden'}
+/* walk the whole train, cab to last pod */
+let FLY=null;
+function walkAll(){const T=T3;if(!T)return;const pts=[];const cs=T.cars;
+ for(const c of cs){const y=c.k==='pod'?3.45:2.9;if(c.k==='lead'){pts.push(new THREE.Vector3(c.x0+19.2,c.fl+1.95,.3),new THREE.Vector3(c.x0+17,y,0),new THREE.Vector3(c.x0+.6,y,0));continue}
+  if(c.k==='eco'){pts.push(new THREE.Vector3(c.x0+c.L-.6,2.9,0),new THREE.Vector3(c.x0+c.L-4.2,4.0,0),new THREE.Vector3(c.x0+4.2,4.0,0),new THREE.Vector3(c.x0+.6,2.9,0));continue}
+  pts.push(new THREE.Vector3(c.x0+c.L-.6,y,-.1),new THREE.Vector3(c.x0+c.L/2,y,c.k==='first'?-1.15:0),new THREE.Vector3(c.x0+.6,y,-.1))}
+ const cu=new THREE.CatmullRomCurve3(pts,false,'centripetal',.2);V.tview='walk';WALKING=true;vis3();scene3();T.ctl.enabled=false;FLY={cu,s:performance.now(),d:Math.max(30000,cu.getLength()/6*1000)};$('tbView').textContent='Archipelago train study · Walking the train';chips()}
+
+/* ===== Modes ===== */
+function setMode(m){if(m==='train'&&!init3D()){alert('The 3D engine couldn’t load. Check your connection and refresh the page.');return}
+ V.mode=m;document.body.classList.toggle('m-train',m==='train');closeCard();
+ if(m==='train'){T3.build();resize();view3(V.tview==='walk'?'q3':V.tview,true);scene3();$('tbSize').textContent=`${T3.cars.length} cars · ${Math.round(T3.len)} m long · 3.7 m wide`}
+ else{$('tbSize').textContent=`≈ ${fmtK(lineLen('C')+lineLen('E')+lineLen('W'))} of line · 3 lines · ${STN.length} stations`;$('tbView').textContent='Archipelago train study · '+MVIEWS[V.view][0];onZoom()}
+ chips();save()}
+function enterTrain(hit){TRSEL=hit;const tr=TRAIN();$('hint').style.opacity=0;setMode('train');
+ const D=hit.D,dep=D.dep;$('tbView').textContent=`The ${fmtT(dep)} express from ${ST[D.leaf][0]}`;view3('q3')}
+
+/* ===== The toolbar ===== */
+const isPhone=()=>matchMedia('(max-width:860px)').matches;
+function chip(lab,on,fn,title){const b=document.createElement('button');b.type='button';b.className='chip'+(on?' on':'');b.innerHTML=lab;if(title)b.title=title;b.onclick=fn;return b}
+function pop(lab,build,up){const w=document.createElement('div');w.className='wrap';const b=chip(lab+' ▾',false,e=>{e.stopPropagation();const o=p.classList.contains('open');closePops();if(!o){p.classList.add('open');b.classList.add('on')}});b.setAttribute('aria-haspopup','true');const p=document.createElement('div');p.className='pop';build(p);w.append(b,p);p.onclick=e=>e.stopPropagation();return w}
+function closePops(){document.querySelectorAll('.pop.open').forEach(p=>{p.classList.remove('open');p.previousSibling.classList.remove('on')})}
+document.addEventListener('click',closePops);
+function plab(p,t){const d=document.createElement('div');d.className='plab';d.textContent=t;p.append(d)}
+function chips(){const tl=$('tl'),bl=$('bl');tl.innerHTML='';bl.innerHTML='';const tr=V.mode==='train';
+ const seg=document.createElement('div');seg.className='seg';seg.append(chip('Map',!tr,()=>setMode('map')),chip('Train',tr,()=>{TRSEL=TRSEL||null;setMode('train')}),chip('Story',false,()=>story.start()));tl.append(seg);
+ tl.append(pop('Camera',p=>{if(!tr){plab(p,'The map');for(const id in MVIEWS)p.append(chip(MVIEWS[id][0],V.view===id,()=>{goMap(id);closePops()}))}
+  else{plab(p,'Outside');for(const id of['q3','nose','side','whole','above','pods'])p.append(chip(VIEWS3[id][0],V.tview===id,()=>{view3(id);closePops()}));plab(p,'Inside every car (drag to look around)');for(const id of[...WALKV,'hold'])if(carOf(VIEWS3[id][1]))p.append(chip(VIEWS3[id][0],V.tview===id,()=>{view3(id);closePops()}))}}));
+ tl.append(pop('Show',p=>{p.append(chip('The story run: a typhoon, Luzon to Mindanao',false,()=>{closePops();story.start()}));
+  if(tr)p.append(chip('Walk the whole train',V.tview==='walk',()=>{closePops();walkAll()}));else p.append(chip('Ride your journey',false,()=>{closePops();startRide()}));
+  p.append(chip('Present',false,()=>{closePops();document.body.classList.add('present');resize()}),chip('Save image',false,()=>{closePops();snap()}),chip('Quick tour',false,()=>{closePops();tour(0)}))}));
+ if(tr){const st=[['render','Render'],['white','White model'],['cut','Cutaway']];
+  if(isPhone())bl.append(pop('Style',p=>st.forEach(([k,n])=>p.append(chip(n,V.style===k,()=>{V.style=k;vis3();chips();save()})))));
+  else st.forEach(([k,n])=>bl.append(chip(n,V.style===k,()=>{V.style=k;vis3();chips();save()})))}
+ bl.append(pop('Scene',p=>{p.append(chip('Rescue mode',V.rescue,()=>{setRescue(!V.rescue);chips()}));
+  if(tr){plab(p,'Running through');for(const [k,n] of[['fields','Rice fields'],['sea','A sea bridge'],['tunnel','An undersea tunnel'],['station','A storm-shelter station']])p.append(chip(n,V.env===k,()=>{V.env=k;if(k==='station')V.moving=false;else V.moving=true;scene3();sync();chips()}));
+   plab(p,'Time and weather');for(const [k,n] of[['dawn','Dawn'],['day','Day'],['dusk','Dusk'],['night','Night']])p.append(chip(n,V.tod===k,()=>{V.tod=k;scene3();sync();chips()}));for(const [k,n] of[['clear','Clear'],['rain','Rain'],['storm','Typhoon']])p.append(chip(n,V.wx===k,()=>{V.wx=k;scene3();sync();chips()}));
+   plab(p,'Show');p.append(chip('Labels',V.lab,()=>{V.lab=!V.lab;vis3();chips();save()}),chip('Running at speed',V.moving,()=>{V.moving=!V.moving;sync();chips();save()}))}
+  else{plab(p,'On the map');for(const [k,n] of[['belt','Typhoon belt'],['tracks','Haiyan and Odette'],['xings','Crossing names'],['power','Power plants'],['isl','Island names'],['lab','Station names']])p.append(chip(n,V[k],()=>{V[k]=!V[k];onZoom();chips();sync();save()}));
+   plab(p,'Map clock');for(const [r,n] of[[0,'Paused'],[1,'1 min / s'],[4,'4 min / s'],[15,'15 min / s']])p.append(chip(n,V.rate===r,()=>{V.rate=r;chips();save()}))}}));
+ clockUI()}
+function clockUI(){const c=$('clock');c.innerHTML='';const b=chip(`<b id="clk">${fmtT(SIM.t)}</b>`,false,()=>{V.rate=V.rate?0:4;clockUI();save()},'Pause or run the map clock');const r=chip(V.rate?'×'+V.rate+' min/s':'Paused',false,()=>{const o=[1,4,15,0];V.rate=o[(o.indexOf(V.rate)+1)%4];clockUI();save()},'Change how fast the map runs');c.append(b,r)}
+function setRescue(on){V.rescue=!!on;AIR=!on;PK='';paths();lineColours();drawReach();jCalc();if(T3){scene3()}sync();save();$('flash').animate&&!RM&&on&&$('flash').animate([{opacity:.35},{opacity:0}],{duration:700})}
+
+/* ===== The panel ===== */
+const CTRL=[
+ {s:'The line',w:'Speed and frequency set every time on this page, the journey timer included.',c:[
+  {t:'r',k:'v',l:'Cruising speed',min:160,max:320,step:10,u:' km/h'},
+  {t:'r',k:'tcap',l:'Top speed in the undersea tunnels',min:120,max:320,step:10,u:' km/h'},
+  {t:'o',k:'hw',l:'An express leaves each end every',o:[[15,'15 min'],[30,'30 min'],[60,'hour']]},
+  {t:'b',k:'rescue',l:'Rescue mode: a typhoon is coming',v:1}]},
+ {s:'The train',w:'Silver and storm grey with one bright stripe; the stripe’s colour tells you each car’s line. Larger than usual: 3.7 m wide and 4.8 m tall.',c:[
+  {t:'r',k:'eco',l:'Economy cars, double deck',min:1,max:3,step:1,u:''},
+  {t:'r',k:'dest',l:'Destination cars',min:0,max:3,step:1,u:''},
+  {t:'r',k:'pods',l:'Mixed slip pods',min:1,max:4,step:1,u:''},
+  {t:'b',k:'obs',l:'Observation car'},{t:'b',k:'med',l:'Medical car'},
+  {t:'c',k:'lower',l:'Lower body',o:[['storm','Storm grey','#4f565e'],['graphite','Graphite','#34383d'],['slate','Slate','#5d6873']]},
+  {t:'o',k:'nose',l:'Nose',o:[['long','Long'],['blunt','Shorter']]},
+  {t:'o',k:'podF',l:'Pod ends',o:[['round','Rounded'],['square','Squarer']]}]},
+ {s:'Around the train',w:'Where the 3D train is running, and when.',c:[
+  {t:'p',k:'env',l:'Running through',o:[['fields','Rice fields'],['sea','A sea bridge'],['tunnel','An undersea tunnel'],['station','A storm-shelter station']],v:1},
+  {t:'p',k:'tod',l:'Time of day',o:[['dawn','Dawn'],['day','Day'],['dusk','Dusk'],['night','Night']],v:1},
+  {t:'p',k:'wx',l:'Weather',o:[['clear','Clear'],['rain','Monsoon rain'],['storm','Typhoon']],v:1},
+  {t:'b',k:'moving',l:'Running at speed',v:1}]}];
+const IN={};
+function buildPanel(){const box=$('ctrls');box.innerHTML='';
+ for(const sec of CTRL){const s=document.createElement('section');s.innerHTML=`<h2>${sec.s}</h2><p class="why">${sec.w}</p>`;box.append(s);
+  for(const c of sec.c){const O=c.v?V:S;const id='c_'+c.k;
+   if(c.t==='r'){const d=document.createElement('div');d.className='row';d.innerHTML=`<label for="${id}">${c.l}</label><output id="o_${c.k}"></output><input type="range" id="${id}" min="${c.min}" max="${c.max}" step="${c.step}">`;s.append(d);const i=d.querySelector('input');i.oninput=()=>{set(c.k,+i.value,c.v)};IN[c.k]=()=>{i.value=O[c.k];$('o_'+c.k).textContent=O[c.k]+c.u}}
+   else if(c.t==='b'){const d=document.createElement('label');d.className='tog';d.innerHTML=`<span>${c.l}</span><input type="checkbox" id="${id}">`;s.append(d);const i=d.querySelector('input');i.onchange=()=>set(c.k,i.checked,c.v);IN[c.k]=()=>{i.checked=!!O[c.k]}}
+   else{const l=document.createElement('p');l.className='lab';l.textContent=c.l;const d=document.createElement('div');d.className='col';s.append(l,d);const bs=c.o.map(([v,n,sw])=>{const b=document.createElement('button');b.type='button';b.className='sw'+(sw?'':' t');b.innerHTML=(sw?`<i style="background:${sw}"></i>`:'')+n;b.onclick=()=>set(c.k,v,c.v);d.append(b);return[v,b]});IN[c.k]=()=>bs.forEach(([v,b])=>b.classList.toggle('on',O[c.k]===v))}}}
+ const st=$('studies');st.innerHTML='';for(const id in STUDIES){const b=document.createElement('button');b.type='button';b.className='st';b.textContent=STUDIES[id].n;b.onclick=()=>{push();S=Object.assign({},DEF,STUDIES[id].d);changed(true)};st.append(b)}
+ const rc=$('reach');rc.innerHTML='';for(const [m,n] of[[0,'Off'],[60,'1 h'],[180,'3 h'],[360,'6 h'],[720,'12 h'],[1440,'1 day']]){const b=document.createElement('button');b.type='button';b.className='sw t';b.textContent=n;b.dataset.m=m;b.onclick=()=>{V.reach=m;drawReach();reachText();sync();save();if(V.mode!=='map')setMode('map')};rc.append(b)}
+ const f=$('jFrom'),t=$('jTo');const opts=STN.slice().sort((a,b)=>ST[a][0].localeCompare(ST[b][0])).map(id=>`<option value="${id}">${ST[id][0]} · ${ST[id][1]}</option>`).join('');f.innerHTML=opts;t.innerHTML=opts;
+ f.onchange=()=>{V.from=f.value;jSync()};t.onchange=()=>{V.to=t.value;jSync()};$('jSwap').onclick=()=>{[V.from,V.to]=[V.to,V.from];jSync()};
+ $('jAt').onchange=()=>{const [h,m]=$('jAt').value.split(':').map(Number);if(!isNaN(h)){V.at=Math.floor(SIM.t/1440)*1440+h*60+(m||0);jSync()}};
+ $('jNow').onclick=()=>{V.at=Math.round(SIM.t);jSync()};$('jRide').onclick=startRide}
+function push(){HIST.push(JSON.stringify(S));if(HIST.length>60)HIST.shift();$('undo').disabled=false}
+function set(k,v,isV){if(isV){if(k==='rescue'){setRescue(v);chips();return}V[k]=v;if(k==='env')V.moving=v!=='station';scene3();sync();chips();save();return}
+ push();S[k]=v;changed(['eco','dest','pods','obs','med','lower','nose','podF'].includes(k))}
+let rebuildT=0;
+function changed(re){PK='';paths();SCH.clear();sync();jCalc();drawReach();sched3();if(re!==false&&T3&&V.mode==='train'){clearTimeout(rebuildT);rebuildT=setTimeout(()=>{T3.build();vis3();scene3();if(V.tview!=='walk')view3(V.tview,true);$('tbSize').textContent=`${T3.cars.length} cars · ${Math.round(T3.len)} m long · 3.7 m wide`},120)}save()}
+function sched3(){}
+function sync(){for(const k in IN)IN[k]();document.querySelectorAll('#reach button').forEach(b=>b.classList.toggle('on',+b.dataset.m===V.reach));
+ $('code').value=btoa(JSON.stringify(S));particulars();
+ document.querySelectorAll('#studies .st').forEach((b,i)=>{const d=Object.assign({},DEF,STUDIES[Object.keys(STUDIES)[i]].d);b.classList.toggle('on',Object.keys(DEF).every(k=>d[k]===S[k]))})}
+function particulars(){const P=paths(),C=lineLen('C'),E=lineLen('E'),Wl=lineLen('W');let tk=0,bk=0;for(const lg of NET.legs){if(lg.type==='T')tk+=lg.km;else if(lg.type==='B')bk+=lg.km}
+ const sh=STN.filter(id=>ST[id][6].includes('s')).length;
+ const cars=consist();const n=k=>cars.filter(c=>c.k===k).length;
+ const seats=n('first')*8+n('biz')*28+n('eco')*152+n('dest')*84+n('pod')*30,beds=n('first')*4+n('dest')*2+n('pod');
+ const evac=n('eco')*120+n('dest')*90+n('pod')*34+(S.obs?40:0)+n('biz')*30,cots=n('med')*28;
+ const len=cars.reduce((a,c)=>a+c.L+.9,0)-.9;
+ const r=(a,b,c='')=>`<tr><td>${a}${c?`<small>${c}</small>`:''}</td><td class="n">${b}</td></tr>`;
+ $('sched').innerHTML=r('Line',fmtK(C+E+Wl),`Spine ${fmtK(C)} · eastern ${fmtK(E)} · western ${fmtK(Wl)}`)+r('Under the sea',fmtK(tk),'In 9 undersea tunnels; the longest is the Mindoro Strait’s, '+Math.round(xLen('mindoro'))+' km')+r('On bridges',fmtK(bk),'Over 5 straits')
+ +r('Stations',STN.length,`${sh} storm-shelter stations, ${STN.length-sh} open side-track stations`)
+ +r('Clark to Davao',fmtD(P.clark.davao.M),`Without a stop, at up to ${S.v} km/h`)+r('Clark to Puerto Princesa',fmtD(P.clark.pp.M))+r('Clark to Allen',fmtD(P.clark.allen.M))+r('Davao to Allen',fmtD(P.davao.allen.M))
+ +r('The train',`${cars.length} cars`,`${Math.round(len)} m long, 3.7 m wide, 4.8 m tall`)+r('Seats and beds',seats.toLocaleString('en-GB'),`Including ${beds} beds in suites`)
+ +r('In rescue mode',evac.toLocaleString('en-GB'),`People carried out of a storm, lying and sitting${cots?`, plus ${cots} cots in the field hospital`:''}`)
+ +r('Power','Own network','Geothermal, wind and solar plants beside the line, apart from the national grid; batteries carry the train through outages and flooded stretches');
+ $('xtab').innerHTML=Object.keys(XS).filter(id=>xLen(id)>0).map(id=>r(XS[id][0]+' · '+(XS[id][1]==='T'?'tunnel':'bridge'),fmtK(xLen(id)),XS[id][2])).join('')}
+
+/* ===== Saving images ===== */
+function snap(){const W=stage.clientWidth,H=stage.clientHeight;
+ const show=url=>{$('snapImg').src=url;$('snapDl').href=url;$('snap').style.display='flex'};
+ if(V.mode==='train'&&T3){render3();show(T3.R.domElement.toDataURL('image/png'));return}
+ const c=document.createElement('canvas');c.width=W*2;c.height=H*2;const g=c.getContext('2d');g.fillStyle='#39424a';g.fillRect(0,0,c.width,c.height);
+ const s=new XMLSerializer().serializeToString(svg).replace('<svg','<svg width="'+W+'" height="'+H+'"');const img=new Image();img.onload=()=>{g.drawImage(img,0,0,c.width,c.height);g.drawImage(tc,0,0,c.width,c.height);show(c.toDataURL('image/png'))};img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s)}
+$('snapX').onclick=()=>$('snap').style.display='none';
+
+/* ===== Sound for the story: wind, rain and the low hum of the rail, made in the browser ===== */
+const SND={ctx:null,g:{},on:false,
+ init(){if(this.ctx)return;const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ctx=this.ctx=new C();const out=ctx.createGain();out.gain.value=.0;out.connect(ctx.destination);this.out=out;
+  const noise=()=>{const b=ctx.createBuffer(1,ctx.sampleRate*3,ctx.sampleRate),d=b.getChannelData(0);let l=0;for(let i=0;i<d.length;i++){const w=Math.random()*2-1;l=(l+.02*w)/1.02;d[i]=l*3.5}const s=ctx.createBufferSource();s.buffer=b;s.loop=true;s.start();return s};
+  const mk=(f,q,type='lowpass')=>{const n=noise(),fl=ctx.createBiquadFilter();fl.type=type;fl.frequency.value=f;fl.Q.value=q;const g=ctx.createGain();g.gain.value=0;n.connect(fl);fl.connect(g);g.connect(out);return{g,fl}};
+  this.g.rail=mk(140,.7);this.g.wind=mk(520,.9,'bandpass');this.g.rain=mk(3200,.4,'highpass');
+  const o=ctx.createOscillator(),og=ctx.createGain();o.type='sine';o.frequency.value=55;og.gain.value=0;o.connect(og);og.connect(out);o.start();this.g.hum={g:og,o}},
+ set(on){this.on=on;if(on){this.init();if(!this.ctx)return;this.ctx.resume();this.out.gain.setTargetAtTime(.7,this.ctx.currentTime,.4)}else if(this.ctx)this.out.gain.setTargetAtTime(0,this.ctx.currentTime,.2);$('sSnd').textContent=on?'Sound off':'Sound on'},
+ mix(rail,wind,rain){if(!this.ctx||!this.on)return;const t=this.ctx.currentTime;this.g.rail.g.gain.setTargetAtTime(rail*.5,t,.6);this.g.hum.g.gain.setTargetAtTime(rail*.08,t,.6);this.g.wind.g.gain.setTargetAtTime(wind*.6,t,.8);this.g.wind.fl.frequency.setTargetAtTime(400+wind*500,t,1.5);this.g.rain.g.gain.setTargetAtTime(rain*.25,t,.8)},
+ chime(){if(!this.ctx||!this.on)return;const t=this.ctx.currentTime;for(const [f,d] of[[784,0],[1046,.18]]){const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.frequency.value=f;o.type='triangle';g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(.12,t+d+.02);g.gain.exponentialRampToValueAtTime(.001,t+d+1.2);o.connect(g);g.connect(this.out);o.start(t+d);o.stop(t+d+1.3)}}};
+
+/* ===== The story run: Luzon to Mindanao through a typhoon ===== */
+const story=(()=>{let i=0,t0=0,paused=false,pauseAt=0,saved=null,dep=0,on=false;
+ const pass=id=>dep+paths().clark.davao.stops.find(z=>z.id===id).mn;
+ const box=(b)=>fitBox(b);
+ const mapTo=(b,f,b2)=>{const a=box(b),c=b2?box(b2):a;const e=ease(cl(f));setVB({x:lerp(a.x,c.x,e),y:lerp(a.y,c.y,e),w:lerp(a.w,c.w,e),h:lerp(a.h,c.h,e)})};
+ const cam=(p0,t0_,p1,t1,f)=>{const T=T3;const e=ease(cl(f));T.cam.position.set(lerp(p0[0],p1[0],e),lerp(p0[1],p1[1],e),lerp(p0[2],p1[2],e));T.ctl.target.set(lerp(t0_[0],t1[0],e),lerp(t0_[1],t1[1],e),lerp(t0_[2],t1[2],e))};
+ const tr=(o)=>{Object.assign(V,o);if(T3){scene3();vis3()}};
+ const SH=[
+  {m:'map',d:9,t:()=>fmtT(dep)+' · Clark, Luzon',h:'One line, no stops',p:'The express leaves Clark at first light for Davao, at the far end of Mindanao. It will not stop once. Cars for each city ride at the back and let go as it passes.',
+   on(){V.rescue=false;AIR=true;STORM.on=false;lineColours();SND.mix(.5,0,0)},up(f){mapTo([119.9,122.3,13.3,15.6],f,[120.3,121.8,13.9,15.3]);SIM.t=dep-6+f*40}},
+  {m:'train',d:9,t:()=>fmtT(dep+30)+' · Central Luzon',h:'Silver, storm grey, one gold stripe',p:'Gold marks the central spine; blue and green mark the cars for the two branches. Power comes from an enclosed rail at ground level, with no overhead wires for a typhoon to tear down.',
+   on(){tr({env:'fields',tod:'dawn',wx:'clear',moving:true,style:'render'});view3('q3',true);SND.mix(.9,.1,0)},up(f){cam([60,3.2,15],[20,2.6,0],[-10,4.4,19],[-38,2.4,0],f)}},
+  {m:'map',d:11,t:()=>fmtT(pass('batangas'))+' · Batangas and Calapan',h:'Slip off, latch on',p:'At Batangas a pod lets go and brakes alone onto the side track. Under the Verde Island Passage and up into Mindoro, a catch-up pod is already rolling at Calapan, matching speed to latch on behind.',
+   on(){SND.mix(.5,0,0)},up(f){mapTo([120.72,121.45,13.25,13.92],0);SIM.t=pass('batangas')-14+f*(pass('calapan')-pass('batangas')+22)}},
+  {m:'train',d:9,t:()=>fmtT(pass('caticlan')-14)+' · Under the Semirara Sea',h:'Light under the sea',p:'Seventy kilometres of tunnel in three bores. In the observation car, light art runs along the walls in the line’s colour, each panel a frame, timed to the train’s speed so the figures seem to move.',
+   on(){tr({env:'tunnel',tod:'day',wx:'clear',moving:true});view3('obs',true);SND.mix(1,0,0)},up(f){const c=carOf('obs');if(!c)return;cam([c.x0+6,c.fl+1.3,-1.1],[c.x0+12,c.fl+2.2,3.2],[c.x0+15,c.fl+1.3,-1.1],[c.x0+21,c.fl+2.4,3.2],f)}},
+  {m:'map',d:11,t:()=>fmtT(pass('iloilo'))+' · Over the Philippine Sea',h:'A typhoon turns west',p:'A super typhoon turns toward Samar and Leyte, on a track like Haiyan’s in 2013. Signal No. 4 goes up. Within the hour, flights are grounded and the ferries stay in port.',
+   on(){STORM.on=true;STORM.r=1.2;SND.mix(.4,.5,.1)},up(f){mapTo([119.8,129.5,7.6,14.6],0);STORM.ll=[lerp(130.5,127.4,f),lerp(10.2,10.8,f)];SIM.t=pass('iloilo')-10+f*25;if(f>.55&&AIR){AIR=false;status()}}},
+  {m:'map',d:8,t:()=>fmtT(pass('bacolod'))+' · Rescue mode',h:'Every stripe turns orange',p:'Across the whole line, the trains switch to rescue mode. From now on they move people out of the storm’s path and carry supplies in, on the same run.',
+   on(){SND.mix(.4,.6,.2)},up(f){mapTo([119.8,129.5,7.6,14.6],0);STORM.ll=[lerp(127.4,126.8,f),10.85];SIM.t=pass('bacolod')-6+f*16;if(f>.18&&!V.rescue)setRescue(true)}},
+  {m:'train',d:10,t:()=>fmtT(pass('cebu')+5)+' · Cebu to Bohol',h:'Behind the storm walls',p:'On open stretches in typhoon country the line runs behind perforated wind walls, held to 120 km/h in the gusts; in the tunnels it keeps full speed. Batteries carry it wherever floods have cut the power rail.',
+   on(){tr({env:'fields',tod:'day',wx:'storm',moving:true});view3('q3',true);SND.mix(.7,1,1)},up(f){cam([30,7.5,14],[2,3,0],[-40,9,15],[-64,3,0],f)}},
+  {m:'train',d:10,t:()=>fmtT(pass('ubay'))+' · Economy',h:'Seats fold away, bunks fold down',p:'Economy becomes evacuation space: the seats fold into the floor and three-high bunks fold down from the walls, so each double-deck car carries about 120 people lying and sitting.',
+   on(){tr({env:'fields',wx:'storm'});view3('ecoU',true);if(T3){T3.res=0;applyRes(T3)}SND.mix(.5,.6,.5)},up(f){if(T3&&f<.25){T3.res=0;applyRes(T3)}const c=carOf('eco');if(c)cam([c.x0+4.6,3.94,0],[c.x0+20,3.65,0],[c.x0+6.5,3.94,-.2],[c.x0+20,3.4,.8],f)}},
+  {m:'train',d:9,t:()=>fmtT(pass('ubay')+6)+' · A pod’s hold',h:'Supplies in',p:'Under the passenger floor of every slip pod, the hold is packed with water, food and relief supplies for the places the storm will hit.',
+   on(){tr({env:'fields',wx:'storm',style:'render'});view3('hold',true);SND.mix(.6,.8,.7)},up(f){const c=HOLDCAR;if(c)cam([c.x0+3,1.6,6.4],[c.x0+5,1.25,0],[c.x0+13,1.9,6],[c.x0+11,1.2,0],f)}},
+  {m:'map',d:12,t:()=>fmtT(pass('maasin'))+' · Leyte and Samar',h:'People out, supplies in',p:'Pods of supplies slip off at Ormoc, Tacloban and Catbalogan; pods filling with evacuees latch on and head south, out of the storm’s path. The storm-shelter stations open as evacuation centres.',
+   on(){SND.mix(.5,.9,.8)},up(f){mapTo([123.6,126.4,9.6,12.7],0);STORM.ll=[lerp(126.4,125.6,f),lerp(10.9,11.05,f)];STORM.r=1;SIM.t=pass('maasin')-4+f*60}},
+  {m:'train',d:10,t:()=>fmtT(pass('maasin')+30)+' · Maasin',h:'Holding while the eye passes',p:'Maasin is a storm-shelter station: deep foundations, thick storm walls and a heavy roof. While the worst of the wind passes, the express holds inside it, and the hall is an evacuation centre for three thousand people.',
+   on(){tr({env:'station',tod:'day',wx:'storm',moving:false});view3('q3',true);SND.mix(.15,.5,.3)},up(f){cam([-70,7,-11],[-30,3,0],[-150,5,-10],[-120,3,0],f)}},
+  {m:'train',d:9,t:()=>fmtT(pass('maasin')+48)+' · The medical car',h:'A field hospital',p:'On any other day it is a clinic, with a consulting room, two beds and a pharmacy. In rescue mode it opens fourteen cots for the injured, with a doctor and nurses on board.',
+   on(){tr({env:'station',moving:false});view3('med',true);SND.mix(.1,.4,.2)},up(f){const c=carOf('med');if(c)cam([c.x0+2.3,c.fl+1.6,-.4],[c.x0+14,c.fl+.9,.6],[c.x0+9,c.fl+1.7,0],[c.x0+20,c.fl+.8,-.6],f)}},
+  {m:'map',d:11,t:()=>fmtT(pass('surigao')+40)+' · Under the Surigao Strait',h:'Into Mindanao',p:'The eye moves on toward Panay and Mindoro. The express runs on under the Surigao Strait into Mindanao, south of the typhoon belt, with its evacuees asleep in the bunks.',
+   on(){SND.mix(.6,.3,.2)},up(f){mapTo([123.2,126.4,8.0,12.0],f,[123.5,126.4,6.8,10.4]);STORM.ll=[lerp(124.4,123.0,f),lerp(11.2,11.35,f)];SIM.t=pass('surigao')+40+f*90}},
+  {m:'map',d:13,t:()=>fmtT(pass('davao')+60)+' · Davao',h:'The lifeline',p:'Luzon to Mindanao in one day, through a typhoon, without stopping. Every person carried out, every crate carried in, while the planes and the ferries waited for the storm to pass.',
+   on(){SND.mix(.3,0,0)},up(f){mapTo([117.4,127.2,5.9,15.8],0);STORM.ll=[lerp(122.2,119.8,f),lerp(11.6,12.0,f)];STORM.r=lerp(1,.8,f);SIM.t=pass('davao')+40+f*60}}];
+ function show(n){i=cl(n,0,SH.length-1);const s=SH[i];t0=performance.now();paused=false;$('sPlay').textContent='Pause';
+  const m=s.m==='train';if(m&&!init3D()){next();return}document.body.classList.toggle('m-train',m);if(m){T3.build();resize()}
+  s.on();$('capT').textContent=s.t();$('capH').textContent=s.h;$('capP').textContent=s.p;
+  const c=$('cap');if(!RM&&c.animate)c.animate([{opacity:0,transform:'translate(-50%,10px)'},{opacity:1,transform:'translate(-50%,0)'}],{duration:700,easing:'ease-out'});SND.chime()}
+ function next(){if(i<SH.length-1)show(i+1);else stop()}
+ function start(){if(on)return;on=true;$('tour').style.display='none';saved={V:Object.assign({},V),t:SIM.t,vb:Object.assign({},VB)};closeCard();closePops();RIDE=null;V.reach=0;drawReach();
+  dep=Math.ceil((1440+330)/S.hw)*S.hw;document.body.classList.add('story');document.body.classList.remove('present');
+  if(V.sound!==false&&V.sound)SND.set(true);show(0)}
+ function stop(){if(!on)return;on=false;document.body.classList.remove('story');STORM.on=false;AIR=true;SND.set(false);const sv=saved.V;Object.assign(V,sv);setRescue(sv.rescue);SIM.t=saved.t;
+  if(T3){T3.res=V.rescue?1:0;applyRes(T3,true)}setMode(sv.mode);setVB(saved.vb);if(V.mode==='train')view3(V.tview,true);chips()}
+ function tick(){if(!on)return;const s=SH[i];const el=performance.now()-t0;const f=paused?pauseAt:Math.min(1,el/(s.d*1000));if(!paused)pauseAt=f;s.up(f);
+  $('sProg').style.width=((i+f)/SH.length*100).toFixed(1)+'%';if(f>=1&&!paused)next()}
+ $('sPrev').onclick=()=>show(i-1);$('sNext').onclick=()=>next();$('sExit').onclick=()=>stop();
+ $('sPlay').onclick=()=>{if(paused){paused=false;t0=performance.now()-pauseAt*SH[i].d*1000;$('sPlay').textContent='Pause'}else{paused=true;$('sPlay').textContent='Play'}};
+ $('sSnd').onclick=()=>{V.sound=!SND.on;SND.set(V.sound);save()};
+ return{start,stop,tick,get on(){return on}}})();
+
+/* ===== Tour ===== */
+const TOUR=[['The map is the home view','Gold is the central spine, blue the eastern branch to Leyte and Samar, green the western branch to Palawan. Squares are storm-shelter stations. Drag and pinch to move.'],
+ ['Tap a station or a train','A station shows what slips off there and when the next expresses pass. A train opens the 3D model: walk through every car under Camera.'],
+ ['Journey timer','In the panel, choose where you board and where you’re going. It works out the time you arrive, and how far you can get in 1, 3, 6 or 12 hours.'],
+ ['The story run','Under Show: a ride from Luzon to Mindanao as a typhoon hits mid-journey, the stripes turn orange and the train becomes the lifeline.']];
+function tour(n){const t=$('tour');if(n>=TOUR.length){t.style.display='none';try{localStorage.setItem('durchfahrtTour','1')}catch(e){}return}t.style.display='block';$('tourN').textContent=`${n+1} of ${TOUR.length} · ${TOUR[n][0]}`;$('tourT').textContent=TOUR[n][1];$('tourNext').textContent=n===TOUR.length-1?'Done':'Next';$('tourNext').onclick=()=>tour(n+1);$('tourSkip').onclick=()=>tour(99)}
+
+/* ===== Running it ===== */
+function resize(){const W=stage.clientWidth,H=stage.clientHeight;if(!W||!H)return;sizeTc();if(VB.w){const cx=VB.x+VB.w/2,cy=VB.y+VB.h/2,h=VB.w*H/W;setVB({x:cx-VB.w/2,y:cy-h/2,w:VB.w,h})}
+ if(T3){T3.R.setSize(W,H,false);T3.cam.aspect=W/H;T3.cam.fov=W/H<.8?58:42;T3.cam.updateProjectionMatrix()}}
+addEventListener('resize',()=>{resize();chips()});
+$('pexit').onclick=()=>{document.body.classList.remove('present');resize()};
+addEventListener('keydown',e=>{if(e.key==='Escape'){if(story.on)story.stop();document.body.classList.remove('present');closeCard();closePops();resize()}});
+$('undo').onclick=()=>{if(!HIST.length)return;S=JSON.parse(HIST.pop());$('undo').disabled=!HIST.length;changed(true)};$('undo').disabled=true;
+$('reset').onclick=()=>{push();S=Object.assign({},DEF);changed(true)};
+$('copy').onclick=()=>{const c=$('code');c.select();try{navigator.clipboard.writeText(c.value)}catch(e){document.execCommand('copy')}$('msg').textContent='Copied.'};
+$('loadC').onclick=()=>{try{const o=JSON.parse(atob($('code').value.trim()));push();S=Object.assign({},DEF,o);changed(true);$('msg').textContent='Loaded.'}catch(e){$('msg').textContent='That code didn’t work.'}};
+svg.addEventListener('pointerdown',()=>{if(RIDE)RIDE.follow=false});
+function render3(){const T=T3;T.R.render(T.scene,T.cam)}
+let last=performance.now(),clkT=0;const tmpV=window.THREE?new THREE.Vector3():null;
+function loop(){requestAnimationFrame(loop);const now=performance.now(),dt=Math.min(.1,(now-last)/1000);last=now;
+ story.tick();
+ const trainOn=document.body.classList.contains('m-train');
+ if(!trainOn){if(!story.on&&!document.hidden)SIM.t+=dt*V.rate;
+  if(VBT){const f=Math.min(1,(now-VBT.s)/VBT.d),e=ease(f),a=VBT.a,b=VBT.b;setVB({x:lerp(a.x,b.x,e),y:lerp(a.y,b.y,e),w:lerp(a.w,b.w,e),h:lerp(a.h,b.h,e)});if(f>=1)VBT=null}
+  drawTrains(SIM.t);if(now-clkT>250){clkT=now;const c=$('clk');if(c)c.textContent=fmtT(SIM.t);V.clock=Math.round(SIM.t)}}
+ else if(T3){const T=T3,W=T.world;
+  const tgt=V.rescue?1:0;if(Math.abs(T.res-tgt)>.001){T.res+=(tgt-T.res)*Math.min(1,dt*(story.on?.9:1.6));if(Math.abs(T.res-tgt)<.002)T.res=tgt;applyRes(T)}
+  const sp=V.moving?(V.rescue&&V.wx==='storm'&&V.env!=='tunnel'?120:S.v)/3.6:0,dx=sp*dt;
+  if(dx){W.padT.offset.x+=dx/(4000/60);W.slabT.offset.x+=dx/6;W.wwT.offset.x+=dx/5;
+   const pp=W.palms.p,o=new THREE.Object3D(),st=V.wx==='storm';for(let i=0;i<pp.length;i++){const q=pp[i];q.x-=dx;if(q.x<-700)q.x+=1400}
+   W.art.t.offset.y-=dx/(1800/60)*.985;W.art.t2.offset.y=W.art.t.offset.y}
+  if(W.palms.T.visible){const o=new THREE.Object3D(),st=V.wx==='storm',tt=now/1000;W.palms.p.forEach((q,i)=>{o.position.set(q.x-150,-.7,q.z);o.rotation.set(st?Math.sin(tt*2.2+q.r)*.06+.12:0,q.r,st?.08*Math.sin(tt*1.7+q.r):0);o.scale.setScalar(q.s);o.updateMatrix();W.palms.T.setMatrixAt(i,o.matrix);W.palms.F.setMatrixAt(i,o.matrix)});W.palms.T.instanceMatrix.needsUpdate=W.palms.F.instanceMatrix.needsUpdate=true}
+  if(W.via.visible){const o=new THREE.Object3D();W.pier.__s=(W.pier.__s||0)+dx;for(let i=0;i<32;i++){let x=((i*60-W.pier.__s)%1920+1920)%1920-1100;o.position.set(x,-13.8,0);o.updateMatrix();W.pier.setMatrixAt(i,o.matrix)}W.pier.instanceMatrix.needsUpdate=true}
+  if(W.rain.m.visible){const r=W.rain,P=r.p,c=T.ctl.target,st=V.wx==='storm',wind=st?-26:-4,fall=st?24:16,len=st?1.2:.9;for(let i=0;i<r.n;i++){const s=r.s[i];s[0]+=(wind-sp*.6)*dt;s[1]-=fall*dt;if(s[1]<-2){s[1]+=40;s[0]=Math.random()*160-80}if(s[0]<-80)s[0]+=160;const j=i*6;P[j]=c.x+s[0];P[j+1]=s[1];P[j+2]=c.z+s[2];P[j+3]=c.x+s[0]-(wind-sp*.6)*.04*len;P[j+4]=s[1]+len;P[j+5]=c.z+s[2]}r.m.geometry.attributes.position.needsUpdate=true;
+   if(st&&!RM&&Math.random()<dt*.12){T.hemi.intensity+=2.5;setTimeout(()=>scene3(),90)}}
+  W.tunL.intensity=W.tun.visible?1.2:0;
+  if(W.tun.visible){const o=new THREE.Object3D();W.rings.__s=(W.rings.__s||0)+dx;for(let i=0;i<48;i++){const x=((i*30-W.rings.__s)%1440+1440)%1440-1000;o.position.set(x,2.2,0);o.rotation.set(0,Math.PI/2,0);o.updateMatrix();W.rings.setMatrixAt(i,o.matrix)}W.rings.instanceMatrix.needsUpdate=true}
+  T.sun.target.position.copy(T.ctl.target);T.sun.position.copy(T.ctl.target).add(tmpV.copy(T.sun.position).sub(T.sun.target.position).normalize().multiplyScalar(300));
+  if(TW){const f=Math.min(1,(now-TW.s)/TW.d),e=ease(f);T.cam.position.lerpVectors(TW.p0,TW.p,e);T.ctl.target.lerpVectors(TW.t0,TW.t,e);if(f>=1)TW=null}
+  if(FLY){const f=(now-FLY.s)/FLY.d;if(f>=1){FLY=null;T.ctl.enabled=true;view3('q3')}else{const e=f,p=FLY.cu.getPointAt(e),q=FLY.cu.getPointAt(Math.min(1,e+.004));T.cam.position.copy(p);T.ctl.target.copy(q.lengthSq()?q:p);T.cam.lookAt(q)}}
+  else if(!story.on||true)T.ctl.update();
+  if(T.labels.length&&V.lab&&!WALKING){const w=stage.clientWidth,h=stage.clientHeight;for(const l of T.labels){tmpV.copy(l.p).project(T.cam);const vis=tmpV.z<1&&Math.abs(tmpV.x)<1.05&&Math.abs(tmpV.y)<1.05;l.el.style.display=vis?'block':'none';if(vis)l.el.style.transform=`translate(${((tmpV.x+1)/2*w).toFixed(1)}px,${((1-tmpV.y)/2*h).toFixed(1)}px) translate(-50%,-50%)`}}
+  else for(const l of T.labels)l.el.style.display='none';
+  render3()}}
+
+/* ===== Start ===== */
+buildMap();buildPanel();sizeTc();
+setVB(fitBox(MVIEWS[V.view]?MVIEWS[V.view][1]:MVIEWS.arch[1]));onZoom();lineColours();if(!MVIEWS[V.view])V.view='arch';
+SIM.t=(V.clock||450)%1440+1440;if(V.at<1440)V.at+=1440;
+jSync();sync();chips();status();
+setMode('map');
+requestAnimationFrame(()=>{resize();setVB(fitBox(MVIEWS[V.view][1]));drawReach()});
+loop();
+{const ld=$('load');ld.classList.add('ready');$('loadMsg').textContent='Click to enter';const go=()=>{ld.classList.add('done');try{if(!localStorage.getItem('durchfahrtTour'))setTimeout(()=>tour(0),900)}catch(e){}setTimeout(()=>ld.remove(),1200)};ld.onclick=go;ld.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')go()};setTimeout(()=>{if(document.contains(ld)&&!RM)ld.querySelector('.enter').textContent='Click to enter'},10)}
+setTimeout(()=>{const h=$('hint');if(h)h.style.opacity=0},9000);
+
+</script>
+<script>{/* Panel sections fold open and shut. The first starts open; what you open or close is remembered. */
+const K='durchfahrtFold';let F={};try{F=JSON.parse(localStorage.getItem(K))||{}}catch(e){}
+document.querySelectorAll('aside section').forEach((s,i)=>{const h=s.querySelector(':scope>h2');if(!h)return;const n=h.textContent.trim(),b=document.createElement('button');b.type='button';b.className='fold';b.append(...h.childNodes);h.append(b);
+ const set=c=>{s.classList.toggle('shut',c);b.setAttribute('aria-expanded',String(!c))};set(n in F?F[n]:i>0);s._set=set;
+ b.onclick=()=>{const c=!s.classList.contains('shut');set(c);F[n]=c;try{localStorage.setItem(K,JSON.stringify(F))}catch(e){}}})}
+function openSec(id){const s=document.getElementById(id);if(s&&s._set){s._set(false);s.scrollIntoView({behavior:'smooth',block:'start'})}}</script>
+</body>
+</html>
