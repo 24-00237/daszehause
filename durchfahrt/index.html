@@ -148,7 +148,8 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
 .mobw{display:none}.deskw{display:contents}
 @media(max-width:860px){.app{grid-template-columns:1fr;height:auto}.stage{height:68vh;height:68svh;min-height:440px;margin:10px}.tl{left:12px;right:12px;top:12px}.bl{left:12px;right:12px;bottom:12px;max-width:none}.pop{width:calc(100vw - 44px);max-height:52vh}.tb{display:none}.pexit{right:12px;top:12px}.tour{bottom:118px}.hint{display:none}
  .clock{right:12px;top:auto;bottom:12px}.status{right:12px;top:auto;bottom:60px}.status span:not(.res):not(.off){display:none}.legend{display:none}.card{left:14px!important;right:14px;top:auto!important;bottom:62px;width:auto}
- .mobw{display:contents}.deskw{display:none}.stage .ov .chip,.st,.btn,.sw,.studynav a,.fold,.swap{min-height:44px}.cap{bottom:16px}.cap p{font-size:14px}.sctl{left:12px;right:12px;top:12px}}
+ .mobw{display:contents}.deskw{display:none}.stage .ov .chip,.st,.btn,.sw,.studynav a,.fold,.swap{min-height:44px}.cap{bottom:10px;width:calc(100% - 20px);background:rgba(18,20,23,.88);padding:10px 12px 12px;border-radius:8px;text-shadow:none}.cap h2{font-size:21px}.cap p{font-size:13.5px}.sctl{left:10px;right:10px;top:10px;gap:4px}.sctl .chip{padding:0 10px}.load i{max-width:86%;text-align:center;font-size:13.5px}}
+body.story aside{opacity:.5;pointer-events:none}
 @media(prefers-reduced-motion:reduce){.hint{transition:none}.load{transition:opacity .3s}.load.ready .enter,.load .ln::after{animation:none}.load.done{transform:none;filter:none}.fold::after{transition:none}}
 </style>
 </head>
@@ -170,7 +171,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
     <div class="card" id="card" role="dialog" aria-label="Station"></div>
     <button class="chip pexit" id="pexit" type="button">Exit presentation</button>
     <div class="tour" id="tour" role="dialog" aria-label="Quick tour"><span id="tourN"></span><p id="tourT"></p><div class="bar"><button class="btn" id="tourSkip" type="button">Skip</button><button class="btn pri" id="tourNext" type="button">Next</button></div></div>
-    <div class="sctl" id="sctl"><button class="chip" id="sPrev" type="button" aria-label="Previous scene">‹</button><button class="chip" id="sPlay" type="button">Pause</button><button class="chip" id="sNext" type="button" aria-label="Next scene">›</button><button class="chip" id="sSnd" type="button">Sound on</button><span class="prog"><i id="sProg"></i></span><button class="chip" id="sExit" type="button">Leave the story</button></div>
+    <div class="sctl" id="sctl"><button class="chip" id="sPrev" type="button" aria-label="Previous scene">‹</button><button class="chip" id="sPlay" type="button">Pause</button><button class="chip" id="sNext" type="button" aria-label="Next scene">›</button><button class="chip" id="sSnd" type="button">Sound on</button><span class="prog"><i id="sProg"></i></span><button class="chip" id="sExit" type="button"><span class="deskw">Leave the story</span><span class="mobw">Leave</span></button></div>
     <div class="sask" id="sAsk" role="dialog" aria-label="Sound for the story"><b>The story run</b><p>Luzon to Mindanao in about two and a half minutes, with a typhoon on the way. Play it with sound?</p><div class="bar"><button class="btn pri" id="sYes" type="button">With sound</button><button class="btn" id="sNo" type="button">Silent</button></div></div>
     <div class="cap" id="cap" aria-live="polite"><span class="t" id="capT"></span><h2 id="capH"></h2><p id="capP"></p><span class="rule"></span></div>
     <div class="snap" id="snap"><div class="snapBox"><img id="snapImg" alt="Snapshot of Durchfahrt"><div class="bar"><a class="btn pri" id="snapDl" href="#" download="durchfahrt.png">Download image</a><button class="btn" id="snapX" type="button">Close</button></div><p class="note">If the download doesn’t start, right-click or long-press the image to save it.</p></div></div>
@@ -209,7 +210,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
       <tr><td>Third rail<small>A shoe on a ground-level rail is proven to about 160 km/h; the end ramps knock the shoe at higher speeds (the record is 175 km/h, in 1988). Durchfahrt’s rail is continuous and enclosed, with no ramps, so it can run faster, but that is untested. Study C shows the line at today’s proven 160 km/h.</small></td></tr>
       <tr><td>Typhoons<small>Most landfalls are on the Pacific side: Eastern Visayas, Bicol and northern Luzon. The central Visayas are crossed too (Haiyan in 2013, Odette in 2021). Mindanao is mostly south of the belt but not spared (Sendong’s floods in 2011, Pablo in 2012).</small></td></tr>
       <tr><td>Wind<small>High-speed lines slow down and then stop in strong winds, at roughly 20–30 m/s. So rescue mode runs before landfall and right after it, and holds in tunnels and storm-shelter stations while the eye passes.</small></td></tr>
-      <tr><td>Deep water<small>The deepest working undersea rail tunnel, Seikan in Japan, reaches about 240 m below the sea. The Semirara, Tañon and Mindoro crossings are deeper and longer than anything built so far.</small></td></tr></table>
+      <tr><td>Deep water<small>The deepest working undersea rail tunnel, Seikan in Japan, reaches about 240 m below the sea. The Semirara and Mindoro crossings are longer and deeper than anything built so far; the Tañon tunnel is shorter, but about as deep.</small></td></tr></table>
     </section>
     <details><summary>Save or load this study</summary>
       <p class="note">Copy the code to keep this version of Durchfahrt, or paste one in and press Load.</p>
@@ -275,6 +276,7 @@ const XS={
  iloilostr:['Iloilo Strait','B','A short bridge to Guimaras.'],
  guimaras:['Guimaras Strait','B','A long, low bridge to Negros, beside the planned Panay–Guimaras–Negros road bridges.'],
  tanon:['Tañon Strait','T','Up to 500 m deep and a protected seascape, so a tunnel, with no piers in the water.'],
+ mactan:['Mactan Channel','B','A short bridge to Mactan Island, beside the two road bridges and the airport.'],
  bohol:['Cebu–Bohol','T','From Mactan under the Olango and Cebu straits to Bohol’s north coast.'],
  canigao:['Canigao Channel','T','From Bohol to Southern Leyte.'],
  panaon:['Panaon Strait','B','A short bridge onto Panaon Island, beside the existing road bridge at Liloan.'],
@@ -287,9 +289,9 @@ const XS={
 };
 /* Line routes: station ids, [lon,lat] waypoints, and {x:'id'} marking that the next leg is a crossing */
 const ROUTES={
- C:['clark',[120.80,14.95],'manila',[121.05,14.25],'batangas',[120.93,13.69],{x:'verde'},[120.96,13.51],'calapan',[121.42,13.10],'bongabong',[121.43,12.52],[121.37,12.37],{x:'semirara'},[121.40,12.06],{x:'semirara'},[121.555,11.93],{x:'semirara'},'caticlan','kalibo','roxas',[122.66,11.15],'iloilo',{x:'iloilostr'},[122.645,10.69],[122.71,10.59],{x:'guimaras'},[122.80,10.52],'bacolod',[123.17,10.62],'sancarlos',{x:'tanon'},[123.64,10.38],'cebu',[123.97,10.29],{x:'bohol'},[124.16,10.13],'carmen','ubay',{x:'canigao'},'maasin',[124.98,10.16],[125.10,10.17],{x:'panaon'},'liloan',[125.2,10.03],[125.27,9.94],{x:'surigao'},'surigao',[125.56,9.35],'butuan',[125.10,8.70],'cdo','malaybalay',[125.33,7.65],'davao'],
- E:['maasin',[124.80,10.40],'baybay','ormoc',[124.80,11.12],'tacloban',[125.00,11.29],{x:'sanjuanico'},[125.04,11.33],[124.97,11.55],'catbalogan','calbayog',[124.43,12.30],'allen'],
- W:['bongabong',[121.28,12.58],'sanjose',[120.98,12.28],{x:'mindoro'},[120.62,12.18],[120.33,12.08],'coron',[120.03,12.03],{x:'coronpass'},[120.0,11.95],[119.93,11.72],{x:'culion'},[119.86,11.47],{x:'linapacan'},'elnido','taytay',[119.20,10.42],[118.96,10.08],'pp']
+ C:['clark',[120.80,14.95],'manila',[121.05,14.25],'batangas',[120.93,13.69],{x:'verde'},[120.96,13.51],'calapan',[121.42,13.10],'bongabong',[121.43,12.52],[121.37,12.37],{x:'semirara'},[121.40,12.06],{x:'semirara'},[121.555,11.93],{x:'semirara'},'caticlan','kalibo',[122.50,11.61],[122.62,11.50],[122.70,11.50],'roxas',[122.66,11.15],'iloilo',{x:'iloilostr'},[122.645,10.69],[122.71,10.59],{x:'guimaras'},[122.80,10.52],'bacolod',[123.17,10.62],'sancarlos',{x:'tanon'},[123.64,10.38],'cebu',{x:'mactan'},[123.97,10.29],{x:'bohol'},[124.16,10.13],'carmen','ubay',{x:'canigao'},'maasin',[124.92,10.27],[125.00,10.38],[125.08,10.27],[125.11,10.18],{x:'panaon'},'liloan',[125.2,10.03],[125.27,9.94],{x:'surigao'},'surigao',[125.56,9.35],'butuan',[125.12,8.72],[125.02,8.60],[124.82,8.46],'cdo','malaybalay',[125.33,7.65],'davao'],
+ E:['maasin',[124.80,10.40],'baybay','ormoc',[124.80,11.12],'tacloban',[125.00,11.29],{x:'sanjuanico'},[125.04,11.33],[125.0,11.50],[125.08,11.62],[125.09,11.72],[125.03,11.82],'catbalogan',[124.80,11.95],[124.69,12.04],'calbayog',[124.43,12.30],'allen'],
+ W:['bongabong',[121.28,12.58],'sanjose',[120.98,12.28],{x:'mindoro'},[120.62,12.18],[120.33,12.08],'coron',[120.03,12.03],{x:'coronpass'},[120.0,11.95],{x:'culion'},[119.86,11.47],{x:'linapacan'},'elnido','taytay',[119.20,10.42],[119.0,10.12],[118.88,10.04],[118.76,9.90],'pp']
 };
 /* The line's own power: plants sited beside proven resources, on their own network, apart from the national grid */
 const POWER=[['geo',124.65,11.12,'Geothermal · Leyte'],['geo',123.17,9.30,'Geothermal · southern Negros'],['geo',125.22,7.00,'Geothermal · Mt Apo'],['geo',121.22,14.09,'Geothermal · Laguna'],['geo',121.30,13.24,'Geothermal · Mindoro'],
@@ -301,6 +303,16 @@ const TRACKS={haiyan:['Haiyan, 2013',[[128.5,10.3],[125.7,11.0],[125.0,11.22],[1
  odette:['Odette, 2021',[[128.2,9.5],[126.1,9.8],[125.6,10.05],[124.4,9.98],[123.7,9.9],[123.1,9.75],[121.4,9.9],[118.8,10.3],[117.0,10.5]]]};
 
 /* ===== Network graph: a tree of nodes and legs, smoothed into polylines in map units ===== */
+/* Land and water, from the detailed coastline: a point test, and the nearest shore point */
+const LAND=(()=>{const g=document.createElement('canvas').getContext('2d'),C=220,grid=new Map(),polys=[];
+ // each island is tested on its own, so overlapping outlines in the source data can't cancel each other out
+ for(const sp of COASTHI.d.match(/M[^M]*/g)){let x=0,y=0,x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;const n=(sp.match(/-?\d+/g)||[]).map(Number);for(let i=0;i+1<n.length;i+=2){if(i){x+=n[i];y+=n[i+1]}else{x=n[0];y=n[1]}x0=Math.min(x0,x);x1=Math.max(x1,x);y0=Math.min(y0,y);y1=Math.max(y1,y)}polys.push({p:new Path2D(sp),b:[x0,y0,x1,y1]})}
+ {let x=0,y=0;for(const m of COASTHI.d.matchAll(/([Ml])([^Mlz]*)/g)){const n=(m[2].match(/-?\d+/g)||[]).map(Number);if(m[1]==='M'){x=n[0];y=n[1];add(x,y);n.splice(0,2)}if(m[1]==='l')for(let i=0;i+1<n.length;i+=2){const x0=x,y0=y;x+=n[i];y+=n[i+1];const k=Math.ceil(Math.hypot(n[i],n[i+1])/18);for(let j=1;j<=k;j++)add(x0+n[i]*j/k,y0+n[i+1]*j/k)}}}
+ function add(x,y){const k=Math.floor(x/C)+','+Math.floor(y/C);let a=grid.get(k);if(!a)grid.set(k,a=[]);a.push([x,y])}
+ const isLand=(x,y)=>{for(const q of polys){const b=q.b;if(x<b[0]||x>b[2]||y<b[1]||y>b[3])continue;if(g.isPointInPath(q.p,x,y))return true}return false};
+ function nearest(x,y){const cx=Math.floor(x/C),cy=Math.floor(y/C);let best=null,bd=1e18;for(let r=0;r<12;r++){for(let i=-r;i<=r;i++)for(let j=-r;j<=r;j++){if(Math.max(Math.abs(i),Math.abs(j))!==r)continue;const a=grid.get((cx+i)+','+(cy+j));if(a)for(const p of a){const d=(p[0]-x)**2+(p[1]-y)**2;if(d<bd){bd=d;best=p}}}if(best&&Math.sqrt(bd)<r*C)break}return best}
+ function toLand(x,y,inset){if(isLand(x,y))return[x,y];const v=nearest(x,y);if(!v)return[x,y];const dx=v[0]-x,dy=v[1]-y,l=Math.hypot(dx,dy)||1;for(const k of[inset,inset/2,inset/4,1]){const q=[v[0]+dx/l*k,v[1]+dy/l*k];if(isLand(q[0],q[1]))return q}return[v[0],v[1]]}
+ return{isLand,toLand,nearest}})();
 const NET=(()=>{
  const nodes=[],byId={},legs=[];
  const node=(key,ll,st)=>{if(st&&byId[st])return byId[st];const [x,y]=PX(ll[0],ll[1]);const n={i:nodes.length,x,y,st:st||null,adj:[]};nodes.push(n);if(st)byId[st]=n;return n};
@@ -309,13 +321,15 @@ const NET=(()=>{
    const st=typeof it==='string'?it:null,ll=st?[ST[st][2],ST[st][3]]:it,n=node(null,ll,st);
    if(prev){const lg={i:legs.length,a:prev,b:n,line:L,x:xid};legs.push(lg);prev.adj.push(lg);n.adj.push(lg)}
    prev=n;xid=null}}
+ // stations stand on land: nudge any that the coastline puts just offshore
+ for(const n of nodes)if(n.st){const q=LAND.toLand(n.x,n.y,5);n.x=q[0];n.y=q[1]}
  // smoothed geometry: centripetal Catmull-Rom through each line's nodes, sampled per leg
  const lineNodes={};for(const L in ROUTES){lineNodes[L]=[];let prev=null;for(const it of ROUTES[L]){if(it&&it.x)continue;const st=typeof it==='string'?it:null;const n=st?byId[st]:null;}}
  for(const L in ROUTES){const seq=[];let li=0;for(const lg of legs)if(lg.line===L){if(!seq.length)seq.push(lg.a);seq.push(lg.b)}
   const P=seq.map(n=>[n.x,n.y]);
   const legsL=legs.filter(l=>l.line===L);
   legsL.forEach((lg,k)=>{const p0=P[Math.max(0,k-1)],p1=P[k],p2=P[k+1],p3=P[Math.min(P.length-1,k+2)];
-   const pts=[];const seg=Math.max(2,Math.ceil(Math.hypot(p2[0]-p1[0],p2[1]-p1[1])/40));
+   const pts=[];const seg=Math.max(2,Math.ceil(Math.hypot(p2[0]-p1[0],p2[1]-p1[1])/(lg.x?40:5)));
    for(let s=0;s<=seg;s++){const t=s/seg;pts.push(cr(p0,p1,p2,p3,t))}
    // the crossing legs stay straight-ish: blend toward the chord
    if(lg.x)for(let s=0;s<=seg;s++){const t=s/seg;pts[s]=[lerp(pts[s][0],lerp(p1[0],p2[0],t),.6),lerp(pts[s][1],lerp(p1[1],p2[1],t),.6)]}
@@ -325,6 +339,16 @@ const NET=(()=>{
   const L=(A,B,ta,tb)=>{const w=(tb-ta)||1e-6;return[(tb-u)/w*A[0]+(u-ta)/w*B[0],(tb-u)/w*A[1]+(u-ta)/w*B[1]]};
   const A1=L(p0,p1,t0,t1),A2=L(p1,p2,t1,t2),A3=L(p2,p3,t2,t3),B1=L(A1,A2,t0,t2),B2=L(A2,A3,t1,t3);return L(B1,B2,t1,t2)}
  // leg properties used for speed: tunnel, bridge, exposed open air, flood zone
+ // legs drawn as land that run mostly over water belong to the crossing beside them; the rest are pulled back onto the shore
+ const seaFrac=lg=>{let w=0,t=0;for(let i=1;i<lg.pts.length;i++){const a=lg.pts[i-1],b=lg.pts[i],L=Math.hypot(b[0]-a[0],b[1]-a[1]),n=Math.max(1,Math.ceil(L/3));for(let k=0;k<n;k++){const f=(k+.5)/n;if(!LAND.isLand(a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f))w+=L/n}t+=L}return t?w/t:0};
+ for(let pass=0;pass<4;pass++)for(const lg of legs){if(lg.x)continue;if(seaFrac(lg)>.5){const nb=[...lg.a.adj,...lg.b.adj].find(o=>o!==lg&&o.x&&o.line===lg.line);if(nb)lg.x=nb.x}}
+ const recum=lg=>{let d=0;lg.cum=[0];for(let i=1;i<lg.pts.length;i++){d+=Math.hypot(lg.pts[i][0]-lg.pts[i-1][0],lg.pts[i][1]-lg.pts[i-1][1]);lg.cum.push(d)}lg.len=d;lg.km=d/UPK};
+ for(const lg of legs){if(lg.x)continue;const p=lg.pts,n=p.length;
+  // keep each land leg at least about 1.3 km from the shore, except close to its ends (stations and tunnel portals)
+  recum(lg);for(let r=0;r<3;r++){for(let i=1;i<n-1;i++){if(lg.cum[i]<14||lg.len-lg.cum[i]<14)continue;const q=p[i],v=LAND.nearest(q[0],q[1]);if(!v)continue;const d=Math.hypot(q[0]-v[0],q[1]-v[1])||1e-6,on=LAND.isLand(q[0],q[1]);
+    if(!on||d<12){const ux=on?(q[0]-v[0])/d:(v[0]-q[0])/d,uy=on?(q[1]-v[1])/d:(v[1]-q[1])/d;const t=[v[0]+ux*12,v[1]+uy*12];if(LAND.isLand(t[0],t[1]))p[i]=t;else if(!on)p[i]=LAND.toLand(q[0],q[1],8)}}
+   for(let i=1;i<n-1;i++)p[i]=[(p[i-1][0]+p[i][0]*2+p[i+1][0])/4,(p[i-1][1]+p[i][1]*2+p[i+1][1])/4];recum(lg)}
+  recum(lg);lg.wet=seaFrac(lg)*lg.km}
  for(const lg of legs){const sa=lg.a.st&&ST[lg.a.st],sb=lg.b.st&&ST[lg.b.st];lg.type=lg.x?XS[lg.x][1]:'L';
   const ex=Math.max(sa?sa[5]:0,sb?sb[5]:0,lg.a.ex||0);lg.exp=ex;lg.flood=(sa&&sa[6].includes('f'))||(sb&&sb[6].includes('f'));
   // slower where the ground says so: Manila's underground box, Cebu's spine of hills, Mindoro's mountains, the climb to Bukidnon
@@ -337,9 +361,9 @@ const STN=Object.keys(ST);
 /* small stops are served by alternate expresses, in pairs of neighbouring stops so a pod can hop from one to the next */
 const serves=(id,k)=>ST[id][4]!=='minor'||(((Math.floor(STN.indexOf(id)/2)+k)%2)+2)%2===0;
 /* crossing lengths count water only: sample each crossing leg against the coastline */
-function measureSea(){const P=new Path2D((COASTHI||COAST).d),g=document.createElement('canvas').getContext('2d');
+function measureSea(){
  for(const lg of NET.legs){lg.sea=0;if(!lg.x)continue;let s=0;for(let i=1;i<lg.pts.length;i++){const a=lg.pts[i-1],b=lg.pts[i],L=Math.hypot(b[0]-a[0],b[1]-a[1]),n=Math.max(1,Math.ceil(L/1.5));
-  for(let k=0;k<n;k++){const t=(k+.5)/n;if(!g.isPointInPath(P,a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t))s+=L/n}}lg.sea=s/UPK}}
+  for(let k=0;k<n;k++){const t=(k+.5)/n;if(!LAND.isLand(a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t))s+=L/n}}lg.sea=s/UPK}}
 
 /* Speed along a leg (km/h), from the design and the scene */
 function legSpeed(lg,v,rescue){let s=Math.min(v,lg.cap||999);if(lg.type==='T')s=Math.min(s,S.tcap);
@@ -449,7 +473,10 @@ const NS='http://www.w3.org/2000/svg',svg=$('map'),stage=$('stage'),tc=$('tc'),t
 const el=(n,a={},p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
 let VB={x:0,y:0,w:COAST.w,h:COAST.h},VBT=null,BASEW=1;
 const MVIEWS={arch:['The archipelago',[117.0,127.4,5.0,19.0]],luzon:['Luzon and Mindoro',[119.6,122.6,12.0,15.5]],palawan:['The western branch',[118.3,122.2,9.4,13.1]],visayas:['The Visayas',[121.2,126.2,8.9,12.9]],sw:['The switchboard: Cebu',[123.25,124.6,9.7,10.75]],east:['The eastern branch',[123.9,125.9,9.6,12.8]],mindanao:['Mindanao',[123.7,126.3,6.7,10.2]]};
-function fitBox(b){const [x0,y0]=PX(b[0],b[3]),[x1,y1]=PX(b[1],b[2]);const W=stage.clientWidth||800,H=stage.clientHeight||600,a=W/H;let w=x1-x0,h=y1-y0;const cx=(x0+x1)/2,cy=(y0+y1)/2;if(w/h>a)h=w/a;else w=h*a;w*=1.04;h*=1.04;return{x:cx-w/2,y:cy-h/2,w,h}}
+function fitBox(b){const [x0,y0]=PX(b[0],b[3]),[x1,y1]=PX(b[1],b[2]);const W=stage.clientWidth||800,H=stage.clientHeight||600,ph=W<=760||document.body.classList.contains('story');
+ // keep the content clear of the toolbar above and, on wide screens, the title block at the bottom right
+ const st=document.body.classList.contains('story'),L=ph?14:24,R=ph?14:330,T=70,B=st?170:ph?70:40,aw=Math.max(80,W-L-R),ah=Math.max(80,H-T-B);const cw=(x1-x0)*1.04,ch=(y1-y0)*1.04,s=Math.max(cw/aw,ch/ah);
+ const cx=(x0+x1)/2,cy=(y0+y1)/2;return{x:cx-(L+aw/2)*s,y:cy-(T+ah/2)*s,w:W*s,h:H*s}}
 function setVB(v){VB=v;svg.setAttribute('viewBox',`${v.x} ${v.y} ${v.w} ${v.h}`);onZoom()}
 function goMap(id,inst){const b=MVIEWS[id];if(!b)return;V.view=id;const t=fitBox(b[1]);if(inst||RM)setVB(t);else VBT={a:Object.assign({},VB),b:t,s:performance.now(),d:1300};$('tbView').textContent='Archipelago train study · '+b[0];save();chips()}
 const G={};// svg groups
@@ -493,7 +520,7 @@ function buildMap(){svg.innerHTML='';
  // crossings, measured over the water only
  measureSea();G.xg=el('g',{},G.lab);G.xl=[];
  for(const id in XS){const ls=NET.legs.filter(l=>l.x===id);if(!ls.length)continue;const lg=ls[Math.floor(ls.length/2)];const p=lg.pts[Math.floor(lg.pts.length/2)];
-  const g=el('g',{class:'xl'},G.xg);const t=el('text',{x:9,y:4},g);t.textContent=XS[id][0]+' · '+(XS[id][1]==='T'?'tunnel ':'bridge ')+fmtX(xLen(id));g._p=p;G.xl.push(g)}
+  const g=el('g',{class:'xl'},G.xg);g._k=xLen(id);const t=el('text',{x:9,y:4},g);t.textContent=XS[id][0]+' · '+(XS[id][1]==='T'?'tunnel ':'bridge ')+fmtX(xLen(id));g._p=p;G.xl.push(g)}
  // power plants
  G.pw=POWER.map(([k,lo,la,n])=>{const p=PX(lo,la);let best=null,bd=1e18;for(const lg of NET.legs)for(const q of lg.pts){const d=(q[0]-p[0])**2+(q[1]-p[1])**2;if(d<bd){bd=d;best=q}}
   el('path',{d:`M${p[0]} ${p[1]}L${best[0]} ${best[1]}`,stroke:'#1d2024','stroke-width':1.2,'stroke-dasharray':'4 3',fill:'none','vector-effect':'non-scaling-stroke'},G.power);
@@ -520,16 +547,16 @@ function buildMap(){svg.innerHTML='';
  svg.addEventListener('click',onMapClick);
 }
 /* label placement: [x side, y side] per station, to keep names off the line */
-const STLAB={clark:[1,0],manila:[1,0],batangas:[1,0],calapan:[1,0],bongabong:[1,0],caticlan:[-1,0],kalibo:[0,-1],roxas:[1,0],iloilo:[-1,0],bacolod:[-1,0],sancarlos:[0,-1],cebu:[1,0],carmen:[-1,0],ubay:[0,-1],maasin:[-1,0],liloan:[1,0],surigao:[1,0],butuan:[1,0],cdo:[-1,0],malaybalay:[1,0],davao:[1,0],baybay:[-1,0],ormoc:[-1,0],tacloban:[1,0],catbalogan:[1,0],calbayog:[1,0],allen:[1,0],sanjose:[-1,0],coron:[0,-1],elnido:[-1,0],taytay:[1,0],pp:[1,0]};
+const STLAB={clark:[1,0],manila:[1,0],batangas:[1,0],calapan:[1,0],bongabong:[1,0],caticlan:[-1,0],kalibo:[0,-1],roxas:[1,0],iloilo:[-1,-1],bacolod:[-1,0],sancarlos:[0,-1],cebu:[1,0],carmen:[-1,0],ubay:[0,-1],maasin:[-1,0],liloan:[1,0],surigao:[1,0],butuan:[1,0],cdo:[-1,0],malaybalay:[1,0],davao:[1,0],baybay:[-1,0],ormoc:[-1,0],tacloban:[0,1],catbalogan:[1,0],calbayog:[1,0],allen:[1,0],sanjose:[-1,0],coron:[0,-1],elnido:[-1,0],taytay:[1,0],pp:[1,0]};
 let MAPDIRTY=true;
-function onZoom(){MAPDIRTY=true;const W=stage.clientWidth||800;const upp=VB.w/W;MS.kpp=upp/UPK;const z=BASEW/VB.w;const u=cl(.55+.45*Math.sqrt(z),.75,3.2);if(Math.abs(u-MS.u)>.04||Math.abs(MS.z-z)/z>.06){MS.u=u;SCH.clear()}MS.z=z;MS.upp=upp;
+function onZoom(){MAPDIRTY=true;const W=stage.clientWidth||800;const upp=VB.w/W;MS.kpp=upp/UPK;const z=BASEW/VB.w;const u=cl(.55+.45*Math.sqrt(z),.75,3.2);if(Math.abs(u-MS.u)>.04||Math.abs(MS.z-z)/z>.06){clearTimeout(MS.tm);MS.tm=setTimeout(()=>{MS.u=u;MS.z=z;SCH.clear();MAPDIRTY=true},180)}MS.upp=upp;
  {const pt=svg.querySelector('#hatch');if(pt)pt.setAttribute('patternTransform',`rotate(-38) scale(${(upp*.17).toFixed(3)})`)}
  if(G.shad)G.shad.setAttribute('transform',`translate(${(upp*3.5).toFixed(1)} ${(upp*4.5).toFixed(1)})`);
  const sk=cl(W/760,.6,1),hi=z>2.6;G.land.style.display=G.shad.style.display=hi?'none':'';G.landHi.style.display=G.shadHi.style.display=hi?'':'none';G.shadHi.setAttribute('transform',G.shad.getAttribute('transform'));
  const sc=(g,k=sk)=>g.setAttribute('transform',`translate(${g._p[0].toFixed(1)} ${g._p[1].toFixed(1)}) scale(${(upp*k).toFixed(3)})`);
  for(const g of G.sts){sc(g,Math.max(.8,sk));g._t.style.display=(g._big||z>1.7||g.classList.contains('sel')||g._id===V.from||g._id===V.to)&&V.names!==false?'':'none'}
  for(const g of G.isls)sc(g);for(const g of G.seas){sc(g);g.style.display=z<2.6&&W>500?'':'none'}for(const g of G.trk)sc(g);for(const g of G.pw)sc(g);
- for(const g of G.xl){sc(g);g.style.display=z>2.4?'':'none'}
+ for(const g of G.xl){sc(g);g.style.display=z>(g._k<6?4.5:2.4)?'':'none'}
  if(G.rts)for(const g of G.rts)sc(g);
  G.belt.style.display=V.belt?'':'none';G.tracks.style.display=V.tracks?'':'none';G.xg.style.display=V.xings?'':'none';G.power.style.display=V.power?'':'none';G.isl.style.display=V.isl?'':'none'}
 function lineColours(){MAPDIRTY=true;for(const lg of NET.legs)lg.el.setAttribute('stroke',V.rescue?ORANGE:LINES[lg.line].c);G.col.setAttribute('filter',V.rescue?'url(#glow)':'');document.body.classList.toggle('rescue',!!V.rescue);
@@ -573,7 +600,7 @@ function drawTrains(t){const W=stage.clientWidth,H=stage.clientHeight;tx.setTran
     if(pts.length<2)continue;for(const s of[-1,1]){tx.beginPath();for(let i=0;i<pts.length;i++){const a=pts[Math.max(0,i-1)],b=pts[Math.min(pts.length-1,i+1)],dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy)||1;const px=pts[i][0]-dy/l*side*s*(fw?1:-1),py=pts[i][1]+dx/l*side*s*(fw?1:-1);i?tx.lineTo(px,py):tx.moveTo(px,py)}tx.stroke()}}}}
  // storm-shelter stations glow in rescue mode
  if(V.rescue){const pulse=.5+.5*Math.sin(performance.now()/400);for(const id of STN)if(ST[id][6].includes('s')){const n=NET.byId[id],[x,y]=m2s(n.x,n.y);if(x<-20||y<-20||x>W+20||y>H+20)continue;tx.fillStyle=`rgba(255,122,26,${.15+.2*pulse})`;tx.beginPath();tx.arc(x,y,12+5*pulse,0,7);tx.fill()}}
- for(const D of deps){for(const b of D.blocks){const P=b.P;const hk=headKm(b,D.dep,t);
+ for(const D of deps){if(typeof story!=='undefined'&&story.on&&story.hides(D))continue;for(const b of D.blocks){const P=b.P;const hk=headKm(b,D.dep,t);{const h=kmAt(P,Math.min(hk,P.K)),[hx,hy]=m2s(h.x,h.y),m=(b.len+b.lag)/MS.kpp+120;if(hx<-m||hy<-m||hx>W+m||hy>H+m)continue}
    for(const u of b.units){const col=V.rescue?ORANGE:LINES[u.line].c;let front,off=0,alpha=1;
     if(u.joined&&t<u.tj){// waiting on the side track, then accelerating to match
      const t0=u.tj-u.T;if(t<t0-25||t0-25<D.dep)continue;const tau=t-t0;front=u.jKm+(tau>0?u.v*tau*tau/(2*u.T):0);off=side*(1-sm((tau-u.T*.55)/(u.T*.45)));alpha=cl((t-(t0-25))/4)}
@@ -591,7 +618,7 @@ function drawTrains(t){const W=stage.clientWidth,H=stage.clientHeight;tx.setTran
     else if(u===b.units[0]&&!u.joined&&!(u.ts!=null&&t>=u.ts)){const [nx,ny]=m2s(q.x,q.y);TR.push({x:nx,y:ny,D,b})}
     if(V.rescue&&u.kind==='pod'&&MS.u>1){const [cx,cy]=m2s(kmAt(P,(k0+k1)/2).x,kmAt(P,(k0+k1)/2).y);tx.fillStyle=ORANGE;tx.fillRect(cx-1.5,cy-1.5,3,3)}
     tx.globalAlpha=1}}}
- if(RIDE)drawRide(t);
+ if(RIDE)drawRide(t);if(typeof story!=='undefined'&&story.on)story.drawX(t);
  if(STORM.on)drawStorm(t)}
 function trainAt(mx,my){const [sx,sy]=m2s(mx,my);let best=null,bd=24*24;for(const h of TR){if(!h.core)continue;const d=(h.x-sx)**2+(h.y-sy)**2;if(d<bd){bd=d;best=h}}return best}
 
@@ -626,43 +653,50 @@ function nextPasses(id,t){// the next expresses that serve this station, each wa
 /* ===== Journey timer ===== */
 const SIM={t:V.clock||450,last:performance.now()};
 const latchMin=()=>(S.v/3.6)/.5/60,brakeMin=()=>(S.v/3.6)/.7/60;// 0.5 m/s² to match the express, 0.7 m/s² to brake
-function journey(a,b,ready){if(a===b)return null;const P=paths();let best=null;
+function leg1(a,b,ready){const P=paths();let best=null;
  for(const X of LEAVES)for(const Y of LEAVES){if(X===Y)continue;const Q=P[X][Y];const sa=Q.stops.find(z=>z.id===a),sb=Q.stops.find(z=>z.id===b);if(!sa||!sb||sa.km>=sb.km)continue;
   const lead=a===X?3:latchMin()/2+4;// board a few minutes before your pod rolls
-  let k=Math.ceil((ready+lead-sa.mn)/S.hw-LOFF[X]);while(!((a===X||serves(a,k))&&serves(b,k)))k++;const dep=(k+LOFF[X])*S.hw,pass=dep+sa.mn,arr=dep+sb.mn+brakeMin()/2;
-  if(!best||arr<best.arr)best={X,Y,k,dep,pass,arr,Q,sa,sb,board:pass-lead,ready}}
+  let k=Math.ceil((ready+lead-sa.mn)/S.hw-LOFF[X]),ok=false;// a catch-up pod can latch onto any express and slip off where it's bound; from the end of the line you need an express that carries a car for your stop
+  for(let t=0;t<2;t++,k++)if(a!==X||serves(b,k)){ok=true;break}if(!ok)continue;
+  const dep=(k+LOFF[X])*S.hw,pass=dep+sa.mn,arr=dep+sb.mn+brakeMin()/2;
+  if(!best||arr<best.arr)best={X,Y,k,dep,pass,arr,Q,sa,sb,a,b,board:pass-lead,ready}}
  if(!best)return null;
  const j=best,xs=[],seen=new Set();let land=0,sea=0,nx=0;
  for(let i=1;i<j.Q.km.length;i++){const k0=j.Q.km[i-1],k1=j.Q.km[i];if(k1<=j.sa.km||k0>=j.sb.km)continue;const lg=j.Q.legI[i];const d=Math.min(k1,j.sb.km)-Math.max(k0,j.sa.km);
   if(lg&&lg.x){const f=lg.km?cl((lg.sea!=null?lg.sea:lg.km)/lg.km):1;sea+=d*f;land+=d*(1-f);if(!seen.has(lg.x)){seen.add(lg.x);xs.push(lg.x);nx++}}else land+=d}
- j.km=j.sb.km-j.sa.km;j.xs=xs;j.land=land;j.sea=sea;
+ Object.assign(j,{km:j.sb.km-j.sa.km,xs,land,sea,nx,ride:j.sb.mn-j.sa.mn});return j}
+/* a journey: one express if one serves both stops; otherwise a change at the nearest big station between them */
+function journey(a,b,ready){if(a===b)return null;let legs=null;const one=leg1(a,b,ready);if(one)legs=[one];
+ else{const P=paths();let Q=null;for(const X of LEAVES)for(const Y of LEAVES)if(X!==Y&&!Q){const q=P[X][Y],sa=q.stops.find(z=>z.id===a),sb=q.stops.find(z=>z.id===b);if(sa&&sb&&sa.km<sb.km)Q={q,sa,sb}}
+  if(Q){const mids=Q.q.stops.filter(z=>z.km>Q.sa.km&&z.km<Q.sb.km&&ST[z.id][4]!=='minor');for(const M of mids){const j1=leg1(a,M.id,ready);if(!j1)continue;const j2=leg1(M.id,b,j1.arr+6);if(j2){legs=[j1,j2];break}}}}
+ if(!legs)return null;const f=legs[0],l=legs[legs.length-1];
+ const j={legs,ready,board:f.board,arr:l.arr,km:legs.reduce((s,x)=>s+x.km,0),land:legs.reduce((s,x)=>s+x.land,0),sea:legs.reduce((s,x)=>s+x.sea,0),xs:[...new Set(legs.flatMap(x=>x.xs))],via:legs.length>1?legs[0].b:null};
  // rough comparisons: road at 55 km/h, a ferry at 25 km/h with two hours of waiting and boarding at each crossing; a flight if both ends have an airport
- j.ferry=land/55*60+sea/25*60+nx*120;
- const fa=ST[a][6].includes('a'),fb=ST[b][6].includes('a');j.air=fa&&fb&&j.km>150?45+j.km/650*60+150:null;
+ j.ferry=j.land/55*60+j.sea/25*60+j.xs.length*120;
+ const fa=ST[a][6].includes('a'),fb=ST[b][6].includes('a');j.air=fa&&fb&&j.km>150?j.km/650*60+30+180:null;
  return j}
 function jSync(){const f=$('jFrom'),t=$('jTo');f.value=V.from;t.value=V.to;$('jFromN').textContent=ST[V.from][0];$('jAt').value=String(Math.round((V.at%1440)/10)*10%1440);jCalc();drawReach();save()}
 function jCalc(){const j=journey(V.from,V.to,V.at);const o=$('jOut');drawJourney(j);
  if(!j){o.innerHTML='<p class="note">Choose two different stations.</p>';return}
- const day=Math.floor(j.arr/1440)-Math.floor(V.at/1440),wait=j.board-j.ready,lat=latchMin(),ride=j.sb.mn-j.sa.mn,brk=brakeMin()/2,tot=j.arr-j.ready;
- const dayTxt=day>0?` <small>+${day} day</small>`:'';
- const gold=V.rescue?ORANGE:'#d9a21b';
- const dep=ST[j.X][0];
+ const day=Math.floor(j.arr/1440)-Math.floor(V.at/1440),lat=latchMin(),brk=brakeMin()/2,tot=j.arr-j.ready,gold=V.rescue?ORANGE:'#d9a21b';
  const air=V.rescue?'Suspended in the storm':j.air?'≈ '+fmtD(j.air)+' door to door':'No direct flight';
  const fer=V.rescue?'Suspended in the storm':'≈ '+fmtD(j.ferry);
- o.innerHTML=`<div class="arr"><span class="k">Arrive at ${ST[V.to][0]}</span><b>${fmtT(j.arr)}${dayTxt}</b><span>${fmtD(tot)} after you’re ready · ${fmtD(ride+lat/2+brk)} on the move · ${fmtK(j.km)}</span>${ST[V.from][4]==='minor'||ST[V.to][4]==='minor'?'<span style="color:#bdb6aa">Small stops are served by every other express</span>':''}</div>
- <div class="tline" aria-hidden="true"><i style="flex:${Math.max(wait,.5)};background:#b9b2a5"></i><i style="flex:${lat/2};background:#8a8378"></i><i style="flex:${ride};background:${gold}"></i><i style="flex:${brk};background:#55524c"></i></div>
- <table><tr><td>Board your pod<small>${j.X===V.from?'At the end of the line, you board the express itself':'It waits on the side track at '+ST[V.from][0]}</small></td><td class="n">${fmtT(j.board)}</td></tr>
- <tr><td>${j.X===V.from?'The express leaves':'The pod rolls and latches on'}<small>The ${fmtT(j.dep)} express from ${dep}${j.X===V.from?'':`, passing at ${fmtT(j.pass)}`}</small></td><td class="n">${fmtT(j.pass+(j.X===V.from?0:lat/2))}</td></tr>
- <tr><td>On the express<small>${Math.round(j.land)} km on land${j.sea>.5?', '+Math.round(j.sea)+' km over or under the sea':''}, at up to ${S.v} km/h${V.rescue?' (slower on open stretches in the storm)':''}</small></td><td class="n">${fmtD(ride)}</td></tr>
- <tr><td>Slip off and brake into ${ST[V.to][0]}<small>Your car lets go before the station and brakes alone onto the side track</small></td><td class="n">${fmtT(j.arr)}</td></tr>
+ let bar='',rows='',moving=0,prev=j.ready;
+ j.legs.forEach((g,i)=>{const fromEnd=g.X===g.a,wait=g.board-prev;moving+=g.ride+(fromEnd?0:lat/2)+brk;
+  bar+=`<i style="flex:${Math.max(wait,.5)};background:#b9b2a5"></i><i style="flex:${fromEnd?0:lat/2};background:#8a8378"></i><i style="flex:${g.ride};background:${gold}"></i><i style="flex:${brk};background:#55524c"></i>`;
+  rows+=`<tr><td>${i?'Change at '+ST[g.a][0]+': board a catch-up pod':'Board your pod'}<small>${fromEnd?'At the end of the line, you board the express itself':i?'No single express serves both of your stops, so you change here: a short wait on the side track':'It waits on the side track at '+ST[g.a][0]}</small></td><td class="n">${fmtT(g.board)}</td></tr>
+  <tr><td>${fromEnd?'The express leaves':'The pod rolls and latches on'}<small>The ${fmtT(g.dep)} express from ${ST[g.X][0]}${fromEnd?'':`, passing at ${fmtT(g.pass)}`}</small></td><td class="n">${fmtT(g.pass+(fromEnd?0:lat/2))}</td></tr>
+  <tr><td>On the express<small>${Math.round(g.land)} km on land${g.sea>.5?', '+Math.round(g.sea)+' km over or under the sea':''}, at up to ${S.v} km/h${V.rescue?' (slower on open stretches in the storm)':''}</small></td><td class="n">${fmtD(g.ride)}</td></tr>
+  <tr><td>Slip off and brake into ${ST[g.b][0]}<small>Your car lets go before the station and brakes alone onto the side track</small></td><td class="n">${fmtT(g.arr)}</td></tr>`;prev=g.arr});
+ o.innerHTML=`<div class="arr"><span class="k">Arrive at ${ST[V.to][0]}</span><b>${fmtT(j.arr)}${day>0?` <small>+${day} day</small>`:''}</b><span>${fmtD(tot)} after you’re ready · ${fmtD(moving)} on the move · ${fmtK(j.km)}</span>${j.via?`<span style="color:#e3c27a">One change, at ${ST[j.via][0]}</span>`:LEAVES.includes(V.from)&&ST[V.to][4]==='minor'?'<span style="color:#bdb6aa">From the end of the line, every other express carries a car for a small stop</span>':''}</div>
+ <div class="tline" aria-hidden="true">${bar}</div><table>${rows}
  ${j.xs.length?`<tr><td>Crossings<small>${j.xs.map(x=>XS[x][0]+' ('+(XS[x][1]==='T'?'tunnel':'bridge')+')').join(', ')}</small></td><td class="n">${j.xs.length}</td></tr>`:''}</table>
- <table class="cmp" style="margin-top:6px"><tr><td>By road and ferry<small>Rough: buses at 55 km/h, ferries at 25 km/h, two hours at each port</small></td><td class="n">${fer}</td></tr><tr><td>By air<small>Rough: flying time plus two and a half hours at the airports</small></td><td class="n">${air}</td></tr></table>`;
+ <table class="cmp" style="margin-top:6px"><tr><td>By road and ferry<small>Rough: buses at 55 km/h, ferries at 25 km/h, two hours at each port</small></td><td class="n">${fer}</td></tr><tr><td>By air<small>Rough: flying time, plus half an hour taxiing and three hours getting to, through and out of the airports</small></td><td class="n">${air}</td></tr></table>`;
  reachText()}
 /* the trip on the map: a pale band under the line between the two stations */
-function drawJourney(j){if(!G.jour)return;G.jour.innerHTML='';if(!j)return;const Q=j.Q,pts=[];
- for(let i=0;i<Q.km.length;i++)if(Q.km[i]>=j.sa.km-.01&&Q.km[i]<=j.sb.km+.01)pts.push(Q.pts[i]);if(pts.length<2)return;
- const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(0)+' '+p[1].toFixed(0)).join('');
- el('path',{d,fill:'none',stroke:'#f7f3ec','stroke-width':16,opacity:.55,'stroke-linecap':'round','stroke-linejoin':'round','vector-effect':'non-scaling-stroke'},G.jour)}
+function drawJourney(j){if(!G.jour)return;G.jour.innerHTML='';if(!j)return;
+ for(const g of j.legs){const Q=g.Q,pts=[];for(let i=0;i<Q.km.length;i++)if(Q.km[i]>=g.sa.km-.01&&Q.km[i]<=g.sb.km+.01)pts.push(Q.pts[i]);if(pts.length<2)continue;
+  el('path',{d:pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(0)+' '+p[1].toFixed(0)).join(''),fill:'none',stroke:'#f7f3ec','stroke-width':16,opacity:.55,'stroke-linecap':'round','stroke-linejoin':'round','vector-effect':'non-scaling-stroke'},G.jour)}}
 /* how far you can get: from the station, along every line, riding time plus the latch */
 function reachTimes(a){return fromLeaf(a,S.v,V.rescue)}
 function drawReach(){if(!G.reach)return;G.reach.innerHTML='';G.rts=[];const R=V.reach;G.col.style.opacity=R?.28:'';if(!R)return;
@@ -686,14 +720,14 @@ function reachText(){const R=V.reach,el2=$('reachT');if(!el2)return;if(!R){el2.t
  el2.textContent=got.length?`In ${R/60} h you can reach ${all?'every station on the line':got.length+' station'+(got.length>1?'s':'')}: as far as ${fr.slice(0,4).map(id=>ST[id][0]+' ('+fmtD(W.mn[NET.byId[id].i]+lat)+')').join(', ')}. Times count the ride and the latch, not the wait.`:`Nowhere new in ${R/60} h.`}
 /* ride the trip on the map: the clock jumps to just before your pod rolls and the map follows your express */
 let RIDE=null;
-function startRide(){const j=journey(V.from,V.to,V.at);if(!j)return;RIDE={j,follow:true};SIM.t=j.board-6;V.rate=cl(Math.round((j.arr-j.board)/45),1,15);if(V.mode!=='map')setMode('map');
- const a=NET.byId[V.from],b=NET.byId[V.to];const xs=[a.x,b.x],ys=[a.y,b.y];const pad=60*UPK;
+function startRide(){const J=journey(V.from,V.to,V.at);if(!J)return;const j=J.legs[0];RIDE={j,J,follow:true};SIM.t=j.board-6;V.rate=cl(Math.round((J.arr-j.board)/45),1,15);if(V.mode!=='map')setMode('map');
+ const a=NET.byId[j.a],b=NET.byId[j.b];const xs=[a.x,b.x],ys=[a.y,b.y];const pad=60*UPK;
  const W=stage.clientWidth,H=stage.clientHeight,asp=W/H;let w=Math.max(xs[1]-xs[0],-(xs[1]-xs[0]))+pad*2,h=Math.abs(ys[1]-ys[0])+pad*2;if(w/h>asp)h=w/asp;else w=h*asp;w=Math.max(w,BASEW/3.2);h=w/asp;
  VBT={a:Object.assign({},VB),b:{x:(xs[0]+xs[1])/2-w/2,y:(ys[0]+ys[1])/2-h/2,w,h},s:performance.now(),d:1200};chips()}
-function drawRide(t){const j=RIDE.j;const D=sched(j.X,j.k);const b=D.blocks.find(x=>x.P.stops.some(z=>z.id===V.to)&&x.P===j.Q)||D.blocks.find(x=>x.P.stops.some(z=>z.id===V.to));if(!b)return;
- let k;if(t<j.pass){const n=NET.byId[V.from];const [x,y]=m2s(n.x,n.y);ring(x,y,'Your pod is waiting');return}
- if(t>j.arr){const n=NET.byId[V.to];const [x,y]=m2s(n.x,n.y);ring(x,y,'Arrived '+fmtT(j.arr));if(t>j.arr+40)RIDE=null;return}
- k=Math.min(kmAtTime(j.Q,t-j.dep)-b.lag-(b.len||0)*.5,j.sb.km);const q=kmAt(j.Q,k);const [x,y]=m2s(q.x,q.y);ring(x,y,'You · '+fmtD(j.arr-t)+' to '+ST[V.to][0]);
+function drawRide(t){const j=RIDE.j;const D=sched(j.X,j.k);const b=D.blocks.find(x=>x.P===j.Q)||D.blocks.find(x=>x.P.stops.some(z=>z.id===j.b));if(!b)return;
+ let k;if(t<j.pass){const n=NET.byId[j.a];const [x,y]=m2s(n.x,n.y);ring(x,y,'Your pod is waiting');return}
+ if(t>j.arr){const n=NET.byId[j.b];const [x,y]=m2s(n.x,n.y);const nx=RIDE.J.legs[RIDE.J.legs.indexOf(j)+1];ring(x,y,nx?'Change here · next pod '+fmtT(nx.board):'Arrived '+fmtT(j.arr));if(nx&&t>=nx.board-6){RIDE.j=nx}else if(t>j.arr+40)RIDE=null;return}
+ k=Math.min(kmAtTime(j.Q,t-j.dep)-b.lag-(b.len||0)*.5,j.sb.km);const q=kmAt(j.Q,k);const [x,y]=m2s(q.x,q.y);ring(x,y,'You · '+fmtD(j.arr-t)+' to '+ST[j.b][0]);
  if(RIDE.follow&&!VBT&&!PD){const tx0=q.x-VB.w/2,ty0=q.y-VB.h/2;setVB({x:lerp(VB.x,tx0,.04),y:lerp(VB.y,ty0,.04),w:VB.w,h:VB.h})}}
 let PD=false;
 function ring(x,y,txt){const p=.5+.5*Math.sin(performance.now()/300);tx.strokeStyle=V.rescue?ORANGE:'#d9a21b';tx.lineWidth=2.5;tx.beginPath();tx.arc(x,y,13+4*p,0,7);tx.stroke();
@@ -758,7 +792,7 @@ function init3D(){if(T3)return T3;if(!window.THREE)return null;
  mt.screen=new THREE.MeshStandardMaterial({color:LC('#0a1418'),emissive:LC('#5ad0ff'),emissiveIntensity:.6,roughness:.3});
  mt.lamp=new THREE.MeshStandardMaterial({color:LC('#fff4dc'),emissive:LC('#ffe2b0'),emissiveIntensity:1.2});
  mt.redL=new THREE.MeshStandardMaterial({color:LC('#300'),emissive:LC('#ff2a1a'),emissiveIntensity:1.5});mt.headL=new THREE.MeshStandardMaterial({color:LC('#fff'),emissive:LC('#fff6e0'),emissiveIntensity:2});
- mt.crate=M('#a58a64',{roughness:.9});mt.takeover=M('#c4262e',{roughness:.4});mt.amber=new THREE.MeshStandardMaterial({color:LC('#3a2400'),emissive:LC('#ffb02e'),emissiveIntensity:1.6});mt.band=M('#2c3136',{roughness:.5,metalness:.2});mt.water=M('#3f7fb3',{roughness:.5});mt.food=M('#c9a24a',{roughness:.85});mt.relief=M('#e06a1c',{roughness:.7});mt.freight=M('#6d7378',{roughness:.6,metalness:.3});mt.cot=M('#5d7a6a',{roughness:.9});
+ mt.crate=M('#a58a64',{roughness:.9});mt.takeover=M('#c4262e',{roughness:.4});mt.amber=new THREE.MeshStandardMaterial({color:LC('#3a2400'),emissive:LC('#ffb02e'),emissiveIntensity:1.6});mt.band=M('#2c3136',{roughness:.5,metalness:.2});mt.door=M('#d9dcdf',{roughness:.3,metalness:.35});mt.yellow=M('#f2c230',{roughness:.5});mt.wsGlass=new THREE.MeshStandardMaterial({color:LC('#0a1216'),roughness:.05,metalness:.55,transparent:true,opacity:.86,depthWrite:false});mt.water=M('#3f7fb3',{roughness:.5});mt.food=M('#c9a24a',{roughness:.85});mt.relief=M('#e06a1c',{roughness:.7});mt.freight=M('#6d7378',{roughness:.6,metalness:.3});mt.cot=M('#5d7a6a',{roughness:.9});
  mt.liningF=M('#efe8dc',{roughness:.9,side:THREE.BackSide,vertexColors:true});
  mt.concrete=M('#a9a69f',{roughness:.95});mt.concreteD=M('#7d7b76',{roughness:.95});mt.rail=M('#8b8f93',{roughness:.3,metalness:.8});mt.cover=M('#d6a21b',{roughness:.6});
  /* ---------- the world: track, ground, sea, tunnel, station, weather ---------- */
@@ -834,7 +868,10 @@ function buildStation(T){const {M,mats:mt}=T;const g=new THREE.Group();T.scene.a
   fb.box(pl,L,1.9,5.6,xc,.95,s*11.7);fb.box(edge,L,.02,.3,xc,1.91,s*9.05);
   fb.box(deckM,L,.5,10.8,xc,8,s*13.8);fb.box(mt.oglass,L,1,.04,xc,8.75,s*8.45);
   for(let x=x0+8;x<x0+L;x+=15)fb.box(wallM,1.1,18,1.1,x,9,s*15.2);
-  for(let i=0;i<12;i++)fb.box(wallM,1.6,.3,2.4,x0+40+i*1.4,1.9+i*.53,s*17.8);
+  for(let sx=x0+40;sx<x0+L-40;sx+=60)for(let i=0;i<12;i++)fb.box(wallM,1.6,.3,2.4,sx+i*1.4,1.9+i*.53,s*17.8);
+  for(let x=x0+4;x<x0+L-4;x+=4.5){fb.box(mt.oglass,3.2,1.8,.05,x+1.6,2.8,s*9.0);fb.box(mt.steel,.1,1.8,.1,x,2.8,s*9.0)}// platform screen doors
+  for(const xe of[x0+.6,x0+L-.6])fb.box(mt.steel,.6,4.2,5,xe,4.4,s*6.6);// flood gates over the side-track mouths, raised
+  for(let x=x0+30;x<x0+L-30;x+=50)fb.box(mt.lamp,.9,.05,.9,x,1.92,s*11.7);
   for(let x=x0+30;x<x0+L;x+=70)fb.cyl(mt.water,1.1,1.1,2.6,x,9.55,s*18.2,16);
   fb.box(mt.white,10,2.8,4,x0+L-40,9.65,s*17);fb.box(mt.dark,8,2.4,3,x0+60,9.45,s*17.4);
   fb.box(mt.lamp,L-10,.06,.4,xc,7.7,s*11.7);fb.box(mt.lamp,L-10,.06,.4,xc,17.6,s*13)}
@@ -844,7 +881,9 @@ function buildStation(T){const {M,mats:mt}=T;const g=new THREE.Group();T.scene.a
  const wn=T.FB();wn.box(wallM,L,18,1.6,xc,9,-20.6);wn.box(mt.concreteD,L,7,4,xc,-4,-20.6);wn.done(wN);
  const rf=T.FB();rf.box(roofM,L,1.2,43,xc,18.6,0);rf.done(roof);
  // rescue mode: cots and relief stock on the deck, evacuees arriving
- const r=T.FB();for(let x=x0+16;x<x0+L-14;x+=2.4)for(const s of[-1,1])for(const z of[11.2,13.6]){r.box(mt.cot,1.9,.4,.75,x,8.45,s*z)}
+ const zoneM=[M('#9fb3c8',{roughness:.9}),M('#e9ece8',{roughness:.9}),M('#c9b48a',{roughness:.9})];const zf=T.FB();for(let i=0;i<6;i++)for(const s of[-1,1])zf.box(zoneM[i%3],48,.02,9.6,x0+30+i*60,8.27,s*13.8);zf.done(g);
+ const r=T.FB();for(const s of[-1,1]){r.box(mt.amber,L-20,.04,.12,xc,8.29,s*9.1);r.box(mt.amber,L-20,.04,.12,xc,1.92,s*9.3)}for(let x=x0+15;x<x0+L;x+=60){r.box(mt.white,3,2.4,2,x,9.45,19.0);r.box(mt.white,3,2.4,2,x,9.45,-19.0)}
+ for(let x=x0+16;x<x0+L-14;x+=2.4)for(const s of[-1,1])for(const z of[11.2,13.6]){r.box(mt.cot,1.9,.4,.75,x,8.45,s*z)}
  for(let i=0;i<24;i++){const s=i%2?1:-1,x=x0+24+i*14;r.box(mt.water,1.2,1,1,x,2.4,s*13.4);r.box(mt.food,1.2,.8,1,x+1.4,2.3,s*13.4);r.box(mt.relief,1.2,.6,1,x+2.8,2.2,s*13.4)}
  r.done(res);for(let i=0;i<80;i++){const s=i%2?1:-1,x=x0+18+((i*37)%340);T.fig(res,x,8.25+(i%3?.42:0),s*(i%3?(i%4<2?11.2:13.6):12.4),Math.random()*6,i%3?'lie':'std',i)}
  for(let i=0;i<46;i++){const s=i%2?1:-1;T.fig(g,x0+10+Math.random()*(L-20),1.9,s*(10+Math.random()*4),Math.random()*6,i%6===0?'sit':'std',i)}
@@ -853,7 +892,7 @@ function buildStation(T){const {M,mats:mt}=T;const g=new THREE.Group();T.scene.a
  const n0=T.stripes.length,a0=T.anim.length;
  for(const [s,x,st,line] of[[1,xc-60,'ormoc','E'],[-1,xc+20,'liloan','C']]){const c={k:'pod',L:17,n:'Pod for '+ST[st][0],st,line,lineC:LINES[line].c,g:new THREE.Group()};c.g.position.set(x,0,s*6.6);g.add(c.g);buildCar(T,c,C)}
  T.world.stnStripes=T.stripes.splice(n0);T.world.stnAnim=T.anim.splice(a0);T.world.stnAnim.push(e=>{res.visible=e>.5});
- const sT=canvasTex(1024,128,(c,w,h)=>{c.fillStyle='#1d2024';c.fillRect(0,0,w,h);c.fillStyle='#ff7a1a';c.fillRect(0,h-14,w,14);c.fillStyle='#f2ede4';c.font='800 64px Archivo, sans-serif';c.fillText('MAASIN',30,74);c.font='600 30px Archivo, sans-serif';c.fillText('Storm-shelter station · evacuation centre · 3,000 places',300,74)});
+ const sT=canvasTex(1024,128,(c,w,h)=>{c.fillStyle='#1d2024';c.fillRect(0,0,w,h);c.fillStyle='#ff7a1a';c.fillRect(0,h-14,w,14);c.fillStyle='#f2ede4';c.font='800 64px Archivo, sans-serif';c.fillText('MAASIN',30,74);c.font='600 30px Archivo, sans-serif';c.fillText('Storm-shelter station · evacuation centre · 3,000 places, 300 cots',270,74)});
  for(const s of[-1,1]){const m=new THREE.Mesh(new THREE.PlaneGeometry(16,2),new THREE.MeshBasicMaterial({map:sT}));m.position.set(xc,13,s*19.7);m.rotation.y=s>0?Math.PI:0;(s>0?wP:wN).add(m)}
  const hl=new THREE.PointLight(0xffd9a0,0,160);hl.position.set(xc,12,0);g.add(hl);g.userData={light:hl,wP,wN,roof};
  g.visible=false;return g}
@@ -910,7 +949,7 @@ function buildCar(T,c,C){const {M,LC,mats:mt}=T,g=c.g,L=c.L,k=c.k;
  const xs=new Set([0,.35,L-.35,L]);for(let x=0;x<=L;x+=2)xs.add(+x.toFixed(2));for(const w of W){xs.add(w[0]);xs.add(w[1])}
  let rings;
  if(k==='lead'){// a long nose: lower and narrower toward the tip
-  const nose=12,x1=L-nose;for(let x=x1;x<=L;x+=.5)xs.add(+x.toFixed(2));for(const v of[19.4,26.2])xs.add(v);
+  const nose=12,x1=L-nose;for(let x=x1;x<=L;x+=.5)xs.add(+x.toFixed(2));for(const v of[18.9,19.4,26.2,26.7])xs.add(v);
   rings=[...xs].filter(x=>x>=0&&x<=L).sort((a,b)=>a-b).map(x=>{if(x<=x1)return{x,w:BW*(x<.35?.96:1),h:BH*(x<.35?.97:1),y0:BY};const f=1-(x-x1)/nose;
    const lg=S.nose==='blunt'?1.6:1;return{x,w:BW*(.16+.84*(1-Math.pow(1-f,2.4*lg))),h:BH*(.14+.86*Math.pow(f,.85/lg)),y0:BY+(1-f)*.32}});
   rings.push({x:L+.02,w:BW*.05,h:BH*.08,y0:BY+.34})}
@@ -918,12 +957,13 @@ function buildCar(T,c,C){const {M,LC,mats:mt}=T,g=c.g,L=c.L,k=c.k;
   rings=[...xs].sort((a,b)=>a-b).map(x=>{const e=Math.min(x,L-x);const f=e<.01?0:e<.7?lerp(r[0],r[1],e/.7):e<1.4?lerp(r[1],1,(e-.7)/.7):1;const f2=e<.01?r[0]*.9:f;return{x,w:BW*f2,h:BH*(.55+.45*f2),y0:BY+(1-f2)*.9}})}
  else rings=[...xs].sort((a,b)=>a-b).map(x=>({x,w:BW*(x<.3||x>L-.3?.96:1),h:BH*(x<.3||x>L-.3?.97:1),y0:BY+(x<.3||x>L-.3?.03:0)}));
  const lower=C.lower,silver=C.silver,roofC=C.roof;
- const col=(x,py)=>py<.345?[lower.r,lower.g,lower.b]:py>.93?[roofC.r,roofC.g,roofC.b]:[silver.r,silver.g,silver.b];
+ const frame=k==='lead'?((x,py,pz)=>x>18.9&&x<26.7&&py>.41&&Math.abs(pz)<.5&&!(x>19.4&&x<26.2&&py>.46&&Math.abs(pz)<.47)):()=>false;
+ const col=(x,py,pz)=>frame(x,py,pz)?[.03,.035,.04]:py<.345?[lower.r,lower.g,lower.b]:py>.93?[roofC.r,roofC.g,roofC.b]:[silver.r,silver.g,silver.b];
  const capE=k==='pod'||k==='lead';
  const shell=new THREE.Mesh(T.loft(rings,{keep:(x,py,pz)=>!inWin(x,py,pz)&&!(py>.345&&py<.40),col,cap0:capE,cap1:capE}),mt.shell);shell.castShadow=true;g.add(shell);
- const glass=new THREE.Mesh(T.loft(rings,{keep:(x,py,pz)=>inWin(x,py,pz)}),k==='obs'?mt.oglass:mt.glass);g.add(glass);
+ const glass=new THREE.Mesh(T.loft(rings,{keep:(x,py,pz)=>inWin(x,py,pz)}),k==='obs'?mt.oglass:k==='lead'?mt.wsGlass:mt.glass);g.add(glass);
  // the stripe: its own band, so it can glow orange
- const sm=new THREE.MeshStandardMaterial({color:LC(c.lineC),emissive:LC(c.lineC),emissiveIntensity:.25,roughness:.35,metalness:.2});
+ const sm=new THREE.MeshStandardMaterial({color:LC(c.lineC),emissive:LC(c.lineC),emissiveIntensity:.12,roughness:.35,metalness:.1,toneMapped:false});
  const stripe=new THREE.Mesh(T.loft(rings,{keep:(x,py,pz)=>py>.345&&py<.40&&!inWin(x,py,pz)}),sm);g.add(stripe);T.stripes.push({m:sm,c:LC(c.lineC)});
  // the lining you see from inside, with the window openings cut out; the upper part hides in the cutaway
  const lcol=(x,py)=>{const b=k==='first'?[.86,.82,.74]:k==='biz'?[.62,.52,.44]:k==='med'?[.9,.94,.93]:k==='lead'?[.32,.35,.38]:[.84,.84,.82];const f=py<.4?.82:py>.86?1.08:1;return[b[0]*f,b[1]*f,b[2]*f]};
@@ -950,12 +990,16 @@ function buildCar(T,c,C){const {M,LC,mats:mt}=T,g=c.g,L=c.L,k=c.k;
  const ex=T.FB();
  if(k==='lead'){for(const z of[-.62,.62]){ex.box(mt.headL,.5,.12,.38,L-1.4,BY+.62,z)}}
  if(k==='pod'){// fairings over an automatic coupler and a gangway at each end; amber markers for side-track running
-  for(const xe of[-.2,L+.2]){ex.box(mt.rubber,.45,2.4,2.2,xe,fl+1.15,0);ex.box(mt.steel,.6,.3,.38,xe+(xe<0?-.2:.2),1.0,0)}
+  for(const xe of[-.2,L+.2]){const o=xe<0?-1:1;ex.box(mt.rubber,.45,2.4,2.2,xe,fl+1.15,0);ex.box(mt.steel,.9,.34,.42,xe+o*.35,1.0,0);ex.box(mt.dark,.12,.5,.6,xe+o*.8,1.0,0);ex.box(xe<0?mt.redL:mt.headL,.05,.08,1.9,xe<0?-.03:L+.03,3.55,0);ex.box(sm,.05,.18,2.2,xe<0?-.04:L+.04,2.05,0)}
   for(const z of[-.85,.85]){ex.box(mt.headL,.08,.12,.42,L+.02,1.55,z);ex.box(mt.redL,.08,.12,.42,-.02,1.55,z);ex.box(mt.amber,.08,.1,.22,L+.02,1.25,z*1.2);ex.box(mt.amber,.08,.1,.22,-.02,1.25,z*1.2)}
   // the hold under the passenger floor: two full-length sliding doors on each side, in a darker band
-  for(const s of[-1,1]){const z=s*(BW/2+.004);ex.box(mt.band,L-3.4,.78,.02,L/2,1.42,z);for(const x of[1.7,L/2,L-1.7])ex.box(mt.dark,.05,.8,.03,x,1.42,z);ex.box(mt.steel,L-3.4,.04,.03,L/2,1.84,z)}}
+  for(const s of[-1,1]){const z=s*(BW/2+.004);ex.box(mt.door,L-3.4,.82,.02,L/2,1.42,z);for(const x of[1.7,L/2,L-1.7])ex.box(mt.dark,.05,.84,.03,x,1.42,z);ex.box(mt.dark,L-3.4,.03,.03,L/2,1.84,z);ex.box(mt.dark,L-3.4,.03,.03,L/2,1.0,z);for(const x of[L/2-.35,L/2+.35])ex.box(mt.steel,.06,.3,.05,x,1.42,z)}
+  // in rescue mode, orange chevrons on the hold doors say what's inside
+  const chT=canvasTex(256,64,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='#ff7a1a';for(let i=0;i<8;i++){g.beginPath();g.moveTo(i*32,8);g.lineTo(i*32+16,32);g.lineTo(i*32,56);g.lineTo(i*32+12,56);g.lineTo(i*32+28,32);g.lineTo(i*32+12,8);g.fill()}});chT.repeat.set(1,1);
+  const chM=new THREE.MeshBasicMaterial({map:chT,transparent:true,depthWrite:false,toneMapped:false});const chev=[];for(const s of[-1,1]){const m=new THREE.Mesh(new THREE.PlaneGeometry(L-4,.36),chM);m.position.set(L/2,1.42,s*(BW/2+.03));m.rotation.y=s>0?0:Math.PI;g.add(m);chev.push(m);(c.ext=c.ext||[]).push(m)}
+  T.anim.push(e=>{for(const m of chev)m.visible=e>.5&&c.shell.visible})}
  if(k==='pod'||k==='dest'){// the destination, large on each side
-  const nm=ST[c.st]?ST[c.st][0].toUpperCase():'';const t=canvasTex(512,64,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='#1d2024';g.font='800 46px Archivo, sans-serif';g.fillText(nm,6,48)});t.repeat.set(1,1);
+  const nm=ST[c.st]?ST[c.st][0].toUpperCase():'';const t=canvasTex(512,64,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='#1d2024';let fs=56;g.font=`800 ${fs}px Archivo, sans-serif`;const tw=g.measureText(nm).width;if(tw>500){fs=Math.floor(fs*500/tw);g.font=`800 ${fs}px Archivo, sans-serif`}g.fillText(nm,4,52)});t.repeat.set(1,1);
   const pm=new THREE.MeshBasicMaterial({map:t,transparent:true,depthWrite:false});for(const s of[-1,1]){const m=new THREE.Mesh(new THREE.PlaneGeometry(4,.5),pm);m.position.set(k==='pod'?L/2:L/2,k==='pod'?2.46:3.62,s*(BW/2+.012));m.rotation.y=s>0?0:Math.PI;g.add(m);(c.ext=c.ext||[]).push(m)}}
  if(k==='med'){const cm=new THREE.MeshStandardMaterial({color:LC('#f4f4f2'),emissive:LC('#ff7a1a'),emissiveIntensity:0,roughness:.5});c.cross=cm;for(const s of[-1,1]){ex.box(cm,1.2,.34,.03,L/2,1.25,s*(BW/2+.01));ex.box(cm,.34,1.2,.03,L/2,1.25,s*(BW/2+.01))}}
  ex.done(g)}
@@ -969,7 +1013,8 @@ function intLead(T,c,I){const {mats:mt}=T,fb=T.FB(),fl=c.fl;
  fb.box(mt.floorG,6.4,.16,3.2,20.8,fl+.35,0);fb.box(mt.dark,1.0,.75,2.7,22.15,fl+.8,0);fb.box(mt.walnut,1.15,.06,2.8,21.95,fl+1.2,0);
  fb.box(mt.leather,.62,.16,.62,20.85,fl+.95,0);fb.box(mt.leather,.14,.85,.6,20.5,fl+1.45,0);fb.box(mt.steel,.1,.5,.1,20.85,fl+.6,0);
  fb.box(mt.dark,.5,.08,.16,21.2,fl+1.25,.62);fb.box(mt.dark,.5,.08,.16,21.2,fl+1.25,-.62);
- fb.box(mt.steel,.05,.32,.05,21.5,fl+1.36,.78);fb.box(mt.takeover,.12,.1,.32,21.5,fl+1.55,.78);// the red take-over handle
+ fb.box(mt.steel,.06,.42,.06,21.45,fl+1.42,.82);fb.box(mt.takeover,.16,.14,.42,21.45,fl+1.66,.82);fb.box(mt.yellow,.3,.04,.5,21.45,fl+1.23,.82);for(let i=0;i<4;i++)fb.box(mt.dark,.31,.042,.05,21.45,fl+1.235,.62+i*.13);// the red take-over handle, in a yellow and black guard
+ fb.box(mt.dark,1.6,.12,2.6,20.4,fl+2.62,0);fb.box(mt.dark,.32,.025,.9,21.05,fl+2.5,.45);for(const z of[-1.32,1.32])fb.box(mt.dark,.1,1.3,.1,21.9,fl+1.9,z);// overhead panel, sun visor and the windscreen pillars
  // behind the cab: a door, the crew room, then the battery room for outages and flooded stretches
  fb.box(mt.white,.12,2.6,3.3,18.4,fl+1.3,0);fb.box(mt.walnut,1.4,.7,.6,16.6,fl+.35,1.3);fb.box(mt.wool,1.8,.45,.6,16.6,fl+.22,-1.3);
  for(let x=1.4;x<12.5;x+=1.4)for(const z of[-1.15,1.15])for(let y=0;y<3;y++)fb.box(y===1?mt.freight:mt.steel,1.1,.62,.8,x,fl+.35+y*.72,z);
@@ -978,7 +1023,7 @@ function intLead(T,c,I){const {mats:mt}=T,fb=T.FB(),fl=c.fl;
  // three screens: what latches and slips next; speed and the line ahead; the power rail and the battery
  c.scr=[0,1,2].map(i=>{const cv=document.createElement('canvas');cv.width=512;cv.height=320;const t=new THREE.CanvasTexture(cv);t.encoding=THREE.sRGBEncoding;
   const m=new THREE.Mesh(new THREE.PlaneGeometry(.6,.375),new THREE.MeshBasicMaterial({map:t,toneMapped:false}));m.position.set(21.85,fl+1.36,(i-1)*.7);m.rotation.set(0,-Math.PI/2+(i-1)*-.32,0,'YXZ');m.rotateX(-.55);I.add(m);return{cv,t}});
- c.driver=T.fig(I,20.9,fl+.25,0,-Math.PI/2,'sit',1);c.cab=[20.85,fl+1.62,0];
+ c.driver=T.fig(I,20.9,fl+.25,0,-Math.PI/2,'sit',1);c.cab=[20.25,fl+1.72,0];
  T.anim.push(e=>{const s=e>.5?1:0;if(c._s!==s){c._s=s;drawCab(T,c,s)}})}
 function drawCab(T,c,s){const acc=s?ORANGE:LINES[trainLine()].c,tail=T.cars.filter(x=>x.st).slice(-3).reverse();
  const scr=(i,f)=>{const {cv,t}=c.scr[i],g=cv.getContext('2d');g.fillStyle='#0b1116';g.fillRect(0,0,512,320);g.strokeStyle=acc;g.lineWidth=6;g.strokeRect(3,3,506,314);g.fillStyle='#e8eef2';f(g);t.needsUpdate=true};
@@ -1023,7 +1068,7 @@ function intEco(T,c,I){const {mats:mt}=T,fb=T.FB(),L=c.L;
  // bunks that fold down from the walls, three high, and mats on the open floor
  const bunks=new THREE.Group();I.add(bunks);const bm=T.mats.cot;const hinges=[];
  for(const [y0,hh] of[[lo,1.75],[up,1.8]])for(const s of[-1,1])for(let x=4.4;x<L-5.5;x+=2.1)for(let t=0;t<(y0===lo?3:2);t++){const h=new THREE.Group();h.position.set(x+.95,y0===lo?y0+.3+t*.55:y0+.35+t*.78,s*1.72);bunks.add(h);const b=new THREE.Mesh(new THREE.BoxGeometry(1.9,.08,.72),bm);b.position.set(0,0,-s*.36);h.add(b);hinges.push({h,s})}
- const evac=new THREE.Group();I.add(evac);for(let i=0;i<14;i++){const s=i%2?1:-1;const x=4.6+(i>>1)*2.3;T.fig(evac,x+.1,(i%4<2?lo:up)+.42,s*1.36,0,'lie',i)}for(let i=0;i<8;i++){T.fig(evac,12+i*1.3,(i%2?up:lo)+.02,(i%2?.55:-.55),Math.random()*6,'sit',i+3)}
+ const evac=new THREE.Group();I.add(evac);for(let i=0;i<14;i++){const s=i%2?1:-1;const x=4.6+(i>>1)*2.3;T.fig(evac,x+.1,(i%4<2?lo:up)+.42,s*1.36,0,'lie',i)}for(let i=0;i<8;i++){T.fig(evac,12+i*1.3,lo+.02,(i%2?.55:-.55),Math.random()*6,'sit',i+3)}
  const mats=T.FB();for(let x=5;x<L-5;x+=2.1){mats.box(mt.wool,1.8,.05,.9,x,lo+.03,0);mats.box(mt.wool,1.8,.05,.9,x,up+.03,0)}const matG=new THREE.Group();I.add(matG);mats.done(matG);
  T.anim.push(e=>{seats.visible=e<.45;for(const q of hinges)q.h.rotation.x=q.s*(1-e)*Math.PI/2;bunks.visible=e>.02;evac.visible=e>.6;matG.visible=e>.4})}
 function intMed(T,c,I){const {mats:mt}=T,fl=c.fl,L=c.L;
@@ -1053,7 +1098,7 @@ function intPod(T,c,I){const {mats:mt}=T,fb=T.FB(),fl=c.fl,L=c.L;
  const b=T.FB();for(let x=1.4;x<L-1.4;x+=1.3)for(const z of[-.8,.8]){const m=(Math.floor(x)+(z>0?1:0))%3;b.box(m===0?mt.water:m===1?mt.food:mt.relief,1.15,.9,1.4,x+.6,1.12,z)}b.done(rl);
  T.anim.push(e=>{fr.visible=e<.5;rl.visible=e>=.5})}
 
-function applyRes(T,inst){const e=inst?(V.rescue?1:0):T.res;T.dirty=true;const W=T.world;for(const s of T.stripes.concat(W.stnStripes||[])){const o=new THREE.Color(ORANGE).convertSRGBToLinear();s.m.color.copy(s.c).lerp(o,e);s.m.emissive.copy(s.c).lerp(o,e);s.m.emissiveIntensity=.25+e*1.9}for(const f of T.anim.concat(W.stnAnim||[]))f(ease(e));if(inst)T.res=e}
+function applyRes(T,inst){const e=inst?(V.rescue?1:0):T.res;T.dirty=true;const W=T.world;for(const s of T.stripes.concat(W.stnStripes||[])){const o=new THREE.Color(ORANGE).convertSRGBToLinear();s.m.color.copy(s.c).lerp(o,e);s.m.emissive.copy(s.c).lerp(o,e);s.m.emissiveIntensity=.12+e*.85}for(const f of T.anim.concat(W.stnAnim||[]))f(ease(e));if(inst)T.res=e}
 
 /* ===== Scenes around the 3D train ===== */
 const PRE3={dawn:{sky:['#5d7aa8','#f2b98a','#6a6a5a'],sun:[-.7,.16,.45],sunC:'#ffc48a',sunI:1.7,hemi:['#bcc8e0','#5a5040',.55],fog:'#e3bf9f',win:.7},
@@ -1075,15 +1120,15 @@ function scene3(){const T=T3;if(!T)return;const W=T.world,p=PRE3[V.tod]||PRE3.da
  T.amb.intensity=WALKING?(tu?.55:V.tod==='night'?.5:.25):0;
  drawArt();T.scene.background=null}
 function drawArt(){const T=T3;if(!T)return;const a=T.world.art,g=a.c.getContext('2d'),w=a.c.height,h=a.c.width;g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,a.c.width,a.c.height);g.setTransform(0,1,-1,0,a.c.width,0);
- const c=V.rescue?ORANGE:LINES[trainLine()].c;g.strokeStyle=c;g.fillStyle=c;g.lineCap='round';g.lineJoin='round';g.shadowColor=c;g.shadowBlur=9;
+ const c=V.rescue?ORANGE:LINES[trainLine()].c;g.strokeStyle=c;g.fillStyle=c;g.lineCap='round';g.lineJoin='round';g.shadowColor=c;g.shadowBlur=14;
  // a running figure in light: each panel is one frame of the stride, so at the train's speed the panels flick past like a zoetrope and the figure runs
- for(let i=0;i<16;i++){const x=i*64+32,ph=i/16*Math.PI*2,s=Math.sin(ph),k=Math.cos(ph),y0=150+Math.abs(s)*-8;g.lineWidth=7;g.globalAlpha=.6;
+ for(let i=0;i<16;i++){const x=i*64+32,ph=i/16*Math.PI*2,s=Math.sin(ph),k=Math.cos(ph),y0=150+Math.abs(s)*-8;g.lineWidth=4;g.globalAlpha=.55;
   g.beginPath();g.arc(x+4,y0-78,11,0,7);g.fill();g.beginPath();g.moveTo(x+2,y0-64);g.lineTo(x-2,y0-18);g.stroke();
   g.beginPath();g.moveTo(x-2,y0-18);g.lineTo(x-2+s*20,y0+14);g.lineTo(x-2+s*26+(s>0?-8:8),y0+44);g.stroke();g.beginPath();g.moveTo(x-2,y0-18);g.lineTo(x-2-s*20,y0+14);g.lineTo(x-2-s*26,y0+44);g.stroke();
   g.beginPath();g.moveTo(x+1,y0-56);g.lineTo(x+1-s*22,y0-34);g.lineTo(x+8-s*20,y0-20);g.stroke();g.beginPath();g.moveTo(x+1,y0-56);g.lineTo(x+1+s*22,y0-34);g.lineTo(x+12+s*20,y0-26);g.stroke();
   g.globalAlpha=.35;g.lineWidth=3;g.beginPath();g.moveTo(x-30,h-24);g.lineTo(x+30,h-24);g.stroke()}
  g.globalAlpha=1;g.shadowBlur=0;g.setTransform(1,0,0,1,0,0);const g2=a.c2.getContext('2d');g2.setTransform(1,0,0,1,0,0);g2.clearRect(0,0,a.c2.width,a.c2.height);g2.setTransform(-1,0,0,1,a.c2.width,0);g2.drawImage(a.c,0,0);g2.setTransform(1,0,0,1,0,0);a.t.needsUpdate=true;a.t2.needsUpdate=true}
-const VIEWS3={q3:['Three-quarter',null],nose:['The nose',null],side:['Along the side',null],whole:['The whole train',null],above:['From above, cut away',null],pods:['The pods',null],hall:['Inside the station hall',null],
+const VIEWS3={q3:['Three-quarter',null],nose:['The nose',null],side:['Along the side',null],whole:['The whole train',null],above:['From above, cut away',null],pods:['The pods',null],hall:['Inside the station hall',null],platform:['On the platform',null],
  cab:['Driver’s cab','lead'],first:['First-class suite','first'],biz:['Business lounge','biz'],comp:['Business compartment','biz'],obs:['Observation car','obs'],ecoU:['Economy, upper deck','eco'],ecoL:['Economy, lower deck','eco'],med:['Medical car','med'],dest:['Destination car','dest'],pod:['Inside a pod','pod'],hold:['A pod’s hold','pod']};
 const WALKV=['cab','first','biz','comp','obs','ecoU','ecoL','med','dest','pod'];
 let WALKING=false,TW=null,HOLDCAR=null;
@@ -1093,19 +1138,20 @@ function view3(id,inst){const T=T3;if(!T)return;const vv=VIEWS3[id];if(!vv)retur
  const P=(a,b,cc)=>new THREE.Vector3(a,b,cc);
  switch(id){case'q3':p=P(42,9,24);t=P(-12,2.4,0);break;case'nose':p=P(32,2.6,8);t=P(9,2.8,0);break;case'side':p=P(-34,3.4,30);t=P(-34,2.6,0);break;
   case'whole':p=P(rear/2+15,90,Math.max(160,L*.75));t=P(rear/2+15,0,0);break;case'above':p=P(-70,55,36);t=P(-70,0,0);break;case'pods':p=P(rear+44,6,17);t=P(rear+14,2,0);break;
-  case'cab':p=P(x0+20.75,fl+1.66,0);t=P(x0+28,fl+1.3,0);break;case'hall':p=P(-232,10.3,16.5);t=P(-170,3.5,1);break;case'first':p=P(x0+7.4,fl+1.55,-.15);t=P(x0+10.6,fl+1.05,1.9);break;
+  case'cab':p=P(x0+20.7,fl+1.74,0);t=P(x0+28,fl+1.25,0);break;case'hall':p=P(-232,10.3,16.5);t=P(-170,3.5,1);break;case'platform':p=P(-190,3.65,11.2);t=P(-150,3.1,1.5);break;case'first':p=P(x0+7.4,fl+1.55,-.15);t=P(x0+10.6,fl+1.05,1.9);break;
   case'biz':p=P(x0+8.6,fl+1.6,-.4);t=P(x0+16,fl+1.15,1.4);break;case'comp':p=P(x0+.9,fl+1.4,.7);t=P(x0+3.6,fl+1.0,-.9);break;
   case'obs':p=P(x0+3,fl+1.45,0);t=P(x0+13,fl+2.8,1.6);break;case'ecoU':p=P(x0+4.8,2.62+1.32,0);t=P(x0+20,2.62+1.05,0);break;case'ecoL':p=P(x0+4.8,.68+1.32,0);t=P(x0+20,.68+1.05,0);break;
   case'med':p=P(x0+2.3,fl+1.6,-.4);t=P(x0+14,fl+.9,.6);break;case'dest':p=P(x0+24.6,fl+1.6,0);t=P(x0+8,fl+1.1,0);break;case'pod':p=P(x0+15.6,fl+1.5,0);t=P(x0+5,fl+1.1,0);break;
   case'hold':p=P(x0+8.5,2.4,8.6);t=P(x0+8.5,1.6,0);break}
- WALKING=WALKV.includes(id);HOLDCAR=id==='hold'?c:null;{const ld=carOf('lead');if(ld&&ld.driver)ld.driver.visible=id!=='cab'}if(id==='hall'&&V.env!=='station'){V.env='station';V.moving=false}
+ WALKING=WALKV.includes(id);HOLDCAR=id==='hold'?c:null;{const ld=carOf('lead');if(ld&&ld.driver)ld.driver.visible=id!=='cab'}if((id==='hall'||id==='platform')&&V.env!=='station'){V.env='station';V.moving=false}
+ if(!WALKING&&id!=='hall'&&id!=='platform'){const a=T.cam.aspect||1.5;if(a<1){const k=Math.min(2.2,1.2/a);p=t.clone().add(p.clone().sub(t).multiplyScalar(k))}}
  const ctl=T.ctl;ctl.enableZoom=!WALKING;ctl.enablePan=!WALKING;ctl.minDistance=WALKING?.05:3;ctl.maxDistance=WALKING?2:900;ctl.rotateSpeed=WALKING?-.35:1;
  if(WALKING){const d=t.clone().sub(p).normalize().multiplyScalar(.3);t=p.clone().add(d)}
  if(inst||RM){T.cam.position.copy(p);ctl.target.copy(t)}else TW={p0:T.cam.position.clone(),t0:ctl.target.clone(),p,t,s:performance.now(),d:1300};
  FLY=null;vis3();scene3();$('tbView').textContent=id==='cab'?'Driver’s cab · the train drives itself; the driver supervises':'Archipelago train study · '+VIEWS3[id][0];save();chips()}
 function vis3(){const T=T3;if(!T)return;const cut=V.style==='cut'||V.tview==='above';for(const c of T.cars){const hide=cut||c===HOLDCAR;c.shell.visible=!hide;c.glass.visible=!hide;for(const m of c.ext||[])m.visible=!hide;c.liningU.visible=!cut;c.stripe.visible=!hide}
  T.scene.overrideMaterial=V.style==='white'?(T.whiteM||(T.whiteM=new THREE.MeshStandardMaterial({color:0xeeeeea,roughness:.85}))):null;
- for(const l of T.labels)l.el.style.visibility=V.lab&&!WALKING&&!story.on?'visible':'hidden';T.dirty=true}
+ for(const l of T.labels)l.el.style.visibility=V.lab&&!WALKING&&!story.on&&V.tview!=='hall'&&V.tview!=='platform'?'visible':'hidden';T.dirty=true}
 /* walk the whole train, cab to last pod */
 let FLY=null;
 function walkAll(){const T=T3;if(!T)return;const pts=[];const cs=T.cars;
@@ -1123,7 +1169,7 @@ function demoStep(now){const D=DEMO,T=T3,f=Math.min(1,(now-D.s)/D.d),c=D.c;let d
  if(D.kind==='latch'){// on the side track, behind; matching speed; across; closing the last metres slowly
   if(f<.4){dx=lerp(-80,-26,ease(f/.4));dz=6.6}else if(f<.7){const e=ease((f-.4)/.3);dx=lerp(-26,-9,e);dz=6.6*(1-e)}else{dx=-9*(1-ease((f-.7)/.3));dz=0}}
  else{if(f<.25){dx=-8*ease(f/.25);dz=0}else if(f<.55){const e=ease((f-.25)/.3);dx=lerp(-8,-30,e);dz=6.6*e}else{dx=lerp(-30,-260,ease((f-.55)/.45));dz=6.6}}
- c.g.position.set(c.x0+dx,0,dz);D.gw.visible=Math.abs(dx)<.3&&dz<.05;T.dirty=true;
+ c.g.position.set(c.x0+dx,0,dz);{const l=T.labels[T.cars.indexOf(c)];if(l)l.p.set(c.x0+dx+c.L/2,6.4,dz)}D.gw.visible=Math.abs(dx)<.3&&dz<.05;T.dirty=true;
  if(f>=1){if(D.kind==='slip'){c.g.position.set(c.x0,0,0);D.gw.visible=true}T.world.demo.visible=false;DEMO=null;SND.clunk()}else if(D.kind==='latch'&&!D.k&&f>.98){D.k=1;SND.clunk()}else if(D.kind==='slip'&&!D.k&&f>.02){D.k=1;SND.clunk()}}
 /* ===== Modes ===== */
 let THREE_P=null;
@@ -1149,7 +1195,7 @@ function plab(p,t){const d=document.createElement('div');d.className='plab';d.te
 function chips(){const tl=$('tl'),bl=$('bl');tl.innerHTML='';bl.innerHTML='';const tr=V.mode==='train';
  const seg=document.createElement('div');seg.className='seg';seg.append(chip('Map',!tr,()=>setMode('map')),chip('Train',tr,()=>{TRSEL=null;setMode('train')}),chip('Story',false,()=>story.start()));tl.append(seg);
  tl.append(pop('Camera',p=>{if(!tr){plab(p,'The map');for(const id in MVIEWS)p.append(chip(MVIEWS[id][0],V.view===id,()=>{goMap(id);closePops()}))}
-  else{plab(p,'Outside');for(const id of['q3','nose','side','whole','above','pods'].concat(V.env==='station'?['hall']:[]))p.append(chip(VIEWS3[id][0],V.tview===id,()=>{view3(id);closePops()}));plab(p,'Inside every car (drag to look around)');for(const id of[...WALKV,'hold'])if(carOf(VIEWS3[id][1]))p.append(chip(VIEWS3[id][0],V.tview===id,()=>{view3(id);closePops()}))}}));
+  else{plab(p,'Outside');for(const id of['q3','nose','side','whole','above','pods'].concat(V.env==='station'?['hall','platform']:[]))p.append(chip(VIEWS3[id][0],V.tview===id,()=>{view3(id);closePops()}));plab(p,'Inside every car (drag to look around)');for(const id of[...WALKV,'hold'])if(carOf(VIEWS3[id][1]))p.append(chip(VIEWS3[id][0],V.tview===id,()=>{view3(id);closePops()}))}}));
  tl.append(pop('Show',p=>{p.append(chip('The story run: a typhoon, Luzon to Mindanao',false,()=>{closePops();story.start()}));
   if(tr)p.append(chip('Walk the whole train',V.tview==='walk',()=>{closePops();walkAll()}),chip('Watch a pod latch on',false,()=>{closePops();demo('latch')}),chip('Watch a pod slip off',false,()=>{closePops();demo('slip')}));else p.append(chip('Ride your journey',false,()=>{closePops();startRide()}));
   p.append(chip('Present',false,()=>{closePops();document.body.classList.add('present');resize()}),chip('Save image',false,()=>{closePops();snap()}),chip('Quick tour',false,()=>{closePops();tour(0)}))}));
@@ -1211,15 +1257,15 @@ function sync(){for(const k in IN)IN[k]();document.querySelectorAll('#reach butt
 function particulars(){const P=paths(),C=lineLen('C'),E=lineLen('E'),Wl=lineLen('W');let tk=0,bk=0;for(const lg of NET.legs){if(lg.type==='T')tk+=lg.km;else if(lg.type==='B')bk+=lg.km}
  const sh=STN.filter(id=>ST[id][6].includes('s')).length;
  const cars=consist();const n=k=>cars.filter(c=>c.k===k).length;
- const seats=n('first')*8+n('biz')*28+n('eco')*152+n('dest')*84+n('pod')*30,beds=n('first')*4+n('dest')*2+n('pod');
+ const seats=n('first')*8+n('biz')*32+n('eco')*152+n('dest')*71+n('pod')*40,beds=n('first')*4+n('dest')*2+n('pod');const wet=NET.legs.filter(l=>!l.x).reduce((a,l)=>a+(l.wet||0),0);
  const evac=n('eco')*190+n('dest')*120+n('pod')*40+(S.obs?60:0)+n('biz')*40+n('first')*16,cots=n('med')*28;
  const tl=NET.legs.filter(l=>l.type==='T'&&(l.sea||0)>.3),tx=Object.keys(XS).filter(id=>XS[id][1]==='T'&&xLen(id)>.3).sort((a,b)=>xLen(b)-xLen(a)),tk2=tl.reduce((a,l)=>a+l.sea,0),bk2=NET.legs.filter(l=>l.type==='B').reduce((a,l)=>a+(l.sea||0),0);
  const len=cars.reduce((a,c)=>a+c.L+.9,0)-.9;
  const r=(a,b,c='')=>`<tr><td>${a}${c?`<small>${c}</small>`:''}</td><td class="n">${b}</td></tr>`;
- $('sched').innerHTML=r('Line',fmtK(C+E+Wl),`Spine ${fmtK(C)} · eastern ${fmtK(E)} · western ${fmtK(Wl)}`)+r('Under the sea',fmtK(tk2),`In ${tl.length} undersea bores under ${tx.length} straits; the longest crossing is the ${XS[tx[0]][0]}, ${fmtX(xLen(tx[0]))}. For comparison, the Channel Tunnel runs 37.9 km under the sea and Seikan 23.3 km.`)+r('On bridges',fmtX(bk2),'Over 5 short straits, measured over the water')
+ $('sched').innerHTML=r('Line',fmtK(C+E+Wl),`Spine ${fmtK(C)} · eastern ${fmtK(E)} · western ${fmtK(Wl)}`)+r('Under the sea',fmtK(tk2),`In ${tl.length} undersea bores under ${tx.length} straits; the longest crossing is the ${XS[tx[0]][0]}, ${fmtX(xLen(tx[0]))}. For comparison, the Channel Tunnel runs 37.9 km under the sea and Seikan 23.3 km.`)+r('On bridges',fmtX(bk2),`Over ${Object.keys(XS).filter(id=>XS[id][1]==='B').length} short straits, measured over the water, plus about ${Math.round(wet)} km of low bridges over river mouths and small bays`)
  +r('Stations',STN.length,`${sh} storm-shelter stations, ${STN.length-sh} open side-track stations`)
  +r('Clark to Davao',fmtD(P.clark.davao.M),`Without a stop, at up to ${S.v} km/h`)+r('Clark to Puerto Princesa',fmtD(P.clark.pp.M))+r('Clark to Allen',fmtD(P.clark.allen.M))+r('Davao to Allen',fmtD(P.davao.allen.M))
- +r('The train',`${cars.length} cars`,`${Math.round(len)} m long, 3.7 m wide, 4.8 m tall`)+r('Seats and beds',seats.toLocaleString('en-GB'),`Including ${beds} beds in suites`)
+ +r('The train',`${cars.length} cars`,`${Math.round(len)} m long, 3.7 m wide, 4.8 m tall`)+r('Seats and beds',seats.toLocaleString('en-GB'),`In suites, compartments, the lounge and economy; including ${beds} beds`)
  +r('In rescue mode',evac.toLocaleString('en-GB'),`People carried out of a storm: bunks and open floor in economy, every other seat filled, people sitting on floors${cots?`; plus ${cots} cots in the field hospital`:''}`)
  +r('Power','Own network','Geothermal, wind and solar plants beside the line, apart from the national grid; batteries carry the train through outages and flooded stretches');
  $('xtab').innerHTML=Object.keys(XS).map(id=>r(XS[id][0]+' · '+(XS[id][1]==='T'?'tunnel':'bridge'),fmtX(xLen(id)),XS[id][2])).join('')}
@@ -1232,84 +1278,108 @@ function snap(){const W=stage.clientWidth,H=stage.clientHeight;
  const s=new XMLSerializer().serializeToString(svg).replace('<svg','<svg width="'+W+'" height="'+H+'"');const img=new Image();img.onload=()=>{g.drawImage(img,0,0,c.width,c.height);g.drawImage(tc,0,0,c.width,c.height);show(c.toDataURL('image/png'))};img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s)}
 $('snapX').onclick=()=>$('snap').style.display='none';
 
-/* ===== Sound for the story, made in the browser: the motor's whine pitched to speed, wind with gusts, rain, a thump into each tunnel,
-   a coupler's clunk at each latch and slip, one calm alert when the stripes turn orange, a murmur of people at Maasin ===== */
-const SND={ctx:null,g:{},on:false,lv:{rail:0,wind:0,rain:0,crowd:0},
- init(){if(this.ctx)return;const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ctx=this.ctx=new C();const out=ctx.createGain();out.gain.value=0;out.connect(ctx.destination);this.out=out;
+/* ===== Sound for the story, made in the browser and kept quiet: the motor's rising tones pitched to speed, wind in gusts, rain,
+   a pressure thump and a long echo in the tunnels, a coupler's clunk at each latch and slip, muffled sound inside the cars,
+   a murmur of voices and a chime at Maasin, one soft alert when the stripes turn orange, a closing chord at Davao ===== */
+const SND={ctx:null,g:{},on:false,lv:{rail:0,wind:0,rain:0,crowd:0,inside:0,tunnel:0},
+ init(){if(this.ctx)return;const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ctx=this.ctx=new C();
+  const out=ctx.createGain();out.gain.value=0;const lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=18000;out.connect(lp);lp.connect(ctx.destination);this.out=out;this.lp=lp;
+  // a generated echo for the tunnels
+  const ir=ctx.createBuffer(2,ctx.sampleRate*2.2,ctx.sampleRate);for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,2.6)}
+  const cv=ctx.createConvolver();cv.buffer=ir;const wet=ctx.createGain();wet.gain.value=0;cv.connect(wet);wet.connect(lp);this.verb=cv;this.wet=wet;
   const buf=(()=>{const b=ctx.createBuffer(1,ctx.sampleRate*3,ctx.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;return b})();this.buf=buf;
   const noise=()=>{const s=ctx.createBufferSource();s.buffer=buf;s.loop=true;s.start();return s};
-  const mk=(f,q,type)=>{const n=noise(),fl=ctx.createBiquadFilter();fl.type=type;fl.frequency.value=f;fl.Q.value=q;const g=ctx.createGain();g.gain.value=0;n.connect(fl);fl.connect(g);g.connect(out);return{g,fl}};
-  this.g.rail=mk(220,.8,'lowpass');this.g.wind=mk(520,1.2,'bandpass');this.g.rain=mk(3500,.5,'highpass');this.g.crowd=mk(520,1.6,'bandpass');
-  const o=ctx.createOscillator(),bp=ctx.createBiquadFilter(),og=ctx.createGain();o.type='sawtooth';o.frequency.value=180;bp.type='bandpass';bp.Q.value=6;bp.frequency.value=360;og.gain.value=0;o.connect(bp);bp.connect(og);og.connect(out);o.start();this.g.whine={g:og,o,bp}},
- set(on){this.on=on;if(on){this.init();if(!this.ctx)return;this.ctx.resume();this.out.gain.setTargetAtTime(.18,this.ctx.currentTime,.4)}else if(this.ctx)this.out.gain.setTargetAtTime(0,this.ctx.currentTime,.2);$('sSnd').textContent=on?'Sound off':'Sound on'},
+  const mk=(f,q,type)=>{const n=noise(),fl=ctx.createBiquadFilter();fl.type=type;fl.frequency.value=f;fl.Q.value=q;const g=ctx.createGain();g.gain.value=0;n.connect(fl);fl.connect(g);g.connect(out);g.connect(cv);return{g,fl}};
+  this.g.rail=mk(220,.8,'lowpass');this.g.wind=mk(520,1.2,'bandpass');this.g.rain=mk(3500,.5,'highpass');
+  // the motor: three detuned tones that rise with speed, as an electric train's inverters do
+  this.g.tones=[1,1.5,2.01].map(m=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=600*m;g.gain.value=0;o.connect(g);g.connect(out);g.connect(cv);o.start();return{o,g,m}})},
+ set(on){this.on=on;if(on){this.init();if(!this.ctx)return;this.ctx.resume();this.out.gain.setTargetAtTime(.16,this.ctx.currentTime,.4);clearTimeout(this.sus)}
+  else if(this.ctx){this.out.gain.setTargetAtTime(0,this.ctx.currentTime,.15);clearTimeout(this.sus);this.sus=setTimeout(()=>{if(!this.on&&this.ctx)this.ctx.suspend()},600)}
+  $('sSnd').innerHTML=on?'<span class="deskw">Sound off</span><span class="mobw">Mute</span>':'<span class="deskw">Sound on</span><span class="mobw">Sound</span>'},
  mix(o){Object.assign(this.lv,o);if(!this.ctx||!this.on)return;const t=this.ctx.currentTime,L=this.lv,tc=o.slow?2.5:.7;
-  this.g.rail.g.gain.setTargetAtTime(L.rail*.55,t,tc);this.g.whine.g.gain.setTargetAtTime(L.rail*.05,t,tc);this.g.whine.o.frequency.setTargetAtTime(120+L.rail*130,t,1.2);this.g.whine.bp.frequency.setTargetAtTime(240+L.rail*260,t,1.2);
-  this.g.rain.g.gain.setTargetAtTime(L.rain*.22,t,tc);this.g.crowd.g.gain.setTargetAtTime(L.crowd*.3,t,tc)},
- gust(tt){if(!this.ctx||!this.on)return;const w=this.lv.wind,f=.55+.3*Math.sin(tt*.7)+.18*Math.sin(tt*2.3+1)+.1*Math.sin(tt*5.1);const t=this.ctx.currentTime;this.g.wind.g.gain.setTargetAtTime(w*.6*f,t,.25);this.g.wind.fl.frequency.setTargetAtTime(380+w*f*520,t,.4);
-  this.g.crowd.g.gain.setTargetAtTime(this.lv.crowd*.3*(.8+.2*Math.sin(tt*3.3)),t,.3)},
- burst(f,q,dur,peak,low){if(!this.ctx||!this.on)return;const ctx=this.ctx,t=ctx.currentTime,s=ctx.createBufferSource();s.buffer=this.buf;const fl=ctx.createBiquadFilter();fl.type='bandpass';fl.frequency.value=f;fl.Q.value=q;const g=ctx.createGain();g.gain.setValueAtTime(peak,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);s.connect(fl);fl.connect(g);g.connect(this.out);s.start(t);s.stop(t+dur+.05);
+  this.g.rail.g.gain.setTargetAtTime(L.rail*.5,t,tc);const sp=V.rescue&&V.wx==='storm'&&V.env!=='tunnel'?120:S.v,step=Math.floor(sp/60);
+  for(const q of this.g.tones){q.o.frequency.setTargetAtTime((520+step*190)*q.m,t,1.4);q.g.gain.setTargetAtTime(L.rail*.012/q.m,t,tc)}
+  this.g.rain.g.gain.setTargetAtTime(L.rain*.2*(L.inside?.35:1),t,tc);this.lp.frequency.setTargetAtTime(L.inside?1100:18000,t,.4);this.wet.gain.setTargetAtTime(L.tunnel?.55:0,t,.5)},
+ gust(tt){if(!this.ctx||!this.on)return;const w=this.lv.wind*(this.lv.inside?.4:1),f=.55+.3*Math.sin(tt*.7)+.18*Math.sin(tt*2.3+1)+.1*Math.sin(tt*5.1);const t=this.ctx.currentTime;this.g.wind.g.gain.setTargetAtTime(w*.6*f,t,.25);this.g.wind.fl.frequency.setTargetAtTime(380+w*f*520,t,.4);
+  // voices: short, randomly pitched bursts that sound like people talking under the roof
+  if(this.lv.crowd&&Math.random()<.35)this.voice();if(this.lv.inside&&this.lv.rain&&Math.random()<.5)this.burst(5200,6,.015,.12)},
+ voice(){const ctx=this.ctx,t=ctx.currentTime+Math.random()*.2,s=ctx.createBufferSource();s.buffer=this.buf;const f1=ctx.createBiquadFilter(),f2=ctx.createBiquadFilter();f1.type=f2.type='bandpass';f1.frequency.value=300+Math.random()*500;f2.frequency.value=1200+Math.random()*900;f1.Q.value=f2.Q.value=8;
+  const g=ctx.createGain(),d=.15+Math.random()*.3;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.09*this.lv.crowd,t+.04);g.gain.linearRampToValueAtTime(0,t+d);s.connect(f1);s.connect(f2);f1.connect(g);f2.connect(g);g.connect(this.out);s.start(t,Math.random()*2);s.stop(t+d+.05)},
+ burst(f,q,dur,peak,low){if(!this.ctx||!this.on)return;const ctx=this.ctx,t=ctx.currentTime,s=ctx.createBufferSource();s.buffer=this.buf;const fl=ctx.createBiquadFilter();fl.type='bandpass';fl.frequency.value=f;fl.Q.value=q;const g=ctx.createGain();g.gain.setValueAtTime(peak,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);s.connect(fl);fl.connect(g);g.connect(this.out);s.start(t,Math.random()*2);s.stop(t+dur+.05);
   if(low){const o=ctx.createOscillator(),og=ctx.createGain();o.frequency.setValueAtTime(low,t);o.frequency.exponentialRampToValueAtTime(low*.6,t+.15);og.gain.setValueAtTime(.35,t);og.gain.exponentialRampToValueAtTime(.001,t+.18);o.connect(og);og.connect(this.out);o.start(t);o.stop(t+.2)}},
- clunk(){this.burst(900,3,.06,.5,80)},thump(){this.burst(90,.7,.5,.9,55)},
- alert(){if(!this.ctx||!this.on)return;const t=this.ctx.currentTime;for(const [f,d] of[[660,0],[880,.32],[660,.9],[880,1.22]]){const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.frequency.value=f;o.type='sine';g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(.14,t+d+.03);g.gain.exponentialRampToValueAtTime(.001,t+d+.5);o.connect(g);g.connect(this.out);o.start(t+d);o.stop(t+d+.55)}}};
+ clunk(){this.burst(900,3,.06,.5,80)},thump(){this.burst(90,.7,.6,.9,48)},
+ notes(list,type='sine',vol=.08,len=.9){if(!this.ctx||!this.on)return;const t=this.ctx.currentTime;for(const [f,d] of list){const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.frequency.value=f;o.type=type;g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(vol,t+d+.05);g.gain.exponentialRampToValueAtTime(.001,t+d+len);o.connect(g);g.connect(this.out);g.connect(this.verb);o.start(t+d);o.stop(t+d+len+.05)}},
+ alert(){this.notes([[523,0],[659,.45]],'sine',.07,1.1)},chime(){this.notes([[784,0],[659,.35],[523,.7]],'triangle',.06,1.2)},close(){this.notes([[262,0],[330,.08],[392,.16],[523,.24]],'sine',.05,3.2)}};
 
 /* ===== The story run: Luzon to Mindanao through a typhoon ===== */
-const story=(()=>{let i=0,t0=0,paused=false,pauseAt=0,saved=null,dep=0,on=false,fx={};
- const P0=()=>pathsFor(false).clark.davao,pass=id=>dep+P0().stops.find(z=>z.id===id).mn;
+const story=(()=>{let i=0,t0=0,paused=false,pauseAt=0,saved=null,dep=0,K=0,on=false,fx={};const HOLD=52;
+ const P0=()=>pathsFor(false).clark.davao,st=id=>P0().stops.find(z=>z.id===id);
+ const holdAt=()=>dep+st('maasin').mn+3;// the express holds at Maasin while the eye passes
+ const pass=id=>dep+st(id).mn+(st(id).km>st('maasin').km+.5?HOLD:0);
+ const eff=t=>{const h=holdAt();return t<h?t:t<h+HOLD?h:t-HOLD};
+ const ln=()=>{const k=K;return ['baybay','ormoc','tacloban','catbalogan','calbayog','allen'].filter(id=>serves(id,k)).slice(0,3).map(id=>ST[id][0])};
+ const list=a=>a.length>1?a.slice(0,-1).join(', ')+' and '+a[a.length-1]:a[0]||'';
  const mapTo=(b,f,b2)=>{const a=fitBox(b),c=b2?fitBox(b2):a;const e=ease(cl(f));setVB({x:lerp(a.x,c.x,e),y:lerp(a.y,c.y,e),w:lerp(a.w,c.w,e),h:lerp(a.h,c.h,e)})};
- const cam=(p0,q0,p1,q1,f)=>{const T=T3;const e=ease(cl(f));T.cam.position.set(lerp(p0[0],p1[0],e),lerp(p0[1],p1[1],e),lerp(p0[2],p1[2],e));T.ctl.target.set(lerp(q0[0],q1[0],e),lerp(q0[1],q1[1],e),lerp(q0[2],q1[2],e));T.dirty=true};
+ const cam=(p0,q0,p1,q1,f,inside)=>{const T=T3;const e=ease(cl(f));const p=[lerp(p0[0],p1[0],e),lerp(p0[1],p1[1],e),lerp(p0[2],p1[2],e)],q=[lerp(q0[0],q1[0],e),lerp(q0[1],q1[1],e),lerp(q0[2],q1[2],e)];
+  // on a tall phone screen, step outside shots back so the train still fits
+  const a=T.cam.aspect||1.5;if(!inside&&a<1){const k=Math.min(2.2,1.2/a);for(let j=0;j<3;j++)p[j]=q[j]+(p[j]-q[j])*k}
+  T.cam.position.set(...p);T.ctl.target.set(...q);T.dirty=true};
  const tr=o=>{Object.assign(V,o);if(T3){scene3();vis3()}};
  const once=(k,f,c,fn)=>{if(f>=c&&!fx[k]){fx[k]=1;fn()}};
- // each scene sets its own state: [rescue mode, flights and ferries running, storm on the map]
+ // the story's own express: drawn here, marked, and holding at Maasin
+ function drawX(t){if(!on||document.body.classList.contains('m-train'))return;const P=P0(),k=kmAtTime(P,eff(t)-dep);if(k<=0||k>=P.K)return;
+  const L=14*MS.kpp*Math.max(1,MS.u),a=kmAt(P,k),[x,y]=m2s(a.x,a.y);tx.lineCap='round';
+  for(const [w,c] of[[11,'#14181b'],[8,'#e6e8ea'],[3,V.rescue?ORANGE:'#d9a21b']]){tx.strokeStyle=c;tx.lineWidth=w;tx.beginPath();for(let s=0;s<=8;s++){const q=kmAt(P,k-L*s/8),[sx,sy]=m2s(q.x,q.y);s?tx.lineTo(sx,sy):tx.moveTo(sx,sy)}tx.stroke()}
+  const h=holdAt();ring(x,y,t>=h&&t<h+HOLD?'The express · holding at Maasin':'The express')}
  const SH=[
-  {m:'map',d:9,s:[0,1,0],t:()=>fmtT(dep)+' · Clark, Luzon',h:'One line, no stops',p:()=>`The express leaves Clark at first light for Davao, ${fmtK(P0().K)} away at the far end of Mindanao. It will not stop once. Cars for each city ride at the back and let go as it passes.`,
-   on(){SND.mix({rail:.5,wind:0,rain:0,crowd:0})},up(f){mapTo([119.9,122.3,13.3,15.6],f,[120.3,121.8,13.9,15.3]);SIM.t=dep-6+f*40}},
+  {m:'map',d:9,s:[0,1,0],t:()=>fmtT(dep)+' · Clark, Luzon',h:'One line, no stops',p:()=>`The express leaves Clark at first light for Davao, ${fmtK(P0().K)} away at the far end of Mindanao. Cars for each city ride at the back and let go as it passes; it will stop only once, to shelter from a storm.`,
+   on(){SND.mix({rail:.5,wind:0,rain:0,crowd:0,inside:0,tunnel:0})},up(f){mapTo([119.9,122.3,13.3,15.6],f,[120.3,121.8,13.9,15.3]);SIM.t=dep-6+f*40}},
   {m:'train',d:9,s:[0,1,0],t:()=>fmtT(dep+30)+' · Central Luzon',h:'Silver, storm grey, one gold stripe',p:'Gold marks the central spine; blue and green mark the cars for the two branches. Power comes from an enclosed rail at ground level, with no overhead wires for a typhoon to tear down.',
    on(){tr({env:'fields',tod:'dawn',wx:'clear',moving:true,style:'render'});view3('q3',true);SND.mix({rail:.9})},up(f){cam([60,3.2,15],[20,2.6,0],[-10,4.4,19],[-38,2.4,0],f)}},
   {m:'map',d:12,s:[0,1,0],t:()=>fmtT(pass('batangas'))+' · Batangas and Calapan',h:'Slip off, latch on',p:'At Batangas a pod lets go and brakes alone onto the side track. Under the Verde Island Passage and up into Mindoro, a catch-up pod is already rolling at Calapan, matching speed to latch on behind.',
    on(){SND.mix({rail:.5})},up(f){mapTo([120.72,121.45,13.25,13.92],0);SIM.t=pass('batangas')-14+f*(pass('calapan')-pass('batangas')+22);once('c1',f,.3,()=>SND.clunk());once('c2',f,.78,()=>SND.clunk())}},
-  {m:'train',d:9,s:[0,1,0],t:()=>fmtT(pass('caticlan')-14)+' · Under the Semirara Sea',h:'Light under the sea',p:()=>`${Math.round(xLen('semirara'))} kilometres of tunnel in three bores, about 550 m under the surface. In the observation car, light art runs along the walls in the line’s colour, each panel one frame, timed to the train’s speed so the figures run.`,
-   on(){tr({env:'tunnel',tod:'day',wx:'clear',moving:true});view3('obs',true);SND.thump();SND.mix({rail:1})},up(f){const c=carOf('obs');if(!c)return;cam([c.x0+6,c.fl+1.3,-1.1],[c.x0+12,c.fl+2.2,3.2],[c.x0+15,c.fl+1.3,-1.1],[c.x0+21,c.fl+2.4,3.2],f)}},
+  {m:'train',d:9,s:[0,1,0],t:()=>fmtT(pass('caticlan')-14)+' · Under the Semirara Sea',h:'Light under the sea',p:()=>`${Math.round(xLen('semirara'))} kilometres of tunnel in three bores, about 550 m under the surface. Along the walls, light art in the line’s colour: each panel is one frame, timed to the train’s speed, so from the observation car the figures run.`,
+   on(){tr({env:'tunnel',tod:'day',wx:'clear',moving:true});view3('obs',true);SND.thump();SND.mix({rail:1,inside:1,tunnel:1})},up(f){const c=carOf('obs');if(!c)return;cam([c.x0+4,c.fl+1.5,-.8],[c.x0+16,c.fl+2.2,2.6],[c.x0+10,c.fl+1.5,-.9],[c.x0+22,c.fl+2.3,2.6],f,1)}},
   {m:'map',d:11,s:[0,1,1],t:()=>fmtT(pass('iloilo'))+' · Over the Philippine Sea',h:'A typhoon turns west',p:'A super typhoon turns toward Samar and Leyte, on a track like Haiyan’s in 2013. Signal No. 4 goes up. Within the hour, flights are grounded and the ferries stay in port.',
-   on(){STORM.r=1.2;SND.mix({rail:.4,wind:.5,rain:.1})},up(f){mapTo([119.8,129.5,7.6,14.6],0);STORM.ll=[lerp(130.5,127.4,f),lerp(10.2,10.8,f)];SIM.t=pass('iloilo')-10+f*25;once('air',f,.55,()=>{AIR=false;status()})}},
+   on(){STORM.r=1.2;SND.mix({rail:.4,wind:.5,rain:.1,inside:0,tunnel:0})},up(f){mapTo([119.8,129.5,7.6,14.6],0);STORM.ll=[lerp(130.5,127.4,f),lerp(10.2,10.8,f)];SIM.t=pass('iloilo')-10+f*25;once('air',f,.55,()=>{AIR=false;status()})}},
   {m:'map',d:8,s:[0,0,1],t:()=>fmtT(pass('bacolod'))+' · Rescue mode',h:'Every stripe turns orange',p:'Across the whole line, the trains switch to rescue mode. From now on they move people out of the storm’s path and carry supplies in, on the same run.',
    on(){SND.mix({wind:.6,rain:.2})},up(f){mapTo([119.8,129.5,7.6,14.6],0);STORM.ll=[lerp(127.4,126.8,f),10.85];SIM.t=pass('bacolod')-6+f*16;once('res',f,.18,()=>{setRescue(true);AIR=false;status();SND.alert()})}},
-  {m:'train',d:10,s:[1,0,1],t:()=>fmtT(pass('cebu')+5)+' · Cebu to Bohol',h:'Behind the storm walls',p:'On open stretches in typhoon country the line runs behind perforated wind walls, held to 120 km/h in the gusts; in the tunnels it keeps full speed. Batteries carry it wherever floods have cut the power rail.',
-   on(){tr({env:'fields',tod:'day',wx:'storm',moving:true});view3('q3',true);SND.mix({rail:.7,wind:1,rain:1})},up(f){cam([30,7.5,14],[2,3,0],[-40,9,15],[-64,3,0],f)}},
+  {m:'train',d:10,s:[1,0,1],t:()=>fmtT(pass('carmen')-4)+' · Across Bohol',h:'Behind the storm walls',p:'On open stretches in typhoon country the line runs behind perforated wind walls, held to 120 km/h in the gusts; in the tunnels it keeps full speed. Batteries carry it wherever floods have cut the power rail.',
+   on(){tr({env:'fields',tod:'day',wx:'storm',moving:true});view3('q3',true);SND.mix({rail:.7,wind:1,rain:1,inside:0,tunnel:0})},up(f){cam([30,7.5,14],[2,3,0],[-40,9,15],[-64,3,0],f)}},
   {m:'train',d:10,s:[1,0,1],t:()=>fmtT(pass('ubay'))+' · Economy',h:'Seats fold away, bunks fold down',p:'Economy becomes evacuation space: the seats fold into the floor and bunks fold down from the walls, three high on the lower deck and two high above, so each double-deck car carries about 190 people lying and sitting.',
-   on(){tr({env:'fields',wx:'storm'});view3('ecoU',true);if(T3){T3.res=0;applyRes(T3)}SND.mix({rail:.5,wind:.6,rain:.5})},up(f){if(T3&&f<.25){T3.res=0;applyRes(T3)}const c=carOf('eco');if(c)cam([c.x0+4.6,3.94,0],[c.x0+20,3.65,0],[c.x0+6.5,3.94,-.2],[c.x0+20,3.4,.8],f)}},
-  {m:'train',d:9,s:[1,0,1],t:()=>fmtT(pass('ubay')+6)+' · A pod’s hold',h:'Supplies in',p:'Under the passenger floor of every slip pod, the hold is packed with water, food and relief supplies for the places the storm will hit.',
-   on(){tr({env:'fields',wx:'storm',style:'render'});view3('hold',true);SND.mix({rail:.6,wind:.8,rain:.7})},up(f){const c=HOLDCAR;if(c)cam([c.x0+3,2.3,9],[c.x0+5.5,1.5,0],[c.x0+13.5,2.6,8.6],[c.x0+11,1.5,0],f)}},
-  {m:'map',d:12,s:[1,0,1],t:()=>fmtT(pass('maasin'))+' · Leyte and Samar',h:'People out, supplies in',p:'Pods of supplies slip off at Ormoc, Tacloban and Catbalogan; pods filling with evacuees latch on and head south, out of the storm’s path. The storm-shelter stations open as evacuation centres.',
-   on(){SND.mix({rail:.5,wind:.9,rain:.8})},up(f){mapTo([123.6,126.4,9.6,12.7],0);STORM.ll=[lerp(126.4,125.6,f),lerp(10.9,11.05,f)];STORM.r=1;SIM.t=pass('maasin')-4+f*60;once('c3',f,.4,()=>SND.clunk());once('c4',f,.7,()=>SND.clunk())}},
-  {m:'train',d:11,s:[1,0,1],t:()=>fmtT(pass('maasin')+30)+' · Maasin',h:'Holding while the eye passes',p:'Maasin is a storm-shelter station: deep foundations, thick storm walls and a heavy roof, with the through track sealed in its own box. While the worst of the wind passes the express holds inside, and the deck above the surge line is an evacuation centre for three thousand people.',
-   on(){tr({env:'station',tod:'day',wx:'storm',moving:false});view3('q3',true);SND.mix({rail:0,wind:.35,rain:.25,crowd:1})},up(f){cam([-40,10,38],[-110,5,0],[-150,13,36],[-200,5,0],f)}},
-  {m:'train',d:9,s:[1,0,1],t:()=>fmtT(pass('maasin')+48)+' · The medical car',h:'A field hospital',p:'On any other day it is a clinic, with a consulting room, two beds and a pharmacy. In rescue mode it opens fourteen cots for the injured, with a doctor and nurses on board.',
-   on(){tr({env:'station',moving:false});view3('med',true);SND.mix({rail:0,wind:.25,rain:.2,crowd:.5})},up(f){const c=carOf('med');if(c)cam([c.x0+2.3,c.fl+1.6,-.4],[c.x0+14,c.fl+.9,.6],[c.x0+9,c.fl+1.7,0],[c.x0+20,c.fl+.8,-.6],f)}},
-  {m:'map',d:11,s:[1,0,1],t:()=>fmtT(pass('surigao')+40)+' · Under the Surigao Strait',h:'Into Mindanao',p:'The eye moves on toward Panay and Mindoro. The express runs on under the Surigao Strait into Mindanao, south of the typhoon belt, with its evacuees asleep in the bunks.',
-   on(){SND.thump();SND.mix({rail:.6,wind:.3,rain:.2,crowd:0})},up(f){mapTo([123.2,126.4,8.0,12.0],f,[123.5,126.4,6.8,10.4]);STORM.ll=[lerp(124.4,123.0,f),lerp(11.2,11.35,f)];SIM.t=pass('surigao')+40+f*90}},
-  {m:'map',d:13,s:[1,0,1],t:()=>fmtT(pass('davao')+60)+' · Davao',h:'The lifeline',p:'Luzon to Mindanao in one day, through a typhoon, without stopping. Every person carried out, every crate carried in, while the planes and the ferries waited for the storm to pass.',
-   on(){SND.mix({rail:0,wind:0,rain:0,crowd:0,slow:1})},up(f){mapTo([117.0,127.4,5.0,19.0],0);STORM.ll=[lerp(122.2,119.8,f),lerp(11.6,12.0,f)];STORM.r=lerp(1,.8,f);SIM.t=pass('davao')+40+f*60}}];
+   on(){tr({env:'fields',wx:'storm'});view3('ecoU',true);if(T3){T3.res=0;applyRes(T3)}SND.mix({rail:.5,wind:.6,rain:.5,inside:1})},up(f){if(T3&&f<.25){T3.res=0;applyRes(T3)}const c=carOf('eco');if(c)cam([c.x0+3.3,4.2,.15],[c.x0+18,3.4,0],[c.x0+5.4,4.15,.1],[c.x0+20,3.25,.4],f,1)}},
+  {m:'train',d:9,s:[1,0,1],t:()=>fmtT(pass('ubay')+6)+' · A pod’s hold',h:'Supplies in',p:'Under the passenger floor of every slip pod, the hold is packed with water, food and relief supplies for the places the storm will hit; orange chevrons on the hold doors say so.',
+   on(){tr({env:'fields',wx:'storm',style:'render'});view3('hold',true);SND.mix({rail:.6,wind:.8,rain:.7,inside:0})},up(f){const c=HOLDCAR;if(c)cam([c.x0+2.5,1.35,6.6],[c.x0+6,1.2,0],[c.x0+14,1.5,6.2],[c.x0+11,1.2,0],f,1)}},
+  {m:'map',d:12,s:[1,0,1],t:()=>fmtT(pass('maasin'))+' · Leyte and Samar',h:'People out, supplies in',p:()=>`Pods of supplies slip off at ${list(ln())}; pods filling with evacuees latch on and head south, out of the storm’s path. At Maasin the express itself pulls into the storm-shelter station and holds.`,
+   on(){SND.mix({rail:.5,wind:.9,rain:.8})},up(f){mapTo([123.6,126.4,9.6,12.7],0);STORM.ll=[lerp(126.4,125.6,f),lerp(10.9,11.05,f)];STORM.r=1;SIM.t=pass('maasin')-6+f*50;once('c3',f,.4,()=>SND.clunk());once('c4',f,.7,()=>SND.clunk())}},
+  {m:'train',d:11,s:[1,0,1],t:()=>fmtT(holdAt()+15)+' · Maasin',h:'Holding while the eye passes',p:'Maasin is a storm-shelter station: deep foundations, thick storm walls and a heavy roof, with the through track sealed in its own box. While the worst of the wind passes the express holds inside, and the deck above the surge line is an evacuation centre for three thousand people.',
+   on(){tr({env:'station',tod:'day',wx:'storm',moving:false});view3('q3',true);SND.chime();SND.mix({rail:0,wind:.35,rain:.25,crowd:1,inside:1})},up(f){cam([-40,10,38],[-110,5,0],[-150,13,36],[-200,5,0],f)}},
+  {m:'train',d:9,s:[1,0,1],t:()=>fmtT(holdAt()+35)+' · The medical car',h:'A field hospital',p:'On any other day it is a clinic, with a consulting room, two beds and a pharmacy. In rescue mode it opens fourteen cots for the injured, with a doctor and nurses on board.',
+   on(){tr({env:'station',moving:false});view3('med',true);SND.mix({rail:0,wind:.25,rain:.2,crowd:.5,inside:1})},up(f){const c=carOf('med');if(c)cam([c.x0+2.3,c.fl+1.6,-.4],[c.x0+14,c.fl+.9,.6],[c.x0+9,c.fl+1.7,0],[c.x0+20,c.fl+.8,-.6],f,1)}},
+  {m:'map',d:11,s:[1,0,1],t:()=>fmtT(pass('surigao')-8)+' · Under the Surigao Strait',h:'Into Mindanao',p:'The eye has moved on toward Panay and Mindoro. The express runs on under the Surigao Strait into Mindanao, south of the typhoon belt, with its evacuees asleep in the bunks.',
+   on(){SND.thump();SND.mix({rail:.6,wind:.3,rain:.2,crowd:0,inside:0})},up(f){mapTo([123.2,126.4,8.0,12.0],f,[123.5,126.4,6.8,10.4]);STORM.ll=[lerp(124.4,123.0,f),lerp(11.2,11.35,f)];SIM.t=pass('surigao')-20+f*70}},
+  {m:'map',d:13,s:[1,0,1],t:()=>fmtT(pass('davao'))+' · Davao',h:'The lifeline',p:()=>`Luzon to Mindanao in ${fmtD(pass('davao')-dep)}, through a typhoon, with one stop to shelter. Every person carried out, every crate carried in, while the planes and the ferries waited for the storm to pass.`,
+   on(){SND.close();SND.mix({rail:0,wind:0,rain:0,crowd:0,inside:0,slow:1})},up(f){mapTo([117.0,127.4,5.0,19.0],0);STORM.ll=[lerp(122.2,119.8,f),lerp(11.6,12.0,f)];STORM.r=lerp(1,.8,f);SIM.t=pass('davao')-20+f*40}}];
  function show(n){i=cl(n,0,SH.length-1);const s=SH[i];t0=performance.now();paused=false;fx={};$('sPlay').textContent='Pause';
   const m=s.m==='train';if(m&&!init3D()){next();return}
-  const [r,a,st]=s.s;if(!!V.rescue!==!!r)setRescue(!!r);AIR=!!a;STORM.on=!!st;status();if(T3&&m){T3.res=r?1:0;applyRes(T3,true)}
+  const [r,a,sto]=s.s;if(!!V.rescue!==!!r)setRescue(!!r);AIR=!!a;STORM.on=!!sto;status();if(T3&&m){T3.res=r?1:0;applyRes(T3,true)}
   document.body.classList.toggle('m-train',m);if(m){T3.build();resize()}MAPDIRTY=true;
   s.on();$('capT').textContent=s.t();$('capH').textContent=s.h;$('capP').textContent=typeof s.p==='function'?s.p():s.p;
   const c=$('cap');if(!RM&&c.animate)c.animate([{opacity:0,transform:'translate(-50%,10px)'},{opacity:1,transform:'translate(-50%,0)'}],{duration:700,easing:'ease-out'})}
  function next(){if(i<SH.length-1)show(i+1);else stop()}
  function begin(snd){$('sAsk').style.display='none';SND.set(snd);V.sound=snd;need3D().then(()=>show(0),()=>show(0))}
- function start(){if(on)return;on=true;$('tour').style.display='none';saved={V:Object.assign({},V),t:SIM.t,vb:Object.assign({},VB)};closeCard();closePops();RIDE=null;V.reach=0;drawReach();
-  let k=Math.ceil((1440+330)/S.hw);while(!serves('batangas',k))k++;dep=k*S.hw;
+ function start(){if(on)return;on=true;$('tour').style.display='none';document.querySelector('aside').inert=true;saved={V:Object.assign({},V),t:SIM.t,vb:Object.assign({},VB)};closeCard();closePops();RIDE=null;V.reach=0;drawReach();
+  let k=Math.ceil((1440+330)/S.hw);while(!serves('batangas',k))k++;K=k;dep=k*S.hw;
   document.body.classList.add('story');document.body.classList.remove('present');mapTo([119.9,122.3,13.3,15.6],0);SIM.t=dep-6;$('capT').textContent='';$('capH').textContent='';$('capP').textContent='';
-  // sound plays quietly unless you've turned it off; Sound off in the bar above mutes it
   begin(V.sound!==false)}
- function stop(){if(!on)return;on=false;document.body.classList.remove('story');$('sAsk').style.display='none';STORM.on=false;SND.set(false);const sv=saved.V,snd=V.sound;Object.assign(V,sv);V.sound=snd;setRescue(sv.rescue);AIR=!sv.rescue;status();SIM.t=saved.t;
+ function stop(){if(!on)return;on=false;document.querySelector('aside').inert=false;document.body.classList.remove('story');$('sAsk').style.display='none';STORM.on=false;SND.set(false);const sv=saved.V,snd=V.sound;Object.assign(V,sv);V.sound=snd;setRescue(sv.rescue);AIR=!sv.rescue;status();SIM.t=saved.t;
   if(T3){T3.res=V.rescue?1:0;applyRes(T3,true);scene3()}setMode(sv.mode);setVB(saved.vb);if(V.mode==='train')view3(V.tview==='walk'?'q3':V.tview,true);chips();save();try{if(!localStorage.getItem('durchfahrtTour'))setTimeout(()=>tour(0),600)}catch(e){}}
  function tick(){if(!on||$('sAsk').style.display==='flex')return;const s=SH[i];const el=performance.now()-t0;const f=paused?pauseAt:Math.min(1,el/(s.d*1000));if(!paused)pauseAt=f;s.up(f);SND.gust(performance.now()/1000);
   $('sProg').style.width=((i+f)/SH.length*100).toFixed(1)+'%';if(f>=1&&!paused)next()}
  $('sPrev').onclick=()=>show(i-1);$('sNext').onclick=()=>next();$('sExit').onclick=()=>stop();
  $('sPlay').onclick=()=>{if(paused){paused=false;t0=performance.now()-pauseAt*SH[i].d*1000;$('sPlay').textContent='Pause'}else{paused=true;$('sPlay').textContent='Play'}};
  $('sSnd').onclick=()=>{V.sound=!SND.on;SND.set(V.sound);try{const v=JSON.parse(localStorage.getItem(VK)||'{}');v.sound=V.sound;localStorage.setItem(VK,JSON.stringify(v))}catch(e){}};$('sYes').onclick=()=>begin(true);$('sNo').onclick=()=>begin(false);
- return{start,stop,tick,get on(){return on}}})();
+ return{start,stop,tick,drawX,hides:D=>D.leaf==='clark'&&D.k===K,get on(){return on}}})();
 
 /* ===== Tour ===== */
 const TOUR=[['The map is the home view','Gold is the central spine, blue the eastern branch to Leyte and Samar, green the western branch to Palawan. Squares are storm-shelter stations. Drag and pinch to move.'],
@@ -1355,7 +1425,7 @@ function loop(){requestAnimationFrame(loop);const now=performance.now(),dt=Math.
   if(TW){const f=Math.min(1,(now-TW.s)/TW.d),e=ease(f);T.cam.position.lerpVectors(TW.p0,TW.p,e);T.ctl.target.lerpVectors(TW.t0,TW.t,e);if(f>=1)TW=null}
   if(FLY){const f=(now-FLY.s)/FLY.d;if(f>=1){FLY=null;T.ctl.enabled=true;view3('q3')}else{const e=f,p=FLY.cu.getPointAt(e),q=FLY.cu.getPointAt(Math.min(1,e+.004));T.cam.position.copy(p);T.ctl.target.copy(q.lengthSq()?q:p);T.cam.lookAt(q)}}
   else if(!story.on||true)T.ctl.update();
-  if(T.labels.length&&V.lab&&!WALKING&&!story.on){const w=stage.clientWidth,h=stage.clientHeight,placed=[];const ls=T.labels.map(l=>{tmpV.copy(l.p).project(T.cam);return{l,x:(tmpV.x+1)/2*w,y:(1-tmpV.y)/2*h,z:tmpV.z,d:T.cam.position.distanceTo(l.p)}}).sort((a,b)=>a.d-b.d);
+  if(T.labels.length&&V.lab&&!WALKING&&!story.on&&V.tview!=='hall'&&V.tview!=='platform'){const w=stage.clientWidth,h=stage.clientHeight,placed=[];const ls=T.labels.map(l=>{tmpV.copy(l.p).project(T.cam);return{l,x:(tmpV.x+1)/2*w,y:(1-tmpV.y)/2*h,z:tmpV.z,d:T.cam.position.distanceTo(l.p)}}).sort((a,b)=>a.d-b.d);
    for(const q of ls){let vis=q.z<1&&q.x>-40&&q.x<w+40&&q.y>0&&q.y<h;if(vis)for(const p of placed)if(Math.abs(p.x-q.x)<(p.l.w+q.l.w)/2&&Math.abs(p.y-q.y)<22){vis=false;break}if(vis)placed.push(q);q.l.el.style.display=vis?'block':'none';if(vis)q.l.el.style.transform=`translate(${q.x.toFixed(1)}px,${q.y.toFixed(1)}px) translate(-50%,-50%)`}}
   else for(const l of T.labels)l.el.style.display='none';
   const busy=V.moving||TW||FLY||DEMO||W.rain.m.visible||story.on||Math.abs(T.res-(V.rescue?1:0))>.001||T.dirty;if(busy){render3();T.dirty=false}}}
@@ -1368,7 +1438,7 @@ jSync();sync();chips();status();
 setMode('map');
 requestAnimationFrame(()=>{resize();setVB(fitBox(MVIEWS[V.view][1]));drawReach()});
 loop();
-{const ld=$('load');ld.classList.add('ready');$('loadMsg').textContent='Click to start the story';const go=()=>{if(ld.classList.contains('done'))return;ld.classList.add('done');story.start();setTimeout(()=>ld.remove(),1200)};/* the study opens on the story; the tap also lets the browser play its sound */ld.onclick=go;ld.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')go()};setTimeout(()=>{if(document.contains(ld)&&!RM)ld.querySelector('.enter').textContent='Click to start the story'},10)}
+{const ld=$('load');ld.classList.add('ready');$('loadMsg').textContent=(matchMedia('(pointer:coarse)').matches?'Tap':'Click')+' to start the story';const go=()=>{if(ld.classList.contains('done'))return;ld.classList.add('done');story.start();setTimeout(()=>ld.remove(),1200)};/* the study opens on the story; the tap also lets the browser play its sound */ld.onclick=go;ld.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')go()};setTimeout(()=>{if(document.contains(ld)&&!RM)ld.querySelector('.enter').textContent=(matchMedia('(pointer:coarse)').matches?'Tap':'Click')+' to start the story'},10)}
 setTimeout(()=>{const h=$('hint');if(h)h.style.opacity=0},9000);
 setTimeout(()=>{if(!window.THREE)need3D().catch(()=>{})},4000);// fetch the 3D engine once the map is up
 
