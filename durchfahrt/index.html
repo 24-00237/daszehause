@@ -155,7 +155,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
 <body>
 <div class="app">
   <div class="stage" id="stage">
-    <div class="load" id="load" role="button" tabindex="0" aria-label="Enter Durchfahrt"><b>Durchfahrt</b><i>Archipelago train study · Luzon to Mindanao without a stop</i><span class="ln" aria-hidden="true"></span><span class="enter" id="loadMsg">Drawing the islands…</span></div>
+    <div class="load" id="load" role="button" tabindex="0" aria-label="Start the Durchfahrt story"><b>Durchfahrt</b><i>Archipelago train study · Luzon to Mindanao without a stop</i><span class="ln" aria-hidden="true"></span><span class="enter" id="loadMsg">Drawing the islands…</span></div>
     <svg id="map" role="application" aria-label="Network map of Durchfahrt across the Philippines. Drag to pan, scroll or pinch to zoom, tap a station or a train."></svg>
     <canvas id="tc" aria-hidden="true"></canvas>
     <canvas id="cv" aria-label="3D model of the Durchfahrt train. Drag to orbit, scroll or pinch to zoom."></canvas>
@@ -377,7 +377,7 @@ const fmtK=k=>Math.round(k).toLocaleString('en-GB')+' km';
 /* ===== State: the design (S) and the scene (V), saved in localStorage ===== */
 const DEF={v:250,hw:30,tcap:220,pods:3,dest:2,eco:2,obs:true,med:true,lower:'storm',nose:'long',podF:'round'};
 const STUDIES={A:{n:'A · Everyday',d:{}},B:{n:'B · Fast line',d:{v:320,hw:15,tcap:250}},C:{n:'C · Proven third rail',d:{v:160,tcap:160}},D:{n:'D · Relief fleet',d:{pods:4,eco:3,dest:1}}};
-const VDEF={mode:'map',view:'arch',tview:'q3',rescue:false,rate:4,belt:true,tracks:false,xings:true,power:false,isl:true,names:true,from:'manila',to:'cebu',at:480,reach:0,env:'fields',tod:'day',wx:'clear',moving:true,style:'render',lab:true,clock:450,sound:false};
+const VDEF={mode:'map',view:'arch',tview:'q3',rescue:false,rate:4,belt:true,tracks:false,xings:true,power:false,isl:true,names:true,from:'manila',to:'cebu',at:480,reach:0,env:'fields',tod:'day',wx:'clear',moving:true,style:'render',lab:true,clock:450,sound:true};
 const SK='durchfahrtS',VK='durchfahrtV';
 let S=Object.assign({},DEF),V=Object.assign({},VDEF),HIST=[];
 try{Object.assign(S,JSON.parse(localStorage.getItem(SK))||{})}catch(e){}
@@ -1241,7 +1241,7 @@ const SND={ctx:null,g:{},on:false,lv:{rail:0,wind:0,rain:0,crowd:0},
   const mk=(f,q,type)=>{const n=noise(),fl=ctx.createBiquadFilter();fl.type=type;fl.frequency.value=f;fl.Q.value=q;const g=ctx.createGain();g.gain.value=0;n.connect(fl);fl.connect(g);g.connect(out);return{g,fl}};
   this.g.rail=mk(220,.8,'lowpass');this.g.wind=mk(520,1.2,'bandpass');this.g.rain=mk(3500,.5,'highpass');this.g.crowd=mk(520,1.6,'bandpass');
   const o=ctx.createOscillator(),bp=ctx.createBiquadFilter(),og=ctx.createGain();o.type='sawtooth';o.frequency.value=180;bp.type='bandpass';bp.Q.value=6;bp.frequency.value=360;og.gain.value=0;o.connect(bp);bp.connect(og);og.connect(out);o.start();this.g.whine={g:og,o,bp}},
- set(on){this.on=on;if(on){this.init();if(!this.ctx)return;this.ctx.resume();this.out.gain.setTargetAtTime(.8,this.ctx.currentTime,.4)}else if(this.ctx)this.out.gain.setTargetAtTime(0,this.ctx.currentTime,.2);$('sSnd').textContent=on?'Sound off':'Sound on'},
+ set(on){this.on=on;if(on){this.init();if(!this.ctx)return;this.ctx.resume();this.out.gain.setTargetAtTime(.18,this.ctx.currentTime,.4)}else if(this.ctx)this.out.gain.setTargetAtTime(0,this.ctx.currentTime,.2);$('sSnd').textContent=on?'Sound off':'Sound on'},
  mix(o){Object.assign(this.lv,o);if(!this.ctx||!this.on)return;const t=this.ctx.currentTime,L=this.lv,tc=o.slow?2.5:.7;
   this.g.rail.g.gain.setTargetAtTime(L.rail*.55,t,tc);this.g.whine.g.gain.setTargetAtTime(L.rail*.05,t,tc);this.g.whine.o.frequency.setTargetAtTime(120+L.rail*130,t,1.2);this.g.whine.bp.frequency.setTargetAtTime(240+L.rail*260,t,1.2);
   this.g.rain.g.gain.setTargetAtTime(L.rain*.22,t,tc);this.g.crowd.g.gain.setTargetAtTime(L.crowd*.3,t,tc)},
@@ -1300,15 +1300,15 @@ const story=(()=>{let i=0,t0=0,paused=false,pauseAt=0,saved=null,dep=0,on=false,
  function start(){if(on)return;on=true;$('tour').style.display='none';saved={V:Object.assign({},V),t:SIM.t,vb:Object.assign({},VB)};closeCard();closePops();RIDE=null;V.reach=0;drawReach();
   let k=Math.ceil((1440+330)/S.hw);while(!serves('batangas',k))k++;dep=k*S.hw;
   document.body.classList.add('story');document.body.classList.remove('present');mapTo([119.9,122.3,13.3,15.6],0);SIM.t=dep-6;$('capT').textContent='';$('capH').textContent='';$('capP').textContent='';
-  // ask about sound first: the tap also lets the browser play it
-  $('sAsk').style.display='flex';need3D().catch(()=>{})}
- function stop(){if(!on)return;on=false;document.body.classList.remove('story');$('sAsk').style.display='none';STORM.on=false;SND.set(false);const sv=saved.V;Object.assign(V,sv);setRescue(sv.rescue);AIR=!sv.rescue;status();SIM.t=saved.t;
-  if(T3){T3.res=V.rescue?1:0;applyRes(T3,true);scene3()}setMode(sv.mode);setVB(saved.vb);if(V.mode==='train')view3(V.tview==='walk'?'q3':V.tview,true);chips();save()}
+  // sound plays quietly unless you've turned it off; Sound off in the bar above mutes it
+  begin(V.sound!==false)}
+ function stop(){if(!on)return;on=false;document.body.classList.remove('story');$('sAsk').style.display='none';STORM.on=false;SND.set(false);const sv=saved.V,snd=V.sound;Object.assign(V,sv);V.sound=snd;setRescue(sv.rescue);AIR=!sv.rescue;status();SIM.t=saved.t;
+  if(T3){T3.res=V.rescue?1:0;applyRes(T3,true);scene3()}setMode(sv.mode);setVB(saved.vb);if(V.mode==='train')view3(V.tview==='walk'?'q3':V.tview,true);chips();save();try{if(!localStorage.getItem('durchfahrtTour'))setTimeout(()=>tour(0),600)}catch(e){}}
  function tick(){if(!on||$('sAsk').style.display==='flex')return;const s=SH[i];const el=performance.now()-t0;const f=paused?pauseAt:Math.min(1,el/(s.d*1000));if(!paused)pauseAt=f;s.up(f);SND.gust(performance.now()/1000);
   $('sProg').style.width=((i+f)/SH.length*100).toFixed(1)+'%';if(f>=1&&!paused)next()}
  $('sPrev').onclick=()=>show(i-1);$('sNext').onclick=()=>next();$('sExit').onclick=()=>stop();
  $('sPlay').onclick=()=>{if(paused){paused=false;t0=performance.now()-pauseAt*SH[i].d*1000;$('sPlay').textContent='Pause'}else{paused=true;$('sPlay').textContent='Play'}};
- $('sSnd').onclick=()=>{V.sound=!SND.on;SND.set(V.sound)};$('sYes').onclick=()=>begin(true);$('sNo').onclick=()=>begin(false);
+ $('sSnd').onclick=()=>{V.sound=!SND.on;SND.set(V.sound);try{const v=JSON.parse(localStorage.getItem(VK)||'{}');v.sound=V.sound;localStorage.setItem(VK,JSON.stringify(v))}catch(e){}};$('sYes').onclick=()=>begin(true);$('sNo').onclick=()=>begin(false);
  return{start,stop,tick,get on(){return on}}})();
 
 /* ===== Tour ===== */
@@ -1368,7 +1368,7 @@ jSync();sync();chips();status();
 setMode('map');
 requestAnimationFrame(()=>{resize();setVB(fitBox(MVIEWS[V.view][1]));drawReach()});
 loop();
-{const ld=$('load');ld.classList.add('ready');$('loadMsg').textContent='Click to enter';const go=()=>{ld.classList.add('done');try{if(!localStorage.getItem('durchfahrtTour'))setTimeout(()=>tour(0),900)}catch(e){}setTimeout(()=>ld.remove(),1200)};ld.onclick=go;ld.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')go()};setTimeout(()=>{if(document.contains(ld)&&!RM)ld.querySelector('.enter').textContent='Click to enter'},10)}
+{const ld=$('load');ld.classList.add('ready');$('loadMsg').textContent='Click to start the story';const go=()=>{if(ld.classList.contains('done'))return;ld.classList.add('done');story.start();setTimeout(()=>ld.remove(),1200)};/* the study opens on the story; the tap also lets the browser play its sound */ld.onclick=go;ld.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')go()};setTimeout(()=>{if(document.contains(ld)&&!RM)ld.querySelector('.enter').textContent='Click to start the story'},10)}
 setTimeout(()=>{const h=$('hint');if(h)h.style.opacity=0},9000);
 setTimeout(()=>{if(!window.THREE)need3D().catch(()=>{})},4000);// fetch the 3D engine once the map is up
 
