@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Geborgenheit — Sanctuary Study</title>
 <link rel="apple-touch-icon" href="/daszehause/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/daszehause/icons/icon-192.png">
-<meta name="description" content="An interactive 3D sanctuary by Andre Parrocho: Geborgenheit, a retreat carved into the wall of a river gorge in the Bukidnon highlands, Mindanao, with an underground garden under a light well, a vault, and enough stored food, river water and river power to shelter a family for about a year. Sixth of the Design Studies.">
+<meta name="description" content="An interactive 3D sanctuary by Andre Parrocho: Geborgenheit, a retreat carved into the wall of a river gorge in the Bukidnon highlands, Mindanao, with an underground garden under a light well, a vault, and enough stored food, river water and river power to shelter a family for about a year. Fifth of the Design Studies.">
 <meta property="og:title" content="Geborgenheit — Sanctuary Study"><meta property="og:description" content="A deep sanctuary set into a river gorge in Mindanao: a lantern path along the water, a garden under a light well with a thin waterfall, a vault, and a family wing that stays sealed until it's needed.">
 <meta property="og:type" content="website"><meta property="og:url" content="https://24-00237.github.io/daszehause/geborgenheit/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
 <style>
-/* VOICE: a sanctuary's study sheet — warm, unhurried, reassuring; the sixth sheet after das Zuhause, Fernweh, Bergruhe, Heimweg and Denkraum.
+/* VOICE: a sanctuary's study sheet — warm, unhurried, reassuring; the fifth sheet after das Zuhause, Fernweh, Bergruhe and Denkraum.
    IDEA: a home held inside the rock of a river gorge, opened like a cross-section: a garden at its heart under a shaft of sky, the vault beside it.
    PICTURE: Geborgenheit at dusk from across the river: lanterns along the water, a carved door with its greeting light, a long window over the river.
    COLOUR and TYPE: warm gorge-stone paper, dark ink, narra and bamboo, one lantern-amber accent from the path lamps; Archivo, wide for titles.
@@ -84,8 +84,9 @@ textarea{width:100%;min-height:80px;font:12.5px/1.4 ui-monospace,monospace;borde
 /* Tables wrap long values; panel sections fold; the switcher is one row; phone buttons are finger-sized */
 td.n{white-space:normal;min-width:4.5em}
 .studynav{gap:3px;flex-wrap:nowrap}.studynav a{padding-left:6px;padding-right:6px;font-size:12px;white-space:nowrap}
-/* six studies outgrow the panel: the switcher stays one row and scrolls sideways, fading out at the right edge */
+/* the studies and the models outgrow the panel: the switcher stays one row and scrolls sideways, fading out at the right edge; a thin rule sets the models apart */
 .studynav{overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}.studynav::-webkit-scrollbar{display:none}.studynav a{flex:none}.studynav::after{content:"";flex:none;width:22px}.studynav a[aria-current]{display:none}.studynav a.home{padding:0 8px;font-size:16px}
+.studynav .nsep{flex:none;width:1px;background:var(--line);margin:5px 5px}.studynav .nlab{flex:none;align-self:center;font:700 10.5px Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:0 3px 0 1px}
 .fold{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:36px;cursor:pointer;font:inherit}
 .fold::after{content:'';flex:none;width:7px;height:7px;margin:0 6px 4px 0;border-right:1.6px solid var(--mute);border-bottom:1.6px solid var(--mute);transform:rotate(45deg);transition:transform .2s}
 .fold[aria-expanded="false"]::after{margin-bottom:0;transform:rotate(-45deg)}
@@ -114,9 +115,9 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
     </div>
   </div>
   <aside>
-    <nav class="studynav" aria-label="Design studies"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies" title="All studies">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a><a href="https://24-00237.github.io/daszehause/denkraum/">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/" aria-current="page">Geborgenheit</a></nav>
+    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies and models" title="All studies and models">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/denkraum/">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/" aria-current="page">Geborgenheit</a><a href="https://24-00237.github.io/daszehause/sternweh/">Sternweh</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a></nav>
     <h1>Geborgenheit</h1>
-    <p class="sub">A sanctuary study and the sixth of the Design Studies: a deep retreat set into the wall of a river gorge in the Bukidnon highlands, Mindanao. Day to day it's a quiet place to withdraw to; in an emergency it shelters the family for about a year. <i>Geborgenheit</i> is German for the feeling of being completely sheltered and safe.</p>
+    <p class="sub">A sanctuary study and the fifth of the Design Studies: a deep retreat set into the wall of a river gorge in the Bukidnon highlands, Mindanao. Day to day it's a quiet place to withdraw to; in an emergency it shelters the family for about a year. <i>Geborgenheit</i> is German for the feeling of being completely sheltered and safe.</p>
     <div class="studies" id="studies"></div>
     <div class="bar"><button class="btn" id="undo" type="button">Undo</button><button class="btn" id="reset" type="button">Back to base</button></div>
     <div id="ctrls"></div>
@@ -126,7 +127,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
       <textarea id="code" spellcheck="false" aria-label="Design code"></textarea>
       <div class="bar" style="margin-top:8px"><button class="btn pri" id="copy" type="button">Copy code</button><button class="btn" id="loadC" type="button">Load</button></div>
       <p class="note" id="msg"></p></details>
-    <section><h2>About</h2><p class="why">Geborgenheit is a sanctuary design study by Andre Parrocho, made in November 2026 as the sixth of the Design Studies. It follows Heimweg and Denkraum: Heimweg is the car that brings you here and charges in its hidden bay on the plateau, and the vault comes from Denkraum. The glass lift up the light well echoes das Zuhause's glass core. Inside there are no ceiling lights at all, only uplights and lamps, so the rock and the woven wall glow from below.</p><p class="note">It’s a design exploration, not a construction drawing. Areas, food, water and power figures are rough estimates from the model’s shape. The model doesn’t check the rock, flooding, structure, ventilation or local rules.</p><p class="note"><a href="https://24-00237.github.io/daszehause/heimweg/" style="color:inherit">Heimweg</a> · <a href="https://24-00237.github.io/daszehause/denkraum/" style="color:inherit">Denkraum</a> · <a href="https://24-00237.github.io/daszehause/" style="color:inherit">All design studies</a></p></section>
+    <section><h2>About</h2><p class="why">Geborgenheit is a sanctuary design study by Andre Parrocho, made in November 2026 as the fifth of the Design Studies. It follows Denkraum; Heimweg, the first of the Models, is the car that brings you here and charges in its hidden bay on the plateau, and the vault comes from Denkraum. The glass lift up the light well echoes das Zuhause's glass core. Inside there are no ceiling lights at all, only uplights and lamps, so the rock and the woven wall glow from below. Sternweh, the sixth study, takes both ideas into the Atacama: a house sunk into the ground, lit only by lamps, uplights and the stars.</p><p class="note">It’s a design exploration, not a construction drawing. Areas, food, water and power figures are rough estimates from the model’s shape. The model doesn’t check the rock, flooding, structure, ventilation or local rules.</p><p class="note"><a href="https://24-00237.github.io/daszehause/heimweg/" style="color:inherit">Heimweg</a> · <a href="https://24-00237.github.io/daszehause/sternweh/" style="color:inherit">Sternweh</a> · <a href="https://24-00237.github.io/daszehause/denkraum/" style="color:inherit">Denkraum</a> · <a href="https://24-00237.github.io/daszehause/" style="color:inherit">All design studies</a></p></section>
   </aside>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -139,7 +140,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
 <script>if(!window.THREE)document.getElementById('loadMsg').textContent='The 3D engine couldn’t load. Check your connection and refresh the page.'</script>
 <script>
-/* Heimweg: the shared car builder (an original design). Used by /heimweg/, Bergruhe's garage, Denkraum's garage and Geborgenheit's bay.
+/* Heimweg: the shared car builder (an original design). Used by /heimweg/, Bergruhe's garage, Denkraum's garage, Geborgenheit's bay and Sternweh's showroom.
    heimweg(o) -> {g, up, lights:[{m,z,front}], doors:[{g,side}], head:[{x,y,z}]}
    Nose points +x, y up, wheels on y=0. o: body, clad, tint, dim, wheel, tyre, light, platform, roofLoad, wool, white */
 function heimweg(o){

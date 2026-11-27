@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Design Studies — Andre Parrocho</title>
 <link rel="apple-touch-icon" href="/daszehause/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/daszehause/icons/icon-192.png">
-<meta name="description" content="Interactive 3D design studies by Andre Parrocho: das Zuhause, a residence in tropical brutalism, Fernweh, the explorer yacht that docks at its jetty, Bergruhe, a cabin in the Alps, Heimweg, the off-roader that drives between them, Denkraum, a vault-hearted studio high in a Manila tower, and Geborgenheit, a sanctuary set into a river gorge in Mindanao.">
-<meta property="og:title" content="Design Studies — Andre Parrocho"><meta property="og:description" content="das Zuhause, a residence in tropical brutalism; Fernweh, the explorer yacht; Bergruhe, a cabin in the Alps; Heimweg, an electric off-roader; Denkraum, a studio built around a vault; and Geborgenheit, a sanctuary in a river gorge."><meta property="og:type" content="website"><meta property="og:url" content="https://24-00237.github.io/daszehause/"><meta property="og:image" content="https://24-00237.github.io/daszehause/preview.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Interactive 3D design studies by Andre Parrocho. Design Studies, the places: das Zuhause, a residence in tropical brutalism; Fernweh, the explorer yacht that docks at its jetty; Bergruhe, a cabin in the Alps; Denkraum, a vault-hearted studio high in a Manila tower; Geborgenheit, a sanctuary set into a river gorge in Mindanao; and Sternweh, an observatory home sunk into the Atacama Desert. Models, the objects that travel between them: Heimweg, the off-roader, with more to come.">
+<meta property="og:title" content="Design Studies — Andre Parrocho"><meta property="og:description" content="Six places, das Zuhause, Fernweh, Bergruhe, Denkraum, Geborgenheit and Sternweh, and the Models that travel between them, starting with Heimweg, the off-roader."><meta property="og:type" content="website"><meta property="og:url" content="https://24-00237.github.io/daszehause/"><meta property="og:image" content="https://24-00237.github.io/daszehause/preview.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
 <style>
 /* VOICE: monumental and calm — tropical brutalism, with only a slight art deco accent.
-   IDEA: a board-formed concrete entrance wall in the tropics: heavy cast lettering, deep-set openings, a constellation of dots linking the studies, one lit stair.
-   PICTURE: each study shown as a drawing set deep into a thick concrete frame; a quiet constellation and the amber stair lights carry the mood.
+   IDEA: a board-formed concrete entrance wall in the tropics: heavy cast lettering, deep-set openings, a star map linking the studies and the models, one lit stair.
+   PICTURE: each study shown as a drawing set deep into a thick concrete frame; a star map of how everything connects and the amber stair lights carry the mood.
    COLOUR and TYPE: warm board-formed concrete, charcoal ink, tropical green, one amber accent from the step lights; Archivo wide and heavy.
-   LAYOUT: massive left-aligned title on a concrete band, then two deep-set sheets that stack below 760px. The deco touch is one small stepped mark. */
+   LAYOUT: massive left-aligned title on a concrete band with the star map beside it, then two groups of deep-set sheets, Design Studies (places) and Models (objects), that stack below 760px. The deco touch is one small stepped mark. */
 :root{color-scheme:light;--con:#d8d2c6;--con2:#cbc4b6;--ink:#1e1b17;--mute:#5e574d;--amber:#f0b44c;--green:#2f4a3a;--deep:#8f877a}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;color:var(--ink);font:16px/1.6 Archivo,system-ui,sans-serif;overflow-x:clip;
@@ -22,46 +22,66 @@ body{margin:0;color:var(--ink);font:16px/1.6 Archivo,system-ui,sans-serif;overfl
 a{color:inherit}
 .band{position:relative;overflow:hidden;background:linear-gradient(#c9c2b4,#bdb5a6);border-bottom:10px solid #a9a193;box-shadow:0 18px 30px -18px rgba(0,0,0,.35)}
 .band::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(0,0,0,0) 0 30px,rgba(40,32,24,.07) 30px 31px);pointer-events:none}
-.stars{position:absolute;right:-10px;top:-10px;width:min(560px,62vw);height:auto;opacity:.42;pointer-events:none}
-.head{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:clamp(40px,7vw,96px) max(5vw,16px) clamp(34px,5vw,60px)}
+.head{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:clamp(40px,7vw,96px) max(5vw,16px) clamp(30px,4vw,52px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,470px);gap:clamp(20px,4vw,56px);align-items:center}
 .by{font:700 13px Archivo,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:var(--mute);margin:0 0 14px;display:flex;align-items:center;gap:12px}
 /* the slight deco accent: a small stepped mark, like a ziggurat in cast concrete */
 .mark{width:34px;height:14px;flex:none;background:linear-gradient(var(--amber),var(--amber)) 13px 0/8px 4px no-repeat,linear-gradient(var(--amber),var(--amber)) 8px 5px/18px 4px no-repeat,linear-gradient(var(--amber),var(--amber)) 0 10px/34px 4px no-repeat}
 h1{font-size:clamp(46px,9vw,112px);line-height:.92;margin:0;font-stretch:125%;font-weight:800;letter-spacing:-.01em;text-transform:uppercase;text-wrap:balance;color:#24211c;text-shadow:0 1px 0 rgba(255,255,255,.35),0 -1px 0 rgba(0,0,0,.18)}
 .intro{max-width:52ch;margin:22px 0 0;color:#3c372f;font-size:17px}
-main{max-width:1240px;margin:0 auto;padding:clamp(34px,5vw,64px) max(5vw,16px) 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(20px,3vw,40px)}
-a.sheet{display:flex;flex-direction:column;text-decoration:none;background:linear-gradient(#cec7b9,#c4bcad);padding:16px 16px 0;box-shadow:0 2px 0 #b2aa9b,0 22px 34px -20px rgba(0,0,0,.45);transition:transform .35s ease,box-shadow .35s ease}
+/* the star map: every study and model is a star; the lines are the real links between them */
+.map{display:block;width:100%;height:auto;overflow:visible}
+.map text{font:600 12.5px Archivo,sans-serif;fill:#24211c}.map .f text{fill:#6b6357;font-weight:500;font-style:italic}.map .gl{font:700 9.5px Archivo,sans-serif;letter-spacing:.24em;text-transform:uppercase;fill:#6b6357}
+.map .hit{fill:transparent}.map a{cursor:pointer;outline:none}.map a:hover text,.map a:focus-visible text{fill:var(--green);text-decoration:underline}.map a:focus-visible .hit{stroke:var(--amber);stroke-width:2.5}
+main{max-width:1240px;margin:0 auto;padding:0 max(5vw,16px) 40px}
+.group{padding-top:clamp(34px,5vw,64px)}
+.ghead{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);align-items:end;gap:8px 28px;margin:0 0 clamp(18px,3vw,30px);border-top:3px solid #24211c;padding-top:14px}
+.ghead .kind{grid-column:1/-1}
+.ghead h2{font-size:clamp(32px,5vw,60px);line-height:.95;margin:0;font-stretch:125%;font-weight:800;text-transform:uppercase;letter-spacing:-.005em;color:#24211c}
+.ghead p.lead{margin:0;max-width:56ch;color:#3c372f;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(20px,3vw,40px)}
+.sheet{display:flex;flex-direction:column;text-decoration:none;background:linear-gradient(#cec7b9,#c4bcad);padding:16px 16px 0;box-shadow:0 2px 0 #b2aa9b,0 22px 34px -20px rgba(0,0,0,.45);transition:transform .35s ease,box-shadow .35s ease}
 a.sheet:hover{transform:translateY(-4px);box-shadow:0 2px 0 #b2aa9b,0 30px 40px -20px rgba(0,0,0,.5)}
 a.sheet:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
 .pic{position:relative;aspect-ratio:16/10;overflow:hidden;box-shadow:inset 0 10px 18px -8px rgba(0,0,0,.45),inset 0 0 0 1px rgba(0,0,0,.12)}
 .pic svg,.pic img{position:absolute;inset:0;width:100%;height:100%}.pic img{object-fit:cover;display:block}
-.zu .pic{background:#e4ddd0}.bg .pic{background:linear-gradient(#cfdbe4,#e9eef2)}.hw .pic{background:#2a2a2c}.dk .pic{background:#e4e1d8}.gb .pic{background:#e4ddd0}.fw .pic{background:linear-gradient(#cfe0e6,#e3ecee 58%,#2a6f86 58%,#1d5a70)}
+.zu .pic{background:#e4ddd0}.bg .pic{background:linear-gradient(#cfdbe4,#e9eef2)}.hw .pic{background:#2a2a2c}.dk .pic{background:#e4e1d8}.gb .pic{background:#e4ddd0}.sw .pic{background:#1c1f33}.fw .pic{background:linear-gradient(#cfe0e6,#e3ecee 58%,#2a6f86 58%,#1d5a70)}
 .txt{padding:20px 6px 22px}
 .kind{font:700 12px Archivo,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin:0}
-h2{font-size:clamp(28px,3vw,36px);line-height:1.05;margin:6px 0 10px;font-stretch:118%;font-weight:800}
+h3{font-size:clamp(28px,3vw,36px);line-height:1.05;margin:6px 0 10px;font-stretch:118%;font-weight:800}
 .txt p{margin:0 0 16px;max-width:52ch;color:#3c372f}
 .go{display:inline-flex;align-items:center;gap:10px;font:700 13px Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;min-height:44px;padding:0 18px;background:#24211c;color:#efe9de}
 .go i{width:8px;height:8px;background:var(--amber);box-shadow:0 0 8px var(--amber)}
 a.sheet:hover .go{background:#3a3530}
+/* models still to come: a dashed outline in a paler frame, not a link */
+.soon{background:linear-gradient(#d3ccbf,#cbc4b6);box-shadow:0 2px 0 #b9b1a3,0 14px 24px -20px rgba(0,0,0,.35)}.soon .pic{opacity:.8}.soon h3{color:#4a443c}
+.go.soonl{background:transparent;color:var(--mute);border:1.5px dashed #8f877a}.go.soonl i{background:transparent;border:1.5px solid var(--mute);box-shadow:none;width:7px;height:7px}
 footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--mute);font-size:13.5px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-@media(max-width:760px){main{grid-template-columns:minmax(0,1fr)}.stars{opacity:.3}}
-@media(prefers-reduced-motion:reduce){a.sheet{transition:none}a.sheet:hover{transform:none}}
+@media(max-width:900px){.head{grid-template-columns:minmax(0,1fr)}.map{max-width:520px}.ghead{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){.sheet{transition:none}a.sheet:hover{transform:none}}
 </style>
 </head>
 <body>
 <div class="band">
-  <svg class="stars" viewBox="0 0 400 300" aria-hidden="true">
-    <path d="M40 150L95 105M95 105L150 128M150 128L205 70M205 70L262 96M262 96L318 48M318 48L372 88M262 96L232 165M232 165L300 190M300 190L350 150M350 150L372 88" fill="none" stroke="#24211c" stroke-width="1.1"/>
-    <g fill="#24211c"><circle cx="40" cy="150" r="3"/><circle cx="95" cy="105" r="4"/><circle cx="150" cy="128" r="3"/><circle cx="205" cy="70" r="4.5"/><circle cx="318" cy="48" r="3.5"/><circle cx="372" cy="88" r="3"/><circle cx="232" cy="165" r="3.5"/><circle cx="300" cy="190" r="4"/><circle cx="350" cy="150" r="3"/></g><g fill="#24211c" opacity=".6"><circle cx="70" cy="40" r="1.6"/><circle cx="130" cy="60" r="1.6"/><circle cx="180" cy="210" r="1.6"/><circle cx="390" cy="200" r="1.6"/><circle cx="20" cy="240" r="1.6"/><circle cx="280" cy="250" r="1.6"/><circle cx="110" cy="190" r="1.6"/><circle cx="345" cy="20" r="1.6"/></g>
-    <circle cx="262" cy="96" r="5" fill="#f0b44c"/>
-  </svg>
   <div class="head">
-    <p class="by"><span class="mark" aria-hidden="true"></span>Andre Parrocho</p>
-    <h1>Design Studies</h1>
-    <p class="intro">Interactive 3D studies of a residence in tropical brutalism, the yacht that docks at its jetty, a cabin in the Alps, the car that drives between them, a studio built around a vault and a sanctuary set into a river gorge. Open any one to walk through it, change it, and see it by day or by night.</p>
+    <div>
+      <p class="by"><span class="mark" aria-hidden="true"></span>Andre Parrocho</p>
+      <h1>Design Studies</h1>
+      <p class="intro">Interactive 3D studies of six places: a residence in tropical brutalism, the yacht that docks at its jetty, a cabin in the Alps, a studio built around a vault, a sanctuary set into a river gorge and an observatory home sunk into the Atacama. Beside them, the Models, the objects that travel between them, starting with the car. Open any one to walk through it, change it, and see it by day or by night.</p>
+    </div>
+    <svg class="map" viewBox="0 0 460 320" role="group" aria-label="How the studies and models connect: each star opens one">
+      <g fill="#24211c" opacity=".45"><circle cx="30" cy="40" r="1.3"/><circle cx="84" cy="22" r="1.3"/><circle cx="210" cy="26" r="1.3"/><circle cx="330" cy="30" r="1.3"/><circle cx="420" cy="60" r="1.3"/><circle cx="12" cy="252" r="1.3"/><circle cx="96" cy="290" r="1.3"/><circle cx="250" cy="300" r="1.3"/><circle cx="300" cy="250" r="1.3"/><circle cx="440" cy="290" r="1.3"/><circle cx="196" cy="88" r="1.3"/><circle cx="60" cy="232" r="1.3"/></g>
+      <path d="M110 122L46 178 M110 122L152 54 M110 122L220 140 M110 122L150 214 M220 140L150 214 M46 178L150 214 M268 62L150 214 M268 62L110 122 M322 182L152 54 M322 182L220 140 M322 182L150 214 M322 182L268 62 M322 182L110 122" fill="none" stroke="#24211c" stroke-width="1.1"/>
+      <path d="M268 62L396 114 M322 182L396 114 M396 114L438 214 M438 214L372 268 M372 268L322 182" fill="none" stroke="#5e574d" stroke-width="1" stroke-dasharray="3 4"/>
+      <text class="gl" x="20" y="300">Design Studies</text><text class="gl" x="440" y="300" text-anchor="end">Models</text>
+      <a class="nd" href="zuhause/"><title>das Zuhause</title><circle class="hit" cx="110" cy="122" r="22"/><circle cx="110" cy="122" r="4.5" fill="#24211c"/><text x="100" y="110" text-anchor="end">das Zuhause</text></a><a class="nd" href="fernweh/"><title>Fernweh</title><circle class="hit" cx="46" cy="178" r="22"/><circle cx="46" cy="178" r="4" fill="#24211c"/><text x="38" y="194" text-anchor="middle">Fernweh</text></a><a class="nd" href="bergruhe/"><title>Bergruhe</title><circle class="hit" cx="152" cy="54" r="22"/><circle cx="152" cy="54" r="4" fill="#24211c"/><text x="162" y="48" text-anchor="start">Bergruhe</text></a><a class="nd" href="denkraum/"><title>Denkraum</title><circle class="hit" cx="220" cy="140" r="22"/><circle cx="220" cy="140" r="4" fill="#24211c"/><text x="230" y="154" text-anchor="start">Denkraum</text></a><a class="nd" href="geborgenheit/"><title>Geborgenheit</title><circle class="hit" cx="150" cy="214" r="22"/><circle cx="150" cy="214" r="4.5" fill="#24211c"/><text x="150" y="234" text-anchor="middle">Geborgenheit</text></a><a class="nd" href="sternweh/"><title>Sternweh</title><circle class="hit" cx="268" cy="62" r="22"/><circle cx="268" cy="62" r="5" fill="#24211c"/><text x="278" y="54" text-anchor="start">Sternweh</text></a><a class="nd" href="heimweg/"><title>Heimweg</title><circle class="hit" cx="322" cy="182" r="22"/><circle cx="322" cy="182" r="5.5" fill="#f0b44c"/><circle cx="322" cy="182" r="10.5" fill="none" stroke="#f0b44c" stroke-width="1" opacity=".7"/><text x="312" y="202" text-anchor="end">Heimweg</text></a><g class="nd f"><title>Nebelfänger: coming soon</title><circle cx="396" cy="114" r="4" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="2 2"/><text x="388" y="102" text-anchor="end">Nebelfänger</text></g><g class="nd f"><title>The arsenal: coming soon</title><circle cx="372" cy="268" r="4" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="2 2"/><text x="362" y="272" text-anchor="end">The arsenal</text></g><g class="nd f"><title>The wardrobe: coming soon</title><circle cx="438" cy="214" r="4" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="2 2"/><text x="434" y="234" text-anchor="end">The wardrobe</text></g>
+    </svg>
   </div>
 </div>
 <main>
+  <section class="group" aria-labelledby="h-studies">
+    <div class="ghead"><p class="kind">Places</p><h2 id="h-studies">Design Studies</h2><p class="lead">Places to live in, each one a whole world, and each one linked to the others.</p></div>
+    <div class="grid">
   <a class="sheet zu" href="zuhause/">
     <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Elevation of das Zuhause: a glass pavilion and a cantilevered concrete bar on a stone plinth, reached by a wide lit stair">
       <rect x="0" y="196" width="400" height="54" fill="#d6cdbd"/>
@@ -75,7 +95,7 @@ footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--m
       <g fill="#2f4a3a" opacity=".85"><path d="M28 196 C30 160 36 140 46 128 C40 150 38 172 36 196Z"/><path d="M46 128 C30 120 16 122 6 132 C20 126 32 128 44 134Z"/><path d="M46 128 C56 116 70 112 84 116 C70 118 58 124 48 134Z"/><path d="M46 128 C44 114 48 102 58 94 C52 106 50 118 50 132Z"/></g>
       <circle cx="318" cy="150" r="3" fill="#d2603a"/><rect x="316" y="153" width="4" height="13" fill="#d2603a"/>
     </svg></div>
-    <div class="txt"><p class="kind">Residence study</p><h2>das Zuhause</h2><p>A residence in tropical brutalism with mid-century and Japanese influences, entered by a wide lit stone stair, with a cistern beneath and a glass elevator core.</p><span class="go"><i></i>Enter the residence</span></div>
+    <div class="txt"><p class="kind">Residence study</p><h3>das Zuhause</h3><p>A residence in tropical brutalism with mid-century and Japanese influences, entered by a wide lit stone stair, with a cistern beneath and a glass elevator core.</p><span class="go"><i></i>Enter the residence</span></div>
   </a>
   <a class="sheet fw" href="fernweh/">
     <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Profile of Fernweh: a dark explorer yacht with stacked rounded decks and two tall raked wing sails">
@@ -89,7 +109,7 @@ footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--m
       <path d="M112 136 L94 22 L106 20 L128 136 Z" fill="#c9d3d6" stroke="#1d2226" stroke-width=".8"/>
       <path d="M30 158 L56 158 L58 152 L32 152 Z" fill="#6b3a1c"/>
     </svg></div>
-    <div class="txt"><p class="kind">Explorer yacht study</p><h2>Fernweh</h2><p>A 50 m sail-assist explorer yacht with two 40 m wings, a beach club, a mahogany limousine tender and a heated pool. She docks at das Zuhause’s jetty. <i>Fernweh</i> is German for a longing to be far away.</p><span class="go"><i></i>Board the yacht</span></div>
+    <div class="txt"><p class="kind">Explorer yacht study</p><h3>Fernweh</h3><p>A 50 m sail-assist explorer yacht with two 40 m wings, a beach club, a mahogany limousine tender and a heated pool. She docks at das Zuhause’s jetty. <i>Fernweh</i> is German for a longing to be far away.</p><span class="go"><i></i>Board the yacht</span></div>
   </a>
   <a class="sheet bg" href="bergruhe/">
     <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Elevation of Bergruhe: a dark timber cabin with a diagonal roof rising toward the valley, a glass wall, a cantilevered glass room and a concrete base set into a snowy slope">
@@ -110,25 +130,7 @@ footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--m
       <ellipse cx="126" cy="196" rx="14" ry="4" fill="#6f4a2e"/><rect x="112" y="186" width="28" height="10" fill="#6f4a2e"/>
       <circle cx="244" cy="140" r="3" fill="#c8452c"/>
     </svg></div>
-    <div class="txt"><p class="kind">Alpine cabin study</p><h2>Bergruhe</h2><p>A modern Alpine cabin of charred larch on a concrete base set into the slope, with a diagonal roof, a glass room cantilevered over the valley, a hearth column, a sauna and a hot tub in the snow. <i>Bergruhe</i> is German for mountain stillness.</p><span class="go"><i></i>Enter the cabin</span></div>
-  </a>
-  <a class="sheet hw" href="heimweg/">
-    <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Elevation of Heimweg: a tall squared-off off-roader with a dark body, a band of glass, big wheels under flared arches and a thin warm light at the nose">
-      <rect width="400" height="250" fill="#e4ddd0"/>
-      <rect x="0" y="196" width="400" height="54" fill="#d6cdbd"/>
-      <path d="M93.3 168.4A31.7 31.7 0 0 1 156.7 168.4Z M245.10000000000002 168.4A31.7 31.7 0 0 1 308.5 168.4Z" fill="#5e574d"/>
-      <path d="M84.5 168.4L93.3 168.4A31.7 31.7 0 0 1 156.7 168.4L245.10000000000002 168.4A31.7 31.7 0 0 1 308.5 168.4L319.1 153.7V118.7H79.0V162.0Z" fill="#3a3734" stroke="#221d18" stroke-width=".8"/>
-      <polygon points="252.9,118.7 223.5,80.1 95.6,80.1 84.5,118.7" fill="#9fb3b8" stroke="#221d18" stroke-width=".8"/>
-      <path d="M195.4 118.7V80.1" stroke="#3a3734" stroke-width="6"/>
-      <path d="M89.5 160.9A36.3 36.3 0 0 1 160.5 160.9 M241.3 160.9A36.3 36.3 0 0 1 305.4 146.1" fill="none" stroke="#221d18" stroke-width="2.4"/>
-      <g fill="#221d18"><circle cx="125.0" cy="168.4" r="27.6"/><circle cx="276.8" cy="168.4" r="27.6"/></g>
-      <g fill="#8d8881"><circle cx="125.0" cy="168.4" r="10"/><circle cx="276.8" cy="168.4" r="10"/></g>
-      <rect x="105.7" y="73.6" width="110.4" height="2.5" fill="#221d18"/>
-      <path d="M110.3 75.9v4 M211.5 75.9v4" stroke="#221d18" stroke-width="2"/>
-      <path d="M313.1 128.8h12" stroke="#f0b44c" stroke-width="2"/>
-      <rect x="79.0" y="122.4" width="3" height="20.7" fill="#c8452c"/>
-    </svg></div>
-    <div class="txt"><p class="kind">Off-roader study</p><h2>Heimweg</h2><p>A tall electric off-roader drawn as a minimal monolith: wide flared arches over big tyres, one dark-glass canopy, and a hairline of warm light that sweeps open when you come home. Camp mode opens an awning, a pop-up roof and a pull-out kitchen. <i>Heimweg</i> is German for the way home.</p><span class="go"><i></i>Take the wheel</span></div>
+    <div class="txt"><p class="kind">Alpine cabin study</p><h3>Bergruhe</h3><p>A modern Alpine cabin of charred larch on a concrete base set into the slope, with a diagonal roof, a glass room cantilevered over the valley, a hearth column, a sauna and a hot tub in the snow. <i>Bergruhe</i> is German for mountain stillness.</p><span class="go"><i></i>Enter the cabin</span></div>
   </a>
   <a class="sheet dk" href="denkraum/">
     <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Section through Denkraum: a corner studio on a high tower floor, a wall of locking drawers and a round vault door at the back, the servers behind it, and the private lift lobby next door">
@@ -153,7 +155,7 @@ footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--m
       <path d="M126 160h10" stroke="#f0b44c" stroke-width="2"/>
       <path d="M150 120 C140 140 132 150 128 166" fill="none" stroke="#221d18" stroke-width="1.2"/><rect x="146" y="110" width="4" height="12" fill="#2f7a62"/>
     </svg></div>
-    <div class="txt"><p class="kind">Studio study</p><h2>Denkraum</h2><p>A quiet 43 m² studio for design and real estate work, high in a typhoon-proof Manila tower. A wall of locking drawers and a round vault door keep clients’ deeds, drawings and data, with a local AI in the vault; lifts from the garage open into a private lobby next door, where Heimweg charges below. <i>Denkraum</i> is German for a space to think.</p><span class="go"><i></i>Open the vault</span></div>
+    <div class="txt"><p class="kind">Studio study</p><h3>Denkraum</h3><p>A quiet 43 m² studio for design and real estate work, high in a typhoon-proof Manila tower. A wall of locking drawers and a round vault door keep clients’ deeds, drawings and data, with a local AI in the vault; lifts from the garage open into a private lobby next door, where Heimweg charges below. <i>Denkraum</i> is German for a space to think.</p><span class="go"><i></i>Open the vault</span></div>
   </a>
   <a class="sheet gb" href="geborgenheit/">
     <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Section through Geborgenheit: rooms carved into the wall of a river gorge just above the water, a light well rising from an underground garden to the plateau with a thin waterfall and a glass lift, the vault beside the garden, and a lantern at the door">
@@ -180,8 +182,66 @@ footer{max-width:1180px;margin:0 auto;padding:0 max(5vw,16px) 40px;color:var(--m
       <path d="M86 160 H258" stroke="#c9b27a" stroke-width="3"/>
       <circle cx="232" cy="167" r="2.5" fill="#d2603a"/><rect x="230.5" y="169.5" width="3" height="6" fill="#d2603a"/>
     </svg></div>
-    <div class="txt"><p class="kind">Sanctuary study</p><h2>Geborgenheit</h2><p>A deep retreat set into the wall of a river gorge in the Bukidnon highlands, Mindanao: a lantern path along the water, a garden under a light well with a thin waterfall, the vault beside it, and a family wing that stays sealed until it’s needed. <i>Geborgenheit</i> is German for the feeling of being completely sheltered and safe.</p><span class="go"><i></i>Enter the sanctuary</span></div>
+    <div class="txt"><p class="kind">Sanctuary study</p><h3>Geborgenheit</h3><p>A deep retreat set into the wall of a river gorge in the Bukidnon highlands, Mindanao: a lantern path along the water, a garden under a light well with a thin waterfall, the vault beside it, and a family wing that stays sealed until it’s needed. <i>Geborgenheit</i> is German for the feeling of being completely sheltered and safe.</p><span class="go"><i></i>Enter the sanctuary</span></div>
   </a>
+  <a class="sheet sw" href="sternweh/">
+    <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Section through Sternweh at night: a shallow glass lens on the desert, rooms sunk below it round a sunken court, panelled hallways in the ground on either side, a stair cut down to the door and low amber lights along the path, under the Milky Way">
+      <rect width="400" height="250" fill="#1c1f33"/>
+      <path d="M-10 70 C80 40 170 30 250 -10 L290 -10 C210 40 110 70 -10 110Z" fill="#c9c6d8" opacity=".12"/>
+      <path d="M10 76 C90 50 170 38 236 6" fill="none" stroke="#c9c6d8" stroke-width="10" opacity=".1"/>
+      <g fill="#efe9de"><circle cx="40" cy="30" r="1.2"/><circle cx="96" cy="18" r=".9"/><circle cx="150" cy="58" r="1.4"/><circle cx="210" cy="22" r="1"/><circle cx="262" cy="70" r="1.2"/><circle cx="318" cy="34" r="1.6"/><circle cx="356" cy="88" r="1"/><circle cx="380" cy="20" r=".9"/><circle cx="70" cy="96" r=".8"/><circle cx="300" cy="108" r=".8"/><circle cx="120" cy="40" r=".7"/><circle cx="182" cy="44" r=".7"/></g>
+      <path d="M0 150 H400 V250 H0Z" fill="#c9b195"/>
+      <path d="M118 150 H282 V188 H226 V196 H174 V188 H118Z" fill="#e8e1d4" stroke="#221d18" stroke-width=".8"/>
+      <path d="M118 150 Q200 128 282 150" fill="none" stroke="#efe9de" stroke-width="1.8"/>
+      <path d="M118 150 Q200 128 282 150" fill="none" stroke="#221d18" stroke-width=".6"/>
+      <g stroke="#221d18" stroke-width=".6"><path d="M140 150 V188 M160 150 V188 M240 150 V188 M260 150 V188"/></g>
+      <rect x="98" y="168" width="14" height="20" fill="#f3d9a8" stroke="#221d18" stroke-width=".8"/><rect x="288" y="168" width="14" height="20" fill="#f3d9a8" stroke="#221d18" stroke-width=".8"/>
+      <path d="M99 168 h12 M289 168 h12" stroke="#b08a4a" stroke-width="1.6"/>
+      <path d="M302 188 H312 V184 H316 V180 H320 V176 H324 V172 H328 V168 H332 V164 H336 V160 H340 V156 H344 V152 H348 V150" fill="none" stroke="#221d18" stroke-width=".9"/>
+      <rect x="128" y="182" width="12" height="6" fill="#8a6a4a"/><circle cx="200" cy="193" r="2" fill="#4b4f96"/>
+      <g fill="#f2b257"><circle cx="356" cy="149" r="1.6"/><circle cx="368" cy="149" r="1.6"/><circle cx="380" cy="149" r="1.6"/><circle cx="392" cy="149" r="1.6"/></g>
+      <g fill="#f2b257" opacity=".25"><circle cx="356" cy="149" r="4.5"/><circle cx="368" cy="149" r="4.5"/><circle cx="380" cy="149" r="4.5"/><circle cx="392" cy="149" r="4.5"/></g>
+      <path d="M0 150 H118 M282 150 H400" stroke="#221d18" stroke-width=".9"/>
+    </svg></div>
+    <div class="txt"><p class="kind">Observatory home study</p><h3>Sternweh</h3><p>One great dome sunk into the Atacama Desert, so only its glass shows. You arrive at night on foot, along low amber lights, to a sky court, a bed under the Milky Way and a dark round star room; panelled hallways run round it in the ground. <i>Sternweh</i> is German for a longing for the stars.</p><span class="go"><i></i>Walk in after dark</span></div>
+  </a>
+    </div>
+  </section>
+  <section class="group" aria-labelledby="h-models">
+    <div class="ghead"><p class="kind">Objects</p><h2 id="h-models">Models</h2><p class="lead">The things that travel between the places: they drive up to them, wait in their garages and keep them supplied.</p></div>
+    <div class="grid">
+  <a class="sheet hw" href="heimweg/">
+    <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Elevation of Heimweg: a tall squared-off off-roader with a dark body, a band of glass, big wheels under flared arches and a thin warm light at the nose">
+      <rect width="400" height="250" fill="#e4ddd0"/>
+      <rect x="0" y="196" width="400" height="54" fill="#d6cdbd"/>
+      <path d="M93.3 168.4A31.7 31.7 0 0 1 156.7 168.4Z M245.10000000000002 168.4A31.7 31.7 0 0 1 308.5 168.4Z" fill="#5e574d"/>
+      <path d="M84.5 168.4L93.3 168.4A31.7 31.7 0 0 1 156.7 168.4L245.10000000000002 168.4A31.7 31.7 0 0 1 308.5 168.4L319.1 153.7V118.7H79.0V162.0Z" fill="#3a3734" stroke="#221d18" stroke-width=".8"/>
+      <polygon points="252.9,118.7 223.5,80.1 95.6,80.1 84.5,118.7" fill="#9fb3b8" stroke="#221d18" stroke-width=".8"/>
+      <path d="M195.4 118.7V80.1" stroke="#3a3734" stroke-width="6"/>
+      <path d="M89.5 160.9A36.3 36.3 0 0 1 160.5 160.9 M241.3 160.9A36.3 36.3 0 0 1 305.4 146.1" fill="none" stroke="#221d18" stroke-width="2.4"/>
+      <g fill="#221d18"><circle cx="125.0" cy="168.4" r="27.6"/><circle cx="276.8" cy="168.4" r="27.6"/></g>
+      <g fill="#8d8881"><circle cx="125.0" cy="168.4" r="10"/><circle cx="276.8" cy="168.4" r="10"/></g>
+      <rect x="105.7" y="73.6" width="110.4" height="2.5" fill="#221d18"/>
+      <path d="M110.3 75.9v4 M211.5 75.9v4" stroke="#221d18" stroke-width="2"/>
+      <path d="M313.1 128.8h12" stroke="#f0b44c" stroke-width="2"/>
+      <rect x="79.0" y="122.4" width="3" height="20.7" fill="#c8452c"/>
+    </svg></div>
+    <div class="txt"><p class="kind">Off-roader model</p><h3>Heimweg</h3><p>A tall electric off-roader drawn as a minimal monolith: wide flared arches over big tyres, one dark-glass canopy, and a hairline of warm light that sweeps open when you come home. It drives you between the places, waits in their garages, and parks itself under the glass at Sternweh. <i>Heimweg</i> is German for the way home.</p><span class="go"><i></i>Take the wheel</span></div>
+  </a>
+  <div class="sheet soon nb" aria-label="Nebelfänger, coming soon">
+    <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="Nebelfänger: a dashed outline, still to be drawn"><rect width="400" height="250" fill="#e4ddd0"/><rect x="0" y="196" width="400" height="54" fill="#d6cdbd"/><path d="M92 178 V104 H262 V178 Z M262 128 H300 L318 152 V178 H262" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="5 4"/><circle cx="130" cy="182" r="16" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="5 4"/><circle cx="236" cy="182" r="16" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="5 4"/><circle cx="296" cy="182" r="16" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="5 4"/><path d="M110 120 h40 v18 h-40z M170 120 h40 v18 h-40z" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="5 4"/><path d="M60 60 L78 52 L96 66 L120 48" fill="none" stroke="#5e574d" stroke-width=".8" stroke-dasharray="2 3"/><g fill="#5e574d"><circle cx="60" cy="60" r="2"/><circle cx="78" cy="52" r="2"/><circle cx="96" cy="66" r="2"/><circle cx="120" cy="48" r="2"/></g></svg></div>
+    <div class="txt"><p class="kind">Water-reserve RV model</p><h3>Nebelfänger</h3><p>The simple RV that waits beside Heimweg in Sternweh’s showroom, kept full of water for the dry months. <i>Nebelfänger</i> is German for fog catcher.</p><span class="go soonl"><i></i>Coming soon</span></div>
+  </div>
+  <div class="sheet soon ar" aria-label="The arsenal, coming soon">
+    <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="The arsenal: a dashed outline, still to be drawn"><rect width="400" height="250" fill="#e4ddd0"/><rect x="0" y="196" width="400" height="54" fill="#d6cdbd"/><path d="M120 196 V86 H280 V196" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="5 4"/><path d="M200 86 V196 M120 140 H280" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="5 4"/><circle cx="192" cy="150" r="3" fill="#5e574d"/><circle cx="208" cy="150" r="3" fill="#5e574d"/></svg></div>
+    <div class="txt"><p class="kind">Model</p><h3>The arsenal</h3><p>Still to come.</p><span class="go soonl"><i></i>Coming soon</span></div>
+  </div>
+  <div class="sheet soon wd" aria-label="The wardrobe, coming soon">
+    <div class="pic"><svg viewBox="0 0 400 250" role="img" aria-label="The wardrobe: a dashed outline, still to be drawn"><rect width="400" height="250" fill="#e4ddd0"/><rect x="0" y="196" width="400" height="54" fill="#d6cdbd"/><path d="M140 196 V64 H260 V196" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="5 4"/><path d="M200 64 V196 M150 74 H190 M210 74 H250" fill="none" stroke="#5e574d" stroke-width="1.2" stroke-dasharray="5 4"/><path d="M192 120 v18 M208 120 v18" stroke="#5e574d" stroke-width="2"/></svg></div>
+    <div class="txt"><p class="kind">Model</p><h3>The wardrobe</h3><p>Still to come.</p><span class="go soonl"><i></i>Coming soon</span></div>
+  </div>
+    </div>
+  </section>
 </main>
 <footer><span class="mark" aria-hidden="true"></span>Design explorations, not construction drawings</footer>
 </body>

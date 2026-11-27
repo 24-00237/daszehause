@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Denkraum — Studio Study</title>
 <link rel="apple-touch-icon" href="/daszehause/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/daszehause/icons/icon-192.png">
-<meta name="description" content="An interactive 3D studio by Andre Parrocho: Denkraum, a 42 m² room for design and real estate work high in a Manila tower, built around a concrete vault that keeps client deeds, drawings and data. Fifth of the Design Studies.">
+<meta name="description" content="An interactive 3D studio by Andre Parrocho: Denkraum, a 42 m² room for design and real estate work high in a Manila tower, built around a concrete vault that keeps client deeds, drawings and data. Fourth of the Design Studies.">
 <meta property="og:title" content="Denkraum — Studio Study"><meta property="og:description" content="A small, soundproofed studio high in a typhoon-proof tower, built around a vault: locking drawers, a round vault door and a server room with a local AI.">
 <meta property="og:type" content="website"><meta property="og:url" content="https://24-00237.github.io/daszehause/denkraum/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
 <style>
-/* VOICE: a discreet studio's study sheet — exact, quiet, trustworthy; the fifth sheet after das Zuhause, Fernweh, Bergruhe and Heimweg.
+/* VOICE: a discreet studio's study sheet — exact, quiet, trustworthy; the fourth sheet after das Zuhause, Fernweh and Bergruhe.
    IDEA: a room cut out of a tropical tower like a drawer pulled from a cabinet: everything shown, the vault at its heart.
    PICTURE: Denkraum as a cutaway on its floor, the round vault door in a wall of locking drawers, the lift lobby next door, Manila all round.
    COLOUR and TYPE: warm board-formed concrete paper, graphite ink, narra wood, one jade accent from the vault's status lights; Archivo, wide for titles.
@@ -84,8 +84,9 @@ textarea{width:100%;min-height:80px;font:12.5px/1.4 ui-monospace,monospace;borde
 /* Tables wrap long values; panel sections fold; the switcher is one row; phone buttons are finger-sized */
 td.n{white-space:normal;min-width:4.5em}
 .studynav{gap:3px;flex-wrap:nowrap}.studynav a{padding-left:6px;padding-right:6px;font-size:12px;white-space:nowrap}
-/* six studies outgrow the panel: the switcher stays one row and scrolls sideways, fading out at the right edge */
+/* the studies and the models outgrow the panel: the switcher stays one row and scrolls sideways, fading out at the right edge; a thin rule sets the models apart */
 .studynav{overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}.studynav::-webkit-scrollbar{display:none}.studynav a{flex:none}.studynav::after{content:"";flex:none;width:22px}.studynav a[aria-current]{display:none}.studynav a.home{padding:0 8px;font-size:16px}
+.studynav .nsep{flex:none;width:1px;background:var(--line);margin:5px 5px}.studynav .nlab{flex:none;align-self:center;font:700 10.5px Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:0 3px 0 1px}
 .fold{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:36px;cursor:pointer;font:inherit}
 .fold::after{content:'';flex:none;width:7px;height:7px;margin:0 6px 4px 0;border-right:1.6px solid var(--mute);border-bottom:1.6px solid var(--mute);transform:rotate(45deg);transition:transform .2s}
 .fold[aria-expanded="false"]::after{margin-bottom:0;transform:rotate(-45deg)}
@@ -114,9 +115,9 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
     </div>
   </div>
   <aside>
-    <nav class="studynav" aria-label="Design studies"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies" title="All studies">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a><a href="https://24-00237.github.io/daszehause/denkraum/" aria-current="page">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/">Geborgenheit</a></nav>
+    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies and models" title="All studies and models">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/denkraum/" aria-current="page">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/">Geborgenheit</a><a href="https://24-00237.github.io/daszehause/sternweh/">Sternweh</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a></nav>
     <h1>Denkraum</h1>
-    <p class="sub">A studio study and the fifth of the Design Studies: one quiet room for design and real estate work, high in a typhoon-proof Manila tower. It's built around a vault that keeps clients' deeds, drawings and data. <i>Denkraum</i> is German for a space to think.</p>
+    <p class="sub">A studio study and the fourth of the Design Studies: one quiet room for design and real estate work, high in a typhoon-proof Manila tower. It's built around a vault that keeps clients' deeds, drawings and data. <i>Denkraum</i> is German for a space to think.</p>
     <div class="studies" id="studies"></div>
     <div class="bar"><button class="btn" id="undo" type="button">Undo</button><button class="btn" id="reset" type="button">Back to base</button></div>
     <div id="ctrls"></div>
@@ -126,7 +127,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
       <textarea id="code" spellcheck="false" aria-label="Design code"></textarea>
       <div class="bar" style="margin-top:8px"><button class="btn pri" id="copy" type="button">Copy code</button><button class="btn" id="loadC" type="button">Load</button></div>
       <p class="note" id="msg"></p></details>
-    <section><h2>About</h2><p class="why">Denkraum is a studio design study by Andre Parrocho, made in November 2026 as the fifth of the Design Studies. It takes das Zuhause's ideas into the city: board-formed concrete, deep fins against the sun, storm shutters for the typhoons, and a vault wall in place of the glass core. Lifts from the garage open into a private lobby, and a door you can't see leads on into the studio; Heimweg charges in the garage below.</p><p class="note">It’s a design exploration, not a construction drawing. Areas, loads, sound and power figures are rough estimates from the model’s shape. The model doesn’t check structure, fire escape or local building rules.</p><p class="note"><a href="https://24-00237.github.io/daszehause/zuhause/" style="color:inherit">das Zuhause</a> · <a href="https://24-00237.github.io/daszehause/heimweg/" style="color:inherit">Heimweg</a> · <a href="https://24-00237.github.io/daszehause/" style="color:inherit">All design studies</a></p></section>
+    <section><h2>About</h2><p class="why">Denkraum is a studio design study by Andre Parrocho, made in November 2026 as the fourth of the Design Studies. It takes das Zuhause's ideas into the city: board-formed concrete, deep fins against the sun, storm shutters for the typhoons, and a vault wall in place of the glass core. Lifts from the garage open into a private lobby, and a door you can't see leads on into the studio; Heimweg, the first of the Models, charges in the garage below.</p><p class="note">It’s a design exploration, not a construction drawing. Areas, loads, sound and power figures are rough estimates from the model’s shape. The model doesn’t check structure, fire escape or local building rules.</p><p class="note"><a href="https://24-00237.github.io/daszehause/zuhause/" style="color:inherit">das Zuhause</a> · <a href="https://24-00237.github.io/daszehause/heimweg/" style="color:inherit">Heimweg</a> · <a href="https://24-00237.github.io/daszehause/" style="color:inherit">All design studies</a></p></section>
   </aside>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -139,7 +140,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
 <script>if(!window.THREE)document.getElementById('loadMsg').textContent='The 3D engine couldn’t load. Check your connection and refresh the page.'</script>
 <script>
-/* Heimweg: the shared car builder (an original design). Used by /heimweg/, Bergruhe's garage, Denkraum's garage and Geborgenheit's bay.
+/* Heimweg: the shared car builder (an original design). Used by /heimweg/, Bergruhe's garage, Denkraum's garage, Geborgenheit's bay and Sternweh's showroom.
    heimweg(o) -> {g, up, lights:[{m,z,front}], doors:[{g,side}], head:[{x,y,z}]}
    Nose points +x, y up, wheels on y=0. o: body, clad, tint, dim, wheel, tyre, light, platform, roofLoad, wool, white */
 function heimweg(o){

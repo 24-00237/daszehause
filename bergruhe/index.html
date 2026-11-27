@@ -84,8 +84,9 @@ textarea{width:100%;min-height:80px;font:12.5px/1.4 ui-monospace,monospace;borde
 /* Tables wrap long values; panel sections fold; the switcher is one row; phone buttons are finger-sized */
 td.n{white-space:normal;min-width:4.5em}
 .studynav{gap:3px;flex-wrap:nowrap}.studynav a{padding-left:6px;padding-right:6px;font-size:12px;white-space:nowrap}
-/* six studies outgrow the panel: the switcher stays one row and scrolls sideways, fading out at the right edge */
+/* the studies and the models outgrow the panel: the switcher stays one row and scrolls sideways, fading out at the right edge; a thin rule sets the models apart */
 .studynav{overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}.studynav::-webkit-scrollbar{display:none}.studynav a{flex:none}.studynav::after{content:"";flex:none;width:22px}.studynav a[aria-current]{display:none}.studynav a.home{padding:0 8px;font-size:16px}
+.studynav .nsep{flex:none;width:1px;background:var(--line);margin:5px 5px}.studynav .nlab{flex:none;align-self:center;font:700 10.5px Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:0 3px 0 1px}
 .fold{all:unset;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:36px;cursor:pointer;font:inherit}
 .fold::after{content:'';flex:none;width:7px;height:7px;margin:0 6px 4px 0;border-right:1.6px solid var(--mute);border-bottom:1.6px solid var(--mute);transform:rotate(45deg);transition:transform .2s}
 .fold[aria-expanded="false"]::after{margin-bottom:0;transform:rotate(-45deg)}
@@ -114,7 +115,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
     </div>
   </div>
   <aside>
-    <nav class="studynav" aria-label="Design studies"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies" title="All studies">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/" aria-current="page">Bergruhe</a><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a><a href="https://24-00237.github.io/daszehause/denkraum/">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/">Geborgenheit</a></nav>
+    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies and models" title="All studies and models">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/" aria-current="page">Bergruhe</a><a href="https://24-00237.github.io/daszehause/denkraum/">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/">Geborgenheit</a><a href="https://24-00237.github.io/daszehause/sternweh/">Sternweh</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a></nav>
     <h1>Bergruhe</h1>
     <p class="sub">An Alpine cabin study and the third sister to das Zuhause and Fernweh. It's a modern Alpine design: charred larch on a concrete base set into the slope, a full-glass wall to the valley and one long diagonal roof line. <i>Bergruhe</i> is German for mountain stillness.</p>
     <div class="studies" id="studies"></div>
@@ -133,7 +134,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>if(!window.THREE)document.getElementById('loadMsg').textContent='The 3D engine couldn’t load. Check your connection and refresh the page.'</script>
 <script>
-/* Heimweg: the shared car builder (an original design). Used by /heimweg/, Bergruhe's garage, Denkraum's garage and Geborgenheit's bay.
+/* Heimweg: the shared car builder (an original design). Used by /heimweg/, Bergruhe's garage, Denkraum's garage, Geborgenheit's bay and Sternweh's showroom.
    heimweg(o) -> {g, up, lights:[{m,z,front}], doors:[{g,side}], head:[{x,y,z}]}
    Nose points +x, y up, wheels on y=0. o: body, clad, tint, dim, wheel, tyre, light, platform, roofLoad, wool, white */
 function heimweg(o){
