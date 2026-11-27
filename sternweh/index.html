@@ -248,7 +248,7 @@ if(o.steps!==false)for(const s of [-1,1]){const x0s=xr+ra+.1,x1s=xf-ra-.1,L=x1s-
 </script>
 <script>
 {
-const DEF={dia:32,crown:3,depth:4.6,court:9,oculus:true,bed:'platform',star:6.5,bath:'round',cloth:'#e9dfcd',hallW:3,mill:'#e6dccb',oak:'#a57b52',weave:'stripes',island:3.6,walk:300,pathSp:8,solar:30,fog:8,cistern:150,stone:'#a9876a'};
+const DEF={dia:32,crown:3,depth:4.6,court:9,oculus:true,bed:'platform',star:6.5,bath:'round',cloth:'#e9dfcd',hallW:3,mill:'#e6dccb',oak:'#a57b52',weave:'plain',island:3.6,walk:300,pathSp:8,solar:55,fog:8,cistern:150,stone:'#a9876a'};
 const STUDIES={'Sternweh · base':{},'Wide dome':{dia:38,court:11,star:7.5},'Small dome':{dia:28,court:8,star:5.5},'Low lens':{crown:1.5},'High lens':{crown:4.5},'Salt pale':{stone:'#c9b9a4',mill:'#efe9df',oak:'#c4a27a'},'Red rock':{stone:'#8e5a44',cloth:'#c99a7e',weave:'diamond',oak:'#7d5a3c'},'The long walk':{walk:600,pathSp:11}};
 const CTRL=[
  ['The dome','One dome sunk into the desert, so only its glass shows above the ground. The glass is laminated and walkable, in a fine steel grid that can move in an earthquake.',[{t:'r',k:'dia',l:'Dome width inside',min:28,max:40,st:1,u:'L'},{t:'r',k:'crown',l:'Glass crown above the desert',min:1.5,max:5,st:.25,u:'L'},{t:'r',k:'depth',l:'Rooms below the desert',min:4.2,max:6,st:.1,u:'L'}]],
@@ -367,9 +367,9 @@ function mwTex(){const W=1024,H=512,c=document.createElement('canvas');c.width=W
   let val=disk*(.3+1.5*n*n)+halo+bul;
   // dust: mottled lanes along the plane, the Great Rift, and the Coalsack beside the Southern Cross
   const d1=sst(.42,.8,n3)*Math.exp(-(((b-.008)/.085)**2))*(.45+.55*Math.exp(-((l/1.4)**2))),rift=Math.exp(-(((b-.014-.02*Math.sin(l*2.6))/(.014+.014*n2))**2))*Math.exp(-(((l-.55)/.8)**2)),cs=Math.exp(-(((l+1.03)/.055)**2+((b+.015)/.045)**2));
-  val*=Math.max(0,1-.6*Math.min(1,d1*1.2+rift*.9)-.8*cs);val*=.72+.56*hash(x*.37,y*.71);
+  val*=Math.max(0,1-.72*Math.min(1,d1*1.25+rift)-.8*cs);val*=.72+.56*hash(x*.37,y*.71);
   const k=Math.min(1,Math.pow(Math.max(0,val),.9)*.62),warm=Math.exp(-((l/.45)**2)-(b/.2)**2);
-  d[i]=255*k*(.82+.18*warm);d[i+1]=255*k*(.83+.06*warm);d[i+2]=255*k*(.96-.28*warm)}}
+  d[i]=255*k*(.84+.1*warm);d[i+1]=255*k*(.85+.04*warm);d[i+2]=255*k*(.95-.14*warm)}}
  g.putImageData(im,0,0);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=4;return t}
 const MW=new THREE.Mesh(new THREE.SphereGeometry(8900,64,32),new THREE.MeshBasicMaterial({map:mwTex(),side:THREE.BackSide,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,fog:false,toneMapped:false}));MW.matrixAutoUpdate=false;MW.renderOrder=-2;scene.add(MW);
 // stars: a shader so each has its own size and colour, twinkles a little and fades toward the horizon
@@ -400,7 +400,7 @@ const tint=(h,t,k)=>'#'+new THREE.Color(h).lerp(new THREE.Color(t),k).getHexStri
 function mats(){const wh=V.mode==='white',xr=V.mode==='xray',W0='#efeee9',DS=THREE.DoubleSide;
  const st=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:C(wh?W0:c),roughness:.85,metalness:0},o)),mp=t=>wh?null:t,m={};
  m.sand=st('#a98163',{map:mp(T.sand),roughness:1});m.sandF=st('#a98163',{map:mp(T.sand),vertexColors:!wh,roughness:1});m.lid=st('#b48c69',{map:mp(T.sand),roughness:1});
- m.track=st('#c8ab8c',{map:mp(T.sand),roughness:1,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
+ m.gravel=st('#8a7058',{map:mp(T.sand),roughness:1});m.track=st('#c8ab8c',{map:mp(T.sand),roughness:1,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
  m.stone=st(S.stone,{map:mp(T.stone),roughness:.85});m.stoneDS=m.stone.clone();m.stoneDS.side=DS;m.stoneL=st(tint(S.stone,'#ffffff',.18),{map:mp(T.stone),roughness:.8});m.stoneD=st(tint(S.stone,'#3a3028',.25),{map:mp(T.stone),roughness:.9});
  m.conc=st('#a49e95',{map:mp(T.plaster),roughness:.92});m.concD=st('#8a847c',{map:mp(T.plaster),roughness:.95});
  m.plaster=st('#e8e0d2',{map:mp(T.plaster),roughness:.95});m.white=st('#f3f1ec',{map:mp(T.plaster),roughness:.92});m.whiteS=st('#f6f5f1',{roughness:.55});
@@ -411,8 +411,8 @@ function mats(){const wh=V.mode==='white',xr=V.mode==='xray',W0='#efeee9',DS=THR
  m.weave=new THREE.MeshStandardMaterial({color:C(wh?W0:'#ffffff'),map:wh?null:T.weave[S.weave],roughness:1});{const rt=T.weave[S.weave].clone();rt.needsUpdate=true;rt.repeat.set(1/1.7,1/1.7);m.runner=new THREE.MeshStandardMaterial({color:C(wh?W0:'#ffffff'),map:wh?null:rt,roughness:1})}m.weave2=new THREE.MeshStandardMaterial({color:C(wh?W0:'#ffffff'),map:wh?null:T.weave[S.weave==='plain'?'stripes':'plain'],roughness:1});
  m.linen=st('#ebe4d6',{roughness:1});m.duvet=st('#ddd3c1',{roughness:1});m.cush=st('#b8a487',{roughness:1});m.cushD=st('#6b5544',{roughness:1});m.leather=st('#6b4a33',{roughness:.6});
  m.glass=new THREE.MeshStandardMaterial({color:C(wh?'#c9d3d6':'#b9c9cc'),roughness:.04,metalness:.3,transparent:true,opacity:wh?.32:.14,side:DS,depthWrite:false,envMapIntensity:1.3});
- m.lens=m.glass.clone();m.lens.opacity=wh?.28:.11;m.lens.envMapIntensity=1.6;
- m.rib=st('#3a3633',{roughness:.38,metalness:wh?0:.75});m.steel=st('#2c2d2f',{roughness:.4,metalness:wh?0:.7});m.bronze=st('#7a5634',{roughness:.32,metalness:wh?0:.85,side:DS});m.bronzeD=st('#4a3322',{roughness:.4,metalness:wh?0:.8});m.bronzeDoor=st('#4e3420',{roughness:.48,metalness:wh?0:.65,side:DS});m.grille=st('#1f1d1b',{roughness:.7});
+ m.lens=m.glass.clone();m.lens.opacity=wh?.28:.14;m.lens.envMapIntensity=2.2;
+ m.rib=st('#5a4432',{roughness:.34,metalness:wh?0:.65});m.steel=st('#2c2d2f',{roughness:.4,metalness:wh?0:.7});m.bronze=st('#7a5634',{roughness:.32,metalness:wh?0:.85,side:DS});m.bronzeD=st('#4a3322',{roughness:.4,metalness:wh?0:.8});m.bronzeDoor=st('#4e3420',{roughness:.48,metalness:wh?0:.65,side:DS});m.grille=st('#1f1d1b',{roughness:.7});
  m.water=new THREE.MeshStandardMaterial({color:C(wh?'#dfe5e5':'#28474c'),roughness:.04,metalness:.25,transparent:true,opacity:wh?.5:.9});m.bathW=m.water.clone();m.bathW.color=C(wh?'#dfe5e5':'#4f7478');
  m.lampW=new THREE.MeshStandardMaterial({color:C('#ead2ab'),emissive:C('#ffa860'),emissiveIntensity:0,transparent:true,opacity:.96});
  m.up=new THREE.MeshBasicMaterial({color:C('#ffd9a0'),toneMapped:false});
@@ -498,21 +498,21 @@ function buildWorld(m,P){const k=[P.key,V.mode,S.solar,S.fog].join();if(k===worl
  const r=rnd0(21),hills=[];for(let i=0;i<14;i++){const h=180+r()*260,w=900+r()*1400,c=new THREE.Mesh(new THREE.ConeGeometry(w,h,7),m.hill);c.position.set(7200+r()*1600,h/2-40,-7000+i*1000+r()*500);c.scale.x=.6;site.add(c);hills.push(c);if(h>330){const s=new THREE.Mesh(new THREE.ConeGeometry(w*.22,h*.22,7),m.snow);s.position.set(c.position.x,h-40-h*.11+1,c.position.z);s.scale.x=.6;s.userData.snow=1;site.add(s);hills.push(s)}}
  for(const sz of [-1,1])for(let i=0;i<7;i++){const h=60+r()*120,c=new THREE.Mesh(new THREE.ConeGeometry(700+r()*900,h,7),m.hill);c.position.set(-1200+i*1300+r()*400,h/2-30,sz*(5200+r()*1400));c.scale.z=.5;site.add(c);hills.push(c)}
  site.userData.hills=hills;
+ // solar field ~400 m south-east, behind a low rise: rows facing north, tilted to the sun
+ {const n=Math.round(S.solar*1000/420),rows=Math.ceil(n/16),cx=300,cz=285,pg=new THREE.BoxGeometry(2.0,.04,1.1),im=new THREE.InstancedMesh(pg,m.solar,n),lg=new THREE.BoxGeometry(.06,1,.06),legs=new THREE.InstancedMesh(lg,m.alu,n*2),o=new THREE.Object3D();
+  for(let i=0;i<n;i++){const rw=Math.floor(i/16),cI=i%16,x=cx+(cI-7.5)*2.1,z=cz+(rw-(rows-1)/2)*4.2,y=hgt(x,z);o.position.set(x,y+1.25,z);o.rotation.set(-.42,0,0);o.scale.set(1,1,1);o.updateMatrix();im.setMatrixAt(i,o.matrix);for(const s of [0,1]){o.rotation.set(0,0,0);o.position.set(x+(s?.8:-.8),y+.55+(s?0:0),z+.25);o.scale.set(1,1.1,1);o.updateMatrix();legs.setMatrixAt(i*2+s,o.matrix)}}
+  im.castShadow=true;site.add(im);site.add(legs);const bt=new THREE.Mesh(new THREE.BoxGeometry(6,.06,2.4),m.concD);bt.position.set(cx-22,hgt(cx-22,cz)+.03,cz);site.add(bt);
+  site.userData.labs.push(['Solar field · '+S.solar+' kWp, ≈ 400 m out behind a low rise',V3(cx,hgt(cx,cz)+6,cz)])}
+ // fog catchers on the spur crests, 50–150 m below the top of the fog, facing the sea wind
+ {const zs=[-260,-30,230],per=Math.ceil(S.fog/3);let k=0;const net=new THREE.PlaneGeometry(10,4),pole=new THREE.CylinderGeometry(.07,.09,7,6);
+  for(let s=0;s<3&&k<S.fog;s++){let x=-400;while(x>-1300&&hgt(x,zs[s])>FOGY-90)x-=4;for(let j=0;j<per&&k<S.fog;j++,k++){const z=zs[s]+(j-(per-1)/2)*14,xx=x+(j%2)*6,y=hgt(xx,z);const n=new THREE.Mesh(net,m.net);n.rotation.y=Math.PI/2;n.position.set(xx,y+4.4,z);site.add(n);for(const dz of [-5,5]){const p=new THREE.Mesh(pole,m.alu);p.position.set(xx,y+3.5,z+dz);site.add(p)}const gt=new THREE.Mesh(new THREE.BoxGeometry(.2,.15,10),m.alu);gt.position.set(xx,y+2.3,z);site.add(gt)}
+   if(s===1){const P=[[x,-30],[x+120,-24],[-560,-14],[-420,-6],[-200,8],[-60,14],[-20,15]],pts=[];for(let k=0;k<P.length-1;k++)for(let t=0;t<1;t+=.05){const px=P[k][0]+(P[k+1][0]-P[k][0])*t,pz=P[k][1]+(P[k+1][1]-P[k][1])*t;pts.push([px,pz])}site.userData.pipe=pts}
+   if(s===1)site.userData.labs.push(['Fog catchers · '+S.fog+' nets on the spurs, inside the fog',V3(x,hgt(x,zs[s])+14,zs[s])])}}
  // the routes buried in the desert: the water pipe up from the fog catchers to the cistern, the cable in from the solar field
  {const rt=(P,w,col)=>{const pos=[],idx=[];for(let i=0;i<P.length;i++){const a=P[Math.max(0,i-1)],c=P[Math.min(P.length-1,i+1)],tx=c[0]-a[0],tz=c[1]-a[1],l=Math.hypot(tx,tz)||1,nx=-tz/l*w/2,nz=tx/l*w/2;for(const s of [-1,1]){const x=P[i][0]+nx*s,z=P[i][1]+nz*s;pos.push(x,hgt(x,z)+(Math.max(Math.abs(x),Math.abs(z))<170?.02:.25),z)}if(i){const k=(i-1)*2;idx.push(k,k+1,k+2,k+2,k+1,k+3)}}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();const me=new THREE.Mesh(g,new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.45,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-3}));me.userData.terr=1;site.add(me)};
   if(site.userData.pipe)rt(site.userData.pipe,1.2,0x4f86a0);const cp=[];for(let t=0;t<=1;t+=.02)cp.push([278+(16-278)*t,285+(-3-285)*t+Math.sin(t*Math.PI)*30]);rt(cp,1.2,0x9a6b3c);
   site.userData.labs.push(['Water pipe up from the fog catchers to the cistern',V3(-300,hgt(-300,0)+12,0)],['Cable in from the solar field, buried',V3(150,hgt(150,150)+8,150)])}
  {const u=new THREE.Mesh(new THREE.PlaneGeometry(4000,4000),new THREE.MeshBasicMaterial({color:0x2a231d}));u.rotation.x=-Math.PI/2;u.position.y=-26;u.userData.under=1;u.visible=false;site.add(u)}
- // solar field ~400 m south-east, behind a low rise: rows facing north, tilted to the sun
- {const n=Math.round(S.solar*1000/420),rows=Math.ceil(n/16),cx=300,cz=285,pg=new THREE.BoxGeometry(2.0,.04,1.1),im=new THREE.InstancedMesh(pg,m.solar,n),lg=new THREE.BoxGeometry(.06,1,.06),legs=new THREE.InstancedMesh(lg,m.alu,n*2),o=new THREE.Object3D();
-  for(let i=0;i<n;i++){const rw=Math.floor(i/16),cI=i%16,x=cx+(cI-7.5)*2.1,z=cz+(rw-(rows-1)/2)*4.2,y=hgt(x,z);o.position.set(x,y+1.25,z);o.rotation.set(-.42,0,0);o.scale.set(1,1,1);o.updateMatrix();im.setMatrixAt(i,o.matrix);for(const s of [0,1]){o.rotation.set(0,0,0);o.position.set(x+(s?.8:-.8),y+.55+(s?0:0),z+.25);o.scale.set(1,1.1,1);o.updateMatrix();legs.setMatrixAt(i*2+s,o.matrix)}}
-  im.castShadow=true;site.add(im);site.add(legs);const bt=new THREE.Mesh(new THREE.BoxGeometry(6,2.4,2.4),m.concD);bt.position.set(cx-22,hgt(cx-22,cz)+1.0,cz);site.add(bt);
-  site.userData.labs.push(['Solar field · '+S.solar+' kWp, ≈ 400 m out behind a low rise',V3(cx,hgt(cx,cz)+6,cz)])}
- // fog catchers on the spur crests, just at the top of the fog, facing the sea wind
- {const zs=[-260,-30,230],per=Math.ceil(S.fog/3);let k=0;const net=new THREE.PlaneGeometry(10,4),pole=new THREE.CylinderGeometry(.07,.09,7,6);
-  for(let s=0;s<3&&k<S.fog;s++){let x=-400;while(x>-1100&&hgt(x,zs[s])>FOGY+10)x-=4;for(let j=0;j<per&&k<S.fog;j++,k++){const z=zs[s]+(j-(per-1)/2)*14,xx=x+(j%2)*6,y=hgt(xx,z);const n=new THREE.Mesh(net,m.net);n.rotation.y=Math.PI/2;n.position.set(xx,y+4.4,z);site.add(n);for(const dz of [-5,5]){const p=new THREE.Mesh(pole,m.alu);p.position.set(xx,y+3.5,z+dz);site.add(p)}const gt=new THREE.Mesh(new THREE.BoxGeometry(.2,.15,10),m.alu);gt.position.set(xx,y+2.3,z);site.add(gt)}
-   if(s===1){const P=[[x,-30],[x+120,-24],[-560,-14],[-420,-6],[-200,8],[-60,14],[-20,15]],pts=[];for(let k=0;k<P.length-1;k++)for(let t=0;t<1;t+=.05){const px=P[k][0]+(P[k+1][0]-P[k][0])*t,pz=P[k][1]+(P[k+1][1]-P[k][1])*t;pts.push([px,pz])}site.userData.pipe=pts}
-   if(s===1)site.userData.labs.push(['Fog catchers · '+S.fog+' nets on the spurs toward the sea',V3(x,hgt(x,zs[s])+14,zs[s])])}}
 }
 
 /* ---------- build ---------- */
@@ -533,7 +533,7 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
  const marks=[],mk=(x,y,z)=>marks.push([x,y,z]),mkA=(r,a,y)=>{const p=P2(r,a);mk(p[0],y,p[1])};
 
  // ---------- the glass: one shallow lens of laminated, walkable glass (≈ 90 mm in sealed units), on deep steel T-ribs, a ring beam carried by columns at the terrace edge, and a compression ring round the court panel ----------
- const RB=rf,NRI=24,NRO=48,SA=267.5*D2R,SRM=(rf+R)/2,SC=P2(SRM,SA),SRS=Math.min(S.star/2,(R-rf)/2-.3,SRM*Math.sin(25*D2R)-.35);G.star={c:SC,rS:SRS};
+ const RB=rf,NRI=24,NRO=48,SA=267.5*D2R,SRM=(rf+R)/2,SC=P2(SRM,SA),SRS=Math.min(S.star/2,(R-rf)/2-.3,SRM*Math.sin(25*D2R)-.35);G.star={c:SC,rS:SRS};const BRM=(rf+R)/2+.4,AP=[{c:SC,r:1.5},{c:P2(BRM-2.2,160*D2R),r:1.5}];G.AP=AP;
  const ringsR=[];{const n=Math.max(2,Math.round((R-RB)/2.7));for(let k=1;k<n;k++)ringsR.push(RB+(R-RB)*k/n);const n2=Math.max(1,Math.round((RB-ro)/2.7));for(let k=1;k<n2;k++)ringsR.push(ro+(RB-ro)*k/n2)}
  G.panes=NRI*(ringsR.filter(r=>r<RB).length+1)+NRO*(ringsR.filter(r=>r>RB).length+1)+1;
  {const t0=Math.asin(ro/rho),t1=Math.asin(R/rho);
@@ -542,18 +542,21 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
   const yo=r=>Math.sqrt(rho*rho-r*r)-rho+.07;// height on the panel, relative to its crown
   const ocr=new THREE.Mesh(new THREE.TorusGeometry(ro+.12,.06,8,64),m.rib);ocr.rotation.x=Math.PI/2;ocr.position.y=rho+yo(ro+.12)-.01;piv.add(ocr);
   for(const s of [-1,1])for(const x of [-ro*.6,ro*.6]){const bg=box(.5,.12,.16,m.bronzeD,x,rho+yo(ro)+.02,s*(ro+.35),piv);bg.castShadow=false;box(.12,.04,ro*.1+.4,m.bronzeD,x,rho+yo(ro),s*(ro+.15),piv)}
-  G.ocP=piv;G.ocA=(2*ro+.9)/rho;
+  for(let k=0;k<8;k++){const t=k/8*TAU,b=box(.05,.05,ro+.1,m.rib,Math.cos(t)*(ro+.1)/2,rho+.05,-Math.sin(t)*(ro+.1)/2,piv);b.rotation.y=t+Math.PI/2}
+  G.ocP=piv;G.kcur=[];G.ocA=(2*ro+.9)/rho;
   // fins along each rib: 60 mm wide, 350 mm deep, following the glass; they stop at the star room's aperture so it sees one clear circle of sky
-  const cut=(a,r0,r1)=>{const u=[Math.cos(a),-Math.sin(a)],uc=u[0]*SC[0]+u[1]*SC[1],rr=SRS+.18,dc=uc*uc-(SC[0]*SC[0]+SC[1]*SC[1]-rr*rr);if(dc<=0)return[[r0,r1]];const p=uc-Math.sqrt(dc),q=uc+Math.sqrt(dc),out=[];if(p>r0)out.push([r0,Math.min(p,r1)]);if(q<r1)out.push([Math.max(q,r0),r1]);return out};
-  const fin=(a,r0,r1,dp)=>{if(r1-r0<.25)return;const P=[],n=Math.max(3,Math.ceil((r1-r0)/.8));for(let k=0;k<=n;k++){const r=r0+(r1-r0)*k/n;P.push([r,gy(r)-.012])}for(let k=n;k>=0;k--){const r=r0+(r1-r0)*k/n;P.push([r,gy(r)-dp])}const geo=new THREE.ExtrudeGeometry(new THREE.Shape(P.map(p=>new THREE.Vector2(p[0],p[1]))),{depth:.06,bevelEnabled:false});geo.translate(0,0,-.03);const me=new THREE.Mesh(geo,m.rib);me.rotation.y=a;me.castShadow=true;glassG.add(me)};
-  for(let i=0;i<NRI;i++){const a=i/NRI*TAU;for(const [p,q] of cut(a,ro+.3,RB))fin(a,p,q,.35)}
-  for(let i=0;i<NRO;i++){const a=(i+.5)/NRO*TAU;for(const [p,q] of cut(a,RB,R-.05))fin(a,p,q,.35)}
-  for(const r of ringsR){const rr=SRS+.18,cs=(r*r+SRM*SRM-rr*rr)/(2*r*SRM),dl=Math.abs(r-SRM)<rr?Math.acos(cl(cs,-1,1)):0,al=TAU-2*dl,geo=new THREE.TorusGeometry(r,.03,6,Math.round(r*14),al);geo.rotateZ(-(SA+TAU-dl));const tr=new THREE.Mesh(geo,m.rib);tr.rotation.x=Math.PI/2;tr.position.y=gy(r)-.05;glassG.add(tr)}
+  // clear apertures (one pane each, 3 m across): over the star room and over the bed; ribs and rings stop at their ring beams
+  const cut=(a,r0,r1)=>{let segs=[[r0,r1]];for(const ap of AP){const u=[Math.cos(a),-Math.sin(a)],uc=u[0]*ap.c[0]+u[1]*ap.c[1],rr=ap.r+.18,dc=uc*uc-(ap.c[0]**2+ap.c[1]**2-rr*rr);if(dc<=0)continue;const p=uc-Math.sqrt(dc),q=uc+Math.sqrt(dc),n2=[];for(const [s,e] of segs){if(p>s)n2.push([s,Math.min(p,e)]);if(q<e)n2.push([Math.max(q,s),e])}segs=n2.filter(v=>v[1]-v[0]>.05)}return segs};
+  const fin=(a,r0,r1,dp)=>{if(r1-r0<.25)return;const P=[],n=Math.max(3,Math.ceil((r1-r0)/.8));for(let k=0;k<=n;k++){const r=r0+(r1-r0)*k/n;P.push([r,gy(r)-.012])}for(let k=n;k>=0;k--){const r=r0+(r1-r0)*k/n;P.push([r,gy(r)-dp])}const geo=new THREE.ExtrudeGeometry(new THREE.Shape(P.map(p=>new THREE.Vector2(p[0],p[1]))),{depth:.04,bevelEnabled:false});geo.translate(0,0,-.02);const me=new THREE.Mesh(geo,m.rib);me.rotation.y=a;me.castShadow=true;glassG.add(me)};
+  for(let i=0;i<NRI;i++){const a=i/NRI*TAU;for(const [p,q] of cut(a,ro+.3,RB))fin(a,p,q,.4)}
+  for(let i=0;i<NRO;i++){const a=(i+.5)/NRO*TAU;for(const [p,q] of cut(a,RB,R-.05))fin(a,p,q,.4)}
+  for(const r of ringsR){const gaps=[];for(const ap of AP){const rr=ap.r+.18,rc2=Math.hypot(ap.c[0],ap.c[1]);if(Math.abs(r-rc2)>=rr)continue;const dl=Math.acos(cl((r*r+rc2*rc2-rr*rr)/(2*r*rc2),-1,1)),ac=na(Math.atan2(-ap.c[1],ap.c[0]));gaps.push([ac-dl,ac+dl])}gaps.sort((p,q)=>p[0]-q[0]);let arcs=[];if(!gaps.length)arcs=[[0,TAU]];else for(let k=0;k<gaps.length;k++){const s=gaps[k][1],e=gaps[(k+1)%gaps.length][0]+(k+1===gaps.length?TAU:0);if(e>s)arcs.push([s,e])}
+   for(const [s,e] of arcs){const geo=new THREE.TorusGeometry(r,.03,6,Math.max(8,Math.round(r*(e-s)*2.2)),e-s);geo.rotateZ(-e);const tr=new THREE.Mesh(geo,m.rib);tr.rotation.x=Math.PI/2;tr.position.y=gy(r)-.05;glassG.add(tr)}}
   // the ring beam over the terrace edge, on bronze-clad columns; and the compression ring round the court panel
   ringWall(RB-.15,RB+.15,gy(RB)-.45,gy(RB)-.01,[],m.rib,glassG,.8);ringWall(ro+.02,ro+.32,gy(ro+.17)-.42,gy(ro+.17)-.01,[],m.rib,glassG,.5);
   G.cols=[11.2,43,75,100,125,148,172,195,206,228,240,258,278,295,312,338,348.8];for(const d of G.cols){const p=P2(RB,d*D2R),h=gy(RB)-.45-F1;cyl(.07,.07,h,m.bronze,p[0],F1+h/2,p[1],house,14);cyl(.11,.11,.06,m.bronzeD,p[0],F1+.03,p[1],house,14)}
   // the star room's aperture: a ring beam round one clear pane
-  {const pts=[];for(let k=0;k<=48;k++){const t=k/48*TAU,x=SC[0]+Math.cos(t)*(SRS+.18),z=SC[1]+Math.sin(t)*(SRS+.18);pts.push(V3(x,gy(Math.hypot(x,z))-.12,z))}glassG.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts,true),96,.12,6,true),m.rib))}
+  for(const ap of AP){const pts=[];for(let k=0;k<=40;k++){const t=k/40*TAU,x=ap.c[0]+Math.cos(t)*(ap.r+.18),z=ap.c[1]+Math.sin(t)*(ap.r+.18);pts.push(V3(x,gy(Math.hypot(x,z))-.1,z))}glassG.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts,true),80,.1,6,true),m.rib))}
   // the panel slides west on two rails outside its opening, on bogies; a guard ring rises round the opening while it's open
   for(const s of [-1,1]){const pts=[];for(let k=0;k<=14;k++){const x=ro+.4-(3*ro+1.4)*k/14,z=s*(ro+.35);pts.push(V3(x,gy(Math.hypot(x,z))+.03,z))}glassG.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),28,.03,5,false),m.bronze))}
   {const gr=new THREE.Group();gr.position.y=gy(ro+.4);glassG.add(gr);const rl=new THREE.Mesh(new THREE.TorusGeometry(ro+.5,.03,6,64),m.bronze);rl.rotation.x=Math.PI/2;rl.position.y=1.1;gr.add(rl);for(let k=0;k<14;k++){const t=k/14*TAU;cyl(.02,.02,1.1,m.bronze,Math.cos(t)*(ro+.5),.55,Math.sin(t)*(ro+.5),gr,6)}gr.scale.y=.001;gr.visible=false;G.guard=gr}
@@ -567,7 +570,10 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
   {const p=P2(RB,148*D2R);L('A ring beam on bronze columns at the terrace edge carries the glass',p[0],gy(RB)+.6,p[1])}}
  // the rim: stone flush with the desert where the glass lands; a gutter takes the rain off the glass to the cistern, and filtered intakes bring cool air in low
  {ringStrip(R-.12,R+1.32,.02,m.stoneL);ringWall(R-.12,R+1.32,-.5,.02,[],m.stone,house,1.4);ringStrip(R+.02,R+.24,.025,m.grille);const n=Math.round(S.dia*1.2);for(let i=0;i<n;i++){const a=(i+.5)/n*TAU,p=P2(R+.75,a),gr=box(.7,.02,.22,m.grille,p[0],.025,p[1]);gr.rotation.y=a+Math.PI/2}
-  L('Rim: a gutter for the rain off the glass, and filtered air intakes',R+.6,.6,0)}
+  ringStrip(R+1.32,R+2.6,.018,m.gravel);ringStrip(R+.9,R+1.0,.04,m.bronzeD);
+  {const g=new THREE.Group();g.rotation.y=-200*D2R;glassG.add(g);const P=[];for(let k=0;k<=10;k++){const r=ro+.7+(R+.95-ro-.7)*k/10;P.push(V3(r,gy(Math.min(r,R))+.55,0))}for(let k=0;k<10;k++){const p=P[k],q=P[k+1],L2=p.distanceTo(q),bm=new THREE.Mesh(new THREE.BoxGeometry(L2,.14,.5),m.alu);bm.position.copy(p).lerp(q,.5);bm.rotation.z=Math.atan2(q.y-p.y,q.x-p.x);g.add(bm)}const lg=new THREE.Mesh(new THREE.BoxGeometry(.12,.6,.12),m.alu);lg.position.set(R+.95,.32,0);g.add(lg);const br=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,.45,12),m.grille);br.rotation.x=Math.PI/2;br.position.set(R-3,gy(R-3)+.15,0);g.add(br)}
+  {const p=P2(R+30,140*D2R);bxr(p[0]-1.2,p[0]+1.2,.0,.03,p[1]-1.2,p[1]+1.2,m.grille);L('Air intake 30 m out: a flush grille over a sand-settling chamber and earth tubes',p[0],1.2,p[1])}
+  L('Rim: a gutter for the rain off the glass, a rail for the cleaning gantry, a gravel band you feel underfoot',R+.6,.6,0)}
 
  // ---------- the textile under the glass: drawn by day to hold the sun's heat up against the glass, folded back to the rim at night ----------
  {const NA=Math.round(S.dia*8),NR=22,pos=new Float32Array((NA+1)*(NR+1)*3),uv=new Float32Array((NA+1)*(NR+1)*2),idx=[],PA=[B1,B2,B3,B4,B5];
@@ -598,7 +604,9 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
   for(const a of [29,36,43].map(d=>d*D2R)){const p=P2((R+Ri)/2,a),pr=box(.6,F1-SL-F2,WD+.02,m.conc,p[0],(F1-SL+F2)/2,p[1]);pr.rotation.y=a+Math.PI/2}
   // arch heads over the wide openings
   const ah=(a,w,ys,yt,r0,r1,mat)=>{const g=frame(r1,a,ys);const e=extr(archShape(w,yt-ys,.02),r1-r0,mat,g);e.position.z=0;return g};
-  for(const a of KA)ah(a,2.4,F2+2.0,F2+3.21,R,Ri,m.conc);
+  for(const a of KA)ah(a,2.4,F2+2.0,F2+3.21,R,Ri,m.white);
+  // heavy woven curtains close the kitchen arches at night, so the kitchen's lamplight stays out of the starlit studio
+  for(const a of KA){const g=frame(Ri+.05,a,F2);const cu=box(2.5,3.3,.06,m.weave2,0,1.65,0,g);cu.castShadow=false;G.kcur.push(cu)}
   ah(0,2.4,F1+1.9,F1+3.11,R,Ri,m.conc)}
  // ---------- floors under the glass: the sunken court, a terrace ring, and the rooms like petals around it ----------
  {// the court: a round stone floor sunk 0.9 m, two broad tiers to sit or lie on (450 mm high, 900 mm deep), half-steps at four points, and the terrace
@@ -625,13 +633,14 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
   // the court arm from the hallway door to the terrace, between two walls
   bxr(Math.sqrt(rf*rf-AW*AW)-.1,R+.02,F1-.4,F1,-AW,AW,m.stoneL)}
  // partition walls rise to the glass, so each room has its own slice of sky
- {const top=(x,z)=>gy(Math.hypot(x,z))-.04;
+ {const top=(x,z)=>gy(Math.hypot(x,z))-.44;
   {const p0=P2(rf,B1),p1=P2(R,B1),d0=P2((rf+R)/2-.6,B1),d1=P2((rf+R)/2+.6,B1);lineWall(p0[0],p0[1],d0[0],d0[1],F2,top,.24,m.white);lineWall(d1[0],d1[1],p1[0],p1[1],F2,top,.24,m.white);lineWall(d0[0],d0[1],d1[0],d1[1],F2+2.4,top,.24,m.white)}
   for(const [a,yb,mat] of [[B2,F2,m.white],[B3,F1-.4,m.plaster],[B4,F1-.4,m.plaster],[B5,F1-.4,m.plaster]]){const p0=P2(rf,a),p1=P2(R,a);lineWall(p0[0],p0[1],p1[0],p1[1],yb,top,.24,mat)}
   for(const s of [-1,1]){const x0=Math.sqrt(rf*rf-AW*AW),x1=Math.sqrt(R*R-AW*AW);lineWall(x0,s*(AW+.12),x1,s*(AW+.12),s<0?F2:F1-.4,top,.24,m.plaster)}
   // glass fronts to the terrace, full height, in oak frames, with a door each
   const front=(a0,a1,door)=>{const n=Math.max(2,Math.round((a1-a0)*rf/1.6)),da=(a1-a0)/n;for(let i=0;i<n;i++){const a=a0+(i+.5)*da,yt=gy(rf)-.06;if(Math.abs(a-door)<da*.5){const p=P2(rf,a),d=box(.95,2.4,.05,m.oak,p[0],F1+1.2,p[1]);d.rotation.y=a+Math.PI/2;const q=box(2*rf*Math.sin(da/2),yt-F1-2.45,.02,m.glass,p[0],(F1+2.45+yt)/2,p[1]);q.rotation.y=a+Math.PI/2;q.castShadow=false;continue}const p=P2(rf,a),q=box(2*rf*Math.sin(da/2),yt-F1,.02,m.glass,p[0],(F1+yt)/2,p[1]);q.rotation.y=a+Math.PI/2;q.castShadow=false;q.renderOrder=2}
-   for(let i=0;i<=n;i++){const a=a0+i*da,p=P2(rf,a);bxr(p[0]-.04,p[0]+.04,F1,gy(rf)-.05,p[1]-.04,p[1]+.04,m.oak)}};
+   for(let i=0;i<=n;i++){const a=a0+i*da,p=P2(rf,a);bxr(p[0]-.04,p[0]+.04,F1,gy(rf)-.05,p[1]-.04,p[1]+.04,m.oak)}
+   {const cg=frame(rf+.22,a1-.9/rf,F1);const cu=box(1.5,3.4,.06,m.weave2,0,1.7,0,cg);cu.castShadow=false;const tr2=frame(rf+.22,(a0+a1)/2,F1+3.45);box(2*rf*Math.sin((a1-a0)/2),.03,.03,m.bronze,0,0,0,tr2)}};
   front(B2,B3,160*D2R);front(B3,B4,217.5*D2R);front(B5,TAU-aA(rf),326*D2R);
   // the star room's sector has a front too, with its door; the room itself is round, inside
   front(B4,B5,267.5*D2R)}
@@ -647,10 +656,10 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
   {const ops=OUT.map(([a,w,k,h])=>[a-ang(w,Ro),a+ang(w,Ro),F1,F1+h]);ringWall(Ro,Rw,F1,HT,ops,m.conc,house,.9)}
   // millwork on both walls: base, raised panels below a chair rail, tall raised panels above, a stepped crown; skipped where a door is
   const LI=[],LO=[],LC=[],LD=[];
-  for(let i=0;i<NH;i++){const a=(i+.5)*dH;for(const [rW,dir,list,door] of [[Ri,1,LI,doorIn(a)],[Ro,-1,LO,doorOut(a)]]){const r=rW+dir*.0,pr=(d,h0,h1,ww)=>list.push(seg(r+(dir>0?0:-d),r+(dir>0?d:0),h0,h1,a,dH*ww,0)),wfull=1;
-    if(!door){pr(.02,F1,F1+.2,1);pr(.012,F1+.2,F1+.92,1);pr(.03,F1+.3,F1+.82,.74);pr(.04,F1+.4,F1+.72,.54);pr(.05,F1+.92,F1+1.0,1);pr(.012,F1+1.0,HT-.45,1);pr(.03,F1+1.12,HT-.6,.74);pr(.045,F1+1.3,HT-.78,.5)}
+  for(let i=0;i<NH;i++){const a=(i+.5)*dH;for(const [rW,dir,list,door] of [[Ri,1,LI,doorIn(a)],[Ro,-1,LO,doorOut(a)]]){const r=rW+dir*.0,pr=(d,h0,h1,ww,off=0)=>list.push(seg(r+(dir>0?0:-d),r+(dir>0?d:0),h0,h1,a+off*dH,dH*ww,0)),wfull=1;
+    if(!door){pr(.025,F1,F1+.12,1);pr(.012,F1+.12,F1+.86,1);for(const o of [-.25,.25]){pr(.028,F1+.22,F1+.76,.42,o);pr(.04,F1+.28,F1+.7,.34,o);pr(.048,F1+.33,F1+.65,.28,o)}pr(.045,F1+.86,F1+1.08,1);pr(.065,F1+1.02,F1+1.08,1);pr(.012,F1+1.08,HT-.36,1);for(const o of [-.25,.25]){pr(.028,F1+1.2,HT-.5,.42,o);pr(.04,F1+1.28,HT-.58,.34,o);pr(.048,F1+1.34,HT-.64,.28,o)}}
     else{pr(.02,F1,F1+.2,.12);pr(.05,F1+.92,F1+1.0,.08)}
-    pr(.04,HT-.36,HT,1);pr(.08,HT-.22,HT,1);pr(.13,HT-.1,HT,1)}
+    pr(.03,HT-.3,HT,1);pr(.07,HT-.22,HT,1);pr(.11,HT-.14,HT,1);pr(.15,HT-.07,HT,1)}
    // coffers: beams across and along, two deep, with a frieze at each wall
    const rm=Ri+HW/2;LC.push(seg(Ri,Ro,HT-.26,HT,a-dH/2,.17/rm,0));LC.push(seg(Ri,Ro,HT-.16,HT,a-dH/2,.32/rm,0));for(const rr of [rm]){LC.push(seg(rr-.09,rr+.09,HT-.26,HT,a,dH,0));LC.push(seg(rr-.16,rr+.16,HT-.16,HT,a,dH,0))}
    LC.push(seg(Ri,Ri+.32,HT-.28,HT,a,dH,0));LC.push(seg(Ro-.32,Ro,HT-.28,HT,a,dH,0));LD.push(seg(Ri+.32,Ro-.32,HT-.02,HT,a,dH,0))}
@@ -658,14 +667,15 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
   // doorways: deep layered casings with round arches, oak doors in raised panels
   const casing=(a,w,ys,r,dir,doorLeaf)=>{const g=frame(r,a,F1);g.rotation.y+=dir>0?Math.PI:0;for(const [cw,d] of [[.08,.04],[.16,.08],[.24,.12]]){const e=extr(casingShape(w,ys-F1,cw),d,m.millS,g);e.position.z=dir>0?-.0:0}
    const ks=box(.22,.32,.16,m.millS,0,ys-F1+w/2+.2,.06,g);if(doorLeaf){const d=new THREE.Group();d.position.set(-w/2+.02,0,-.12);g.add(d);box(w-.06,ys-F1-.02,.06,m.oak,(w-.06)/2,(ys-F1)/2,0,d);for(const [y0,y1] of [[.25,1.0],[1.2,ys-F1-.25]])box(w-.36,y1-y0,.03,m.oakD,(w-.06)/2,(y0+y1)/2,.035,d);d.rotation.y=0}return g};
-  for(const [a,w,k] of DIN){casing(a,Math.min(w,2.4),F1+(w>2?1.9:1.75),Ri,1,k!=='arm');if(k!=='arm')extr(archShape(w,1.11,.03),WD,m.mill,frame(Ri+.005,a,F1+1.75))}
+  for(const [a,w,k] of DIN){casing(a,Math.min(w,2.4),F1+(w>2?1.9:1.75),Ri,1,k!=='arm');if(k!=='arm'){extr(archShape(w,1.11,.03),WD,m.mill,frame(Ri+.005,a,F1+1.75));const tg=new THREE.CircleGeometry(w/2,20,0,Math.PI),tp=new THREE.Mesh(tg,m.oakDS);tp.castShadow=true;frame(R+.06,a,F1+1.75).add(tp)}}
+  G.armD=[];{const g=frame(Ri-.3,0,F1);for(const s of [-1,1]){const lg=new THREE.Group();lg.position.set(s*1.18,0,0);g.add(lg);box(1.16,1.88,.07,m.oak,-s*.58,.94,0,lg);for(const [y0,y1] of [[.2,.9],[1.05,1.72]])box(.86,y1-y0,.03,m.oakD,-s*.58,(y0+y1)/2,.05,lg);G.armD.push({g:lg,s})}const tg=new THREE.CircleGeometry(1.2,24,0,Math.PI),tp=new THREE.Mesh(tg,m.oakDS);tp.position.y=1.9;g.add(tp)}
   // the gallery over the showroom: a wide opening in the panelling with an oak rail
   {const a=40*D2R,g=frame(Ri,a,F1);g.rotation.y+=Math.PI;box(3.5,.06,.24,m.oak,0,.98,.04,g);const g2=frame(Ri,a,F1+.95);g2.rotation.y+=Math.PI;for(const [cw,dd] of [[.08,.04],[.16,.08]])extr(rcasingShape(3.4,1.95,cw),dd,m.millS,g2)}
   for(const [a,w,k,h] of OUT)if(k!=='front'){const g=frame(Ro,a,F1);for(const [cw,dd] of [[.08,.04],[.16,.08],[.24,.12]])extr(rcasingShape(w,h,cw),dd,m.millS,g)}
   // lamps on consoles along the outer wall, and floor uplights grazing both walls
   const lampsA=[18,48,78,108,128,165,195,225,280,310,340].map(d=>d*D2R);
-  for(const a of lampsA){const g=frame(Ro-.2,a,F1);box(1.4,.05,.4,m.oak,0,.82,0,g);for(const x of [-.62,.62])box(.04,.8,.04,m.bronzeD,x,.4,0,g);tlamp(-.35,.845,0,g);const pp=P2(Ro-.55,a);PL(pp[0],F1+1.3,pp[1],0xffb468,2.0,3.0,'lamp');if(Math.round(a/D2R)%90===65%90)box(.5,.32,.3,m.book[1],.35,1.0,0,g)}
-  for(let i=0;i<NH;i++){const a=(i+.5)*dH;if(i%2)continue;if(!doorIn(a)){const p=P2(Ri+.013,a);upl(p[0],F1,p[1],a+Math.PI/2,1.0,HH-.5)}if(!doorOut(a)){const p=P2(Ro-.013,a);upl(p[0],F1,p[1],a-Math.PI/2,1.0,HH-.5)}}
+  for(const a of lampsA){const g=frame(Ro-.2,a,F1);box(1.4,.05,.4,m.oak,0,.82,0,g);for(const x of [-.62,.62])box(.04,.8,.04,m.bronzeD,x,.4,0,g);tlamp(-.35,.845,0,g);const pp=P2(Ro-.55,a);PL(pp[0],F1+1.3,pp[1],0xffb468,2.0,2.8,'lamp');if(Math.round(a/D2R)%90===65%90)box(.5,.32,.3,m.book[1],.35,1.0,0,g)}
+  for(let i=0;i<NH;i++){const a=(i+.5)*dH;if(i%2)continue;if(!doorIn(a)){const p=P2(Ri+.013,a);upl(p[0],F1,p[1],a+Math.PI/2,.55,HH-.5)}if(!doorOut(a)){const p=P2(Ro-.013,a);upl(p[0],F1,p[1],a-Math.PI/2,.55,HH-.5)}}
   Lp('The hallways: panelled walls, a coffered ceiling, wide oak and a woven runner',Ri+HW/2,300*D2R,HT+.6);
   // ---------- the front door: heavy bronze, studded, in a deep stone portal at the foot of the stair ----------
   {const g=frame(Rw,0,F1);g.rotation.y+=Math.PI;// local +z points east, up the stair
@@ -710,7 +720,7 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
   box(4.6,.012,4.2,m.weave2,0,.006,.2,g).castShadow=false;
   if(S.bed==='round'){cyl(1.55,1.55,.3,m.oak,0,.15,0,g,48);cyl(1.38,1.38,.26,m.linen,0,.43,0,g,48);cyl(1.2,1.2,.08,m.duvet,0,.6,.1,g,48);for(const x of [-.5,.5])rbox(.62,.16,.36,.07,m.linen,x,.62,-.95,g);rbox(1.3,.06,.6,.03,m.weave,0,.66,.7,g)}
   else{box(2.7,.3,2.6,m.oak,0,.15,.1,g);rbox(2.1,.26,2.15,.06,m.linen,0,.43,.2,g);rbox(2.16,.07,1.55,.03,m.duvet,0,.6,.5,g);for(const x of [-.52,.52])rbox(.7,.17,.4,.07,m.linen,x,.65,-.62,g);rbox(2.16,.04,.55,.02,m.weave,0,.64,1.05,g);
-   box(3.3,1.3,.08,m.oakD,0,.65,-1.25,g);for(const s of [-1,1]){const w=box(.9,1.3,.08,m.oakD,s*1.92,.65,-.92,g);w.rotation.y=s*.7}for(const x of [-1.7,1.7])box(.5,.45,.45,m.oak,x,.225,-.85,g);box(1.6,.42,.42,m.oak,0,.21,2.0,g)}
+   box(3.3,1.3,.08,m.oakD,0,.65,-1.25,g);for(const x of [-1.45,1.45])for(const z of [-1.3,1.45])box(.07,2.3,.07,m.oak,x,1.15,z,g);for(const z of [-1.3,1.45])box(2.97,.07,.07,m.oak,0,2.3,z,g);for(const x of [-1.45,1.45])box(.07,.07,2.82,m.oak,x,2.3,.075,g);for(const s of [-1,1]){const w=box(.9,1.3,.08,m.oakD,s*1.92,.65,-.92,g);w.rotation.y=s*.7}for(const x of [-1.7,1.7])box(.5,.45,.45,m.oak,x,.225,-.85,g);box(1.6,.42,.42,m.oak,0,.21,2.0,g)}
   rbox(.9,.42,.9,.08,m.cush,-1.9,.21,1.6,g);rbox(.9,.42,.9,.08,m.cush,1.9,.21,1.6,g);
   // a woven curtain half drawn across the glass front
   {const cu=box(2.4,2.6,.03,m.weave,0,1.3,0,frame(rf+.18,a+.18,F1));cu.castShadow=false}
@@ -728,13 +738,14 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
   Lp('Open-sky bath · filtered, heat-pump warmed, covered when not in use',rM,a,.8)}
  // ---------- the star room: dark and round, a bench round its wall, only a circle of sky above ----------
  {const a=267.5*D2R,rM=(rf+R)/2,c=P2(rM,a),rS=Math.min(S.star/2,(R-rf)/2-.3,rM*Math.sin(25*D2R)-.35),dirC=Math.atan2(-Math.cos(a),Math.sin(a)),gap=.55/rS;
-  const wallC=(r,mat,side)=>{const geo=new THREE.CylinderGeometry(r,r,1,72,1,true,dirC+gap,TAU-2*gap),p=geo.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),z=p.getZ(i),y=p.getY(i);p.setY(i,y>0?gy(Math.hypot(c[0]+x,c[1]+z))-.05:F1)}geo.computeVertexNormals();const me=new THREE.Mesh(geo,mat);me.material.side=side;add(me,c[0],0,c[1]);return me};
+  const wallC=(r,mat,side)=>{const geo=new THREE.CylinderGeometry(r,r,1,72,1,true,dirC+gap,TAU-2*gap),p=geo.attributes.position;for(let i=0;i<p.count;i++){const x=p.getX(i),z=p.getZ(i),y=p.getY(i);p.setY(i,y>0?Math.min(F1+4.7,gy(Math.hypot(c[0]+x,c[1]+z))-.44):F1)}geo.computeVertexNormals();const me=new THREE.Mesh(geo,mat);me.material.side=side;add(me,c[0],0,c[1]);return me};
   const dk=m.dark.clone();dk.side=THREE.BackSide;wallC(rS,dk,THREE.BackSide);{const fg=new THREE.CylinderGeometry(rS-.04,rS-.04,2.4,72,1,true,dirC+gap,TAU-2*gap),fm=m.felt.clone();fm.side=THREE.BackSide;add(new THREE.Mesh(fg,fm),c[0],F1+1.2,c[1])}
   {const vm=m.dark.clone();vm.side=THREE.DoubleSide;add(new THREE.Mesh(new THREE.CylinderGeometry(rS+1.1,rS+1.1,2.6,40,1,true,dirC-.42,1.15),vm),c[0],F1+1.3,c[1]);for(const [t,r] of [[dirC-.62,rS+1.1],[dirC,rS+.12]]){const cu=box(1.1,2.3,.04,m.cushD,c[0]+Math.sin(t)*r,F1+1.15,c[1]+Math.cos(t)*r);cu.rotation.y=t+(r>rS+.5?Math.PI/2:0);cu.castShadow=false}}const pl=m.plaster.clone();wallC(rS+.25,pl,THREE.FrontSide);
   {const g2=new THREE.CylinderGeometry(rS-.52,rS-.52,.45,72,1,true,dirC+gap,TAU-2*gap);add(new THREE.Mesh(g2,m.oakDDS),c[0],F1+.225,c[1])}
   // the seat itself: a ring of oak on the bench, cushions here and there
   {const geo=new THREE.RingGeometry(rS-.55,rS-.02,72,1,dirC+gap-Math.PI/2,TAU-2*gap);geo.rotateX(-Math.PI/2);add(new THREE.Mesh(geo,m.oakDS),c[0],F1+.46,c[1]);for(let i=0;i<7;i++){const t=dirC+gap+.4+i*(TAU-2*gap-.8)/6;rbox(.5,.08,.42,.03,m.cushD,c[0]+Math.sin(t)*(rS-.28),F1+.55,c[1]+Math.cos(t)*(rS-.28))}}
   cyl(rS-.8,rS-.8,.012,m.weave2,c[0],F1+.006,c[1],house,64).castShadow=false;
+  {const kg=new THREE.RingGeometry(1.5,rS+.26,72,1);kg.rotateX(Math.PI/2);const km=m.dark.clone();km.side=THREE.DoubleSide;add(new THREE.Mesh(kg,km),c[0],F1+4.7,c[1]);const lip=new THREE.Mesh(new THREE.CylinderGeometry(1.5,1.56,.06,72,1,true),km);add(lip,c[0],F1+4.67,c[1])}
   // its door in the gap, oak, curved like the wall
   {const geo=new THREE.CylinderGeometry(rS+.1,rS+.1,2.3,16,1,true,dirC-gap,2*gap*.98);add(new THREE.Mesh(geo,m.oakDS),c[0],F1+1.15,c[1])}
   for(let i=0;i<10;i++){const t=dirC+gap+i*(TAU-2*gap)/9;mk(c[0]+Math.sin(t)*(rS-.6),F1+.01,c[1]+Math.cos(t)*(rS-.6))}
@@ -753,7 +764,7 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
   for(let i=0;i<3;i++)for(let j=0;j<3;j++)box(.9,.04,.36,W,-3.4+i*.95,.6+j*.7,-(R-rM)+.35,g);for(const x of [-3.9,-2.95,-2.0,-1.05])box(.04,2.1,.36,W,x+.025,1.05,-(R-rM)+.35,g);
   cyl(.3,.3,1.0,W,3.2,.5,-1.6,g,24);sph(.26,W,3.2,1.26,-1.6,g);
   // a white stair up to the terrace
-  {const a2=117*D2R,n=24,h=(F1-F2)/n,r0=R-.9,r1=rf+.25,run=(r0-r1)/n;for(let i=0;i<n;i++){const r=r0-(i+.5)*run,p=P2(r,a2),b=box(1.1,h*(i+1),run+.01,W,p[0],F2+h*(i+1)/2,p[1]);b.rotation.y=a2-Math.PI/2;if(i%3===1){const q=P2(r,a2+.045);mk(q[0],F2+h*(i+1)+.01,q[1])}}const q0=P2(r0,a2+.62/r0),q1=P2(r1,a2+.62/r1);rod(V3(q0[0],F2+h+.9,q0[1]),V3(q1[0],F1+.9,q1[1]),.022,m.whiteS)}
+  {const a2=117*D2R,n=22,h=(F1-F2)/n,r0=R-.9,r1=rf+.25,LD=1.0,run=(r0-r1-LD)/n,rr=i=>r0-(i+.5)*run-(i>=11?LD:0);for(let i=0;i<n;i++){const r=rr(i),p=P2(r,a2),b=box(1.1,h*(i+1),run+.01+(i===10?LD:0),W,(i===10?P2(r-LD/2,a2):p)[0],F2+h*(i+1)/2,(i===10?P2(r-LD/2,a2):p)[1]);b.rotation.y=a2-Math.PI/2;if(i%3===1){const q=P2(r,a2+.045);mk(q[0],F2+h*(i+1)+.01,q[1])}}const q0=P2(r0,a2+.62/r0),qa=P2(rr(10)+run/2,a2+.62/(r0-6)),qb=P2(rr(11)+run/2,a2+.62/(r0-6)),q1=P2(r1,a2+.62/r1);rod(V3(q0[0],F2+h+.9,q0[1]),V3(qa[0],F2+h*11+.9,qa[1]),.022,m.whiteS);rod(V3(qb[0],F2+h*11+.9,qb[1]),V3(q1[0],F1+.9,q1[1]),.022,m.whiteS)}
   Lp('White studio, a storey down, open to the kitchen',rM,a,F2+3.2)}
  // ---------- the kitchen: below everything, under the hallway, beside the studio ----------
  {const aM=(K0+K1)/2;
@@ -791,7 +802,7 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
    rbox(2.2,1.9,2.4,.15,m.rv,2.75,1.9,0,g);box(1.0,.8,2.3,m.rvG,3.35,2.35,0,g);rbox(5.4,2.6,2.5,.12,m.rv,-1.15,2.25,0,g);box(5.2,.1,2.52,m.rvD,-1.15,1.25,0,g);
    for(const x of [-2.2,-.6])box(.7,.5,.02,m.rvG,x,2.6,1.26,g);box(.8,1.6,.02,m.rvD,-3.0,1.9,1.26,g);
    for(const x of [2.6,-1.4,-2.7])for(const s of [-1,1]){const w=cyl(.5,.5,.42,m.tyre,x,.5,s*1.0,g,20);w.rotation.x=Math.PI/2}
-   box(5.0,.5,1.4,m.steel,-1.3,.75,0,g);L('A simple RV, kept as a water reserve: ≈ 8,000 L (it becomes Nebelfänger later)',p[0],F2+3.6,p[1])}
+   box(5.0,.5,1.4,m.steel,-1.3,.75,0,g);L('A simple RV, kept as a water reserve: ≈ 3,000 L (it becomes Nebelfänger later)',p[0],F2+3.6,p[1])}
   // the plant room: pumps, filters and the batteries' inverter
   {plate(arc(Ri,6*D2R,20*D2R,8).concat(arc(Rw+1.2,20*D2R,6*D2R,10)),[],F2,.4,m.concD);ringWall(Rw+1.2,Rw+1.6,F2,F1-SL,[],m.conc,house,1,6*D2R,20*D2R);for(const aa of [6*D2R,20*D2R]){const p0=P2(Ri,aa),p1=P2(Rw+1.6,aa);lineWall(p0[0],p0[1],p1[0],p1[1],F2,()=>F1-SL,.3,m.conc)}
    for(let i=0;i<3;i++){const p=P2(Ri+1.4,9*D2R+i*4*D2R);cyl(.35,.35,1.6,m.pump,p[0],F2+.8,p[1],house,16)}{const p=P2(Rw+.6,13*D2R);bxr(p[0]-.3,p[0]+.3,F2,F2+1.9,p[1]-.8,p[1]+.8,m.steel)}Lp('Plant room · pumps, filters, inverter',Ri+1.6,13*D2R,F2+2.4)}
@@ -805,7 +816,7 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
    const lid=new THREE.Group();house.add(lid);for(let z=zL;z>zT+.01;z-=4){const z2=Math.max(zT,z-4);bxr(XR-2.55,XR+2.55,-.12,.015,z2+.02,z-.02,m.lid,lid)}G.lid={g:lid,len:zL-zT};
    L('A hidden ramp under a sand-coloured lid, for Heimweg and the RV',XR,1.4,(zL+zT)/2)}
   // its own stair down from the terrace, and a door through to the studio
-  {const a2=16*D2R,n=24,h=(F1-F2)/n,r0=R-.9,r1=rf+.25,run=(r0-r1)/n;for(let i=0;i<n;i++){const r=r0-(i+.5)*run,p=P2(r,a2),b=box(1.1,h*(i+1),run+.01,m.stoneD,p[0],F2+h*(i+1)/2,p[1]);b.rotation.y=a2-Math.PI/2;if(i%3===1){const q=P2(r,a2-.045);mk(q[0],F2+h*(i+1)+.01,q[1])}}const q0=P2(r0,a2+.62/r0),q1=P2(r1,a2+.62/r1);rod(V3(q0[0],F2+h+.9,q0[1]),V3(q1[0],F1+.9,q1[1]),.022,m.bronze)}
+  {const a2=16*D2R,n=22,h=(F1-F2)/n,r0=R-.9,r1=rf+.25,LD=1.0,run=(r0-r1-LD)/n,rr=i=>r0-(i+.5)*run-(i>=11?LD:0);for(let i=0;i<n;i++){const r=rr(i),p=P2(r,a2),b=box(1.1,h*(i+1),run+.01+(i===10?LD:0),m.stoneD,(i===10?P2(r-LD/2,a2):p)[0],F2+h*(i+1)/2,(i===10?P2(r-LD/2,a2):p)[1]);b.rotation.y=a2-Math.PI/2;if(i%3===1){const q=P2(r,a2+.045);mk(q[0],F2+h*(i+1)+.01,q[1])}}const q0=P2(r0,a2+.62/r0),qa=P2(rr(10)+run/2,a2+.62/(r0-6)),qb=P2(rr(11)+run/2,a2+.62/(r0-6)),q1=P2(r1,a2+.62/r1);rod(V3(q0[0],F2+h+.9,q0[1]),V3(qa[0],F2+h*11+.9,qa[1]),.022,m.bronze);rod(V3(qb[0],F2+h*11+.9,qb[1]),V3(q1[0],F1+.9,q1[1]),.022,m.bronze)}
   L('Heimweg showroom · the car under the glass, behind fire-rated glass, smoke vented up the ramp',c[0],F2+3.2,c[1])}
 
  // ---------- the cistern: a columned, vaulted hall under the hallway, like a smaller das Zuhause's; fog water from the hills ----------
@@ -831,7 +842,7 @@ function build(){clear();const m=mats(),R=S.dia/2,HC=S.crown,F1=-S.depth,F2=F1-4
   const r=rnd0(5),sg=new THREE.DodecahedronGeometry(1,0),n=420,im=new THREE.InstancedMesh(sg,m.stoneD,n),o=new THREE.Object3D();let k=0;for(let i=0;i<n*3&&k<n;i++){const x=(r()-.5)*300,z=(r()-.5)*300,rr=Math.hypot(x,z);if(rr<R+3||(x>Rw-2&&x<XS+3&&Math.abs(z)<3)||(Math.abs(x-XR)<4&&z<rp.zA&&z>rp.zT-3))continue;const s=.08+Math.pow(r(),3)*.4;o.position.set(x,s*.3,z);o.scale.set(s,s*.6,s*1.2);o.rotation.set(r()*3,r()*3,r()*3);o.updateMatrix();im.setMatrixAt(k++,o.matrix)}im.count=k;im.castShadow=true;earthG.add(im)}
 
  // ---------- the walk: Heimweg stops out in the desert; a line of low amber lights leads you to the stair ----------
- {const W=S.walk,x0=XS+.8,pts=[[x0,0],[XS+8,-1.2],[XS+13,-14],[XS+10,-.18*W],[XS+.08*W,-.38*W],[XS+.2*W,-.6*W],[XS+.3*W,-.8*W],[XS+.36*W,-.93*W]].map(p=>V3(p[0],0,p[1]));
+ {const W=S.walk,x0=XS+.8,pts=[[x0,0],[XS+.13*W,0],[XS+.24*W,-.005*W],[XS+.3*W,-.06*W],[XS+.35*W,-.3*W],[XS+.42*W,-.55*W],[XS+.5*W,-.76*W]].map(p=>V3(p[0],0,p[1]));
   const cu=new THREE.CatmullRomCurve3(pts,false,'centripetal'),N=Math.ceil(W/2),sp=cu.getSpacedPoints(N);G.walkC=cu;G.walkLen=cu.getLength();const D=sp[N];G.drop=D;
   const ribbon=(P,w,mat,yo=.02)=>{const pos=[],uv=[],idx=[];let acc=0;for(let i=0;i<P.length;i++){const a=P[Math.max(0,i-1)],b=P[Math.min(P.length-1,i+1)],tx=b.x-a.x,tz=b.z-a.z,l=Math.hypot(tx,tz)||1,nx=-tz/l,nz=tx/l;if(i)acc+=P[i].distanceTo(P[i-1]);for(const s of [-1,1]){const x=P[i].x+nx*w/2*s,z=P[i].z+nz*w/2*s;pos.push(x,hgt(x,z)+yo,z);uv.push(acc,s*w/2)}if(i){const k=(i-1)*2;idx.push(k,k+1,k+2,k+2,k+1,k+3)}}
    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.setIndex(idx);geo.computeVertexNormals();const me=new THREE.Mesh(geo,mat);me.receiveShadow=true;earthG.add(me);return me};
@@ -883,23 +894,25 @@ function placeCar(where){const c=G.car,p=where==='dropoff'?G.carDrop:G.carShow;i
 
 /* ---------- particulars ---------- */
 function sched(){if(!G.area)return;const g=G,P=2,R0=S.dia/2,panes=g.panes||0,paneA=g.glassA/Math.max(1,panes),tGlass=Math.round(g.glassA*.225),fogL=Math.round(S.fog*40*3),use=P*75,mo=S.cistern*1000/use/30.4,cisT=mo<18?'about '+Math.round(mo)+' months':mo<30?'about two years':mo<40?'nearly three years':'about '+Math.round(mo/12)+' years',
-  gain=Math.round(Math.PI*R0*R0*.27),inR=Math.round(gain*.14),cool=Math.round(inR*5/4),kwh=Math.round(S.solar*6.2),use2=25+cool+1+20,walkMin=Math.max(2,Math.round(g.walkLen/70)),n=g.bol?g.bol.lp.length:0,ring=TAU*(g.Ri+S.hallW/2),storm=Math.round(Math.PI*R0*R0*.02),bathV=S.bath==='round'?(Math.PI*1.5*1.5*.62).toFixed(1):(3.6*1.5*.62).toFixed(1);
+  gain=Math.round(Math.PI*R0*R0*.1),cool=Math.round(gain*.85*6/3.5),heatN=Math.round(g.glassA*1*12*10/1000),heatE=Math.round(heatN/3.5),kwh=Math.round(S.solar*6.2),use2=25+cool+2+20,fogY=Math.round(S.fog*40*3*.55*365/1000),walkMin=Math.max(2,Math.round(g.walkLen/70)),n=g.bol?g.bol.lp.length:0,ring=TAU*(g.Ri+S.hallW/2),storm=Math.round(Math.PI*R0*R0*.02),bathV=S.bath==='round'?(Math.PI*1.5*1.5*.62).toFixed(1):(3.6*1.5*.62).toFixed(1);
  const sk=skyNow(),EM=eqM(sk.L),gc=V3(-.0549,-.8734,-.4838).applyMatrix4(EM),gcA=Math.round(Math.asin(cl(gc.y,-1,1))*180/Math.PI),mu=sk.moon.y>0;
  const rows=[['Under the glass',fmtA(g.area),'One dome '+fmtL(S.dia)+' across, its rooms '+fmtL(S.depth)+' below the desert; only the glass shows, rising '+fmtL(S.crown)+' at the crown'],
-  ['The glass',fmtA(g.glassA),'≈ '+panes+' laminated, walkable panes of ≈ '+paneA.toFixed(1)+' m² (≈ 90 mm in sealed units, ≈ '+tGlass+' t in all) on 60 × 350 mm steel T-ribs, 24 inside the ring beam and 48 outside, a ring beam on 17 bronze-clad columns and a compression ring round the court panel. The panes sit on sliding bearings with movement joints; a solar-control coating (g ≈ 0.27) and a hard low-e outer face keep night dew off it'],
-  ['Cleaning','Dry, from the lanes','Fritted, anti-slip walking lanes along every fourth rib with safety anchors; brushed dry as the Atacama’s solar farms are, reached by the maintenance stair and a hatch by the rim'],
+  ['The glass',fmtA(g.glassA),'≈ '+panes+' laminated, walkable panes of ≈ '+paneA.toFixed(1)+' m² (≈ 90 mm in sealed units, ≈ '+tGlass+' t in all) on 40 × 400 mm bronze-finished steel ribs, 24 inside the ring beam and 48 outside, a ring beam on 17 columns and a compression ring round the court panel, all on sliding bearings. Over the court, the bed and the star room the glass is low-iron and anti-reflective (it lets ≈ 80% of starlight through); elsewhere it carries a solar-control coating. A hard low-e outer face keeps night dew off'],
+  ['Clear panes','3 m across','One rib-free pane over the star room, seen through a knife-edge opening in its dark ceiling, and one over the bed. No pane is wider than glass is made (≈ 3.2 m). The court panel is eight framed segments on its own ring (≈ 6 t), held down against wind and earthquakes, sliding west on bogies'],
+  ['Cleaning','A gantry','The glass slopes ≈ 21° at the rim, too steep to walk without a harness: a radial cleaning gantry runs round on a rail in the rim and washes it with soft brushes and fog water, so the quartz dust doesn’t scratch the coating. Fritted lanes and anchors are for harnessed repairs; a gravel band round the rim warns your feet at night'],
   ['Hallways',fmtA(g.hallA),'A ring '+fmtL(ring)+' round and '+fmtL(S.hallW)+' wide under '+fmtL(-g.HT-.35)+' of earth: raised panels, a coffered ceiling, wide oak and woven runners'],
   ['Rooms','Under the glass','The sky court, sleeping chamber, star room, open-sky bath (with an enclosed WC), guest room (with its own shower and WC), white studio and Heimweg’s showroom. The kitchen is the one room below the hallway; every room is reached from inside'],
   ['Kitchen',fmtA(g.kitA),'Under the hallway, opening into the white studio through three arches · one spotlight over a '+fmtL(S.island)+' island · a hood ducted up through the ground'],
   ['Arrival','≈ '+walkMin+' min on foot','Heimweg stops '+fmtL(g.walkLen)+' out; '+n+' low amber lights lead you in from the north-north-east to the stair and the bronze door, at night only. Then the car drives itself down a hidden ramp to its showroom'],
-  ['Heat','≈ '+gain+' kW of sun','Peak sun through the coated glass. The textile holds most of it up against the glass, where louvres round the court panel let it out at the crown, and cool air comes in low through filtered slots in the rim, so the rooms take ≈ '+inR+' kW at noon. A ground-source heat pump and the earth round the rooms carry that away: ≈ '+cool+' kWh of power a day in summer. Rooms ≈ 18–22 °C; outside, about 10 °C at night to 25 °C by day'],
+  ['Heat','≈ '+gain+' kW at noon','With the textile drawn, the glass and textile together let in ≈ 10% of the sun. The partitions stop short of the glass, so the hot layer under it is one plenum that rises to the louvres round the court panel; cool air comes in low through earth tubes from an intake 30 m out. A ground-source heat pump carries the rest away: ≈ '+cool+' kWh of electricity a day in summer. Rooms ≈ 18–22 °C'],
+  ['Winter nights','≈ '+heatN+' kWh of heat','The glass loses heat on clear winter nights (≈ 1 W/m²K across ≈ 12 °C): the heat pump makes it up with ≈ '+heatE+' kWh of electricity from the batteries; the earth round the rooms evens out the rest'],
   ['Earthquakes','Built for them','Chile’s coast moves often. The buried drum is a ring of reinforced concrete; the glass rides on sliding bearings, each partition head has a 50 mm sliding joint, and the laminated panes stay in place if one cracks'],
-  ['Storm water','Kept out','Rain is rare here but violent. The rim’s gutter takes the run-off from the glass (≈ '+storm+' m³ in a 20 mm storm) to the cistern; a 25 cm kerb round the stair cut, trench drains at the top and at the door, and a 5 m³ sump with two pumps keep the stair dry; the ramp lid is sealed'],
-  ['Air and fire','Ventilated','Heat-recovery ventilation with filtered intakes, sealed against dust; the kitchen hood and the bath vent up through the ground. The showroom sits behind fire-rated glass (EI 60) with sprinklers, and its smoke vents up the ramp'],
-  ['Water','≈ '+fogL+' L a day','From '+S.fog+' fog catchers ('+S.fog*40+' m² of mesh) in the fog season, pumped ≈ 150 m up to a '+S.cistern+' m³ cistern: '+cisT+' for two at 75 L a day each. The bath (≈ '+bathV+' m³) is filtered, heat-pump warmed and covered, not drained: it loses ≈ 30 L a day'],
-  ['Water reserve','≈ 8,000 L','In the RV beside Heimweg, cycled through the cistern once a month so it stays fresh: about four months for two at 30 L a day each. It becomes Nebelfänger, a Model of its own, later'],
-  ['Power',S.solar+' kWp','≈ '+kwh+' kWh a day from panels ≈ 400 m out, with ≈ 120 kWh of batteries buried beside them · the house uses ≈ '+use2+' kWh on a summer day: ≈ 25 for living, ≈ '+cool+' for cooling, ≈ 1 to pump the fog water, ≈ 20 when Heimweg charges'],
-  ['Lighting','Lamps and uplights','Only in the hallways and the kitchen, with one spotlight over the kitchen island. No ceiling lights. Starlight lights everything under the glass, with tiny amber markers on the steps; the path lights are amber and shielded, and Heimweg shows only its amber hairline, as Chile’s dark-sky rules ask near its observatories'],
+  ['Storm water','Kept out','Rain is rare here but violent. The rim’s gutter takes the run-off from the glass (≈ '+storm+' m³ in a 20 mm storm) through a sand trap and a first-flush diverter to the cistern; a 25 cm kerb round the stair cut, trench drains at the top and at the door, and a 5 m³ sump with two pumps keep the stair dry; the ramp lid is sealed'],
+  ['Air and fire','Ventilated','Heat-recovery ventilation from the intake 30 m out (a flush grille over a sand-settling chamber), sealed against dust; the kitchen hood and the bath vent to a flush grille in the side of the stair cut, so nothing but glass shows. The showroom is its own EI 120 compartment for a battery car fire, with a deluge system and mechanical smoke extract up the ramp'],
+  ['Water','≈ '+fogY+' m³ a year','From '+S.fog+' fog catchers ('+S.fog*40+' m² of mesh) set 50–150 m down inside the fog: ≈ '+fogL+' L a day in the fog season, about half that across the year, pumped ≈ 230 m up to a '+S.cistern+' m³ cistern: '+cisT+' for two at 75 L a day each. The bath (≈ '+bathV+' m³) is filtered, heat-pump warmed and covered, not drained: it loses ≈ 30 L a day'],
+  ['Water reserve','≈ 3,000 L','In the RV beside Heimweg, cycled through the cistern once a month so it stays fresh: about two months for two at 25 L a day each. It becomes Nebelfänger, a Model of its own, later'],
+  ['Power',S.solar+' kWp','≈ '+kwh+' kWh a day from panels ≈ 400 m out, with ≈ 200 kWh of batteries buried beside them · the house uses ≈ '+use2+' kWh of electricity on a summer day: ≈ 25 for living, ≈ '+cool+' for cooling, ≈ 2 to pump the fog water, ≈ 20 when Heimweg charges'+(kwh<use2?' · more panels needed':'')],
+  ['Lighting','Lamps and uplights','Only in the hallways and the kitchen, with one spotlight over the kitchen island, and an amber night setting that keeps your eyes dark-adapted. No ceiling lights. Oak doors and curtains keep that lamplight out of the starlit rooms. Starlight lights everything under the glass, with tiny amber markers on the steps; the path lights are amber and shielded, and Heimweg shows only its amber hairline, as Chile’s dark-sky rules ask near its observatories'],
   ['Tonight',gcA>0?'Core '+gcA+'° up':'Core set',MON[V.month]+' at '+fmtT(V.time)+' · the Milky Way’s core is '+(gcA>0?gcA+'° above the horizon':'below the horizon')+' · '+{new:'new moon',crescent:'a crescent moon',half:'a half moon',gibbous:'a gibbous moon',full:'full moon'}[V.moon]+(V.moon!=='new'?(mu?', up':', set'):'')]];
  $('sched').innerHTML=rows.map(r=>`<tr><td>${r[0]}${r[2]?`<small>${r[2]}</small>`:''}</td><td class="n">${r[1]}</td></tr>`).join('');$('tbSize').textContent='≈ '+fmtA(g.area)+' under glass · Atacama'}
 
@@ -918,7 +931,7 @@ function setScene(){const wh=V.mode==='white',sk=skyNow(),dir=sk.sun,a=dir.y,dus
  let p=a>=.22?PAL.day:a>=.02?mix(PAL.gold,PAL.day,(a-.02)/.2):a>=-.12?mix(PAL.night,PAL.gold,(a+.12)/.14):PAL.night;
  if(dust){const gy=C(a>0?'#b99a7a':'#17130f');p={top:p.top.clone().lerp(gy,.5),hor:p.hor.clone().lerp(gy,.8)}}
  const GL=C(a<.3?'#ffc08a':'#fffaf0'),col=skyG.attributes.color,ps=skyG.attributes.position;
- for(let i=0;i<ps.count;i++){const y=ps.getY(i)/9500,c=y>0?p.hor.clone().lerp(p.top,Math.pow(y,.5)):p.hor.clone().multiplyScalar(.8);if(y>-.05&&!dust){const d=(ps.getX(i)*dir.x+ps.getY(i)*dir.y+ps.getZ(i)*dir.z)/9500;if(d>0)c.lerp(GL,Math.pow(d,a<.3?5:14)*(a<.3?.8:.4)*cl((a+.16)/.18))}col.setXYZ(i,c.r,c.g,c.b)}col.needsUpdate=true;
+ for(let i=0;i<ps.count;i++){const y=ps.getY(i)/9500,c=y>0?p.hor.clone().lerp(p.top,Math.pow(y,.5)):p.hor.clone().multiplyScalar(.8);if(y>-.05&&!dust){const d=(ps.getX(i)*dir.x+ps.getY(i)*dir.y+ps.getZ(i)*dir.z)/9500;if(d>0)c.lerp(GL,Math.pow(d,a<.3?5:14)*(a<.3?.8:.4)*cl((a+.16)/.18))}if(a<-.15&&y>-.02&&y<.25)c.lerp(C('#14201c'),(1-y/.25)*.55);col.setXYZ(i,c.r,c.g,c.b)}col.needsUpdate=true;
  sky.visible=!wh;sunDisc.visible=!wh&&a>-.03&&!dust;sunDisc.position.copy(dir).multiplyScalar(9000);sunDisc.material.color.set(a<.15?'#ffb070':'#fff1d6');
  // the night sky: tonight's rotation, faded by twilight, the moon and the weather
  const EM=eqM(sk.L),md=sk.moon,mUp=md.y>-.02,dark=cl((-.06-a)/.16),mw=mUp?sk.lit*cl(md.y*3+.25):0,sOp=wh?0:dark*(1-mw*.55)*(dust?.12:cam2?.85:1);
@@ -927,22 +940,25 @@ function setScene(){const wh=V.mode==='white',sk=skyNow(),dir=sk.sun,a=dir.y,dus
  if(moonK!==V.moon){moonK=V.moon;paintMoon(sk.E)}MOON.position.copy(md).multiplyScalar(8400);MOON.visible=!wh&&mUp&&sk.lit>.02&&!dust;MOON.material.opacity=.25+.75*cl((.1-a)/.2);
  const hs=p.hor.clone().convertLinearToSRGB();
  for(const h of site.userData.hills||[]){h.visible=!wh;const nt=cl((.05-a)/.15);if(h.userData.snow){h.material.color.copy(hs).lerp(new THREE.Color('#ffffff'),.75*(1-nt)+.12*nt*(.4+mw))}else{h.material.color.copy(hs).lerp(new THREE.Color(p.top).convertLinearToSRGB(),.3).multiplyScalar(.7*(1-nt)+.9*nt)}}
- for(const f of site.userData.fog||[]){f.visible=!wh;f.position.y=FOGY+(cam2?40:0)+(f.userData.dy||0);const fc=new THREE.Color(a>.2?'#f5f4f0':a>0?'#f3c7a4':'#26304a');if(a<=0&&mUp)fc.lerp(new THREE.Color('#8a94ac'),sk.lit*.6);f.material.color.copy(fc)}
+ for(const f of site.userData.fog||[]){f.visible=!wh;f.position.y=FOGY+(cam2?40:0)+(f.userData.dy||0);const fc=new THREE.Color(a>.2?'#e9e8e4':a>0?'#e8bea0':a>-.12?'#3a3f52':'#0d1018');if(a<=0&&mUp)fc.lerp(new THREE.Color('#7a849c'),sk.lit*.6);f.material.color.copy(fc)}
  sun.target.position.set(0,G.F1||0,0);
  if(wh){scene.background=new THREE.Color('#e8e9e6');scene.fog=new THREE.Fog('#e8e9e6',600,9000);sun.position.set(40,90,60);sun.intensity=1.35;sun.color.set('#ffffff');hemi.intensity=.55;hemi.color.set('#ffffff');hemi.groundColor.set('#9aa3a6');scene.environment=null;envK='';R.toneMappingExposure=1}
  else{scene.background=hs;scene.fog=dust?new THREE.Fog(hs,40,900):new THREE.Fog(hs,a>0?900:600,a>0?16000:12000);
-  if(a>0){sun.position.copy(dir).multiplyScalar(180);sun.intensity=(.4+2.4*Math.min(1,a*2.6))*(dust?.45:1);sun.color.set('#ffa66a').lerp(new THREE.Color('#fff4e6'),Math.min(1,a*3.2))}else{sun.position.copy(mUp?md:V3(.3,1,.2)).multiplyScalar(180);sun.intensity=mUp?.05+.5*sk.lit:.02;sun.color.set('#a9bde0')}
+  if(a>0){sun.position.copy(dir).multiplyScalar(180);sun.intensity=(.4+2.4*Math.min(1,a*2.6))*(dust?.45:1);sun.color.set('#ffa66a').lerp(new THREE.Color('#fff4e6'),Math.min(1,a*3.2))}else{sun.position.copy(mUp?md:V3(.3,1,.2)).multiplyScalar(180);sun.intensity=mUp?.05+.5*sk.lit:0;sun.color.set('#a9bde0')}
+  sun.castShadow=!(V.perf==='light'||(V.perf==='auto'&&SLOW))&&(a>0||(mUp&&sk.lit>.15));
   sun.position.add(sun.target.position);
   if(a>0){hemi.color.copy(p.top);hemi.groundColor.copy(C('#8a6a52')).multiplyScalar(Math.max(.1,Math.min(1,a*3+.2)));hemi.intensity=(.18+.32*cl(a*3+.3))}else{hemi.color.set('#46588c');hemi.groundColor.set('#2a2420');hemi.intensity=.12+.3*mw}
   envGM.color.copy(C('#7a6450')).multiplyScalar(Math.max(.05,cl(a*3+.3)));env();R.toneMappingExposure=1+.38*dark;
   // in the starlit rooms at night the eye adapts (after twenty minutes in the dark); the drawing views get a steady drawing light
   if((STARLIT.includes(V.view)||ARR)&&dark>.3&&!DRAWV.includes(V.view)){R.toneMappingExposure=1+1.25*dark;hemi.color.set('#5a6fa8')}
+  if(['hall','kitchen','arrive','cistern'].includes(V.view)&&!ARR)hemi.intensity*=.35;
   if(DRAWV.includes(V.view)&&dark>.3){hemi.intensity=.62;hemi.color.set('#d4d9e6');hemi.groundColor.set('#8a7a6a');R.toneMappingExposure=1.12}}
  // the lights: lamps and uplights in the hallways and kitchen (they are underground, so on by day too); the path and the step markers at night
  const night=a<.03||dust,m=G.m;G.nightL=!wh&&night;
- if(m){const on=V.lights!=='off'&&!wh;G.on=on;m.lampW.emissiveIntensity=on?1.5:.05;m.up.color.set(on?'#ffd9a0':'#3a3632');m.wash.opacity=on?.5:0;m.beam.opacity=on?.07:0;
+ if(m){const on=V.lights!=='off'&&!wh;G.on=on;m.lampW.emissiveIntensity=on?1.5:.05;m.up.color.set(on?'#ffd9a0':'#3a3632');m.wash.opacity=on?.3:0;m.beam.opacity=on?.07:0;
   const nOn=on&&(night||V.lights==='on');m.mark.color.copy(C('#ffa64a')).multiplyScalar(nOn?1:.04);m.stepL.color.copy(C('#ffb05a')).multiplyScalar(nOn?1.2:.05);
-  for(const l of G.lights)l.p.intensity=!on?0:l.kind==='door'?(nOn?l.i:0):l.i;
+  const amb=V.lights==='amber';for(const l of G.lights){l.p.intensity=!on?0:l.kind==='door'?(nOn?l.i:0):l.i*(amb?.22:1);l.p.color.set(amb?'#ff8a3a':l.kind==='spot'?'#ffd6a0':'#ffb468')}if(amb){m.lampW.emissiveIntensity=.5;m.wash.opacity=.1}
+  for(const k2 of G.kcur||[])k2.visible=nOn;
   for(const u of (m.UG||[]).concat([m.ceilK]))u.emissiveIntensity=on?.045:0;
   {const cutR=V.cut&&V.mode==='render';m.rib.transparent=cutR;m.rib.opacity=cutR?.3:1;m.rib.depthWrite=!cutR}
   BLK.s=.08+.7*dark;BLK.t=1.5-.8*dark;m.cloth.emissiveIntensity=wh?0:.22*cl(a*4)}
@@ -952,7 +968,7 @@ function setScene(){const wh=V.mode==='white',sk=skyNow(),dir=sk.sun,a=dir.y,dus
 
 /* ---------- cameras ---------- */
 function camFor(v){const g=G,walk=(e,tg)=>{const E=V3(...e),T2=V3(...tg);return[E,E.clone().add(T2.sub(E).normalize().multiplyScalar(.6))]},R=g.R,F1=g.F1,F2=g.F2,pa=(r,a,y)=>{const p=P2(r,a*D2R);return[p[0],y,p[1]]},rm=(g.rf+R)/2,hm=(g.Ri+g.Ro)/2;
- switch(v){case 'desert':{const u=Math.min(.6,72/g.walkLen),p=g.walkC.getPointAt(u);return[V3(p.x,hgt(p.x,p.z)+1.6,p.z),V3(0,6.5,2)]}
+ switch(v){case 'desert':return stage.clientWidth<stage.clientHeight?[V3(g.XS+30,1.6,-16),V3(0,16,31)]:[V3(g.XS+30,1.6,-16),V3(0,15,24)];
  case 'hero':return[V3(R*2.15,R*1.8,R*2.35),V3(0,F1,0)];
  case 'glass':return[V3(R*1.2,R*.62,R*1.55),V3(0,.6,0)];
  case 'section':return[V3(3,F1+1.4,R*2.2+9),V3(3,F1+1.2,0)];
@@ -980,7 +996,7 @@ function camFor(v){const g=G,walk=(e,tg)=>{const E=V3(...e),T2=V3(...tg);return[
 let tw=null;const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function go(v,instant){V.view=v;if(VIEWS.some(x=>x[0]===v)||WALKS.some(x=>x[0]===v)){V.cut=CUTV.includes(v);V.sect=SECTV[v]||0}if(v==='look'&&S.oculus)V.ocul=true;if(v==='dropoff')V.car='dropoff';if(v==='showroom')V.car='showroom';if(v==='arrive')V.door=true;placeCar(V.car);setScene();sync();
  const [p,t]=camFor(v),as=stage.clientWidth/stage.clientHeight,inG=v==='desert'||v==='stair'||v==='dropoff';if(VIEWS.some(x=>x[0]===v)&&as<1&&!inG)p.sub(t).multiplyScalar(Math.min(2,1.15/as)).add(t);if(instant||RM){cam.position.copy(p);ctl.target.copy(t);tw=null}else tw={p0:cam.position.clone(),t0:ctl.target.clone(),p,t,s:performance.now()};
- cam.fov=v==='look'?80:v==='bed'?75:v==='showroom'?70:v==='desert'?(as<1?Math.min(84,2*Math.atan(Math.tan(.45)*1.15/as)*57.3):52):WALKS.some(x=>x[0]===v)?62:inG&&as<1?Math.min(80,2*Math.atan(Math.tan(.37)*1.15/as)*57.3):42;cam.near=WALKS.some(x=>x[0]===v)||v==='stair'||v==='dropoff'?.1:.8;cam.updateProjectionMatrix();const nm=[...VIEWS,...WALKS].find(x=>x[0]===v);$('tbView').textContent='Observatory home study · '+(nm?nm[1]:'');chips()}
+ cam.fov=v==='look'?80:v==='bed'?75:v==='showroom'?70:v==='desert'?(as<1?62:56):WALKS.some(x=>x[0]===v)?62:inG&&as<1?Math.min(80,2*Math.atan(Math.tan(.37)*1.15/as)*57.3):42;cam.near=WALKS.some(x=>x[0]===v)||v==='stair'||v==='dropoff'?.1:.8;cam.updateProjectionMatrix();const nm=[...VIEWS,...WALKS].find(x=>x[0]===v);$('tbView').textContent='Observatory home study · '+(nm?nm[1]:'');chips()}
 // arriving: only after dark. From beside Heimweg, along the path with the lights coming on ahead, down the stair, through the bronze door and the hallway, out into the sky court
 let ARR=0,LAN=0,ARRC=null;const ARRD=48000,ARS=.5;
 function arrPaths(){const g=G,cu=g.walkC,D=g.drop,P=[V3(D.x+4,1.65,D.z+2.6)];for(let i=0;i<=24;i++){const p=cu.getPointAt(1-i/24);P.push(V3(p.x,hgt(p.x,p.z)+1.65,p.z))}P.push(V3(g.XS-.2,1.6,0));
@@ -1017,11 +1033,11 @@ $('copy').onclick=()=>{try{navigator.clipboard.writeText($('code').value).then((
 $('loadC').onclick=()=>{try{const o=clean(JSON.parse($('code').value));if(!Object.keys(o).length)throw 0;push();Object.assign(S,DEF,o);build();setScene();sync();$('msg').textContent='Loaded.'}catch(e){$('msg').textContent='That code didn’t read as a Sternweh study.'}};
 let MENU=null;
 function chips(){const ch=(on,attr,txt)=>`<button class="chip${on?' on':''}" type="button" ${attr}>${txt}</button>`,pop=(id,html)=>`<div class="pop${MENU===id?' open':''}">${html}</div>`,cur=[...VIEWS,...WALKS].find(v=>v[0]===V.view),lab=t=>`<div class="plab">${t}</div>`,wr=(id,btn,html)=>`<div class="wrap">${btn}${pop(id,html)}</div>`;
- $('views').innerHTML=wr('cams',ch(MENU==='cams','data-menu="cams" aria-haspopup="true" aria-expanded="'+(MENU==='cams')+'"',`Camera · ${cur?cur[1]:'Free'} ▾`),lab('Outside')+VIEWS.map(v=>ch(V.view===v[0],`data-v="${v[0]}"`,v[1])).join('')+lab('Walk-through')+WALKS.map(v=>ch(V.view===v[0],`data-v="${v[0]}"`,v[1])).join(''))
+ $('views').innerHTML=wr('cams',ch(MENU==='cams','data-menu="cams" aria-haspopup="true" aria-expanded="'+(MENU==='cams')+'"',`Camera · ${ARR?'Arriving':PARK?'Following Heimweg':cur?cur[1]:'Free'} ▾`),lab('Outside')+VIEWS.map(v=>ch(V.view===v[0],`data-v="${v[0]}"`,v[1])).join('')+lab('Walk-through')+WALKS.map(v=>ch(V.view===v[0],`data-v="${v[0]}"`,v[1])).join(''))
   +wr('show',ch(MENU==='show','data-menu="show" aria-haspopup="true"','Show ▾'),ch(ARR,'data-x="arrive"','Arrive on foot with Heimweg')+ch(0,'data-x="path"','Light the path')+ch(PARK,'data-x="park"','Heimweg parks itself')+ch(0,'data-x="fly"','Flyover')+ch(0,'data-x="present"','Present')+ch(0,'data-x="snap"','Save image'));
  const MD=[['render','Render'],['white','White model'],['xray','X-ray']],md=MD.map(m=>ch(V.mode===m[0],`data-m="${m[0]}"`,m[1])).join('');
  $('modes').innerHTML='<span class="deskw">'+md+'<span class="sep"></span></span><span class="mobw">'+wr('style',ch(MENU==='style','data-menu="style" aria-haspopup="true"',`Style · ${(MD.find(m=>m[0]===V.mode)||MD[0])[1]} ▾`),md)+'</span>'
-  +wr('scene',ch(MENU==='scene','data-menu="scene" aria-haspopup="true"','Scene ▾'),lab('Inside')+ch(V.lights!=='off','data-t="lights"','Lights: '+V.lights)+ch(V.canopy!=='auto','data-t="canopy"','Textile: '+{auto:'by the sun',drawn:'drawn',open:'open'}[V.canopy])+ch(V.ocul,'data-t="ocul"',V.ocul?'Court panel open':'Court panel shut')+ch(V.door,'data-t="door"',V.door?'Front door open':'Front door shut')+lab('Drawing')+ch(V.cut,'data-t="cut"',V.cut?'Earth cut away':'Earth shown')+ch(V.sect,'data-t="sect"',V.sect==='ns'?'Section north–south':V.sect==='ew'?'Section east–west':'No section')+ch(V.labels,'data-t="labels"','Labels')+ch(V.fig,'data-t="fig"','Scale figures')+ch(0,'data-t="units"',V.units==='m'?'Metres':'Feet')+ch(V.perf!=='auto','data-t="perf"','Quality: '+(V.perf==='auto'?'auto'+(SLOW?' (light)':' (high)'):V.perf)))}
+  +wr('scene',ch(MENU==='scene','data-menu="scene" aria-haspopup="true"','Scene ▾'),lab('Inside')+ch(V.lights!=='off','data-t="lights"','Lights: '+(V.lights==='amber'?'amber night':V.lights))+ch(V.canopy!=='auto','data-t="canopy"','Textile: '+{auto:'by the sun',drawn:'drawn',open:'open'}[V.canopy])+ch(V.ocul,'data-t="ocul"',V.ocul?'Court panel open':'Court panel shut')+ch(V.door,'data-t="door"',V.door?'Front door open':'Front door shut')+lab('Drawing')+ch(V.cut,'data-t="cut"',V.cut?'Earth cut away':'Earth shown')+ch(V.sect,'data-t="sect"',V.sect==='ns'?'Section north–south':V.sect==='ew'?'Section east–west':'No section')+ch(V.labels,'data-t="labels"','Labels')+ch(V.fig,'data-t="fig"','Scale figures')+ch(0,'data-t="units"',V.units==='m'?'Metres':'Feet')+ch(V.perf!=='auto','data-t="perf"','Quality: '+(V.perf==='auto'?'auto'+(SLOW?' (light)':' (high)'):V.perf)))}
 const present=on=>{document.body.classList.toggle('present',on);ctl.autoRotate=on;ctl.autoRotateSpeed=.3;labels()};
 let fly=0;
 function snap(){draw();const u=cv.toDataURL('image/png');$('snapImg').src=u;$('snapDl').href=u;$('snap').style.display='flex'}
@@ -1029,7 +1045,7 @@ $('snapX').onclick=()=>$('snap').style.display='none';$('pexit').onclick=()=>pre
 addEventListener('keydown',e=>{if(e.key==='Escape'){present(false);$('snap').style.display='none';if(MENU){MENU=null;chips()}}});
 $('views').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.menu){MENU=MENU===b.dataset.menu?null:b.dataset.menu;chips();return}MENU=null;chips();const x=b.dataset.x;if(x==='present')present(true);else if(x==='arrive')arrive();else if(x==='park')park();else if(x==='path'){LAN=performance.now();for(const l of G.bol.lp)l.v=0}else if(x==='fly'){fly=performance.now();tw=null;ARR=0;PARK=0;ctl.autoRotate=false;V.cut=false;V.sect=0;setScene()}else if(x==='snap')snap();else if(b.dataset.v){ARR=0;PARK=0;go(b.dataset.v)}});
 $('modes').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.menu){MENU=MENU===b.dataset.menu?null:b.dataset.menu;chips();return}const k=b.dataset.t;
- if(b.dataset.m){MENU=null;V.mode=b.dataset.m;worldK='';build();setScene()}else if(k==='perf'){V.perf={auto:'high',high:'light',light:'auto'}[V.perf];applyPerf()}else if(k==='lights'){V.lights={auto:'on',on:'off',off:'auto'}[V.lights];setScene()}else if(k==='canopy'){V.canopy={auto:'drawn',drawn:'open',open:'auto'}[V.canopy];setScene();sync()}else if(k==='units'){V.units=V.units==='m'?'ft':'m';build();setScene();sync();saveV()}else if(k==='sect'){V.sect={0:'ew',ew:'ns',ns:0}[V.sect||0];setScene()}else if(k){V[k]=!V[k];labels();setScene();sync()}chips()});
+ if(b.dataset.m){MENU=null;V.mode=b.dataset.m;worldK='';build();setScene()}else if(k==='perf'){V.perf={auto:'high',high:'light',light:'auto'}[V.perf];applyPerf()}else if(k==='lights'){V.lights={auto:'on',on:'amber',amber:'off',off:'auto'}[V.lights];setScene()}else if(k==='canopy'){V.canopy={auto:'drawn',drawn:'open',open:'auto'}[V.canopy];setScene();sync()}else if(k==='units'){V.units=V.units==='m'?'ft':'m';build();setScene();sync();saveV()}else if(k==='sect'){V.sect={0:'ew',ew:'ns',ns:0}[V.sect||0];setScene()}else if(k){V[k]=!V[k];labels();setScene();sync()}chips()});
 let hinted=false;cv.addEventListener('pointerdown',()=>{if(MENU){MENU=null;chips()}if(!hinted){hinted=true;$('hint').style.opacity=0}});
 ctl.addEventListener('start',()=>{tw=null;fly=0;ARR=0;PARK=0});
 const TOUR=['Drag to orbit around Sternweh. Scroll or pinch to zoom.','Show ▾ → Arrive on foot with Heimweg walks you in at night from where the car stops, with the path lights coming on ahead of you.','Camera ▾ has outside views, a section and walk-throughs: lie down in the sky court and look up, the star room, the hallway and the kitchen.','The sky is drawn roughly as it is from 24.6° south. Change the month, the moon and the time under Sky & scene, and design everything else in the panel on the right.'];let TI=0;
@@ -1041,7 +1057,7 @@ $('tourNext').onclick=()=>{if(++TI>=TOUR.length)tourEnd();else tourShow()};$('to
 
 /* ---------- loop ---------- */
 const ro2=new ResizeObserver(()=>{const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;R.setSize(w,h,false);if(CMP)CMP.setSize(w,h);cam.aspect=w/h;cam.updateProjectionMatrix()});ro2.observe(stage);
-const clock=new THREE.Clock(),vp=new THREE.Vector3(),vq=new THREE.Vector3(),ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;let last=performance.now();const AN={ocul:V.ocul?1:0,door:V.door?1:0,lid:0,can:1};const AMB=new THREE.Color('#ffa64a'),APL=new THREE.Color('#ffae5c'),tmpC=new THREE.Color();
+const clock=new THREE.Clock(),vp=new THREE.Vector3(),vq=new THREE.Vector3(),ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;let last=performance.now();const AN={ocul:V.ocul?1:0,door:V.door?1:0,lid:0,can:1};const AMB=new THREE.Color('#ff9a3c'),APL=new THREE.Color('#ff8f2e'),tmpC=new THREE.Color();
 function loop(){requestAnimationFrame(loop);const t=RM?0:clock.getElapsedTime(),now=performance.now(),dt=Math.min(.25,(now-last)/1000);last=now;
  fN++;if(fN>20&&fN<=110){fT+=dt;if(fN===110&&fT/90>1/26){SLOW=true;applyPerf();chips()}}
  let aw=-1;
@@ -1053,12 +1069,12 @@ function loop(){requestAnimationFrame(loop);const t=RM?0:clock.getElapsedTime(),
  if(!ARR&&!PARK)ctl.update();
  const k=RM?1:Math.min(1,dt*1.6);
  AN.ocul+=((V.ocul&&S.oculus?1:0)-AN.ocul)*Math.min(1,dt*.5);if(G.ocP)G.ocP.rotation.z=G.ocA*ease(cl(AN.ocul));if(G.guard){const s=ease(cl(AN.ocul*1.3));G.guard.visible=s>.01;G.guard.scale.y=Math.max(.001,s)}
- AN.door+=((V.door?1:0)-AN.door)*k;for(const d of G.fdoor||[])d.g.rotation.y=-d.s*ease(cl(AN.door))*1.35;
+ AN.door+=((V.door?1:0)-AN.door)*k;for(const d of G.fdoor||[])d.g.rotation.y=-d.s*ease(cl(AN.door))*1.35;for(const d of G.armD||[])d.g.rotation.y=d.s*ease(cl(AN.door))*1.4;
  AN.lid+=((AN.lidT||0)-AN.lid)*Math.min(1,dt*.8);if(!PARK)AN.lidT=0;if(G.lid){G.lid.g.position.z=(G.lid.len+1)*ease(cl(AN.lid));G.lid.g.position.y=-.7*cl(AN.lid*3)}
  AN.can+=((G.canT??1)-AN.can)*(RM?1:Math.min(1,dt*.35));if(G.canopy)G.canopy.set(ease(cl(AN.can)));
  const wh=V.mode==='white';
  // the path lights: on at night; lit one after another as you walk, or when you light the path
- if(G.bol){const L0=G.walkLen;let ch=false;G.bol.lp.forEach((l,i)=>{const tg=G.on===false?0:aw>=0?(l.u>=aw-28/L0?1:0):LAN>1?(now-LAN>i*220?1:0):(G.nightL?1:0);if(Math.abs(tg-l.v)>.002){l.v+=(tg-l.v)*Math.min(1,dt*(tg?3:1.4));ch=true;G.bol.glow.setColorAt(i,tmpC.copy(AMB).multiplyScalar(wh?0:l.v*2.2));G.bol.pool.setColorAt(i,tmpC.copy(APL).multiplyScalar(wh?0:l.v*.55))}});if(ch){G.bol.glow.instanceColor.needsUpdate=true;G.bol.pool.instanceColor.needsUpdate=true}}
+ if(G.bol){const L0=G.walkLen;let ch=false;G.bol.lp.forEach((l,i)=>{const tg=G.on===false?0:aw>=0?(l.u>=aw-28/L0?1:0):LAN>1?(now-LAN>i*220?1:0):(G.nightL?1:0);if(Math.abs(tg-l.v)>.002){l.v+=(tg-l.v)*Math.min(1,dt*(tg?3:1.4));ch=true;G.bol.glow.setColorAt(i,tmpC.copy(AMB).multiplyScalar(wh?0:l.v*2.2));G.bol.pool.setColorAt(i,tmpC.copy(APL).multiplyScalar(wh?0:l.v*.42))}});if(ch){G.bol.glow.instanceColor.needsUpdate=true;G.bol.pool.instanceColor.needsUpdate=true}}
  STARM.uniforms.t.value=t;
  if(MOON.visible){vp.copy(MOON.position).project(cam);vq.copy(MOON.position).addScaledVector(skyNow().sun,900).project(cam);MOON.material.rotation=Math.atan2(vq.y-vp.y,(vq.x-vp.x)*cam.aspect)}
  {const nr=WALKS.some(x=>x[0]===V.view)||ARR?2.5:1.2;for(const f of G.figs||[])f.visible=V.fig&&cam.position.distanceTo(f.position)>nr}
