@@ -2,6 +2,398 @@
   {
     "slug": "bergruhe",
     "name": "Bergruhe",
+    "title": "Width",
+    "text": "Width is a setting in Massing. The timber volume over its concrete base. Living is on the valley side, two storeys high. Bedrooms are at the back on two floors.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Depth (uphill to valley)",
+    "text": "Depth (uphill to valley) is a setting in Massing. The timber volume over its concrete base. Living is on the valley side, two storeys high. Bedrooms are at the back on two floors.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Eave height",
+    "text": "Eave height is a setting in Massing. The timber volume over its concrete base. Living is on the valley side, two storeys high. Bedrooms are at the back on two floors.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Roof",
+    "text": "Roof is a setting in Roof: the signature. The diagonal roof is Bergruhe’s signature, one long line rising toward the view. The horizontal roof trades it for a deep flat slab that has to carry the full snow load. The classic gable is there to compare against.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Diagonal roof rises toward",
+    "text": "Diagonal roof rises toward is a setting in Roof: the signature. The diagonal roof is Bergruhe’s signature, one long line rising toward the view. The horizontal roof trades it for a deep flat slab that has to carry the full snow load. The classic gable is there to compare against.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Pitch",
+    "text": "Pitch is a setting in Roof: the signature. The diagonal roof is Bergruhe’s signature, one long line rising toward the view. The horizontal roof trades it for a deep flat slab that has to carry the full snow load. The classic gable is there to compare against.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Eave overhang",
+    "text": "Eave overhang is a setting in Roof: the signature. The diagonal roof is Bergruhe’s signature, one long line rising toward the view. The horizontal roof trades it for a deep flat slab that has to carry the full snow load. The classic gable is there to compare against.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Valley-side eave (2.6 m reaches the deck edge)",
+    "text": "Valley-side eave (2.6 m reaches the deck edge) is a setting in Roof: the signature. The diagonal roof is Bergruhe’s signature, one long line rising toward the view. The horizontal roof trades it for a deep flat slab that has to carry the full snow load. The classic gable is there to compare against.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Supports under the valley eave",
+    "text": "Supports under the valley eave is a setting in Roof: the signature. The diagonal roof is Bergruhe’s signature, one long line rising toward the view. The horizontal roof trades it for a deep flat slab that has to carry the full snow load. The classic gable is there to compare against.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Eave support style",
+    "text": "Eave support style is a setting in Roof: the signature. The diagonal roof is Bergruhe’s signature, one long line rising toward the view. The horizontal roof trades it for a deep flat slab that has to carry the full snow load. The classic gable is there to compare against.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Separate glass sub-roof at the valley end (diagonal roof only)",
+    "text": "Separate glass sub-roof at the valley end (diagonal roof only) is a setting in Roof: the signature. The diagonal roof is Bergruhe’s signature, one long line rising toward the view. The horizontal roof trades it for a deep flat slab that has to carry the full snow load. The classic gable is there to compare against.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Sunrise skylight on the east side",
+    "text": "Sunrise skylight on the east side is a setting in Roof: the signature. The diagonal roof is Bergruhe’s signature, one long line rising toward the view. The horizontal roof trades it for a deep flat slab that has to carry the full snow load. The classic gable is there to compare against.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Solar panels flush in the roof",
+    "text": "Solar panels flush in the roof is a setting in Roof: the signature. The diagonal roof is Bergruhe’s signature, one long line rising toward the view. The horizontal roof trades it for a deep flat slab that has to carry the full snow load. The classic gable is there to compare against.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Timber ceiling with exposed rafters",
+    "text": "Timber ceiling with exposed rafters is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Stone bathtub at a corner window (master bedroom)",
+    "text": "Stone bathtub at a corner window (master bedroom) is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Dark oak kitchen with a concrete island",
+    "text": "Dark oak kitchen with a concrete island is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Net loft stretched over the living room",
+    "text": "Net loft stretched over the living room is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Reading wall: bookshelf by the stair, window seat upstairs",
+    "text": "Reading wall: bookshelf by the stair, window seat upstairs is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Valley deck with glass railings (roofs over the hot tub)",
+    "text": "Valley deck with glass railings (roofs over the hot tub) is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Cantilevered glass room",
+    "text": "Cantilevered glass room is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "It projects",
+    "text": "It projects is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Cantilever",
+    "text": "Cantilever is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "What holds it up",
+    "text": "What holds it up is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Hearth column through every floor (in place of the glass core)",
+    "text": "Hearth column through every floor (in place of the glass core) is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Hearth finish",
+    "text": "Hearth finish is a setting in Living, glass room & hearth.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Wood-fired sauna with a valley window",
+    "text": "Wood-fired sauna with a valley window is a setting in Lower level. In the concrete base. The sauna opens onto the terrace and the front east room is storage. The garage takes the middle of the level, behind the hearth base, with a side door reached by a drive cut into the slope.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Outdoor hot tub on the terrace",
+    "text": "Outdoor hot tub on the terrace is a setting in Lower level. In the concrete base. The sauna opens onto the terrace and the front east room is storage. The garage takes the middle of the level, behind the hearth base, with a side door reached by a drive cut into the slope.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Glass-front sauna",
+    "text": "Glass-front sauna is a setting in Lower level. In the concrete base. The sauna opens onto the terrace and the front east room is storage. The garage takes the middle of the level, behind the hearth base, with a side door reached by a drive cut into the slope.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Cold plunge between the sauna and the tub",
+    "text": "Cold plunge between the sauna and the tub is a setting in Lower level. In the concrete base. The sauna opens onto the terrace and the front east room is storage. The garage takes the middle of the level, behind the hearth base, with a side door reached by a drive cut into the slope.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Sunken fire pit with curved bench",
+    "text": "Sunken fire pit with curved bench is a setting in Lower level. In the concrete base. The sauna opens onto the terrace and the front east room is storage. The garage takes the middle of the level, behind the hearth base, with a side door reached by a drive cut into the slope.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Snug with a projection wall (front lower room)",
+    "text": "Snug with a projection wall (front lower room) is a setting in Lower level. In the concrete base. The sauna opens onto the terrace and the front east room is storage. The garage takes the middle of the level, behind the hearth base, with a side door reached by a drive cut into the slope.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Glass wine wall in the lower hall",
+    "text": "Glass wine wall in the lower hall is a setting in Lower level. In the concrete base. The sauna opens onto the terrace and the front east room is storage. The garage takes the middle of the level, behind the hearth base, with a side door reached by a drive cut into the slope.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Snowmelt cistern under a glass floor",
+    "text": "Snowmelt cistern under a glass floor is a setting in Lower level. In the concrete base. The sauna opens onto the terrace and the front east room is storage. The garage takes the middle of the level, behind the hearth base, with a side door reached by a drive cut into the slope.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Garage in the middle, black sectional door on the east side",
+    "text": "Garage in the middle, black sectional door on the east side is a setting in Lower level. In the concrete base. The sauna opens onto the terrace and the front east room is storage. The garage takes the middle of the level, behind the hearth base, with a side door reached by a drive cut into the slope.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Heimweg parked (the off-roader study)",
+    "text": "Heimweg parked (the off-roader study) is a setting in Lower level. In the concrete base. The sauna opens onto the terrace and the front east room is storage. The garage takes the middle of the level, behind the hearth base, with a side door reached by a drive cut into the slope.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Inclined glass lift from the road",
+    "text": "Inclined glass lift from the road is a setting in Lower level. In the concrete base. The sauna opens onto the terrace and the front east room is storage. The garage takes the middle of the level, behind the hearth base, with a side door reached by a drive cut into the slope.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Uphill arrival bridge over a snow moat",
+    "text": "Uphill arrival bridge over a snow moat is a setting in Site & lights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Covered firewood store",
+    "text": "Covered firewood store is a setting in Site & lights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Sliding timber screens on the glass wall",
+    "text": "Sliding timber screens on the glass wall is a setting in Site & lights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Avalanche snow fences on the slope above",
+    "text": "Avalanche snow fences on the slope above is a setting in Site & lights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Life: skis, sled, snowman, a dog by the fire",
+    "text": "Life: skis, sled, snowman, a dog by the fire is a setting in Site & lights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Night lighting: column uplights, drive and path lights, deck lanterns",
+    "text": "Night lighting: column uplights, drive and path lights, deck lanterns is a setting in Site & lights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Working chairlift on the mountain",
+    "text": "Working chairlift on the mountain is a setting in Site & lights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Timber cladding",
+    "text": "Timber cladding is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Base",
+    "text": "Base is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Roof",
+    "text": "Roof is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Window frames",
+    "text": "Window frames is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Glass",
+    "text": "Glass is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Interior",
+    "text": "Interior is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Altitude",
+    "text": "Altitude is a setting in Altitude. Altitude sets the design snow load in Particulars.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Time of day",
+    "text": "Time of day is a setting in Scene & season. Time of day, snow and weather. These don’t change the design. Deeper snow means a lower winter sun and shorter days.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Snow",
+    "text": "Snow is a setting in Scene & season. Time of day, snow and weather. These don’t change the design. Deeper snow means a lower winter sun and shorter days.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Weather",
+    "text": "Weather is a setting in Scene & season. Time of day, snow and weather. These don’t change the design. Deeper snow means a lower winter sun and shorter days.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Autumn colours: golden larches, amber meadows",
+    "text": "Autumn colours: golden larches, amber meadows is a setting in Scene & season. Time of day, snow and weather. These don’t change the design. Deeper snow means a lower winter sun and shorter days.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Sea of clouds in the valley",
+    "text": "Sea of clouds in the valley is a setting in Scene & season. Time of day, snow and weather. These don’t change the design. Deeper snow means a lower winter sun and shorter days.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
+    "title": "Timber screens closed over the glass wall",
+    "text": "Timber screens closed over the glass wall is a setting in Scene & season. Time of day, snow and weather. These don’t change the design. Deeper snow means a lower winter sun and shorter days.",
+    "kind": "setting"
+  },
+  {
+    "slug": "bergruhe",
+    "name": "Bergruhe",
     "title": "Overview",
     "text": "An interactive 3D Alpine cabin by Andre Parrocho: charred larch, a concrete base set into the slope, a diagonal roof, a glass room cantilevered over the valley, a hearth column, sauna and hot tub. Third of the Design Studies."
   },
@@ -34,6 +426,279 @@
     "name": "Bergruhe",
     "title": "Scene & season",
     "text": "Time of day, snow and weather. These don’t change the design. Deeper snow means a lower winter sun and shorter days."
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Width along the glass",
+    "text": "Width along the glass is a setting in Room. One tight room of about 30 to 50 m² on the corner of a high floor. Glass on two sides, the vault wall at the back.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Depth to the vault wall",
+    "text": "Depth to the vault wall is a setting in Room. One tight room of about 30 to 50 m² on the corner of a high floor. Glass on two sides, the vault wall at the back.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Ceiling height",
+    "text": "Ceiling height is a setting in Room. One tight room of about 30 to 50 m² on the corner of a high floor. Glass on two sides, the vault wall at the back.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Where it sits",
+    "text": "Where it sits is a setting in Room. One tight room of about 30 to 50 m² on the corner of a high floor. Glass on two sides, the vault wall at the back.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Floor",
+    "text": "Floor is a setting in Room. One tight room of about 30 to 50 m² on the corner of a high floor. Glass on two sides, the vault wall at the back.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Vault door",
+    "text": "Vault door is a setting in The vault: the signature. Clients trust you with deeds, drawings and data, so they never leave this wall. Half a metre of reinforced concrete with a two-hour fire rating, a wall of locking drawers, and a vault room behind a round door with the servers inside.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Vault wall",
+    "text": "Vault wall is a setting in The vault: the signature. Clients trust you with deeds, drawings and data, so they never leave this wall. Half a metre of reinforced concrete with a two-hour fire rating, a wall of locking drawers, and a vault room behind a round door with the servers inside.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Lock",
+    "text": "Lock is a setting in The vault: the signature. Clients trust you with deeds, drawings and data, so they never leave this wall. Half a metre of reinforced concrete with a two-hour fire rating, a wall of locking drawers, and a vault room behind a round door with the servers inside.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Locking drawers for deeds and drawings",
+    "text": "Locking drawers for deeds and drawings is a setting in The vault: the signature. Clients trust you with deeds, drawings and data, so they never leave this wall. Half a metre of reinforced concrete with a two-hour fire rating, a wall of locking drawers, and a vault room behind a round door with the servers inside.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Tall steel lockers for models and files",
+    "text": "Tall steel lockers for models and files is a setting in The vault: the signature. Clients trust you with deeds, drawings and data, so they never leave this wall. Half a metre of reinforced concrete with a two-hour fire rating, a wall of locking drawers, and a vault room behind a round door with the servers inside.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "A small porthole in the door to see the servers",
+    "text": "A small porthole in the door to see the servers is a setting in The vault: the signature. Clients trust you with deeds, drawings and data, so they never leave this wall. Half a metre of reinforced concrete with a two-hour fire rating, a wall of locking drawers, and a vault room behind a round door with the servers inside.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Model bench along the north glass",
+    "text": "Model bench along the north glass is a setting in Zones. Five places in one room: make, meet, present, read and rest.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Meeting table for clients",
+    "text": "Meeting table for clients is a setting in Zones. Five places in one room: make, meet, present, read and rest.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Seats at the table",
+    "text": "Seats at the table is a setting in Zones. Five places in one room: make, meet, present, read and rest.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Presentation screen facing the table",
+    "text": "Presentation screen facing the table is a setting in Zones. Five places in one room: make, meet, present, read and rest.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Lounge: two chairs by the glass",
+    "text": "Lounge: two chairs by the glass is a setting in Zones. Five places in one room: make, meet, present, read and rest.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Reading nook in the glass corner",
+    "text": "Reading nook in the glass corner is a setting in Zones. Five places in one room: make, meet, present, read and rest.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Nap corner with a curtain and a warm lamp",
+    "text": "Nap corner with a curtain and a warm lamp is a setting in Zones. Five places in one room: make, meet, present, read and rest.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Server rack in the vault",
+    "text": "Server rack in the vault is a setting in Tech. Everything runs here, and nothing goes to the cloud. The vault has its own cooling and battery.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Local AI: a two-GPU machine",
+    "text": "Local AI: a two-GPU machine is a setting in Tech. Everything runs here, and nothing goes to the cloud. The vault has its own cooling and battery.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "NAS: eight drives, mirrored",
+    "text": "NAS: eight drives, mirrored is a setting in Tech. Everything runs here, and nothing goes to the cloud. The vault has its own cooling and battery.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Hidden door from the lift lobby",
+    "text": "Hidden door from the lift lobby is a setting in Quiet & hidden. A box inside a box: a floating floor, a lining on springs and laminated double glass. The way in is a door you can’t see.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Wall lining",
+    "text": "Wall lining is a setting in Quiet & hidden. A box inside a box: a floating floor, a lining on springs and laminated double glass. The way in is a door you can’t see.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Concrete fin depth",
+    "text": "Concrete fin depth is a setting in Typhoon & heat. Built for Manila: heat all year, monsoon rain and Signal No. 5 winds.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Deep sun ledge over the glass",
+    "text": "Deep sun ledge over the glass is a setting in Typhoon & heat. Built for Manila: heat all year, monsoon rain and Signal No. 5 winds.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Steel storm shutters",
+    "text": "Steel storm shutters is a setting in Typhoon & heat. Built for Manila: heat all year, monsoon rain and Signal No. 5 winds.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Planters outside the glass",
+    "text": "Planters outside the glass is a setting in Typhoon & heat. Built for Manila: heat all year, monsoon rain and Signal No. 5 winds.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Heimweg parked (the off-roader study)",
+    "text": "Heimweg parked (the off-roader study) is a setting in Arrival. Two lifts run from the garage under the plaza straight into a private lobby beside the studio. Heimweg charges in its space below.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "22 kW charger at its space",
+    "text": "22 kW charger at its space is a setting in Arrival. Two lifts run from the garage under the plaza straight into a private lobby beside the studio. Heimweg charges in its space below.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Wood",
+    "text": "Wood is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Concrete",
+    "text": "Concrete is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Floor",
+    "text": "Floor is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Glass",
+    "text": "Glass is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Time of day",
+    "text": "Time of day is a setting in Scene & weather. Time of day, weather and the light inside. These don’t change the design. The sun rises over the glass.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Weather",
+    "text": "Weather is a setting in Scene & weather. Time of day, weather and the light inside. These don’t change the design. The sun rises over the glass.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Light inside",
+    "text": "Light inside is a setting in Scene & weather. Time of day, weather and the light inside. These don’t change the design. The sun rises over the glass.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Storm shutters down",
+    "text": "Storm shutters down is a setting in Scene & weather. Time of day, weather and the light inside. These don’t change the design. The sun rises over the glass.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Vault door open",
+    "text": "Vault door open is a setting in Scene & weather. Time of day, weather and the light inside. These don’t change the design. The sun rises over the glass.",
+    "kind": "setting"
+  },
+  {
+    "slug": "denkraum",
+    "name": "Denkraum",
+    "title": "Hidden door open",
+    "text": "Hidden door open is a setting in Scene & weather. Time of day, weather and the light inside. These don’t change the design. The sun rises over the glass.",
+    "kind": "setting"
   },
   {
     "slug": "denkraum",
@@ -98,6 +763,307 @@
   {
     "slug": "fernweh",
     "name": "Fernweh",
+    "title": "Length overall",
+    "text": "Length overall is a setting in Hull. The explorer hull, with a high bow, deep freeboard and long range.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Beam",
+    "text": "Beam is a setting in Hull. The explorer hull, with a high bow, deep freeboard and long range.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Freeboard to main deck",
+    "text": "Freeboard to main deck is a setting in Hull. The explorer hull, with a high bow, deep freeboard and long range.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Bow shape",
+    "text": "Bow shape is a setting in Hull. The explorer hull, with a high bow, deep freeboard and long range.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Hull windows for the guest cabins",
+    "text": "Hull windows for the guest cabins is a setting in Hull. The explorer hull, with a high bow, deep freeboard and long range.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Swim platform at the stern",
+    "text": "Swim platform at the stern is a setting in Hull. The explorer hull, with a high bow, deep freeboard and long range.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Decks above the main deck",
+    "text": "Decks above the main deck is a setting in Decks. Stacked levels, with the owner’s suite at the top and a glass sky lounge above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Deck height",
+    "text": "Deck height is a setting in Decks. Stacked levels, with the owner’s suite at the top and a glass sky lounge above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Aft roof overhang (shade)",
+    "text": "Aft roof overhang (shade) is a setting in Decks. Stacked levels, with the owner’s suite at the top and a glass sky lounge above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Windscreen rake",
+    "text": "Windscreen rake is a setting in Decks. Stacked levels, with the owner’s suite at the top and a glass sky lounge above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Sky lounge with wraparound glass",
+    "text": "Sky lounge with wraparound glass is a setting in Decks. Stacked levels, with the owner’s suite at the top and a glass sky lounge above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Skylight over the owner’s bed",
+    "text": "Skylight over the owner’s bed is a setting in Decks. Stacked levels, with the owner’s suite at the top and a glass sky lounge above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Glass elevator core through every deck",
+    "text": "Glass elevator core through every deck is a setting in Decks. Stacked levels, with the owner’s suite at the top and a glass sky lounge above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Solar panels flush on the top roofs",
+    "text": "Solar panels flush on the top roofs is a setting in Decks. Stacked levels, with the owner’s suite at the top and a glass sky lounge above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Sky lounge roof",
+    "text": "Sky lounge roof is a setting in Decks. Stacked levels, with the owner’s suite at the top and a glass sky lounge above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Tender moored alongside, crane stowed",
+    "text": "Tender moored alongside, crane stowed is a setting in Explorer kit. The gear that makes it an expedition boat.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Tender bow",
+    "text": "Tender bow is a setting in Explorer kit. The gear that makes it an expedition boat.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "3-person submersible on the boat deck",
+    "text": "3-person submersible on the boat deck is a setting in Explorer kit. The gear that makes it an expedition boat.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Polar ice-class bow and ice belt",
+    "text": "Polar ice-class bow and ice belt is a setting in Explorer kit. The gear that makes it an expedition boat.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Beach club garage in the transom (lift-up door)",
+    "text": "Beach club garage in the transom (lift-up door) is a setting in Explorer kit. The gear that makes it an expedition boat.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Mast with radar domes",
+    "text": "Mast with radar domes is a setting in Explorer kit. The gear that makes it an expedition boat.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Fernweh is a…",
+    "text": "Fernweh is a… is a setting in Top deck: wings or helipad. Choose what defines Fernweh. Wing sails are computer-turned sail-assist wings that ease off long before the boat would heel and furl to bare masts for typhoons. The helipad sits on top of the sky lounge. A real owner picks one, because rotor blades and 30 m wings can’t share the sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Number of wings",
+    "text": "Number of wings is a setting in Top deck: wings or helipad. Choose what defines Fernweh. Wing sails are computer-turned sail-assist wings that ease off long before the boat would heel and furl to bare masts for typhoons. The helipad sits on top of the sky lounge. A real owner picks one, because rotor blades and 30 m wings can’t share the sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Wing height",
+    "text": "Wing height is a setting in Top deck: wings or helipad. Choose what defines Fernweh. Wing sails are computer-turned sail-assist wings that ease off long before the boat would heel and furl to bare masts for typhoons. The helipad sits on top of the sky lounge. A real owner picks one, because rotor blades and 30 m wings can’t share the sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Wing skin",
+    "text": "Wing skin is a setting in Top deck: wings or helipad. Choose what defines Fernweh. Wing sails are computer-turned sail-assist wings that ease off long before the boat would heel and furl to bare masts for typhoons. The helipad sits on top of the sky lounge. A real owner picks one, because rotor blades and 30 m wings can’t share the sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Wing style",
+    "text": "Wing style is a setting in Top deck: wings or helipad. Choose what defines Fernweh. Wing sails are computer-turned sail-assist wings that ease off long before the boat would heel and furl to bare masts for typhoons. The helipad sits on top of the sky lounge. A real owner picks one, because rotor blades and 30 m wings can’t share the sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Wind comes from (0° = dead ahead)",
+    "text": "Wind comes from (0° = dead ahead) is a setting in Top deck: wings or helipad. Choose what defines Fernweh. Wing sails are computer-turned sail-assist wings that ease off long before the boat would heel and furl to bare masts for typhoons. The helipad sits on top of the sky lounge. A real owner picks one, because rotor blades and 30 m wings can’t share the sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Wind speed",
+    "text": "Wind speed is a setting in Top deck: wings or helipad. Choose what defines Fernweh. Wing sails are computer-turned sail-assist wings that ease off long before the boat would heel and furl to bare masts for typhoons. The helipad sits on top of the sky lounge. A real owner picks one, because rotor blades and 30 m wings can’t share the sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Furl the wings to bare masts (typhoon mode)",
+    "text": "Furl the wings to bare masts (typhoon mode) is a setting in Top deck: wings or helipad. Choose what defines Fernweh. Wing sails are computer-turned sail-assist wings that ease off long before the boat would heel and furl to bare masts for typhoons. The helipad sits on top of the sky lounge. A real owner picks one, because rotor blades and 30 m wings can’t share the sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Hull",
+    "text": "Hull is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Superstructure",
+    "text": "Superstructure is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Deck",
+    "text": "Deck is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Glass tint",
+    "text": "Glass tint is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Boot stripe & name",
+    "text": "Boot stripe & name is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Hull graphics",
+    "text": "Hull graphics is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Metal details",
+    "text": "Metal details is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Interior theme",
+    "text": "Interior theme is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Time of day",
+    "text": "Time of day is a setting in Scene & sea. Time of day, sea state and the horizon. These don’t change the design.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Sea state",
+    "text": "Sea state is a setting in Scene & sea. Time of day, sea state and the horizon. These don’t change the design.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Weather",
+    "text": "Weather is a setting in Scene & sea. Time of day, sea state and the horizon. These don’t change the design.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Smart glass",
+    "text": "Smart glass is a setting in Scene & sea. Time of day, sea state and the horizon. These don’t change the design.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Underwater lights",
+    "text": "Underwater lights is a setting in Scene & sea. Time of day, sea state and the horizon. These don’t change the design.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
+    "title": "Manila Bay horizon (city to the east, Bataan hills to the west)",
+    "text": "Manila Bay horizon (city to the east, Bataan hills to the west) is a setting in Scene & sea. Time of day, sea state and the horizon. These don’t change the design.",
+    "kind": "setting"
+  },
+  {
+    "slug": "fernweh",
+    "name": "Fernweh",
     "title": "Overview",
     "text": "An interactive 3D explorer yacht by Andre Parrocho: sail-assist wing sails, a beach-club garage, a limousine tender and day-to-night scenes. Sister study to das Zuhause."
   },
@@ -130,6 +1096,307 @@
     "name": "Fernweh",
     "title": "Scene & sea",
     "text": "Time of day, sea state and the horizon. These don’t change the design."
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Gorge depth (rim above the river)",
+    "text": "Gorge depth (rim above the river) is a setting in The gorge. Set into the north wall of a river gorge in the Bukidnon highlands, Mindanao. The rooms sit 10 m above the river, clear of its worst floods, with the plateau far overhead.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "River width",
+    "text": "River width is a setting in The gorge. Set into the north wall of a river gorge in the Bukidnon highlands, Mindanao. The rooms sit 10 m above the river, clear of its worst floods, with the plateau far overhead.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Floor above the river (flood clearance)",
+    "text": "Floor above the river (flood clearance) is a setting in The gorge. Set into the north wall of a river gorge in the Bukidnon highlands, Mindanao. The rooms sit 10 m above the river, clear of its worst floods, with the plateau far overhead.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Room height",
+    "text": "Room height is a setting in The gorge. Set into the north wall of a river gorge in the Bukidnon highlands, Mindanao. The rooms sit 10 m above the river, clear of its worst floods, with the plateau far overhead.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Light well width",
+    "text": "Light well width is a setting in The heart: garden and light well. An underground garden under a light well cut up through the rock. A thin waterfall runs down one wall, and after dark the well frames the night sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Thin waterfall down the back wall",
+    "text": "Thin waterfall down the back wall is a setting in The heart: garden and light well. An underground garden under a light well cut up through the rock. A thin waterfall runs down one wall, and after dark the well frames the night sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Glass lift up the well to the rim",
+    "text": "Glass lift up the well to the rim is a setting in The heart: garden and light well. An underground garden under a light well cut up through the rock. A thin waterfall runs down one wall, and after dark the well frames the night sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Cabin at the rim, glass-roofed over the well",
+    "text": "Cabin at the rim, glass-roofed over the well is a setting in The heart: garden and light well. An underground garden under a light well cut up through the rock. A thin waterfall runs down one wall, and after dark the well frames the night sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Rain room beside the well",
+    "text": "Rain room beside the well is a setting in The heart: garden and light well. An underground garden under a light well cut up through the rock. A thin waterfall runs down one wall, and after dark the well frames the night sky.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Vault door",
+    "text": "Vault door is a setting in The vault. Beside the garden: art and books, memories and essentials. A memory wall leads to its door.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Memory wall gallery",
+    "text": "Memory wall gallery is a setting in The vault. Beside the garden: art and books, memories and essentials. A memory wall leads to its door.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Art racks and books",
+    "text": "Art racks and books is a setting in The vault. Beside the garden: art and books, memories and essentials. A memory wall leads to its door.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Family members (a drawer each in the archive)",
+    "text": "Family members (a drawer each in the archive) is a setting in The vault. Beside the garden: art and books, memories and essentials. A memory wall leads to its door.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Stone hearth carved from the gorge rock",
+    "text": "Stone hearth carved from the gorge rock is a setting in Rooms. Carved out of the rock along the river, each one with a reason to be there.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Family table length",
+    "text": "Family table length is a setting in Rooms. Carved out of the rock along the river, each one with a reason to be there.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Table slab",
+    "text": "Table slab is a setting in Rooms. Carved out of the rock along the river, each one with a reason to be there.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Highland tea corner",
+    "text": "Highland tea corner is a setting in Rooms. Carved out of the rock along the river, each one with a reason to be there.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Reading nook with a river window",
+    "text": "Reading nook with a river window is a setting in Rooms. Carved out of the rock along the river, each one with a reason to be there.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Sound room that carries the river inside",
+    "text": "Sound room that carries the river inside is a setting in Rooms. Carved out of the rock along the river, each one with a reason to be there.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "My room",
+    "text": "My room is a setting in Rooms. Carved out of the rock along the river, each one with a reason to be there.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Cool cellar in the rock",
+    "text": "Cool cellar in the rock is a setting in A year on its own. Stored food, garden greens, river water and river power. In an emergency it shelters the family for about a year.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Data room, cooled by rock and river",
+    "text": "Data room, cooled by rock and river is a setting in A year on its own. Stored food, garden greens, river water and river power. In an emergency it shelters the family for about a year.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Family wing, sealed until needed",
+    "text": "Family wing, sealed until needed is a setting in A year on its own. Stored food, garden greens, river water and river power. In an emergency it shelters the family for about a year.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Rain channels: walls, cistern, garden, river",
+    "text": "Rain channels: walls, cistern, garden, river is a setting in A year on its own. Stored food, garden greens, river water and river power. In an emergency it shelters the family for about a year.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "River power",
+    "text": "River power is a setting in A year on its own. Stored food, garden greens, river water and river power. In an emergency it shelters the family for about a year.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Hidden way out to the plateau",
+    "text": "Hidden way out to the plateau is a setting in A year on its own. Stored food, garden greens, river water and river power. In an emergency it shelters the family for about a year.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Heimweg in its bay (the off-roader study)",
+    "text": "Heimweg in its bay (the off-roader study) is a setting in Arrival. Heimweg parks in a hidden bay on the plateau and charges from the river. A glass lift, like das Zuhause’s glass core, runs down the gorge wall; then a lantern path runs along the water to the door.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Charger fed by the river",
+    "text": "Charger fed by the river is a setting in Arrival. Heimweg parks in a hidden bay on the plateau and charges from the river. A glass lift, like das Zuhause’s glass core, runs down the gorge wall; then a lantern path runs along the water to the door.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Dock with Fernweh’s tender",
+    "text": "Dock with Fernweh’s tender is a setting in Arrival. Heimweg parks in a hidden bay on the plateau and charges from the river. A glass lift, like das Zuhause’s glass core, runs down the gorge wall; then a lantern path runs along the water to the door.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Lantern spacing",
+    "text": "Lantern spacing is a setting in Arrival. Heimweg parks in a hidden bay on the plateau and charges from the river. A glass lift, like das Zuhause’s glass core, runs down the gorge wall; then a lantern path runs along the water to the door.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Entrance",
+    "text": "Entrance is a setting in Arrival. Heimweg parks in a hidden bay on the plateau and charges from the river. A glass lift, like das Zuhause’s glass core, runs down the gorge wall; then a lantern path runs along the water to the door.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Gorge stone",
+    "text": "Gorge stone is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Narra",
+    "text": "Narra is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Bamboo ceilings",
+    "text": "Bamboo ceilings is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Woven wall",
+    "text": "Woven wall is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Time of day",
+    "text": "Time of day is a setting in Scene & weather. Time of day, weather and what is open. These don’t change the design. The gorge runs east to west, so the sun crosses over the light well.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Weather",
+    "text": "Weather is a setting in Scene & weather. Time of day, weather and what is open. These don’t change the design. The gorge runs east to west, so the sun crosses over the light well.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Panic mode: steel shutters down, gorge gate shut, lift locked",
+    "text": "Panic mode: steel shutters down, gorge gate shut, lift locked is a setting in Scene & weather. Time of day, weather and what is open. These don’t change the design. The gorge runs east to west, so the sun crosses over the light well.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Flash flood: the river rises 8 m (sets off panic mode)",
+    "text": "Flash flood: the river rises 8 m (sets off panic mode) is a setting in Scene & weather. Time of day, weather and what is open. These don’t change the design. The gorge runs east to west, so the sun crosses over the light well.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Shelter mode: family wing open, door sealed",
+    "text": "Shelter mode: family wing open, door sealed is a setting in Scene & weather. Time of day, weather and what is open. These don’t change the design. The gorge runs east to west, so the sun crosses over the light well.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Vault door open",
+    "text": "Vault door open is a setting in Scene & weather. Time of day, weather and what is open. These don’t change the design. The gorge runs east to west, so the sun crosses over the light well.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Lift at the rim",
+    "text": "Lift at the rim is a setting in Scene & weather. Time of day, weather and what is open. These don’t change the design. The gorge runs east to west, so the sun crosses over the light well.",
+    "kind": "setting"
+  },
+  {
+    "slug": "geborgenheit",
+    "name": "Geborgenheit",
+    "title": "Greeting light on",
+    "text": "Greeting light on is a setting in Scene & weather. Time of day, weather and what is open. These don’t change the design. The gorge runs east to west, so the sun crosses over the light well.",
+    "kind": "setting"
   },
   {
     "slug": "geborgenheit",
@@ -182,6 +1449,209 @@
   {
     "slug": "heimweg",
     "name": "Heimweg",
+    "title": "Body colour",
+    "text": "Body colour is a setting in Body & stance. One calm block standing 2.75 m tall on 1.2 m tyres. The lower body is tough and matte, step boards help you up, and the air suspension lifts it for deep snow and flood water.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Lower body",
+    "text": "Lower body is a setting in Body & stance. One calm block standing 2.75 m tall on 1.2 m tyres. The lower body is tough and matte, step boards help you up, and the air suspension lifts it for deep snow and flood water.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Ride height",
+    "text": "Ride height is a setting in Body & stance. One calm block standing 2.75 m tall on 1.2 m tyres. The lower body is tough and matte, step boards help you up, and the air suspension lifts it for deep snow and flood water.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Wheels",
+    "text": "Wheels is a setting in Body & stance. One calm block standing 2.75 m tall on 1.2 m tyres. The lower body is tough and matte, step boards help you up, and the air suspension lifts it for deep snow and flood water.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Step boards",
+    "text": "Step boards is a setting in Body & stance. One calm block standing 2.75 m tall on 1.2 m tyres. The lower body is tough and matte, step boards help you up, and the air suspension lifts it for deep snow and flood water.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Snorkel up the A-pillar",
+    "text": "Snorkel up the A-pillar is a setting in Body & stance. One calm block standing 2.75 m tall on 1.2 m tyres. The lower body is tough and matte, step boards help you up, and the air suspension lifts it for deep snow and flood water.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Winch behind the front bumper",
+    "text": "Winch behind the front bumper is a setting in Body & stance. One calm block standing 2.75 m tall on 1.2 m tyres. The lower body is tough and matte, step boards help you up, and the air suspension lifts it for deep snow and flood water.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Rear mud flaps",
+    "text": "Rear mud flaps is a setting in Body & stance. One calm block standing 2.75 m tall on 1.2 m tyres. The lower body is tough and matte, step boards help you up, and the air suspension lifts it for deep snow and flood water.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Tyres",
+    "text": "Tyres is a setting in Body & stance. One calm block standing 2.75 m tall on 1.2 m tyres. The lower body is tough and matte, step boards help you up, and the air suspension lifts it for deep snow and flood water.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Tyre width",
+    "text": "Tyre width is a setting in Body & stance. One calm block standing 2.75 m tall on 1.2 m tyres. The lower body is tough and matte, step boards help you up, and the air suspension lifts it for deep snow and flood water.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Tint",
+    "text": "Tint is a setting in Glass canopy. One continuous sheet of glass from windscreen to tailgate. Dim it dark for privacy or clear it to see the cabin.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Dimming",
+    "text": "Dimming is a setting in Glass canopy. One continuous sheet of glass from windscreen to tailgate. Dim it dark for privacy or clear it to see the cabin.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Front colour",
+    "text": "Front colour is a setting in Light signature. A hairline of light across the full width at the front. At the back, a vertical lamp on each rear corner faces the traffic behind you and wraps onto the side. They work as tail lights, brake lights (with a third light high on the tailgate), sequential amber turn signals and reversing lights. Try each one below, or press Welcome home to see them sweep.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Rear lights, as the driver behind sees them",
+    "text": "Rear lights, as the driver behind sees them is a setting in Light signature. A hairline of light across the full width at the front. At the back, a vertical lamp on each rear corner faces the traffic behind you and wraps onto the side. They work as tail lights, brake lights (with a third light high on the tailgate), sequential amber turn signals and reversing lights. Try each one below, or press Welcome home to see them sweep.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Full-size spare wheel",
+    "text": "Full-size spare wheel is a setting in Expedition kit. Carried on the side-hinged tailgate, so it all swings out of the way with the boot.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "20 L fuel can",
+    "text": "20 L fuel can is a setting in Expedition kit. Carried on the side-hinged tailgate, so it all swings out of the way with the boot.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "High-lift jack",
+    "text": "High-lift jack is a setting in Expedition kit. Carried on the side-hinged tailgate, so it all swings out of the way with the boot.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Side awning on the roof platform",
+    "text": "Side awning on the roof platform is a setting in Expedition kit. Carried on the side-hinged tailgate, so it all swings out of the way with the boot.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Pop-up roof (sleeping loft)",
+    "text": "Pop-up roof (sleeping loft) is a setting in Expedition kit. Carried on the side-hinged tailgate, so it all swings out of the way with the boot.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Pull-out kitchen in the boot",
+    "text": "Pull-out kitchen in the boot is a setting in Expedition kit. Carried on the side-hinged tailgate, so it all swings out of the way with the boot.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Rock lights under the arches and steps",
+    "text": "Rock lights under the arches and steps is a setting in Expedition kit. Carried on the side-hinged tailgate, so it all swings out of the way with the boot.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Roof platform over the glass",
+    "text": "Roof platform over the glass is a setting in Roof & interior.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "On the roof",
+    "text": "On the roof is a setting in Roof & interior.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Wool seats",
+    "text": "Wool seats is a setting in Roof & interior.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Where it is",
+    "text": "Where it is is a setting in Scene.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Night (on the drive)",
+    "text": "Night (on the drive) is a setting in Scene.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Turntable spins (studio)",
+    "text": "Turntable spins (studio) is a setting in Scene.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Doors & side-hinged tailgate open (it kneels to let you in)",
+    "text": "Doors & side-hinged tailgate open (it kneels to let you in) is a setting in Scene.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
+    "title": "Camp mode: awning out, roof up, kitchen out",
+    "text": "Camp mode: awning out, roof up, kitchen out is a setting in Scene.",
+    "kind": "setting"
+  },
+  {
+    "slug": "heimweg",
+    "name": "Heimweg",
     "title": "Overview",
     "text": "Heimweg, an original electric luxury off-roader by Andre Parrocho: a 2.75 m tall minimal monolith on big tyres under flared arches, with a glass canopy, a warm light signature, and camp mode with an awning, a pop-up roof and a pull-out kitchen. The first of the Models."
   },
@@ -208,6 +1678,195 @@
     "name": "Heimweg",
     "title": "Expedition kit",
     "text": "Carried on the side-hinged tailgate, so it all swings out of the way with the boot."
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Dome width inside",
+    "text": "Dome width inside is a setting in The dome. One dome sunk into the desert, so only its glass shows above the ground. The glass is laminated and walkable, in a fine steel grid that can move in an earthquake.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Glass crown above the desert",
+    "text": "Glass crown above the desert is a setting in The dome. One dome sunk into the desert, so only its glass shows above the ground. The glass is laminated and walkable, in a fine steel grid that can move in an earthquake.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Rooms below the desert",
+    "text": "Rooms below the desert is a setting in The dome. One dome sunk into the desert, so only its glass shows above the ground. The glass is laminated and walkable, in a fine steel grid that can move in an earthquake.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Sky court width",
+    "text": "Sky court width is a setting in The three hearts. The sky court, the sleeping chamber and the star room, all under the glass.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Round glass panel over the court that slides open",
+    "text": "Round glass panel over the court that slides open is a setting in The three hearts. The sky court, the sleeping chamber and the star room, all under the glass.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Bed under the glass",
+    "text": "Bed under the glass is a setting in The three hearts. The sky court, the sleeping chamber and the star room, all under the glass.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Star room width",
+    "text": "Star room width is a setting in The three hearts. The sky court, the sleeping chamber and the star room, all under the glass.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Open-sky bath",
+    "text": "Open-sky bath is a setting in Rooms under the glass. Warm wood and textiles. There are no lamps here: at night the stars light these rooms, with tiny amber markers on the steps. By day a woven textile is drawn under the glass to hold the sun’s heat up against it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Textile under the glass",
+    "text": "Textile under the glass is a setting in Rooms under the glass. Warm wood and textiles. There are no lamps here: at night the stars light these rooms, with tiny amber markers on the steps. By day a woven textile is drawn under the glass to hold the sun’s heat up against it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Hallway width",
+    "text": "Hallway width is a setting in Hallways and kitchen. The only rooms with solid ceilings: classical panelled hallways in a ring round the dome, and the kitchen below them beside the white studio. Lit by lamps and floor uplights only, with one spotlight over the kitchen island.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Panelling",
+    "text": "Panelling is a setting in Hallways and kitchen. The only rooms with solid ceilings: classical panelled hallways in a ring round the dome, and the kitchen below them beside the white studio. Lit by lamps and floor uplights only, with one spotlight over the kitchen island.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Wide oak floors",
+    "text": "Wide oak floors is a setting in Hallways and kitchen. The only rooms with solid ceilings: classical panelled hallways in a ring round the dome, and the kitchen below them beside the white studio. Lit by lamps and floor uplights only, with one spotlight over the kitchen island.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Woven runners and throws",
+    "text": "Woven runners and throws is a setting in Hallways and kitchen. The only rooms with solid ceilings: classical panelled hallways in a ring round the dome, and the kitchen below them beside the white studio. Lit by lamps and floor uplights only, with one spotlight over the kitchen island.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Kitchen island",
+    "text": "Kitchen island is a setting in Hallways and kitchen. The only rooms with solid ceilings: classical panelled hallways in a ring round the dome, and the kitchen below them beside the white studio. Lit by lamps and floor uplights only, with one spotlight over the kitchen island.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Walk from Heimweg",
+    "text": "Walk from Heimweg is a setting in Arrival. Heimweg stops out in the desert and you walk the last stretch at night, guided by low amber lights. Then it drives itself down a hidden ramp into its showroom.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Path light spacing",
+    "text": "Path light spacing is a setting in Arrival. Heimweg stops out in the desert and you walk the last stretch at night, guided by low amber lights. Then it drives itself down a hidden ramp into its showroom.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Solar field",
+    "text": "Solar field is a setting in Off the grid. Solar panels far out in the desert, fog catchers on the hills toward the sea, an underground cistern, and the RV beside Heimweg as a water reserve.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Fog catchers on the seaward hills",
+    "text": "Fog catchers on the seaward hills is a setting in Off the grid. Solar panels far out in the desert, fog catchers on the hills toward the sea, an underground cistern, and the RV beside Heimweg as a water reserve.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Underground cistern",
+    "text": "Underground cistern is a setting in Off the grid. Solar panels far out in the desert, fog catchers on the hills toward the sea, an underground cistern, and the RV beside Heimweg as a water reserve.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Desert stone: rim, stair and court",
+    "text": "Desert stone: rim, stair and court is a setting in Colours & materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Time (noon to noon)",
+    "text": "Time (noon to noon) is a setting in Sky & scene. Time, season, moon and weather. These don’t change the design. Sternweh lies at 24.6° south, so the bright core of the Milky Way passes overhead on winter nights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Month",
+    "text": "Month is a setting in Sky & scene. Time, season, moon and weather. These don’t change the design. Sternweh lies at 24.6° south, so the bright core of the Milky Way passes overhead on winter nights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Moon",
+    "text": "Moon is a setting in Sky & scene. Time, season, moon and weather. These don’t change the design. Sternweh lies at 24.6° south, so the bright core of the Milky Way passes overhead on winter nights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Weather",
+    "text": "Weather is a setting in Sky & scene. Time, season, moon and weather. These don’t change the design. Sternweh lies at 24.6° south, so the bright core of the Milky Way passes overhead on winter nights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Textile under the glass",
+    "text": "Textile under the glass is a setting in Sky & scene. Time, season, moon and weather. These don’t change the design. Sternweh lies at 24.6° south, so the bright core of the Milky Way passes overhead on winter nights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Court panel slid open",
+    "text": "Court panel slid open is a setting in Sky & scene. Time, season, moon and weather. These don’t change the design. Sternweh lies at 24.6° south, so the bright core of the Milky Way passes overhead on winter nights.",
+    "kind": "setting"
+  },
+  {
+    "slug": "sternweh",
+    "name": "Sternweh",
+    "title": "Bronze front door open",
+    "text": "Bronze front door open is a setting in Sky & scene. Time, season, moon and weather. These don’t change the design. Sternweh lies at 24.6° south, so the bright core of the Milky Way passes overhead on winter nights.",
+    "kind": "setting"
   },
   {
     "slug": "sternweh",
@@ -260,6 +1919,251 @@
   {
     "slug": "zuhause",
     "name": "das Zuhause",
+    "title": "Stair width",
+    "text": "Stair width is a setting in The approach. The wide stair and tall entrance from your photo.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Plinth rise",
+    "text": "Plinth rise is a setting in The approach. The wide stair and tall entrance from your photo.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Stair run, front to back",
+    "text": "Stair run, front to back is a setting in The approach. The wide stair and tall entrance from your photo.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Entrance portal height",
+    "text": "Entrance portal height is a setting in The approach. The wide stair and tall entrance from your photo.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Lights in each step",
+    "text": "Lights in each step is a setting in The approach. The wide stair and tall entrance from your photo.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Desert planting along the stair",
+    "text": "Desert planting along the stair is a setting in The approach. The wide stair and tall entrance from your photo.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Pavilion length",
+    "text": "Pavilion length is a setting in Massing. A glazed mid-century pavilion with a concrete bar cantilevered above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Pavilion depth",
+    "text": "Pavilion depth is a setting in Massing. A glazed mid-century pavilion with a concrete bar cantilevered above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Storey height",
+    "text": "Storey height is a setting in Massing. A glazed mid-century pavilion with a concrete bar cantilevered above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Upper bar length",
+    "text": "Upper bar length is a setting in Massing. A glazed mid-century pavilion with a concrete bar cantilevered above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Upper bar shift (cantilever)",
+    "text": "Upper bar shift (cantilever) is a setting in Massing. A glazed mid-century pavilion with a concrete bar cantilevered above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Twin glass elevators",
+    "text": "Twin glass elevators is a setting in Massing. A glazed mid-century pavilion with a concrete bar cantilevered above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Void around the core (0 = none)",
+    "text": "Void around the core (0 = none) is a setting in Massing. A glazed mid-century pavilion with a concrete bar cantilevered above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Glass core walls (concrete when off)",
+    "text": "Glass core walls (concrete when off) is a setting in Massing. A glazed mid-century pavilion with a concrete bar cantilevered above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Upper bar depth",
+    "text": "Upper bar depth is a setting in Massing. A glazed mid-century pavilion with a concrete bar cantilevered above it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Eave overhang",
+    "text": "Eave overhang is a setting in Roof. A thin floating slab with deep eaves for tropical sun and rain.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Slab thickness",
+    "text": "Slab thickness is a setting in Roof. A thin floating slab with deep eaves for tropical sun and rain.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Planted roof",
+    "text": "Planted roof is a setting in Roof. A thin floating slab with deep eaves for tropical sun and rain.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Third-floor glass room",
+    "text": "Third-floor glass room is a setting in Roof. A thin floating slab with deep eaves for tropical sun and rain.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Solar panels on both roofs",
+    "text": "Solar panels on both roofs is a setting in Roof. A thin floating slab with deep eaves for tropical sun and rain.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Rain chains (kusari-doi)",
+    "text": "Rain chains (kusari-doi) is a setting in Roof. A thin floating slab with deep eaves for tropical sun and rain.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Timber louvre screen",
+    "text": "Timber louvre screen is a setting in Facade. Shade and airflow, the tropical way.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Louvre spacing",
+    "text": "Louvre spacing is a setting in Facade. Shade and airflow, the tropical way.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Arched colonnade, terrace to roof",
+    "text": "Arched colonnade, terrace to roof is a setting in Facade. Shade and airflow, the tropical way.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Breeze-block screen wall",
+    "text": "Breeze-block screen wall is a setting in Facade. Shade and airflow, the tropical way.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Courtyard depth",
+    "text": "Courtyard depth is a setting in Garden. A Japanese courtyard with a lap pool behind the house, and a koi pond in front.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Japanese maple",
+    "text": "Japanese maple is a setting in Garden. A Japanese courtyard with a lap pool behind the house, and a koi pond in front.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Koi pond and waterfall",
+    "text": "Koi pond and waterfall is a setting in Garden. A Japanese courtyard with a lap pool behind the house, and a koi pond in front.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Depth below ground",
+    "text": "Depth below ground is a setting in Cistern. Rainwater from the roofs is filtered, then stored in a brutalist concrete hall under the plinth. Its cool air also ventilates the house. Open the Underground view to see it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Water level (over 100% floods the hall)",
+    "text": "Water level (over 100% floods the hall) is a setting in Cistern. Rainwater from the roofs is filtered, then stored in a brutalist concrete hall under the plinth. Its cool air also ventilates the house. Open the Underground view to see it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Small rainwater tank instead (first-home scale)",
+    "text": "Small rainwater tank instead (first-home scale) is a setting in Cistern. Rainwater from the roofs is filtered, then stored in a brutalist concrete hall under the plinth. Its cool air also ventilates the house. Open the Underground view to see it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Light shaft: sunrise reaches the chamber on",
+    "text": "Light shaft: sunrise reaches the chamber on is a setting in Cistern. Rainwater from the roofs is filtered, then stored in a brutalist concrete hall under the plinth. Its cool air also ventilates the house. Open the Underground view to see it.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Concrete",
+    "text": "Concrete is a setting in Materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Timber",
+    "text": "Timber is a setting in Materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Stair stone",
+    "text": "Stair stone is a setting in Materials.",
+    "kind": "setting"
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
     "title": "Overview",
     "text": "A residence study in tropical brutalism with mid-century and Japanese influences. You arrive by the lit stone stair from photo IMG_8572."
   },
@@ -302,7 +2206,25 @@
   {
     "slug": "zuhause",
     "name": "das Zuhause",
-    "title": "Cistern definition",
-    "text": "A cistern is a tank that stores water."
+    "title": "Arched colonnade",
+    "text": "A colonnade is a row of columns. Here the white concrete columns rise from the terrace and flare into arches beneath the roof slab."
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Cistern",
+    "text": "A cistern is a tank that stores water. Here it holds filtered rainwater from the roofs beneath the plinth."
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Plinth",
+    "text": "A plinth is a raised base. In this study it supports the house above the underground cistern."
+  },
+  {
+    "slug": "zuhause",
+    "name": "das Zuhause",
+    "title": "Timber louvre screen",
+    "text": "Louvres are angled slats. The timber screen shades the facade while leaving gaps for air."
   }
 ]

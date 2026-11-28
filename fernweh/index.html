@@ -97,6 +97,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
 @media(max-width:860px){.mobw{display:contents}.deskw{display:none}.stage .ov .chip,.st,.btn,.sw,.studynav a,.fold{min-height:44px}}
 @media(prefers-reduced-motion:reduce){.fold::after{transition:none}}
 </style>
+<link rel="stylesheet" href="../guide/guide.css">
 </head>
 <body>
 <div class="app">
@@ -119,7 +120,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
     </div>
   </div>
   <aside>
-    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies and models" title="All studies and models">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/" aria-current="page">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/denkraum/">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/">Geborgenheit</a><a href="https://24-00237.github.io/daszehause/sternweh/">Sternweh</a><a href="https://24-00237.github.io/daszehause/durchfahrt/">Durchfahrt</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a></nav>
+    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="../index.html" aria-label="All studies and models" title="All studies and models">←</a><a href="../zuhause/index.html">das Zuhause</a><a href="../fernweh/index.html" aria-current="page">Fernweh</a><a href="../bergruhe/index.html">Bergruhe</a><a href="../denkraum/index.html">Denkraum</a><a href="../geborgenheit/index.html">Geborgenheit</a><a href="../sternweh/index.html">Sternweh</a><a href="../durchfahrt/index.html">Durchfahrt</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="../heimweg/index.html">Heimweg</a></nav>
     <h1>Fernweh</h1>
     <p class="sub">An explorer yacht study and sister to das Zuhause, in a modern minimalist style: a white superstructure, wraparound glass and a long-range hull. <i>Fernweh</i> is German for a longing to be far away.</p>
     <div class="studies" id="studies"></div>
@@ -589,6 +590,20 @@ function tenderModel(g,lt,bt,m){const top=.62,N=40,X=u=>-lt/2+u*lt,hbT=u=>bt/2*(
 function std2(c,m){const x=m.hull.clone();x.clippingPlanes=[];x.side=THREE.FrontSide;return x}
 
 /* ---------- labels ---------- */
+window.studyGuideScene = {
+  camera: () => cam,
+  anchors: () => (G.labs || []).map(([title,position]) => ({title,position})),
+  locate: anchor => G.labs.find(([title]) => title === anchor.title)?.[1],
+  toWorld: point => point.applyMatrix4(boat.matrixWorld),
+  focus(anchor) {
+    go('hero',true);
+    const target = anchor.position.clone();
+    this.toWorld?.(target);
+    const offset = cam.position.clone().sub(ctl.target).normalize().multiplyScalar(12);
+    cam.position.copy(target).add(offset); ctl.target.copy(target);
+    cam.lookAt(target); ctl.update(); cam.updateMatrixWorld();
+  }
+};
 let LB=[];
 function labels(){const box=$('labs');const pr=document.body.classList.contains('present'),list=[...(V.labels&&!pr?G.labs:[]),...(V.dims&&!pr?G.dims.map(d=>[d[0],d[1],'d']):[])];
  box.innerHTML=list.map(l=>`<div class="dl${l[2]?' d':''}"></div>`).join('');LB=list.map((l,i)=>{const el=box.children[i];el.textContent=l[0];return{el,p:l[1]}});if(G.dimG)G.dimG.visible=V.dims&&!pr}

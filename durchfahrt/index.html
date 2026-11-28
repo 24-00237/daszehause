@@ -154,6 +154,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
 body.story aside{opacity:.5;pointer-events:none}
 @media(prefers-reduced-motion:reduce){.hint{transition:none}.load{transition:opacity .3s}.load.ready .enter,.load .ln::after{animation:none}.load.done{transform:none;filter:none}.fold::after{transition:none}}
 </style>
+<link rel="stylesheet" href="../guide/guide.css">
 </head>
 <body>
 <div class="app">
@@ -185,7 +186,7 @@ body.story aside{opacity:.5;pointer-events:none}
     </div>
   </div>
   <aside>
-    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies and models" title="All studies and models">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/denkraum/">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/">Geborgenheit</a><a href="https://24-00237.github.io/daszehause/sternweh/">Sternweh</a><a href="https://24-00237.github.io/daszehause/durchfahrt/" aria-current="page">Durchfahrt</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a></nav>
+    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="../index.html" aria-label="All studies and models" title="All studies and models">←</a><a href="../zuhause/index.html">das Zuhause</a><a href="../fernweh/index.html">Fernweh</a><a href="../bergruhe/index.html">Bergruhe</a><a href="../denkraum/index.html">Denkraum</a><a href="../geborgenheit/index.html">Geborgenheit</a><a href="../sternweh/index.html">Sternweh</a><a href="../durchfahrt/index.html" aria-current="page">Durchfahrt</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="../heimweg/index.html">Heimweg</a></nav>
     <h1>Durchfahrt</h1><span class="stripe" aria-hidden="true"></span>
     <p class="sub">An all-electric bullet train that crosses the Philippine archipelago without stopping, and the seventh of the Design Studies. It runs from Luzon down a spine through Panay, Negros, Cebu and Bohol to Mindanao, with branches east to Leyte and Samar and west to Palawan. It adds to the planes and the ferries rather than replacing them, and when a typhoon grounds both, it becomes the country’s lifeline. <i>Durchfahrt</i> is German for passing straight through.</p>
     <div class="studies" id="studies"></div>
@@ -1164,6 +1165,17 @@ const VIEWS3={q3:['Three-quarter',null],nose:['The nose',null],side:['Along the 
  cab:['Driver’s cab','lead'],first:['First-class suite','first'],biz:['Business lounge','biz'],comp:['Business compartment','biz'],obs:['Observation car','obs'],ecoU:['Economy, upper deck','eco'],ecoL:['Economy, lower deck','eco'],med:['Medical car','med'],dest:['Destination car','dest'],pod:['Inside a pod','pod'],hold:['A pod’s hold','pod']};
 const WALKV=['cab','first','biz','comp','obs','ecoU','ecoL','med','dest','pod'];
 let WALKING=false,TW=null,HOLDCAR=null;
+window.studyGuideScene = {
+  camera: () => T3?.cam,
+  anchors: () => V.mode === 'train' ? (T3?.labels || []).map(l => ({title:l.el.textContent,position:l.p})) : [],
+  locate: anchor => V.mode === 'train' && T3?.labels.find(l => l.el.textContent === anchor.title)?.p,
+  focus(anchor) {
+    view3('q3',true);
+    const target = anchor.position;
+    T3.cam.position.copy(target).add(new THREE.Vector3(10,7,19));
+    T3.ctl.target.copy(target); T3.ctl.update(); T3.cam.updateMatrixWorld(); T3.dirty = true;
+  }
+};
 function carOf(k){return T3&&T3.cars.find(c=>c.k===k)}
 function view3(id,inst){const T=T3;if(!T)return;const vv=VIEWS3[id];if(!vv)return;if(vv[1]&&!carOf(vv[1]))id='q3';V.tview=id;const L=T.len,rear=15-L;
  let p,t;const c=VIEWS3[id][1]?carOf(VIEWS3[id][1]):null;const x0=c?c.x0:0,fl=c?c.fl:1.35;

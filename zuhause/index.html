@@ -97,6 +97,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
 @media(max-width:860px){.mobw{display:contents}.deskw{display:none}.tl{gap:4px}.tl .chip{padding:0 9px}.tl .sep{display:none}.stage .ov .chip,.st,.btn,.sw,.studynav a,.fold{min-height:44px}}
 @media(prefers-reduced-motion:reduce){.fold::after{transition:none}}
 </style>
+<link rel="stylesheet" href="../guide/guide.css">
 </head>
 <body>
 <div class="app">
@@ -115,7 +116,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
     </div>
   </div>
   <aside>
-    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies and models" title="All studies and models">←</a><a href="https://24-00237.github.io/daszehause/zuhause/" aria-current="page">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/denkraum/">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/">Geborgenheit</a><a href="https://24-00237.github.io/daszehause/sternweh/">Sternweh</a><a href="https://24-00237.github.io/daszehause/durchfahrt/">Durchfahrt</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a></nav>
+    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="../index.html" aria-label="All studies and models" title="All studies and models">←</a><a href="../zuhause/index.html" aria-current="page">das Zuhause</a><a href="../fernweh/index.html">Fernweh</a><a href="../bergruhe/index.html">Bergruhe</a><a href="../denkraum/index.html">Denkraum</a><a href="../geborgenheit/index.html">Geborgenheit</a><a href="../sternweh/index.html">Sternweh</a><a href="../durchfahrt/index.html">Durchfahrt</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="../heimweg/index.html">Heimweg</a></nav>
     <h1>das Zuhause</h1>
     <p class="sub">A residence study in tropical brutalism with mid-century and Japanese influences. You arrive by the lit stone stair from photo IMG_8572.</p>
     <div class="studies" id="studies"></div>
@@ -340,6 +341,7 @@ function build(){
  // colonnade on the upper floor, arches flaring into the roof slab
  if(S.colonnade){const oc=Math.max(.8,O-.45),y0=by+.02,y1=ry-slab/2,hp=y1-y0,hpp=y1-ph,pat=[3.6,2.2,3.6,2.8],gap=SW/2+.95,w=oc+.45;
   const X0=bL-oc,X1=bR+oc,Zf=bf+oc,Zb=bf-D2-oc;
+  GT.push([X1,ph+hpp*.65,Zf,'Arched colonnade']);
   const side=(a0,a1,f,alongX,skip,ends,out)=>{const L=a1-a0,n=Math.max(2,Math.round(L/3.05)),ws=[];for(let k=0;k<n;k++)ws.push(pat[k%4]);const sc=L/ws.reduce((q,v)=>q+v,0),pos=[a0];for(const v of ws)pos.push(pos[pos.length-1]+v*sc);
    const at=t=>alongX?[t,f]:[f,t];
    pos.forEach((t,i)=>{if(skip(t)||(!ends&&(i===0||i===pos.length-1)))return;const geo=new THREE.BoxGeometry(.5,hpp,.8),pa=geo.attributes.position;for(let v=0;v<pa.count;v++)if(pa.getY(v)<0)pa.setXYZ(v,pa.getX(v)*.6,pa.getY(v),pa.getZ(v)*.75);geo.computeVertexNormals();if(!alongX)geo.rotateY(Math.PI/2);const [x,z]=at(t);add(geo,'col',x,ph+hpp/2,z);const ox=alongX?0:out*.45,oz=alongX?out*.45:0,u=add(new THREE.PlaneGeometry(1.1,hpp*.95),'uplight',x+ox,ph+hpp*.475,z+oz);u.rotation.y=alongX?(out>0?0:Math.PI):(out>0?Math.PI/2:-Math.PI/2);bx(.3,.06,.3,'glow',x+ox*.8,ph+.03,z+oz*.8);0});
@@ -828,6 +830,25 @@ function labels(){const w=stage.clientWidth,h=stage.clientHeight;dimsEl.style.di
   d.el.style.display=inView?'block':'none';d.el.classList.toggle('show',near);if(inView)d.el.style.transform=`translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) translate(-50%,-50%)`}
  const o=new THREE.Vector3(EXT.cx,0,EXT.cz).project(cam),n=new THREE.Vector3(EXT.cx,0,EXT.cz-10).project(cam);
  const ang=Math.atan2((n.x-o.x)*w,(n.y-o.y)*h)*180/Math.PI;north.setAttribute('transform',`rotate(${ang.toFixed(1)})`)}
+window.studyGuideScene = {
+  camera: () => cam,
+  anchors: () => dims.filter(d => d.tag && (d.txt || d === waterTag))
+    .filter(d => !(d.u && V.phase < 4) && !(d.txt === 'Arched colonnade' && V.phase < 2))
+    .map(d => ({title:d === waterTag ? 'Cistern' : d.txt, position:d.mid, feature:d})),
+  locate: anchor => dims.includes(anchor.feature) ? anchor.position : null,
+  focus(anchor) {
+    const d = anchor.feature;
+    if (V.compare) { V.compare = false; toggleCompare(); }
+    if (d.u) V.under = 'full';
+    if (d.int) V.interiors = true;
+    setView(d.u ? 'under' : 'persp');
+    const direction = new THREE.Vector3(.45,.32,1).normalize();
+    cam.position.copy(anchor.position).addScaledVector(direction, d.u ? 17 : 23);
+    ctl.target.copy(anchor.position);
+    cam.lookAt(ctl.target); ctl.update(); cam.updateMatrixWorld();
+    document.querySelector('#titlecard:not(.gone)')?.click();
+  }
+};
 const ro=new ResizeObserver(()=>{size();if(ctl&&V.view!=='walk')setView(V.view)});ro.observe(stage);
 (function loop(){if(ctl)ctl.update();const tt=performance.now()/1000,n=STOPS.length-1;
  for(const c of CAB){let u=(tt*.22+c.ph)%(2*n);if(u>n)u=2*n-u;const k=Math.min(n-1,Math.floor(u)),f=u-k,e=f<.3?0:f>.7?1:(f-.3)/.4,s2=e*e*(3-2*e);c.g.position.y=STOPS[k]+(STOPS[k+1]-STOPS[k])*s2}{const t=performance.now(),dt=Math.min(.05,(t-(window._lt||t))/1000);window._lt=t;rainStep(dt);lapseStep(dt);shutStep(dt)}walkStep();renderAll();labels();requestAnimationFrame(loop)})();

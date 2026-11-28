@@ -1,0 +1,9 @@
+.study-guide form {display:flex;flex-wrap:wrap;align-items:end;gap:.5rem;margin-block:.8rem}
+.study-guide form label {flex:1 1 12rem;min-width:0}
+.study-guide input {display:block;width:100%;min-height:44px;margin-top:.25rem;padding:.5rem;font:inherit;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:5px}
+.study-guide .guide-answer {line-height:1.5}
+.study-guide .guide-sources button {width:auto;min-height:44px}
+.study-pointer {position:absolute;z-index:5;transform:translate(-50%,calc(-100% - 17px));border-radius:5px;border:2px solid #ffcf79;padding:6px 10px;background:#271f16;color:white;font:600 14px/1.3 system-ui;max-width:68%;cursor:pointer;pointer-events:auto;box-shadow:0 1px 8px #0009}
+.study-pointer::before,.study-pointer::after {content:"";position:absolute;left:50%;pointer-events:none}
+.study-pointer::before {height:17px;width:2px;background:#ffcf79;top:100%}
+.study-pointer::after {width:10px;height:10px;border-radius:50%;border:2px solid #261a0b;background:#ffcf79;top:calc(100% + 17px);transform:translate(-50%,-50%)}

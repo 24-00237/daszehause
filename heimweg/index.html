@@ -80,6 +80,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
 @media(max-width:860px){.mobw{display:contents}.deskw{display:none}.stage .ov .chip,.st,.btn,.sw,.studynav a,.fold{min-height:44px}}
 @media(prefers-reduced-motion:reduce){.fold::after{transition:none}}
 </style>
+<link rel="stylesheet" href="../guide/guide.css">
 </head>
 <body>
 <div class="app">
@@ -96,7 +97,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
    <div class="tx"><b>Heimweg</b><span id="tbView">Off-roader model · Hero</span><span id="tbSize">5.56 × 2.52 × 2.75 m · electric</span><span>An original design · Andre Parrocho</span></div></div>
  </div>
  <aside>
-  <nav class="studynav" aria-label="Design studies and models"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies and models" title="All studies and models">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/denkraum/">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/">Geborgenheit</a><a href="https://24-00237.github.io/daszehause/sternweh/">Sternweh</a><a href="https://24-00237.github.io/daszehause/durchfahrt/">Durchfahrt</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="https://24-00237.github.io/daszehause/heimweg/" aria-current="page">Heimweg</a></nav>
+  <nav class="studynav" aria-label="Design studies and models"><a class="home" href="../index.html" aria-label="All studies and models" title="All studies and models">←</a><a href="../zuhause/index.html">das Zuhause</a><a href="../fernweh/index.html">Fernweh</a><a href="../bergruhe/index.html">Bergruhe</a><a href="../denkraum/index.html">Denkraum</a><a href="../geborgenheit/index.html">Geborgenheit</a><a href="../sternweh/index.html">Sternweh</a><a href="../durchfahrt/index.html">Durchfahrt</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="../heimweg/index.html" aria-current="page">Heimweg</a></nav>
   <h1>Heimweg</h1>
   <p class="sub">An electric luxury off-roader drawn as a minimal monolith: one calm block, tough below and glass above, with a hairline of warm light front and back. <i>Heimweg</i> is German for the way home. It’s the car that drives you between the Design Studies, and the first of the Models.</p>
   <div class="studies" id="studies"></div>
@@ -317,6 +318,21 @@ function sched(){const h=HT[S.h],clr=Math.round((h+.2)*1000),app=Math.round(Math
 const VIEWS=[['ground','Ground view (see-through bonnet)'],['hero','Hero'],['side','Side'],['rear','Rear three-quarter'],['behind','From behind'],['front','Front, low'],['top','From above']],WALKS=[['driver','Driver’s seat'],['back','Back seat, looking up']];
 function camFor(v){const y=car?car.lift:HT[S.h]-.3;switch(v){case 'side':return[V3(0,1.6,10.4),V3(-.05,1.3,0)];case 'rear':return[V3(-6.8,2.1,-5),V3(0,1.2,0)];case 'behind':return[V3(-9.2,1.7,0),V3(0,1.35,0)];case 'front':return[V3(9.2,.9,1.6),V3(0,1.2,0)];case 'top':return[V3(.1,10.5,.6),V3(0,0,0)];
  case 'ground':return[V3(.15,2+y,-.45),V3(3.4,0,-.45)];case 'driver':return[V3(-.02,1.92+y,-.45),V3(4,1.6+y,-.45)];case 'back':return[V3(-1.1,1.6+y,.3),V3(.4,3.6+y,0)];default:return[V3(6.6,2.1,5.3),V3(.1,1.15,0)]}}
+window.studyGuideScene = {
+  camera: () => cam,
+  anchors: () => !car ? [] : car.doors.filter(d => !d.seam).map((d,i) => ({
+    title:d.gate ? 'Tailgate' : 'Side door '+(i+1),
+    position:d.g.getWorldPosition(new THREE.Vector3()), object:d.g
+  })),
+  locate: a => car.doors.some(d => d.g===a.object) && a.object.getWorldPosition(new THREE.Vector3()),
+  focus(a) {
+    if (V.view === 'ground') go('hero',true);
+    tw = null;
+    const offset = cam.position.clone().sub(ctl.target).normalize().multiplyScalar(6);
+    cam.position.copy(a.position).add(offset); ctl.target.copy(a.position);
+    cam.lookAt(a.position); ctl.update(); cam.updateMatrixWorld();
+  }
+};
 let tw=null;const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function go(v,inst){V.view=v;const [p,t]=camFor(v);if(VIEWS.some(x=>x[0]===v)&&v!=='ground'){const as=stage.clientWidth/stage.clientHeight;if(as<1)p.sub(t).multiplyScalar(Math.min(2,1.15/as)).add(t)};cam.fov=(v==='driver'||v==='back'||v==='ground')?66:36;const wasG=car&&car.ground,isG=v==='ground';if(car&&wasG!==isG){V.view=v;buildCar()}cam.updateProjectionMatrix();if(inst||RM){cam.position.copy(p);ctl.target.copy(t);tw=null}else tw={p0:cam.position.clone(),t0:ctl.target.clone(),p,t,s:performance.now()};const nm=[...VIEWS,...WALKS].find(x=>x[0]===v);$('tbView').textContent='Off-roader model · '+(nm?nm[1]:'');chips()}
 

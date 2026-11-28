@@ -95,6 +95,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
 @media(max-width:860px){.mobw{display:contents}.deskw{display:none}.stage .ov .chip,.st,.btn,.sw,.studynav a,.fold{min-height:44px}}
 @media(prefers-reduced-motion:reduce){.fold::after{transition:none}}
 </style>
+<link rel="stylesheet" href="../guide/guide.css">
 </head>
 <body>
 <div class="app">
@@ -115,7 +116,7 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
     </div>
   </div>
   <aside>
-    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="https://24-00237.github.io/daszehause/" aria-label="All studies and models" title="All studies and models">←</a><a href="https://24-00237.github.io/daszehause/zuhause/">das Zuhause</a><a href="https://24-00237.github.io/daszehause/fernweh/">Fernweh</a><a href="https://24-00237.github.io/daszehause/bergruhe/">Bergruhe</a><a href="https://24-00237.github.io/daszehause/denkraum/" aria-current="page">Denkraum</a><a href="https://24-00237.github.io/daszehause/geborgenheit/">Geborgenheit</a><a href="https://24-00237.github.io/daszehause/sternweh/">Sternweh</a><a href="https://24-00237.github.io/daszehause/durchfahrt/">Durchfahrt</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="https://24-00237.github.io/daszehause/heimweg/">Heimweg</a></nav>
+    <nav class="studynav" aria-label="Design studies and models"><a class="home" href="../index.html" aria-label="All studies and models" title="All studies and models">←</a><a href="../zuhause/index.html">das Zuhause</a><a href="../fernweh/index.html">Fernweh</a><a href="../bergruhe/index.html">Bergruhe</a><a href="../denkraum/index.html" aria-current="page">Denkraum</a><a href="../geborgenheit/index.html">Geborgenheit</a><a href="../sternweh/index.html">Sternweh</a><a href="../durchfahrt/index.html">Durchfahrt</a><span class="nsep" aria-hidden="true"></span><span class="nlab">Models</span><a href="../heimweg/index.html">Heimweg</a></nav>
     <h1>Denkraum</h1>
     <p class="sub">A studio study and the fourth of the Design Studies: one quiet room for design and real estate work, high in a typhoon-proof Manila tower. It's built around a vault that keeps clients' deeds, drawings and data. <i>Denkraum</i> is German for a space to think.</p>
     <div class="studies" id="studies"></div>
@@ -690,6 +691,19 @@ function sched(){const P=site0(),h=P.L*P.FF,v10=270/3.6,vz=v10*Math.pow(Math.max
  $('sched').innerHTML=rows.map(r=>`<tr><td>${r[0]}${r[2]?`<small>${r[2]}</small>`:''}</td><td class="n">${r[1]}</td></tr>`).join('');$('tbSize').textContent='≈ '+fmtA(S.W*S.D)+' · floor '+P.L}
 
 /* ---------- labels ---------- */
+window.studyGuideScene = {
+  camera: () => cam,
+  anchors: () => (G.labs || []).map(([title,position]) => ({title,position})),
+  locate: anchor => G.labs.find(([title]) => title === anchor.title)?.[1],
+  focus(anchor) {
+    go('hero',true);
+    const target = anchor.position.clone();
+    this.toWorld?.(target);
+    const offset = cam.position.clone().sub(ctl.target).normalize().multiplyScalar(12);
+    cam.position.copy(target).add(offset); ctl.target.copy(target);
+    cam.lookAt(target); ctl.update(); cam.updateMatrixWorld();
+  }
+};
 let LB=[];
 function labels(){const bx=$('labs'),list=V.labels&&!document.body.classList.contains('present')?G.labs:[];bx.innerHTML=list.map(()=>'<div class="dl"></div>').join('');LB=list.map((l,i)=>{const el=bx.children[i];el.textContent=l[0];return{el,p:l[1]}})}
 
