@@ -289,7 +289,7 @@ const XS={
  bohol:['Cebu–Bohol','T','From Mactan under the Olango and Cebu straits to Bohol’s north coast.'],
  canigao:['Canigao Channel','T','From Bohol to Southern Leyte.'],
  panaon:['Panaon Strait','B','A short bridge onto Panaon Island, beside the existing road bridge at Liloan.'],
- surigao:['Surigao Strait','T','About 25 km wide with currents up to 8 knots, so a tunnel.'],
+ surigao:['Surigao Strait','T','Deep in places and swept by currents up to 8 knots, so a tunnel.'],
  sanjuanico:['San Juanico Strait','B','A rail bridge beside the 2.16 km San Juanico road bridge of 1973.',2.16],
  mindoro:['Mindoro Strait','T','From Ilin Island under the Mindoro Strait to Busuanga, bending south of Apo Reef, a protected marine park.'],
  coronpass:['Coron Passage','B','A short bridge from Busuanga to Culion.'],
@@ -1052,8 +1052,8 @@ function intLead(T,c,I){const {mats:mt}=T,fb=T.FB(),fl=c.fl;
 function drawCab(T,c,s){const acc=s?ORANGE:LINES[trainLine()].c,tail=T.cars.filter(x=>x.st).slice(-3).reverse();
  const scr=(i,f)=>{const {cv,t}=c.scr[i],g=cv.getContext('2d');g.fillStyle='#0b1116';g.fillRect(0,0,512,320);g.strokeStyle=acc;g.lineWidth=6;g.strokeRect(3,3,506,314);g.fillStyle='#e8eef2';f(g);t.needsUpdate=true};
  scr(0,g=>{g.font='700 26px Archivo, sans-serif';g.fillStyle=acc;g.fillText(s?'RESCUE RUN':'NEXT, AUTOMATIC',20,46);g.fillStyle='#e8eef2';g.font='600 25px Archivo, sans-serif';
-  const ev=tail.map((x,i)=>`${s?'Drop':'Slip'} · ${ST[x.st][0]}   ${String(4+i*9).padStart(2,'0')} min`);ev.push(s?'Latch · evacuees   7 min':'Latch · catch-up pod   6 min');ev.slice(0,4).forEach((e,i)=>g.fillText(e,20,100+i*52))});
- scr(1,g=>{g.font='800 128px Archivo, sans-serif';g.fillText(s?'120':String(S.v),26,148);g.font='600 26px Archivo, sans-serif';g.fillText('km/h',30,190);g.fillStyle=acc;g.font='700 27px Archivo, sans-serif';g.fillText(s?'Gusts 27 m/s · walls on':'Line clear 14 km · wind 6 m/s',26,244);g.fillStyle='#9fb0bc';g.font='600 22px Archivo, sans-serif';g.fillText('Driving itself · driver supervising',26,290)});
+  const Pc=pathsFor(!!s).clark,from=Pc.davao.stops.find(z=>z.id==='cebu').mn,mins=id=>{for(const k in Pc){const z=Pc[k].stops.find(q=>q.id===id);if(z)return Math.max(1,Math.round(z.mn-from))}return 0};const ev=tail.map(x=>`${s?'Drop':'Slip'} · ${ST[x.st][0]}   ${mins(x.st)} min`);ev.push(s?'Latch · evacuees   7 min':'Latch · catch-up pod   6 min');ev.slice(0,4).forEach((e,i)=>g.fillText(e,20,100+i*52))});
+ scr(1,g=>{g.font='800 128px Archivo, sans-serif';g.fillText(s?'120':String(S.v),26,148);g.font='600 26px Archivo, sans-serif';g.fillText('km/h',30,190);g.fillStyle=acc;g.font='700 27px Archivo, sans-serif';g.fillText(s?'Gusts 27 m/s · walls on':'Block ahead clear · 5 km · wind 6 m/s',26,244);g.fillStyle='#9fb0bc';g.font='600 22px Archivo, sans-serif';g.fillText('Driving itself · driver supervising',26,290)});
  scr(2,g=>{g.font='700 26px Archivo, sans-serif';g.fillStyle=acc;g.fillText('POWER',20,46);g.fillStyle='#e8eef2';g.font='600 27px Archivo, sans-serif';g.fillText(s?'Ground rail off: flooded 6 km':'Ground rail · live',20,102);g.fillText('Battery '+(s?'71':'96')+'%',20,150);g.fillStyle='#2b3a44';g.fillRect(20,178,470,24);g.fillStyle=acc;g.fillRect(20,178,470*(s?.71:.96),24);g.fillStyle='#9fb0bc';g.font='600 22px Archivo, sans-serif';g.fillText(s?'About 60 km left on the battery':'About 85 km of reserve',20,246);g.fillText('Own grid: geothermal, wind, sun',20,286)})}
 function intFirst(T,c,I){const {mats:mt}=T,fb=T.FB(),fl=c.fl,L=c.L;
  // four private suites on the window side, a corridor along the other
