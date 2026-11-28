@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Durchfahrt — Archipelago Train Study</title>
-<link rel="apple-touch-icon" href="/daszehause/icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/daszehause/icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Durchfahrt"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#2c3238">
 <meta name="description" content="An interactive design study by Andre Parrocho: Durchfahrt, an all-electric bullet train that runs non-stop across the Philippine archipelago, from Luzon down the Visayas to Mindanao. Cars slip off at speed and pods latch on while it moves, and when a typhoon shuts down air and sea travel its stripes turn orange and it becomes the country's lifeline. Seventh of the Design Studies.">
 <meta property="og:title" content="Durchfahrt — Archipelago Train Study"><meta property="og:description" content="A non-stop electric train across the Philippines: a network map with pods latching on and slipping off at speed, every car of the train to walk through, a journey timer, and a typhoon run from Luzon to Mindanao.">
@@ -21,7 +22,7 @@
 *{box-sizing:border-box;min-width:0}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Archivo,system-ui,sans-serif;overflow-x:clip}
-.app{display:grid;grid-template-columns:minmax(0,1fr) 390px;height:100vh;height:100dvh}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 390px;height:100vh;height:100dvh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 .stage{position:relative;overflow:hidden;margin:14px 0 14px 14px;border-radius:8px;background:var(--sea);border:1px solid #2a3036;user-select:none;-webkit-user-select:none}
 #map,#tc,#cv{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
 #tc{pointer-events:none}
