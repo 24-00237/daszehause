@@ -1,0 +1,16 @@
+{
+  "name": "Design Studies — Andre Parrocho",
+  "short_name": "Design Studies",
+  "description": "Interactive 3D design studies: das Zuhause, Fernweh, Bergruhe, Denkraum, Geborgenheit, Sternweh and Durchfahrt, and the Models that travel between them.",
+  "id": "/daszehause/",
+  "start_url": "/daszehause/",
+  "scope": "/daszehause/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#d2cbbe",
+  "theme_color": "#24211c",
+  "icons": [
+    {"src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}
+  ]
+}
