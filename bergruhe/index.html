@@ -122,6 +122,13 @@ section.shut>:not(h2){display:none!important}section.shut{padding-bottom:0}
     <div class="bar"><button class="btn" id="undo" type="button">Undo</button><button class="btn" id="reset" type="button">Back to base</button></div>
     <div id="ctrls"></div>
     <section><h2>Particulars</h2><p class="why">Rough estimates worked out from the model's shape. They update as you design.</p><table id="sched"></table></section>
+    <details class="study-guide"><summary>Ask about this design</summary>
+      <form><label>Question <input type="text" name="question" maxlength="400" required placeholder="What is a cistern?"></label> <button class="btn" type="submit">Ask</button></form>
+      <p class="guide-answer" aria-live="polite"></p><div class="guide-sources"></div>
+      <p><button class="btn guide-ai" type="button">Enable on-device AI</button></p>
+      <small class="guide-status" role="status">Search study notes instantly. Optional AI downloads a large model on first use.</small>
+    </details>
+    <script type="module" src="../guide/guide.js"></script>
     <details><summary>Save or load this study</summary>
       <p class="note">Copy the code to keep this version of Bergruhe, or paste one in and press Load.</p>
       <textarea id="code" spellcheck="false" aria-label="Design code"></textarea>
