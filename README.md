@@ -58,6 +58,16 @@ The glass is a steel grid with fine glass fins outside it, and it has a clear pa
 
 **Live:** https://24-00237.github.io/daszehause/sternweh/
 
+## Durchfahrt — Archipelago Train Study
+
+Seventh study: an all-electric bullet train that crosses the Philippines without stopping, from Clark down through Mindoro, Panay, Negros, Cebu and Bohol to Davao, with branches to Leyte and Samar and to Palawan. It opens on a story run: Luzon to Mindanao as a typhoon hits mid-journey, flights and ferries stop, every stripe turns orange and the train becomes the lifeline, holding in the Maasin storm-shelter station while the eye passes.
+
+The home view is a network map drawn on Natural Earth coastlines, with crossings measured over the water: bridges for short straits, undersea tunnels for the wide ones. Expresses run on a timetable; destination cars and mixed pods slip off at speed, catch-up pods run up beside the express and latch on, and the branch blocks split off at the junctions. Tap a station for what slips off there and when, or a train to step aboard. A journey timer gives your arrival time at the speed you set, changes where needed, and how far you can get in 1, 3, 6 or 12 hours or a day.
+
+In 3D you can walk through every car: a supervised driver's cab, first-class suites, business compartments and lounge, an observation car with light art in the tunnels, double-deck economy that turns into bunks in rescue mode, a medical car that becomes a field hospital, destination cars, and pods with a freight hold below. The line protects itself: a fence, cameras and radar every 250 m, a sensing fibre in the slab, nose sensors, deflectors and bogie guides, a sweep pod after storms, and a demonstration of the express stopping short of a fallen tree.
+
+**Live:** https://24-00237.github.io/daszehause/durchfahrt/
+
 ## All studies and models
 
-The home page introduces the six Design Studies (the places: das Zuhause, Fernweh, Bergruhe, Denkraum, Geborgenheit and Sternweh) and the Models (the objects that travel between them: Heimweg, with Nebelfänger, the arsenal and the wardrobe still to come), with a star map of how they connect: https://24-00237.github.io/daszehause/
+The home page introduces the seven Design Studies (the places: das Zuhause, Fernweh, Bergruhe, Denkraum, Geborgenheit, Sternweh and Durchfahrt) and the Models (the objects that travel between them: Heimweg, with Nebelfänger, the arsenal and the wardrobe still to come), with a star map of how they connect: https://24-00237.github.io/daszehause/
